@@ -2,8 +2,6 @@ body {
     background-color: #000000;
 }
 
-/* Hide scrollbar for the whole page to make it perfectly clean like the screenshot, 
-   or style it dark */
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -22,7 +20,6 @@ body {
     background: #333333; 
 }
 
-/* Specific class for the gallery horizontal scrolling */
 .custom-scrollbar::-webkit-scrollbar {
     height: 6px;
 }
