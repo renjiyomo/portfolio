@@ -17,7 +17,7 @@ const htmlElement = document.documentElement;
             htmlElement.classList.toggle('dark');
             const isDark = htmlElement.classList.contains('dark');
 
-            profileImage.style.opacity = 0.3;
+            profileImage.style.opacity = 0;
             
             setTimeout(() => {
                 if (isDark) {
@@ -28,5 +28,5 @@ const htmlElement = document.documentElement;
                     profileImage.src = lightModeImage;
                 }
                 profileImage.style.opacity = 1;
-            }, 200);
+            }, 150);
         });
