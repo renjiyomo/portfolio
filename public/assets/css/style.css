@@ -1,5 +1,25 @@
+:root {
+    --bgbody: #f8fafc;
+    --card: #ffffff;
+    --border: #e2e8f0;
+    --muted: #64748b;
+    --accent: #2563eb;
+}
+
+html.dark {
+    --bgbody: #000000;
+    --card: #0f0f0f;
+    --border: #222222;
+    --muted: #a3a3a3;
+    --accent: #2563eb;
+}
+
 body {
     background-color: #000000;
+}
+
+body, .bg-card, .border-border, .bg-bgbody {
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
 ::-webkit-scrollbar {
