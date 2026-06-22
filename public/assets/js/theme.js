@@ -5,7 +5,7 @@ const htmlElement = document.documentElement;
         const lightModeImage = 'assets/images/light-profile.jpg';
         const darkModeImage = 'assets/images/dark-profile.jpg';
 
-        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        if (localStorage.theme === 'dark' || !('theme' in localStorage)) {
             htmlElement.classList.add('dark');
             profileImage.src = darkModeImage;
         } else {
