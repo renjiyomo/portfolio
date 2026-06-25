@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Information System Student, Aspiring in Full-Stack Developer." />
+    <meta name="description" content="Information System graduate and aspiring full-stack developer portfolio." />
     <meta name="author" content="Mark Erick Padua Serrano" />
-    <meta name="keywords" content="Web Developer,Full Stack Developer,Web Development,Information Systems,Mark Erick Padua Serrano, Mark Erick Serrano Portfolio" />
+    <meta name="keywords" content="Web Developer, Full Stack Developer, Web Development, Information Systems, Mark Erick Padua Serrano, Mark Erick Serrano Portfolio" />
     <meta name="creator" content="Mark Erick Padua Serrano" />
     <title>Mark Erick - Aspiring Full Stack Developer</title>
-    <link rel="icon" href="assets/images/profile.jpg" type="image/png" />
-    <meta property="og:title" content="Mark Erick - Aspring Full Stack Developer" />
+    <link rel="icon" href="assets/images/profile.jpg" type="image/jpeg" />
+    <meta property="og:title" content="Mark Erick - Aspiring Full Stack Developer" />
     <meta property="og:description" content="Aspiring Full Stack Developer. Building modern web applications." />
     <meta property="og:url" content="https://markerick.vercel.app/" />
     <meta property="og:site_name" content="Mark Erick" />
@@ -25,38 +25,41 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body class="bg-bgbody text-gray-900 dark:text-white font-sans antialiased min-h-screen p-4 md:p-8 lg:p-12 transition-colors duration-300">
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-card focus:px-4 focus:py-3 focus:text-sm focus:font-semibold focus:text-gray-900 focus:shadow-lg focus:ring-2 focus:ring-blue-500 dark:focus:text-white">
+        Skip to main content
+    </a>
 
-    <div class="max-w-6xl mx-auto flex flex-col gap-6 mt-4 sm:mt-auto">
+    <main id="main-content" class="max-w-6xl mx-auto flex flex-col gap-6 mt-4 sm:mt-auto" tabindex="-1">
 
-        <header class="flex flex-row gap-4 sm:gap-6 items-start w-full">
+        <header class="flex flex-row gap-4 sm:gap-6 items-start w-full" aria-labelledby="page-title">
             <div class="w-36 h-36 sm:w-44 sm:h-44 shrink-0 rounded-lg overflow-hidden bg-card border border-border shadow-sm">
-                <img id="profile-image" src="assets/images/dark-profile.jpg" alt="Mark Erick Padua Serrano" class="w-full h-full object-cover transition-opacity duration-300 ease-in-out">
+                <img id="profile-image" src="assets/images/dark-profile.jpg" alt="Portrait of Mark Erick Padua Serrano" class="w-full h-full object-cover transition-opacity duration-300 ease-in-out" decoding="async">
             </div>
             
             <div class="flex flex-col w-full min-w-0 justify-center sm:pt-2">
                 
                 <div class="flex items-center justify-between gap-0 w-full md:mt-0 mt-3">
                     <div class="flex items-center gap-1 sm:gap-2 min-w-0">
-                        <h1 class="text-md sm:text-2xl md:text-3xl font-bold truncate leading-tight transition-colors duration-500 ease-in-out">
+                        <h1 id="page-title" class="text-md sm:text-2xl md:text-3xl font-bold truncate leading-tight transition-colors duration-500 ease-in-out">
                             Mark Erick Serrano 
                         </h1>
-                        <svg class="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                        <svg class="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 shrink-0" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
                     </div>
                     
-                    <button id="theme-toggle" class="relative inline-flex md:h-6 md:w-11 h-5 w-10 shrink-0 items-center transition-all rounded-full duration-500 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500" aria-label="Toggle theme">
-                        <div class="absolute left-0.5 md:left-0.5 flex md:h-5 md:w-5 h-4 w-4 items-center justify-center bg-white rounded-full shadow-[0_1px_2px_rgba(0,0,0,0.08)] transition-transform duration-500 ease-in-out translate-x-0 dark:translate-x-5 relative overflow-hidden">
+                    <button id="theme-toggle" type="button" class="relative inline-flex md:h-6 md:w-11 h-5 w-10 shrink-0 items-center transition-all rounded-full duration-500 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500" aria-label="Switch to light theme" aria-pressed="true">
+                        <span class="absolute left-0.5 md:left-0.5 flex md:h-5 md:w-5 h-4 w-4 items-center justify-center bg-white rounded-full shadow-[0_1px_2px_rgba(0,0,0,0.08)] transition-transform duration-500 ease-in-out translate-x-0 dark:translate-x-5 overflow-hidden" aria-hidden="true">
                             <svg class="h-3 w-3 text-gray-500 absolute transition-all duration-500 ease-in-out transform scale-100 opacity-100 dark:scale-0 dark:opacity-0" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path>
                             </svg>
                             <svg class="md:h-3 md:w-3 h-2 w-2 text-gray-500 absolute transition-all duration-500 ease-in-out transform scale-0 opacity-0 dark:scale-100 dark:opacity-100" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
                             </svg>
-                        </div>
+                        </span>
                     </button>
                 </div>
 
                 <p class="text-xs sm:text-sm text-muted flex items-center gap-1 mt-1 sm:mt-1.5 transition-colors duration-500 ease-in-out">
-                    <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                     Libon, Albay, Philippines
                 </p>
 
@@ -67,12 +70,12 @@
                 </div>
 
                 <div class="flex flex-wrap gap-1.5 sm:gap-3 mt-4 sm:mt-6">
-                    <a href="mailto:markerickserrano1@gmail.com" class="flex items-center gap-1 sm:gap-2 text-gray-900 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 text-xs sm:text-sm font-medium border border-border bg-card px-3 py-2 sm:py-2 rounded-lg transition-all duration-500 ease-in-out hover:-translate-y-0.5">
-                        <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                    <a href="mailto:markerickserrano1@gmail.com" class="flex items-center gap-1 sm:gap-2 text-gray-900 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 text-xs sm:text-sm font-medium border border-border bg-card px-3 py-2 sm:py-2 rounded-lg transition-all duration-500 ease-in-out hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-bgbody">
+                        <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                         Send Email
                     </a>
 
-                    <a href="./assets/resume/Resume-Serrano-ME.pdf" download="SerranoMarkErick_CV.pdf" class="flex items-center gap-1 sm:gap-2 text-gray-900 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 text-xs sm:text-sm font-medium border border-border bg-card px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg transition-all duration-500 ease-in-out hover:-translate-y-0.5">
+                    <a href="./assets/resume/Resume-Serrano-ME.pdf" download="SerranoMarkErick_CV.pdf" class="flex items-center gap-1 sm:gap-2 text-gray-900 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 text-xs sm:text-sm font-medium border border-border bg-card px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg transition-all duration-500 ease-in-out hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-bgbody" aria-label="Download Mark Erick Serrano CV as a PDF">
                         Download CV
                     </a>
                 </div>
@@ -84,17 +87,17 @@
             
             <div class="lg:col-span-2 flex flex-col gap-6">
                 
-                <section class="bg-card border border-border rounded-xl p-6 lg:p-8">
-                    <h2 class="text-xl font-bold mb-4">About</h2>
+                <section class="bg-card border border-border rounded-xl p-6 lg:p-8" aria-labelledby="about-heading">
+                    <h2 id="about-heading" class="text-xl font-bold mb-4">About</h2>
                     <div class="text-sm text-gray-600 dark:text-gray-300 space-y-4 leading-relaxed transition-colors duration-300">
                         <p>I'm a Web Developer with a Bachelor's degree in Information System (Cum Laude) from Bicol University Polangui, specializing in modern web applications and system automation. Proven experience engineering secure solutions to automate complex administrative workflows and designing clean, professional dashboard interfaces.</p>
                         <p>Lately, I've been focused on learning from the basic JavaScript and React, to enhance my UI skills and create interfaces using Tailwind CSS, prioritizing efficient user experiences over cluttered aesthetics.</p>
                     </div>
                 </section>
 
-                <section class="bg-card border border-border rounded-xl p-6 lg:p-8">
+                <section class="bg-card border border-border rounded-xl p-6 lg:p-8" aria-labelledby="tech-stack-heading">
                     <div class="flex justify-between items-center mb-6">
-                        <h2 class="text-xl font-bold">Tech Stack</h2>
+                        <h2 id="tech-stack-heading" class="text-xl font-bold">Tech Stack</h2>
                         <!-- 
                         <a href="#" class="text-xs font-medium text-muted hover:text-white flex items-center">View All <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></a>
                         -->
@@ -103,91 +106,91 @@
                     <div class="space-y-6">
                         <div>
                             <h3 class="text-sm font-semibold mb-3">Frontend</h3>
-                            <div class="flex flex-wrap gap-2 text-xs font-medium">
-                                <span class="bg-black/5 dark:bg-white/5 border border-border px-3 py-1.5 rounded-md hover:bg-black/10 dark:hover:bg-white/10 transition cursor-default">HTML5</span>
-                                <span class="bg-black/5 dark:bg-white/5 border border-border px-3 py-1.5 rounded-md hover:bg-black/10 dark:hover:bg-white/10 transition cursor-default">CSS3</span>
-                                <span class="bg-black/5 dark:bg-white/5 border border-border px-3 py-1.5 rounded-md hover:bg-black/10 dark:hover:bg-white/10 transition cursor-default">Tailwind CSS</span>
-                                <span class="bg-black/5 dark:bg-white/5 border border-border px-3 py-1.5 rounded-md hover:bg-black/10 dark:hover:bg-white/10 transition cursor-default">JavaScript</span>
-                            </div>
+                            <ul class="flex flex-wrap gap-2 text-xs font-medium" aria-label="Frontend technologies">
+                                <li class="bg-black/5 dark:bg-white/5 border border-border px-3 py-1.5 rounded-md hover:bg-black/10 dark:hover:bg-white/10 transition">HTML5</li>
+                                <li class="bg-black/5 dark:bg-white/5 border border-border px-3 py-1.5 rounded-md hover:bg-black/10 dark:hover:bg-white/10 transition">CSS3</li>
+                                <li class="bg-black/5 dark:bg-white/5 border border-border px-3 py-1.5 rounded-md hover:bg-black/10 dark:hover:bg-white/10 transition">Tailwind CSS</li>
+                                <li class="bg-black/5 dark:bg-white/5 border border-border px-3 py-1.5 rounded-md hover:bg-black/10 dark:hover:bg-white/10 transition">JavaScript</li>
+                            </ul>
                         </div>
                         <div>
                             <h3 class="text-sm font-semibold mb-3">Backend & Database</h3>
-                            <div class="flex flex-wrap gap-2 text-xs font-medium">
-                                <span class="bg-black/5 dark:bg-white/5 border border-border px-3 py-1.5 rounded-md hover:bg-black/10 dark:hover:bg-white/10 transition cursor-default">PHP</span>
-                                <span class="bg-black/5 dark:bg-white/5 border border-border px-3 py-1.5 rounded-md hover:bg-black/10 dark:hover:bg-white/10 transition cursor-default">Laravel</span>
-                                <span class="bg-black/5 dark:bg-white/5 border border-border px-3 py-1.5 rounded-md hover:bg-black/10 dark:hover:bg-white/10 transition cursor-default">Filament PHP</span>
-                                <span class="bg-black/5 dark:bg-white/5 border border-border px-3 py-1.5 rounded-md hover:bg-black/10 dark:hover:bg-white/10 transition cursor-default">MySQL</span>
-                            </div>
+                            <ul class="flex flex-wrap gap-2 text-xs font-medium" aria-label="Backend and database technologies">
+                                <li class="bg-black/5 dark:bg-white/5 border border-border px-3 py-1.5 rounded-md hover:bg-black/10 dark:hover:bg-white/10 transition">PHP</li>
+                                <li class="bg-black/5 dark:bg-white/5 border border-border px-3 py-1.5 rounded-md hover:bg-black/10 dark:hover:bg-white/10 transition">Laravel</li>
+                                <li class="bg-black/5 dark:bg-white/5 border border-border px-3 py-1.5 rounded-md hover:bg-black/10 dark:hover:bg-white/10 transition">Filament PHP</li>
+                                <li class="bg-black/5 dark:bg-white/5 border border-border px-3 py-1.5 rounded-md hover:bg-black/10 dark:hover:bg-white/10 transition">MySQL</li>
+                            </ul>
                         </div>
                         <div>
                             <h3 class="text-sm font-semibold mb-3">Tools & Design</h3>
-                            <div class="flex flex-wrap gap-2 text-xs font-medium">
-                                <span class="bg-black/5 dark:bg-white/5 border border-border px-3 py-1.5 rounded-md hover:bg-black/10 dark:hover:bg-white/10 transition cursor-default">VS Code</span>
-                                <span class="bg-black/5 dark:bg-white/5 border border-border px-3 py-1.5 rounded-md hover:bg-black/10 dark:hover:bg-white/10 transition cursor-default">GitHub</span>
-                                <span class="bg-black/5 dark:bg-white/5 border border-border px-3 py-1.5 rounded-md hover:bg-black/10 dark:hover:bg-white/10 transition cursor-default">Git</span>
-                                <span class="bg-black/5 dark:bg-white/5 border border-border px-3 py-1.5 rounded-md hover:bg-black/10 dark:hover:bg-white/10 transition cursor-default">Figma</span>
-                            </div>
+                            <ul class="flex flex-wrap gap-2 text-xs font-medium" aria-label="Tools and design technologies">
+                                <li class="bg-black/5 dark:bg-white/5 border border-border px-3 py-1.5 rounded-md hover:bg-black/10 dark:hover:bg-white/10 transition">VS Code</li>
+                                <li class="bg-black/5 dark:bg-white/5 border border-border px-3 py-1.5 rounded-md hover:bg-black/10 dark:hover:bg-white/10 transition">GitHub</li>
+                                <li class="bg-black/5 dark:bg-white/5 border border-border px-3 py-1.5 rounded-md hover:bg-black/10 dark:hover:bg-white/10 transition">Git</li>
+                                <li class="bg-black/5 dark:bg-white/5 border border-border px-3 py-1.5 rounded-md hover:bg-black/10 dark:hover:bg-white/10 transition">Figma</li>
+                            </ul>
                         </div>
                     </div>
                 </section>
 
-                <section class="bg-card border border-border rounded-xl p-6 lg:p-8">
+                <section class="bg-card border border-border rounded-xl p-6 lg:p-8" aria-labelledby="projects-heading">
                     <div class="flex justify-between items-center mb-6">
-                        <h2 class="text-xl font-bold">Recent Projects</h2>
+                        <h2 id="projects-heading" class="text-xl font-bold">Recent Projects</h2>
                         <!--
                         <a href="#" class="text-xs font-medium text-muted hover:text-white flex items-center">View All <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></a>
                         -->
                     </div>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
+                        <article>
                             <h3 class="font-bold text-sm">Student Management System for Libon East Central School</h3>
                             <p class="text-xs text-muted mt-1 mb-3 leading-relaxed">A comprehensive system for managing student records, enrollments, and academic progress.</p>
                             <span class="bg-black/10 dark:bg-white/10 text-xs font-mono px-2 py-1 rounded">PHP / MySQL</span>
-                        </div>
-                        <div>
+                        </article>
+                        <article>
                             <h3 class="font-bold text-sm">CartCraft</h3>
                             <p class="text-xs text-muted mt-1 mb-3 leading-relaxed">An e-commerce platform for managing online store operations and customer interactions with bidding system.</p>
                             <span class="bg-black/10 dark:bg-white/10 text-xs font-mono px-2 py-1 rounded">PHP / MySQL</span>
-                        </div>
+                        </article>
                     </div>
                 </section>
 
-                <section class="bg-card border border-border rounded-xl p-6 lg:p-8">
+                <section class="bg-card border border-border rounded-xl p-6 lg:p-8" aria-labelledby="awards-heading">
                     <div class="flex justify-between items-center mb-6">
-                        <h2 class="text-xl font-bold">Awards & Certifications</h2>
+                        <h2 id="awards-heading" class="text-xl font-bold">Awards & Certifications</h2>
                         <!--
                         <a href="#" class="text-xs font-medium text-muted hover:text-white flex items-center">View All <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></a>
                         -->
                     </div>
                     
-                    <div class="flex flex-col gap-5">
-                        <div class="flex items-start justify-between border-b border-border pb-5 last:border-0 last:pb-0">
+                    <ul class="flex flex-col gap-5">
+                        <li class="flex items-start justify-between border-b border-border pb-5 last:border-0 last:pb-0">
                             <div>
                                 <h3 class="font-bold text-sm text-gray-900 dark:text-white transition-colors duration-300">Best Undergraduate Capstone Thesis - BSIS</h3>
                                 <p class="text-xs text-muted mt-1">Bicol University Polangui</p>
                             </div>
-                            <span class="text-xs text-muted font-mono bg-black/5 dark:bg-white/5 px-2 py-1 rounded">2026</span>
-                        </div>
+                            <time datetime="2026" class="text-xs text-muted font-mono bg-black/5 dark:bg-white/5 px-2 py-1 rounded">2026</time>
+                        </li>
 
-                        <div class="flex items-start justify-between border-b border-border pb-5 last:border-0 last:pb-0">
+                        <li class="flex items-start justify-between border-b border-border pb-5 last:border-0 last:pb-0">
                             <div>
                                 <h3 class="font-bold text-sm text-gray-900 dark:text-white transition-colors duration-300">2nd Place - 2026 Bicol University Polangui Research and Development Forum</h3>
                                 <p class="text-xs text-muted mt-1">Bicol University Polangui</p>
                             </div>
-                            <span class="text-xs text-muted font-mono bg-black/5 dark:bg-white/5 px-2 py-1 rounded">2026</span>
-                        </div>
-                    </div>
+                            <time datetime="2026" class="text-xs text-muted font-mono bg-black/5 dark:bg-white/5 px-2 py-1 rounded">2026</time>
+                        </li>
+                    </ul>
                 </section>
 
             </div>
 
-            <div class="flex flex-col gap-6">
+            <aside class="flex flex-col gap-6" aria-label="Profile highlights">
                 
-                <div class="bg-gradient-to-br from-gray-100 to-gray-200 dark:from-zinc-700 dark:to-zinc-900 border border-gray-300 dark:border-zinc-600 transition-color duration-300 rounded-xl p-6 flex flex-col justify-between h-64 relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-black/5 dark:bg-white/5 rounded-full -mr-10 -mt-10 blur-2xl"></div>
+                <section class="bg-gradient-to-br from-gray-100 to-gray-200 dark:from-zinc-700 dark:to-zinc-900 border border-gray-300 dark:border-zinc-600 transition-color duration-300 rounded-xl p-6 flex flex-col justify-between h-64 relative overflow-hidden" aria-labelledby="status-heading">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-black/5 dark:bg-white/5 rounded-full -mr-10 -mt-10 blur-2xl" aria-hidden="true"></div>
 
-                    <h3 class="text-lg font-bold tracking-widest">UNDER CONSTRUCTION!!</h3>
+                    <h2 id="status-heading" class="text-lg font-bold tracking-widest">Under Construction</h2>
                     <!-- 
                     <div>
                         <h2 class="text-lg font-bold tracking-widest">TEAMMATE</h2>
@@ -202,101 +205,101 @@
                     -->
 
                     <p class="text-[10px] text-zinc-400 tracking-widest uppercase mb-1">Portfolio currently updating...</p>
-                </div>
-
-                <section class="bg-card border border-border rounded-xl p-6 lg:p-8 flex-grow">
-                    <h2 class="text-xl font-bold mb-6">Experience</h2>
-                    
-                    <div class="relative border-l border-border ml-2 space-y-8 pb-4">
-
-                        <div class="relative pl-6">
-                            <div class="absolute w-2 h-2 bg-gray-400 dark:bg-white rounded-full -left-[4.5px] top-1.5 transition-colors duration-300"></div>
-                            <h3 class="text-sm font-bold">2nd Place R&D Forum</h3>
-                            <p class="text-xs text-gray-600 dark:text-gray-300 mt-1 transition-colors duration-300">2026 Bicol University Polangui Research and Development Forum</p>
-                            <span class="absolute right-0 top-0 text-xs text-muted font-mono">2026</span>
-                        </div>
-
-                        <div class="relative pl-6">
-                            <div class="absolute w-2 h-2 bg-gray-400 dark:bg-white rounded-full -left-[4.5px] top-1.5 transition-colors duration-300"></div>
-                            <h3 class="text-sm font-bold">OJT Intern</h3>
-                            <p class="text-xs text-gray-600 dark:text-gray-300 mt-1 transition-colors duration-300">Bicol University - Office of the University Registrar</p>
-                            <span class="absolute right-0 top-0 text-xs text-muted font-mono">2026</span>
-                        </div>
-
-                        <div class="relative pl-6">
-                            <div class="absolute w-2 h-2 bg-gray-400 dark:bg-white rounded-full -left-[4.5px] top-1.5 transition-colors duration-300"></div>
-                            <h3 class="text-sm font-bold">Capstone Thesis Project</h3>
-                            <p class="text-xs text-gray-600 dark:text-gray-300 mt-1 transition-colors duration-300">Student Management System for Libon East Central School</p>
-                            <span class="absolute right-0 top-0 text-xs text-muted font-mono">2025</span>
-                        </div>
-
-                        <div class="relative pl-6">
-                            <div class="absolute w-2 h-2 bg-gray-400 dark:bg-white rounded-full -left-[4.5px] top-1.5 transition-colors duration-300"></div>
-                            <h3 class="text-sm font-bold">CartCraft</h3>
-                            <p class="text-xs text-gray-600 dark:text-gray-300 mt-1 transition-colors duration-300">E-commerce webpage that can buy and sell arts with bidding system</p>
-                            <span class="absolute right-0 top-0 text-xs text-muted font-mono">2024</span>
-                        </div>
-                        
-                        <div class="relative pl-6">
-                            <div class="absolute w-2 h-2 bg-gray-400 dark:bg-white rounded-full -left-[4.5px] top-1.5 transition-colors duration-300"></div>
-                            <h3 class="text-sm font-bold">2nd Project</h3>
-                            <p class="text-xs text-gray-600 dark:text-gray-300 mt-1 transition-colors duration-300">Schedule Tracking System for BU Polangui Computer Studies Department</p>
-                            <span class="absolute right-0 top-0 text-xs text-muted font-mono">2024</span>
-                        </div>
-
-                        <div class="relative pl-6">
-                            <div class="absolute w-2 h-2 bg-border rounded-full -left-[4.5px] top-1.5"></div>
-                            <h3 class="text-sm font-bold text-gray-600 dark:text-gray-300 transition-colors duration-300">1st Project</h3>
-                            <p class="text-xs text-muted mt-1">First E-commerce Webpage</p>
-                            <span class="absolute right-0 top-0 text-xs text-muted font-mono">2023</span>
-                        </div>
-
-                        <div class="relative pl-6">
-                            <div class="absolute w-2 h-2 bg-border rounded-full -left-[4.5px] top-1.5"></div>
-                            <h3 class="text-sm font-bold text-gray-600 dark:text-gray-300 transition-colors duration-300">BS Information System</h3>
-                            <p class="text-xs text-muted mt-1">Bicol University Polangui</p>
-                            <span class="absolute right-0 top-0 text-xs text-muted font-mono">2022</span>
-                        </div>
-
-                        <div class="relative pl-6">
-                            <div class="absolute w-2 h-2 bg-border rounded-full -left-[4.5px] top-1.5"></div>
-                            <h3 class="text-sm font-bold text-gray-600 dark:text-gray-300 transition-colors duration-300">First Code</h3>
-                            <p class="text-xs text-muted mt-1">Hello, World!</p>
-                            <span class="absolute right-0 top-0 text-xs text-muted font-mono">2018</span>
-                        </div>
-
-                    </div>
                 </section>
 
-            </div>
+                <section class="bg-card border border-border rounded-xl p-6 lg:p-8 flex-grow" aria-labelledby="experience-heading">
+                    <h2 id="experience-heading" class="text-xl font-bold mb-6">Experience</h2>
+                    
+                    <ol class="relative border-l border-border ml-2 space-y-8 pb-4">
+
+                        <li class="relative pl-6">
+                            <div class="absolute w-2 h-2 bg-gray-400 dark:bg-white rounded-full -left-[4.5px] top-1.5 transition-colors duration-300" aria-hidden="true"></div>
+                            <h3 class="text-sm font-bold">2nd Place R&D Forum</h3>
+                            <p class="text-xs text-gray-600 dark:text-gray-300 mt-1 transition-colors duration-300">2026 Bicol University Polangui Research and Development Forum</p>
+                            <time datetime="2026" class="absolute right-0 top-0 text-xs text-muted font-mono">2026</time>
+                        </li>
+
+                        <li class="relative pl-6">
+                            <div class="absolute w-2 h-2 bg-gray-400 dark:bg-white rounded-full -left-[4.5px] top-1.5 transition-colors duration-300" aria-hidden="true"></div>
+                            <h3 class="text-sm font-bold">OJT Intern</h3>
+                            <p class="text-xs text-gray-600 dark:text-gray-300 mt-1 transition-colors duration-300">Bicol University - Office of the University Registrar</p>
+                            <time datetime="2026" class="absolute right-0 top-0 text-xs text-muted font-mono">2026</time>
+                        </li>
+
+                        <li class="relative pl-6">
+                            <div class="absolute w-2 h-2 bg-gray-400 dark:bg-white rounded-full -left-[4.5px] top-1.5 transition-colors duration-300" aria-hidden="true"></div>
+                            <h3 class="text-sm font-bold">Capstone Thesis Project</h3>
+                            <p class="text-xs text-gray-600 dark:text-gray-300 mt-1 transition-colors duration-300">Student Management System for Libon East Central School</p>
+                            <time datetime="2025" class="absolute right-0 top-0 text-xs text-muted font-mono">2025</time>
+                        </li>
+
+                        <li class="relative pl-6">
+                            <div class="absolute w-2 h-2 bg-gray-400 dark:bg-white rounded-full -left-[4.5px] top-1.5 transition-colors duration-300" aria-hidden="true"></div>
+                            <h3 class="text-sm font-bold">CartCraft</h3>
+                            <p class="text-xs text-gray-600 dark:text-gray-300 mt-1 transition-colors duration-300">E-commerce webpage that can buy and sell arts with bidding system</p>
+                            <time datetime="2024" class="absolute right-0 top-0 text-xs text-muted font-mono">2024</time>
+                        </li>
+                        
+                        <li class="relative pl-6">
+                            <div class="absolute w-2 h-2 bg-gray-400 dark:bg-white rounded-full -left-[4.5px] top-1.5 transition-colors duration-300" aria-hidden="true"></div>
+                            <h3 class="text-sm font-bold">2nd Project</h3>
+                            <p class="text-xs text-gray-600 dark:text-gray-300 mt-1 transition-colors duration-300">Schedule Tracking System for BU Polangui Computer Studies Department</p>
+                            <time datetime="2024" class="absolute right-0 top-0 text-xs text-muted font-mono">2024</time>
+                        </li>
+
+                        <li class="relative pl-6">
+                            <div class="absolute w-2 h-2 bg-border rounded-full -left-[4.5px] top-1.5" aria-hidden="true"></div>
+                            <h3 class="text-sm font-bold text-gray-600 dark:text-gray-300 transition-colors duration-300">1st Project</h3>
+                            <p class="text-xs text-muted mt-1">First E-commerce Webpage</p>
+                            <time datetime="2023" class="absolute right-0 top-0 text-xs text-muted font-mono">2023</time>
+                        </li>
+
+                        <li class="relative pl-6">
+                            <div class="absolute w-2 h-2 bg-border rounded-full -left-[4.5px] top-1.5" aria-hidden="true"></div>
+                            <h3 class="text-sm font-bold text-gray-600 dark:text-gray-300 transition-colors duration-300">BS Information System</h3>
+                            <p class="text-xs text-muted mt-1">Bicol University Polangui</p>
+                            <time datetime="2022" class="absolute right-0 top-0 text-xs text-muted font-mono">2022</time>
+                        </li>
+
+                        <li class="relative pl-6">
+                            <div class="absolute w-2 h-2 bg-border rounded-full -left-[4.5px] top-1.5" aria-hidden="true"></div>
+                            <h3 class="text-sm font-bold text-gray-600 dark:text-gray-300 transition-colors duration-300">First Code</h3>
+                            <p class="text-xs text-muted mt-1">Hello, World!</p>
+                            <time datetime="2018" class="absolute right-0 top-0 text-xs text-muted font-mono">2018</time>
+                        </li>
+
+                    </ol>
+                </section>
+
+            </aside>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             
-            <section class="bg-card border border-border rounded-xl p-6 flex flex-col justify-center">
-                <h3 class="text-sm font-bold mb-4">Roles</h3>
+            <section class="bg-card border border-border rounded-xl p-6 flex flex-col justify-center" aria-labelledby="roles-heading">
+                <h2 id="roles-heading" class="text-sm font-bold mb-4">Roles</h2>
                 <ul class="text-xs text-gray-600 dark:text-gray-300 space-y-3 transition-colors duration-300">
-                    <li class="flex items-center justify-between group cursor-pointer">BU Polangui Student</li>
-                    <li class="flex items-center justify-between group cursor-pointer">Web Developer</li>
+                    <li class="flex items-center justify-between">BU Polangui Student</li>
+                    <li class="flex items-center justify-between">Web Developer</li>
                 </ul>
             </section>
 
-            <section class="bg-card border border-border rounded-xl p-6 flex flex-col justify-center">
-                <h3 class="text-sm font-bold mb-4">Social Links</h3>
+            <section class="bg-card border border-border rounded-xl p-6 flex flex-col justify-center" aria-labelledby="social-links-heading">
+                <h2 id="social-links-heading" class="text-sm font-bold mb-4">Social Links</h2>
                 <ul class="text-xs text-gray-600 dark:text-gray-300 space-y-3 transition-colors duration-300">
-                    <li><a href="https://www.linkedin.com/in/mark-erick-serrano-aa7763396/?locale=en" class="flex items-center gap-2 hover:text-gray-900 dark:hover:text-white transition"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg> LinkedIn</a></li>
-                    <li><a href="https://github.com/renjiyomo" class="flex items-center gap-2 hover:text-gray-900 dark:hover:text-white transition"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg> GitHub</a></li>
+                    <li><a href="https://www.linkedin.com/in/mark-erick-serrano-aa7763396/?locale=en" class="flex items-center gap-2 hover:text-gray-900 dark:hover:text-white transition focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-bgbody rounded"><svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg> LinkedIn</a></li>
+                    <li><a href="https://github.com/renjiyomo" class="flex items-center gap-2 hover:text-gray-900 dark:hover:text-white transition focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-bgbody rounded"><svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg> GitHub</a></li>
                 </ul>
             </section>
 
-            <section class="bg-card border border-border rounded-xl p-6 flex flex-col justify-center lg:col-span-2">
+            <section class="bg-card border border-border rounded-xl p-6 flex flex-col justify-center lg:col-span-2" aria-labelledby="contact-heading">
                 <div class="flex flex-col sm:flex-row gap-6 justify-between items-start sm:items-center">
                     <div>
-                        <h3 class="text-sm font-bold mb-1">Get in touch</h3>
+                        <h2 id="contact-heading" class="text-sm font-bold mb-1">Get in touch</h2>
                         <p class="text-xs text-muted">Available for web development projects and re-design webpage.</p>
                     </div>
-                    <a href="mailto:email@example.com" class="text-sm font-medium hover:text-gray-600 dark:hover:text-gray-300 transition flex items-center gap-2">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                    <a href="mailto:markerickserrano1@gmail.com" class="text-sm font-medium hover:text-gray-600 dark:hover:text-gray-300 transition flex items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-bgbody rounded">
+                        <svg class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                         markerickserrano1@gmail.com
                     </a>
                 </div>
@@ -304,33 +307,29 @@
 
         </div>
 
-        <section class="bg-card border border-border rounded-xl p-6">
-            <h2 class="text-xl font-bold mb-4">Gallery</h2>
-            <div class="flex gap-4 overflow-x-auto pb-4 snap-x custom-scrollbar">
-                <div class="w-64 h-40 shrink-0 bg-gray-200 dark:bg-[#222] rounded-lg snap-start border border-border flex items-center justify-center text-xs text-muted transition-colors duration-300"><img src="assets/images/gallery/defended.jpg" alt="Image 1" class="w-full h-full object-cover"></div>
-                <div class="w-64 h-40 shrink-0 bg-gray-200 dark:bg-[#222] rounded-lg snap-start border border-border flex items-center justify-center text-xs text-muted transition-colors duration-300"><img src="assets/images/gallery/consePL.jpg" alt="Image 4" class="w-full h-full object-cover"></div>
-                <div class="w-64 h-40 shrink-0 bg-gray-200 dark:bg-[#222] rounded-lg snap-start border border-border flex items-center justify-center text-xs text-muted transition-colors duration-300"><img src="assets/images/gallery/awarded.jpg" alt="Image 2" class="w-full h-full object-cover"></div>
-                <div class="w-64 h-40 shrink-0 bg-gray-200 dark:bg-[#222] rounded-lg snap-start border border-border flex items-center justify-center text-xs text-muted transition-colors duration-300"><img src="assets/images/gallery/certi.jpg" alt="Image 3" class="w-full h-full object-cover"></div>        
-                
-            </div>
+        <section class="bg-card border border-border rounded-xl p-6" aria-labelledby="gallery-heading">
+            <h2 id="gallery-heading" class="text-xl font-bold mb-4">Gallery</h2>
+            <ul class="flex gap-4 overflow-x-auto pb-4 snap-x custom-scrollbar" aria-label="Portfolio gallery">
+                <li class="w-64 h-40 shrink-0 bg-gray-200 dark:bg-[#222] rounded-lg snap-start border border-border flex items-center justify-center text-xs text-muted transition-colors duration-300"><img src="assets/images/gallery/defended.jpg" alt="Capstone defense presentation" class="w-full h-full object-cover" loading="lazy" decoding="async"></li>
+                <li class="w-64 h-40 shrink-0 bg-gray-200 dark:bg-[#222] rounded-lg snap-start border border-border flex items-center justify-center text-xs text-muted transition-colors duration-300"><img src="assets/images/gallery/consePL.jpg" alt="Academic recognition certificate" class="w-full h-full object-cover" loading="lazy" decoding="async"></li>
+                <li class="w-64 h-40 shrink-0 bg-gray-200 dark:bg-[#222] rounded-lg snap-start border border-border flex items-center justify-center text-xs text-muted transition-colors duration-300"><img src="assets/images/gallery/awarded.jpg" alt="Awarding ceremony moment" class="w-full h-full object-cover" loading="lazy" decoding="async"></li>
+                <li class="w-64 h-40 shrink-0 bg-gray-200 dark:bg-[#222] rounded-lg snap-start border border-border flex items-center justify-center text-xs text-muted transition-colors duration-300"><img src="assets/images/gallery/certi.jpg" alt="Certificate of achievement" class="w-full h-full object-cover" loading="lazy" decoding="async"></li>
+            </ul>
         </section>
 
-    </div>
+    </main>
 
     <footer class="max-w-6xl mx-auto px-4 py-8 border-t border-border mt-12">
         <div class="flex justify-center items-center">
-            <p class="text-sm text-muted">© 
-            2026
-            Mark Erick Serrano. All rights reserved.</p>
+            <p class="text-sm text-muted">&copy; 2026 Mark Erick Serrano. All rights reserved.</p>
         </div>
     </footer>
 
-    <a href="https://www.facebook.com/RenjiYom0" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 bg-gray-900 text-white dark:bg-white dark:text-black px-4 py-3 rounded-lg font-bold text-sm shadow-lg hover:scale-105 transition flex items-center gap-2 z-50">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+    <a href="https://www.facebook.com/RenjiYom0" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 bg-gray-900 text-white dark:bg-white dark:text-black px-4 py-3 rounded-lg font-bold text-sm shadow-lg hover:scale-105 transition flex items-center gap-2 z-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-bgbody" aria-label="Chat with Mark Erick on Facebook">
+        <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
         Chat with Me
     </a>
 
-    <script src="assets/js/main.js"></script>
     <script src="assets/js/theme.js"></script>
 </body>
 </html>
