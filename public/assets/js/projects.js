@@ -239,7 +239,7 @@ window.PROJECTS = (function () {
 })();
 
 /* Order used by the project index modal and the Projects section. */
-window.PROJECT_ORDER = ['bueno', 'obra', 'bulf', 'bufw', 'bugwa', 'sms', 'cart', 'fast'];
+window.PROJECT_ORDER = ['sms', 'bueno', 'obra', 'bulf', 'bufw', 'bugwa', 'cart', 'fast'];
 
 /* Full technology inventory for the "View full stack" modal. */
 window.TECH = [
