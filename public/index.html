@@ -1,335 +1,718 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Information System graduate and aspiring full-stack developer portfolio." />
-    <meta name="author" content="Mark Erick Padua Serrano" />
-    <meta name="keywords" content="Web Developer, Full Stack Developer, Web Development, Information Systems, Mark Erick Padua Serrano, Mark Erick Serrano Portfolio" />
-    <meta name="creator" content="Mark Erick Padua Serrano" />
-    <title>Mark Erick - Aspiring Full Stack Developer</title>
-    <link rel="icon" href="assets/images/profile.jpg" type="image/jpeg" />
-    <meta property="og:title" content="Mark Erick - Aspiring Full Stack Developer" />
-    <meta property="og:description" content="Aspiring Full Stack Developer. Building modern web applications." />
-    <meta property="og:url" content="https://markerick.vercel.app/" />
-    <meta property="og:site_name" content="Mark Erick" />
-    <meta property="og:locale" content="en_US" />
-    <meta property="og:image" content="https://markerick.vercel.app/assets/images/TOR_no_NAMETAG.jpg" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Mark Erick - Aspiring Full Stack Developer" />
-    <meta property="og:type" content="website" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="assets/js/tailwind.config.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="assets/css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mark Erick Serrano — Web &amp; Front-End Developer</title>
+
+<meta name="description" content="Mark Erick Serrano is a web and front-end developer from Albay, Philippines. BS Information System (Cum Laude), Bicol University Polangui. Five deployed applications built with React, Next.js, TypeScript, Postgres and Tailwind CSS.">
+<meta name="author" content="Mark Erick Padua Serrano">
+<meta name="keywords" content="Mark Erick Serrano, Web Developer, Front-End Developer, Junior Software Engineer, React, Next.js, TypeScript, PostgreSQL, Supabase, Tailwind CSS, PHP, Laravel, Philippines, Bicol University">
+<meta name="theme-color" content="#0B0D0E" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#F4F2EC" media="(prefers-color-scheme: light)">
+<link rel="canonical" href="https://markerick.vercel.app/">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Mark Erick Serrano — Web &amp; Front-End Developer">
+<meta property="og:description" content="BS Information System (Cum Laude). Builds secure full-stack systems and clean, fast interfaces.">
+<meta property="og:url" content="https://markerick.vercel.app/">
+<meta property="og:site_name" content="Mark Erick Serrano">
+<meta property="og:locale" content="en_PH">
+<meta property="og:image" content="https://markerick.vercel.app/assets/images/dark-profile.jpg">
+<meta property="og:image:alt" content="Portrait of Mark Erick Serrano">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mark Erick Serrano — Web &amp; Front-End Developer">
+<meta name="twitter:description" content="BS Information System (Cum Laude). Builds secure full-stack systems and clean, fast interfaces.">
+<meta name="twitter:image" content="https://markerick.vercel.app/assets/images/dark-profile.jpg">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230B0D0E'/><text x='16' y='24' font-family='monospace' font-size='21' font-weight='700' fill='%23FFB000' text-anchor='middle'>M</text></svg>">
+<link rel="apple-touch-icon" href="assets/images/dark-profile.jpg">
+
+<!-- Theme is resolved before first paint so there is never a flash -->
+<script>
+  (function () {
+    try {
+      var s = localStorage.getItem('theme');
+      var t = s || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      if (t === 'light') document.documentElement.classList.add('light');
+    } catch (e) {}
+  })();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/css/style.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Mark Erick Padua Serrano",
+  "jobTitle": "Web & Front-End Developer",
+  "email": "mailto:markerickserrano1@gmail.com",
+  "telephone": "+639456823067",
+  "url": "https://markerick.vercel.app/",
+  "address": { "@type": "PostalAddress", "addressLocality": "Libon", "addressRegion": "Albay", "addressCountry": "PH" },
+  "alumniOf": { "@type": "CollegeOrUniversity", "name": "Bicol University Polangui" },
+  "knowsAbout": ["React","Next.js","TypeScript","JavaScript","HTML5","CSS3","Tailwind CSS","Node.js","PostgreSQL","Supabase","Drizzle ORM","PHP","Laravel","MySQL","Git","Figma"],
+  "sameAs": ["https://github.com/renjiyomo","https://www.linkedin.com/in/mark-erick-serrano-aa7763396/"]
+}
+</script>
 </head>
-<body class="bg-bgbody text-gray-900 dark:text-white font-sans antialiased min-h-screen p-4 md:p-8 lg:p-12 transition-colors duration-300">
-    <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-card focus:px-4 focus:py-3 focus:text-sm focus:font-semibold focus:text-gray-900 focus:shadow-lg focus:ring-2 focus:ring-blue-500 dark:focus:text-white">
-        Skip to main content
+
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="field" aria-hidden="true"></div>
+<div class="progress" aria-hidden="true"></div>
+
+<!-- ── Top bar ─────────────────────────────────────────────── -->
+<header class="topbar">
+  <div class="shell topbar__in">
+    <a class="sig" href="#top" aria-label="Mark Erick Serrano — back to top">
+      <b>M.E.SERRANO</b><span>◆</span>
     </a>
 
-    <main id="main-content" class="max-w-6xl mx-auto flex flex-col gap-6 mt-4 sm:mt-auto" tabindex="-1">
+    <nav class="navlinks" aria-label="Sections">
+      <a href="#profile">Profile</a>
+      <a href="#projects">Projects</a>
+      <a href="#stack">Stack</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </nav>
 
-        <header class="flex flex-row gap-4 sm:gap-6 items-start w-full" aria-labelledby="page-title">
-            <div class="w-36 h-36 sm:w-44 sm:h-44 shrink-0 rounded-lg overflow-hidden bg-card border border-border shadow-sm">
-                <img id="profile-image" src="assets/images/dark-profile.jpg" alt="Portrait of Mark Erick Padua Serrano" class="w-full h-full object-cover transition-opacity duration-300 ease-in-out" decoding="async">
-            </div>
-            
-            <div class="flex flex-col w-full min-w-0 justify-center sm:pt-2">
-                
-                <div class="flex items-center justify-between gap-0 w-full md:mt-0 mt-3">
-                    <div class="flex items-center gap-1 sm:gap-2 min-w-0">
-                        <h1 id="page-title" class="text-md sm:text-2xl md:text-3xl font-bold truncate leading-tight transition-colors duration-500 ease-in-out">
-                            Mark Erick Serrano 
-                        </h1>
-                        <svg class="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 shrink-0" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-                    </div>
-                    
-                    <button id="theme-toggle" type="button" class="relative inline-flex md:h-6 md:w-11 h-5 w-10 shrink-0 items-center transition-all rounded-full duration-500 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500" aria-label="Switch to light theme" aria-pressed="true">
-                        <span class="absolute left-0.5 md:left-0.5 flex md:h-5 md:w-5 h-4 w-4 items-center justify-center bg-white rounded-full shadow-[0_1px_2px_rgba(0,0,0,0.08)] transition-transform duration-500 ease-in-out translate-x-0 dark:translate-x-5 overflow-hidden" aria-hidden="true">
-                            <svg class="h-3 w-3 text-gray-500 absolute transition-all duration-500 ease-in-out transform scale-100 opacity-100 dark:scale-0 dark:opacity-0" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path>
-                            </svg>
-                            <svg class="md:h-3 md:w-3 h-2 w-2 text-gray-500 absolute transition-all duration-500 ease-in-out transform scale-0 opacity-0 dark:scale-100 dark:opacity-100" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
-                            </svg>
-                        </span>
-                    </button>
-                </div>
+    <button class="themetoggle" id="theme" type="button" role="switch" aria-checked="false" aria-label="Switch to light theme">
+      <span data-for="dark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </span>
+      <span data-for="light" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 1.8v2.4M12 19.8v2.4M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M1.8 12h2.4M19.8 12h2.4M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7"/></svg>
+      </span>
+    </button>
+  </div>
+</header>
 
-                <p class="text-xs sm:text-sm text-muted flex items-center gap-1 mt-1 sm:mt-1.5 transition-colors duration-500 ease-in-out">
-                    <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                    Libon, Albay, Philippines
-                </p>
+<!-- ── Section rail ────────────────────────────────────────── -->
+<nav class="rail" aria-label="Page progress">
+  <span class="rail__pct" data-pct>000</span>
+  <a href="#profile"><i></i><em>01 Profile</em></a>
+  <a href="#projects"><i></i><em>02 Projects</em></a>
+  <a href="#stack"><i></i><em>03 Stack</em></a>
+  <a href="#experience"><i></i><em>04 Experience</em></a>
+  <a href="#credentials"><i></i><em>05 Credentials</em></a>
+  <a href="#fieldnotes"><i></i><em>06 Field Notes</em></a>
+  <a href="#contact"><i></i><em>07 Contact</em></a>
+</nav>
 
-                <div class="mt-1 sm:mt-2">
-                    <p class="text-[11px] sm:text-sm md:text-base font-medium leading-tight text-gray-600 dark:text-gray-300 transition-colors duration-500 ease-in-out">
-                        Information System <span class="text-gray-400 dark:text-gray-500 mx-0.5">\</span> Aspiring Full-Stack Developer
-                    </p>
-                </div>
+<main id="main">
 
-                <div class="flex flex-wrap gap-1.5 sm:gap-3 mt-4 sm:mt-6">
-                    <a href="mailto:markerickserrano1@gmail.com" class="flex items-center gap-1 sm:gap-2 text-gray-900 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 text-xs sm:text-sm font-medium border border-border bg-card px-3 py-2 sm:py-2 rounded-lg transition-all duration-500 ease-in-out hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-bgbody">
-                        <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                        Send Email
-                    </a>
+  <!-- ── Masthead ──────────────────────────────────────────── -->
+  <section class="mast" id="top" aria-labelledby="name">
+    <div class="shell">
+      <div class="mast__grid">
 
-                    <a href="./assets/resume/RESUME-Serrano_Mark-Erick.pdf" download="SerranoMarkErick_CV.pdf" class="flex items-center gap-1 sm:gap-2 text-gray-900 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 text-xs sm:text-sm font-medium border border-border bg-card px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg transition-all duration-500 ease-in-out hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-bgbody" aria-label="Download Mark Erick Serrano CV as a PDF">
-                        Download CV
-                    </a>
-                </div>
-                
-            </div>
-        </header>
+        <div class="mast__intro">
+          <p class="status mono rv">
+            Open to junior developer roles
+          </p>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            
-            <div class="lg:col-span-2 flex flex-col gap-6">
-                
-                <section class="bg-card border border-border rounded-xl p-6 lg:p-8" aria-labelledby="about-heading">
-                    <h2 id="about-heading" class="text-xl font-bold mb-4">About</h2>
-                    <div class="text-sm text-gray-600 dark:text-gray-300 space-y-4 leading-relaxed transition-colors duration-300">
-                        <p>I'm a Web Developer with a Bachelor's degree in Information System (Cum Laude) from Bicol University Polangui, specializing in modern web applications and system automation. Proven experience engineering secure solutions to automate complex administrative workflows and designing clean, professional dashboard interfaces.</p>
-                        <p>Lately, I've been focused on learning the fundamentals of JavaScript and React, to enhance my UI skills and create interfaces using Tailwind CSS, prioritizing efficient user experiences over cluttered aesthetics.</p>
-                    </div>
-                </section>
+          <h1 id="name">
+            <span class="ln"><span>Mark Erick</span></span>
+            <span class="ln"><span>Serrano<em>.</em></span></span>
+          </h1>
 
-                <section class="bg-card border border-border rounded-xl p-6 lg:p-8" aria-labelledby="tech-stack-heading">
-                    <div class="flex justify-between items-center mb-6">
-                        <h2 id="tech-stack-heading" class="text-xl font-bold">Tech Stack</h2>
-                        <!-- 
-                        <a href="#" class="text-xs font-medium text-muted hover:text-white flex items-center">View All <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></a>
-                        -->
-                    </div>
-                    
-                    <div class="space-y-6">
-                        <div>
-                            <h3 class="text-sm font-semibold mb-3">Frontend</h3>
-                            <ul class="flex flex-wrap gap-2 text-xs font-medium" aria-label="Frontend technologies">
-                                <li class="bg-black/5 dark:bg-white/5 border border-border px-3 py-1.5 rounded-md hover:bg-black/10 dark:hover:bg-white/10 transition">HTML5</li>
-                                <li class="bg-black/5 dark:bg-white/5 border border-border px-3 py-1.5 rounded-md hover:bg-black/10 dark:hover:bg-white/10 transition">CSS3</li>
-                                <li class="bg-black/5 dark:bg-white/5 border border-border px-3 py-1.5 rounded-md hover:bg-black/10 dark:hover:bg-white/10 transition">Tailwind CSS</li>
-                                <li class="bg-black/5 dark:bg-white/5 border border-border px-3 py-1.5 rounded-md hover:bg-black/10 dark:hover:bg-white/10 transition">JavaScript</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h3 class="text-sm font-semibold mb-3">Backend & Database</h3>
-                            <ul class="flex flex-wrap gap-2 text-xs font-medium" aria-label="Backend and database technologies">
-                                <li class="bg-black/5 dark:bg-white/5 border border-border px-3 py-1.5 rounded-md hover:bg-black/10 dark:hover:bg-white/10 transition">PHP</li>
-                                <li class="bg-black/5 dark:bg-white/5 border border-border px-3 py-1.5 rounded-md hover:bg-black/10 dark:hover:bg-white/10 transition">Laravel</li>
-                                <li class="bg-black/5 dark:bg-white/5 border border-border px-3 py-1.5 rounded-md hover:bg-black/10 dark:hover:bg-white/10 transition">Filament PHP</li>
-                                <li class="bg-black/5 dark:bg-white/5 border border-border px-3 py-1.5 rounded-md hover:bg-black/10 dark:hover:bg-white/10 transition">MySQL</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h3 class="text-sm font-semibold mb-3">Tools & Design</h3>
-                            <ul class="flex flex-wrap gap-2 text-xs font-medium" aria-label="Tools and design technologies">
-                                <li class="bg-black/5 dark:bg-white/5 border border-border px-3 py-1.5 rounded-md hover:bg-black/10 dark:hover:bg-white/10 transition">VS Code</li>
-                                <li class="bg-black/5 dark:bg-white/5 border border-border px-3 py-1.5 rounded-md hover:bg-black/10 dark:hover:bg-white/10 transition">GitHub</li>
-                                <li class="bg-black/5 dark:bg-white/5 border border-border px-3 py-1.5 rounded-md hover:bg-black/10 dark:hover:bg-white/10 transition">Git</li>
-                                <li class="bg-black/5 dark:bg-white/5 border border-border px-3 py-1.5 rounded-md hover:bg-black/10 dark:hover:bg-white/10 transition">Figma</li>
-                            </ul>
-                        </div>
-                    </div>
-                </section>
+          <div class="role rv" data-d="1">
+            <b>Web Developer</b>
+            <s aria-hidden="true"></s>
+            <b>Front-End</b>
+            <s aria-hidden="true"></s>
+            <b>BS Information System</b>
+          </div>
 
-                <section class="bg-card border border-border rounded-xl p-6 lg:p-8" aria-labelledby="projects-heading">
-                    <div class="flex justify-between items-center mb-6">
-                        <h2 id="projects-heading" class="text-xl font-bold">Recent Projects</h2>
-                        <!--
-                        <a href="#" class="text-xs font-medium text-muted hover:text-white flex items-center">View All <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></a>
-                        -->
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <article>
-                            <h3 class="font-bold text-sm">Student Management System for Libon East Central School</h3>
-                            <p class="text-xs text-muted mt-1 mb-3 leading-relaxed">A comprehensive system for managing student records, enrollments, and academic progress.</p>
-                            <span class="bg-black/10 dark:bg-white/10 text-xs font-mono px-2 py-1 rounded">PHP / MySQL</span>
-                        </article>
-                        <article>
-                            <h3 class="font-bold text-sm">CartCraft</h3>
-                            <p class="text-xs text-muted mt-1 mb-3 leading-relaxed">An e-commerce platform for managing online store operations and customer interactions with bidding system.</p>
-                            <span class="bg-black/10 dark:bg-white/10 text-xs font-mono px-2 py-1 rounded">PHP / MySQL</span>
-                        </article>
-                    </div>
-                </section>
+          <p class="mast__lede rv" data-d="2">
+            I build secure, well-structured web systems and the clean interfaces
+            that sit on top of them — the kind that make complicated administrative
+            work feel simple.
+          </p>
 
-                <section class="bg-card border border-border rounded-xl p-6 lg:p-8" aria-labelledby="awards-heading">
-                    <div class="flex justify-between items-center mb-6">
-                        <h2 id="awards-heading" class="text-xl font-bold">Awards & Certifications</h2>
-                        <!--
-                        <a href="#" class="text-xs font-medium text-muted hover:text-white flex items-center">View All <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></a>
-                        -->
-                    </div>
-                    
-                    <ul class="flex flex-col gap-5">
-                        <li class="flex items-start justify-between border-b border-border pb-5 last:border-0 last:pb-0">
-                            <div>
-                                <h3 class="font-bold text-sm text-gray-900 dark:text-white transition-colors duration-300">Best Undergraduate Capstone Thesis - BSIS</h3>
-                                <p class="text-xs text-muted mt-1">Bicol University Polangui</p>
-                            </div>
-                            <time datetime="2026" class="text-xs text-muted font-mono bg-black/5 dark:bg-white/5 px-2 py-1 rounded">2026</time>
-                        </li>
+          <p class="mono mast__loc rv" data-d="3">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="2.8"/></svg>
+            Libon, Albay · Philippines
+          </p>
 
-                        <li class="flex items-start justify-between border-b border-border pb-5 last:border-0 last:pb-0">
-                            <div>
-                                <h3 class="font-bold text-sm text-gray-900 dark:text-white transition-colors duration-300">2nd Place - 2026 Bicol University Polangui Research and Development Forum</h3>
-                                <p class="text-xs text-muted mt-1">Bicol University Polangui</p>
-                            </div>
-                            <time datetime="2026" class="text-xs text-muted font-mono bg-black/5 dark:bg-white/5 px-2 py-1 rounded">2026</time>
-                        </li>
-                    </ul>
-                </section>
+          <div class="actions rv" data-d="4">
+            <a class="btn btn--primary" data-magnet href="mailto:markerickserrano1@gmail.com?subject=Developer%20opportunity">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="1.5"/><path d="m3 6 9 6.5L21 6"/></svg>
+              <span>Get in touch</span>
+            </a>
+            <a class="btn" data-magnet href="assets/resume/RESUME-Serrano_Mark-Erick.pdf" download="Serrano-Mark-Erick-CV.pdf">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7.5 10.5 4.5 4.5 4.5-4.5"/><path d="M4 20h16"/></svg>
+              <span>Download CV</span>
+            </a>
 
-            </div>
+            <span class="actions__rule" aria-hidden="true"></span>
 
-            <aside class="flex flex-col gap-6" aria-label="Profile highlights">
-                
-                <section class="bg-gradient-to-br from-gray-100 to-gray-200 dark:from-zinc-700 dark:to-zinc-900 border border-gray-300 dark:border-zinc-600 transition-color duration-300 rounded-xl p-6 flex flex-col justify-between h-64 relative overflow-hidden" aria-labelledby="status-heading">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-black/5 dark:bg-white/5 rounded-full -mr-10 -mt-10 blur-2xl" aria-hidden="true"></div>
-
-                    <h2 id="status-heading" class="text-lg font-bold tracking-widest">Under Construction</h2>
-                    <!-- 
-                    <div>
-                        <h2 class="text-lg font-bold tracking-widest">TEAMMATE</h2>
-                        <h3 class="text-lg font-bold tracking-widest">JETH ROY DELOS SANTOS</h3>
-                        <p class="text-[10px] text-zinc-400 tracking-widest uppercase mt-1">Information Technology</p>
-                    </div> 
-                    
-                    <div>
-                        <p class="text-[10px] text-zinc-400 tracking-widest uppercase mb-1">Visit</p>
-                        <h4 class="font-bold tracking-widest text-lg uppercase"><a href="https://jethroy.vercel.app/" target="_blank" class="border border-zinc-500 rounded-lg pt-1 pb-1 pr-2 pl-2 bg-zinc-600">Portfolio</a></h4>
-                    </div>
-                    -->
-
-                    <p class="text-[10px] text-zinc-400 tracking-widest uppercase mb-1">Portfolio currently updating...</p>
-                </section>
-
-                <section class="bg-card border border-border rounded-xl p-6 lg:p-8 flex-grow" aria-labelledby="experience-heading">
-                    <h2 id="experience-heading" class="text-xl font-bold mb-6">Experience</h2>
-                    
-                    <ol class="relative border-l border-border ml-2 space-y-8 pb-4">
-
-                        <li class="relative pl-6">
-                            <div class="absolute w-2 h-2 bg-gray-400 dark:bg-white rounded-full -left-[4.5px] top-1.5 transition-colors duration-300" aria-hidden="true"></div>
-                            <h3 class="text-sm font-bold">2nd Place R&D Forum</h3>
-                            <p class="text-xs text-gray-600 dark:text-gray-300 mt-1 transition-colors duration-300">2026 Bicol University Polangui Research and Development Forum</p>
-                            <time datetime="2026" class="absolute right-0 top-0 text-xs text-muted font-mono">2026</time>
-                        </li>
-
-                        <li class="relative pl-6">
-                            <div class="absolute w-2 h-2 bg-gray-400 dark:bg-white rounded-full -left-[4.5px] top-1.5 transition-colors duration-300" aria-hidden="true"></div>
-                            <h3 class="text-sm font-bold">OJT Intern</h3>
-                            <p class="text-xs text-gray-600 dark:text-gray-300 mt-1 transition-colors duration-300">Bicol University - Office of the University Registrar</p>
-                            <time datetime="2026" class="absolute right-0 top-0 text-xs text-muted font-mono">2026</time>
-                        </li>
-
-                        <li class="relative pl-6">
-                            <div class="absolute w-2 h-2 bg-gray-400 dark:bg-white rounded-full -left-[4.5px] top-1.5 transition-colors duration-300" aria-hidden="true"></div>
-                            <h3 class="text-sm font-bold">Capstone Thesis Project</h3>
-                            <p class="text-xs text-gray-600 dark:text-gray-300 mt-1 transition-colors duration-300">Student Management System for Libon East Central School</p>
-                            <time datetime="2025" class="absolute right-0 top-0 text-xs text-muted font-mono">2025</time>
-                        </li>
-
-                        <li class="relative pl-6">
-                            <div class="absolute w-2 h-2 bg-gray-400 dark:bg-white rounded-full -left-[4.5px] top-1.5 transition-colors duration-300" aria-hidden="true"></div>
-                            <h3 class="text-sm font-bold">CartCraft</h3>
-                            <p class="text-xs text-gray-600 dark:text-gray-300 mt-1 transition-colors duration-300">E-commerce platform for buying and selling art, featuring a built-in bidding system</p>
-                            <time datetime="2024" class="absolute right-0 top-0 text-xs text-muted font-mono">2024</time>
-                        </li>
-                        
-                        <li class="relative pl-6">
-                            <div class="absolute w-2 h-2 bg-gray-400 dark:bg-white rounded-full -left-[4.5px] top-1.5 transition-colors duration-300" aria-hidden="true"></div>
-                            <h3 class="text-sm font-bold">2nd Project</h3>
-                            <p class="text-xs text-gray-600 dark:text-gray-300 mt-1 transition-colors duration-300">Schedule Tracking System for BU Polangui Computer Studies Department</p>
-                            <time datetime="2024" class="absolute right-0 top-0 text-xs text-muted font-mono">2024</time>
-                        </li>
-
-                        <li class="relative pl-6">
-                            <div class="absolute w-2 h-2 bg-border rounded-full -left-[4.5px] top-1.5" aria-hidden="true"></div>
-                            <h3 class="text-sm font-bold text-gray-600 dark:text-gray-300 transition-colors duration-300">1st Project</h3>
-                            <p class="text-xs text-muted mt-1">First E-commerce Webpage</p>
-                            <time datetime="2023" class="absolute right-0 top-0 text-xs text-muted font-mono">2023</time>
-                        </li>
-
-                        <li class="relative pl-6">
-                            <div class="absolute w-2 h-2 bg-border rounded-full -left-[4.5px] top-1.5" aria-hidden="true"></div>
-                            <h3 class="text-sm font-bold text-gray-600 dark:text-gray-300 transition-colors duration-300">BS Information System</h3>
-                            <p class="text-xs text-muted mt-1">Bicol University Polangui</p>
-                            <time datetime="2022" class="absolute right-0 top-0 text-xs text-muted font-mono">2022</time>
-                        </li>
-
-                        <li class="relative pl-6">
-                            <div class="absolute w-2 h-2 bg-border rounded-full -left-[4.5px] top-1.5" aria-hidden="true"></div>
-                            <h3 class="text-sm font-bold text-gray-600 dark:text-gray-300 transition-colors duration-300">First Code</h3>
-                            <p class="text-xs text-muted mt-1">Hello, World!</p>
-                            <time datetime="2018" class="absolute right-0 top-0 text-xs text-muted font-mono">2018</time>
-                        </li>
-
-                    </ol>
-                </section>
-
-            </aside>
+            <span class="social">
+              <a class="iconbtn" href="https://github.com/renjiyomo" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile — opens in a new tab">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.1.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.7.4-1.3.7-1.5-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11.1 11.1 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+                <span class="iconbtn__t">GitHub</span>
+              </a>
+              <a class="iconbtn" href="https://www.linkedin.com/in/mark-erick-serrano-aa7763396/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile — opens in a new tab">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0zM7.12 20.45H3.56V9h3.56v11.45zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zm15.11 13.02h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29z"/></svg>
+                <span class="iconbtn__t">LinkedIn</span>
+              </a>
+            </span>
+          </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            
-            <section class="bg-card border border-border rounded-xl p-6 flex flex-col justify-center" aria-labelledby="roles-heading">
-                <h2 id="roles-heading" class="text-sm font-bold mb-4">Roles</h2>
-                <ul class="text-xs text-gray-600 dark:text-gray-300 space-y-3 transition-colors duration-300">
-                    <li class="flex items-center justify-between">BU Polangui Student</li>
-                    <li class="flex items-center justify-between">Web Developer</li>
-                </ul>
-            </section>
+        <figure class="plate rv" data-d="2">
+          <div class="plate__img">
+            <img id="portrait" src="assets/images/dark-profile.jpg"
+                 alt="Portrait of Mark Erick Serrano" width="640" height="800"
+                 fetchpriority="high" decoding="async">
+          </div>
+        </figure>
 
-            <section class="bg-card border border-border rounded-xl p-6 flex flex-col justify-center" aria-labelledby="social-links-heading">
-                <h2 id="social-links-heading" class="text-sm font-bold mb-4">Social Links</h2>
-                <ul class="text-xs text-gray-600 dark:text-gray-300 space-y-3 transition-colors duration-300">
-                    <li><a href="https://www.linkedin.com/in/mark-erick-serrano-aa7763396/?locale=en" class="flex items-center gap-2 hover:text-gray-900 dark:hover:text-white transition focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-bgbody rounded"><svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg> LinkedIn</a></li>
-                    <li><a href="https://github.com/renjiyomo" class="flex items-center gap-2 hover:text-gray-900 dark:hover:text-white transition focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-bgbody rounded"><svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg> GitHub</a></li>
-                </ul>
-            </section>
+      </div>
 
-            <section class="bg-card border border-border rounded-xl p-6 flex flex-col justify-center lg:col-span-2" aria-labelledby="contact-heading">
-                <div class="flex flex-col sm:flex-row gap-6 justify-between items-start sm:items-center">
-                    <div>
-                        <h2 id="contact-heading" class="text-sm font-bold mb-1">Get in touch</h2>
-                        <p class="text-xs text-muted">Available for web development and website redesign projects.</p>
-                    </div>
-                    <a href="mailto:markerickserrano1@gmail.com" class="text-sm font-medium hover:text-gray-600 dark:hover:text-gray-300 transition flex items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-bgbody rounded">
-                        <svg class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                        markerickserrano1@gmail.com
-                    </a>
-                </div>
-            </section>
+      <!-- Spec sheet -->
+      <div class="spec rv" data-d="3">
+        <div>
+          <b>4.83<i>/5.00</i></b>
+          <p>ISO 25010 usability<br>32 respondents</p>
+        </div>
+        <div>
+          <b>2<i>nd</i></b>
+          <p>BU Polangui R&amp;D<br>Forum · 2026</p>
+        </div>
+        <div>
+          <b>05</b>
+          <p>Applications live<br>in production</p>
+        </div>
+        <div>
+          <b>2026</b>
+          <p>BSIS Cum Laude<br>BU Polangui</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- ── 01 Profile ────────────────────────────────────────── -->
+  <section id="profile" aria-labelledby="h-profile">
+    <div class="shell">
+      <div class="head rv">
+        <span class="head__no">01</span>
+        <h2 id="h-profile">Profile</h2>
+        <span class="draw" aria-hidden="true"></span>
+        <span class="head__meta">Who I am</span>
+      </div>
+
+      <div class="prose">
+        <div class="rv">
+          <p>
+            I'm a <b>web developer and Information System graduate (Cum Laude)</b>
+            from Bicol University Polangui. Most of my work so far has been
+            automating administrative processes that used to run on paper —
+            student records, school forms, faculty schedules — and giving them
+            interfaces people can actually use without training.
+          </p>
+          <p>
+            My capstone was evaluated against <b>ISO 25010</b> standards and scored
+            <b>4.83 out of 5.00</b> across 32 respondents, and it was named
+            <b>Best Undergraduate Capstone Thesis</b> in BSIS. I care about that
+            number because it came from real users, not a rubric.
+          </p>
         </div>
 
-        <section class="bg-card border border-border rounded-xl p-6" aria-labelledby="gallery-heading">
-            <h2 id="gallery-heading" class="text-xl font-bold mb-4">Gallery</h2>
-            <ul class="flex gap-4 overflow-x-auto pb-4 snap-x custom-scrollbar" aria-label="Portfolio gallery">
-                <li class="w-64 h-40 shrink-0 bg-gray-200 dark:bg-[#222] rounded-lg snap-start border border-border flex items-center justify-center text-xs text-muted transition-colors duration-300"><img src="assets/images/gallery/defended.jpg" alt="Capstone defense presentation" class="w-full h-full object-cover" loading="lazy" decoding="async"></li>
-                <li class="w-64 h-40 shrink-0 bg-gray-200 dark:bg-[#222] rounded-lg snap-start border border-border flex items-center justify-center text-xs text-muted transition-colors duration-300"><img src="assets/images/gallery/consePL.jpg" alt="Academic recognition certificate" class="w-full h-full object-cover" loading="lazy" decoding="async"></li>
-                <li class="w-64 h-40 shrink-0 bg-gray-200 dark:bg-[#222] rounded-lg snap-start border border-border flex items-center justify-center text-xs text-muted transition-colors duration-300"><img src="assets/images/gallery/awarded.jpg" alt="Awarding ceremony moment" class="w-full h-full object-cover" loading="lazy" decoding="async"></li>
-                <li class="w-64 h-40 shrink-0 bg-gray-200 dark:bg-[#222] rounded-lg snap-start border border-border flex items-center justify-center text-xs text-muted transition-colors duration-300"><img src="assets/images/gallery/certi.jpg" alt="Certificate of achievement" class="w-full h-full object-cover" loading="lazy" decoding="async"></li>
-            </ul>
-        </section>
+        <dl class="facts rv" data-d="1">
+          <div><dt>Location</dt><dd>Libon, Albay, PH</dd></div>
+          <div><dt>Degree</dt><dd>BS Information System</dd></div>
+          <div><dt>Honors</dt><dd>Cum Laude · 2026</dd></div>
+          <div><dt>Focus</dt><dd>Front-End &amp; Full-Stack</dd></div>
+          <div><dt>Languages</dt><dd>English · Tagalog · Bikol</dd></div>
+          <div><dt>Status</dt><dd>Open to opportunities</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
 
-    </main>
+  <!-- ── 02 Projects ───────────────────────────────────────── -->
+  <section id="projects" aria-labelledby="h-projects">
+    <div class="shell">
+      <div class="head rv">
+        <span class="head__no">02</span>
+        <h2 id="h-projects">Projects</h2>
+        <span class="draw" aria-hidden="true"></span>
+        <span class="head__meta">06 featured · 08 total</span>
+      </div>
 
-    <footer class="max-w-6xl mx-auto px-4 py-8 border-t border-border mt-12">
-        <div class="flex justify-center items-center">
-            <p class="text-sm text-muted">&copy; 2026 Mark Erick Serrano. All rights reserved.</p>
+      <div class="work">
+
+        <div class="tier rv">
+          <span>Selected work</span>
+          <i aria-hidden="true"></i>
+          <span>06</span>
         </div>
-    </footer>
 
-    <a href="https://www.facebook.com/RenjiYom0" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 bg-gray-900 text-white dark:bg-white dark:text-black px-4 py-3 rounded-lg font-bold text-sm shadow-lg hover:scale-105 transition flex items-center gap-2 z-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-bgbody" aria-label="Chat with Mark Erick on Facebook">
-        <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
-        Chat with Me
+        <div class="cards">
+
+          <article class="card rv">
+            <button class="card__media scan" type="button" data-proj="bueno"
+                    aria-label="Open BUeño case study">
+              <img src="assets/images/Projects/BUe%C3%B1o/home-hero.png"
+                   alt="BUeño home page" width="1280" height="800" loading="lazy" decoding="async">
+              <span class="card__tag mono">Flagship</span>
+              <span class="card__badge mono">View<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </button>
+            <div class="card__body">
+              <div class="card__top">
+                <h3>BUeño</h3>
+                <span class="card__yr">2026</span>
+              </div>
+              <p>One entry point for the tools Bicol University students use every day.</p>
+              <div class="card__ft">
+                <ul class="stack"><li>React</li><li>TypeScript</li><li>Neon</li></ul>
+                <span class="links">
+                  <a href="https://bueno-hub.vercel.app" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+                    Live
+                  </a>
+                </span>
+              </div>
+            </div>
+          </article>
+
+          <article class="card rv" data-d="1">
+            <button class="card__media scan" type="button" data-proj="obra"
+                    aria-label="Open Obra BU case study">
+              <img src="assets/images/Projects/Obra-BU/home-hero.png"
+                   alt="Obra BU home page" width="1280" height="800" loading="lazy" decoding="async">
+              <span class="card__badge mono">View<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </button>
+            <div class="card__body">
+              <div class="card__top">
+                <h3>Obra BU</h3>
+                <span class="card__yr">2026</span>
+              </div>
+              <p>A gallery where student artists publish their work.</p>
+              <div class="card__ft">
+                <ul class="stack"><li>Next.js</li><li>Drizzle</li><li>Auth.js</li></ul>
+                <span class="links">
+                  <a href="https://obra-bu.vercel.app" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+                    Live
+                  </a>
+                </span>
+              </div>
+            </div>
+          </article>
+
+          <article class="card rv" data-d="2">
+            <button class="card__media scan" type="button" data-proj="bulf"
+                    aria-label="Open BU Lost and Found case study">
+              <img src="assets/images/Projects/BU-L%26F/home-hero.png"
+                   alt="BU Lost and Found home page" width="1280" height="800" loading="lazy" decoding="async">
+              <span class="card__badge mono">View<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </button>
+            <div class="card__body">
+              <div class="card__top">
+                <h3>BU Lost &amp; Found</h3>
+                <span class="card__yr">2026</span>
+              </div>
+              <p>A campus registry for reporting and claiming lost items.</p>
+              <div class="card__ft">
+                <ul class="stack"><li>Next.js</li><li>Supabase</li><li>SWR</li></ul>
+                <span class="links">
+                  <a href="https://bu-lost-and-found.vercel.app" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+                    Live
+                  </a>
+                </span>
+              </div>
+            </div>
+          </article>
+
+          <article class="card rv" data-d="3">
+            <button class="card__media scan" type="button" data-proj="bufw"
+                    aria-label="Open BU Freedom Wall case study">
+              <img src="assets/images/Projects/BU-FW/bufw.png"
+                   alt="BU Freedom Wall post feed" width="1280" height="800" loading="lazy" decoding="async">
+              <span class="card__badge mono">View<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </button>
+            <div class="card__body">
+              <div class="card__top">
+                <h3>BU Freedom Wall</h3>
+                <span class="card__yr">2026</span>
+              </div>
+              <p>An anonymous posting board with bot protection built in.</p>
+              <div class="card__ft">
+                <ul class="stack"><li>Next.js</li><li>Turnstile</li><li>Supabase</li></ul>
+                <span class="links">
+                  <a href="https://bu-freedom-wall.vercel.app" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+                    Live
+                  </a>
+                </span>
+              </div>
+            </div>
+          </article>
+
+          <article class="card rv" data-d="4">
+            <button class="card__media scan" type="button" data-proj="bugwa"
+                    aria-label="Open BU GWA Calculator case study">
+              <img src="assets/images/Projects/BU-GWA/result-card.png"
+                   alt="BU GWA Calculator result card" width="1280" height="800" loading="lazy" decoding="async">
+              <span class="card__badge mono">View<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </button>
+            <div class="card__body">
+              <div class="card__top">
+                <h3>BU GWA Calculator</h3>
+                <span class="card__yr">2026</span>
+              </div>
+              <p>Weighted average and Latin honors, computed in the browser.</p>
+              <div class="card__ft">
+                <ul class="stack"><li>React</li><li>TypeScript</li><li>Vite</li></ul>
+                <span class="links">
+                  <a href="https://bueno-calculator.vercel.app" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+                    Live
+                  </a>
+                </span>
+              </div>
+            </div>
+          </article>
+
+          <article class="card rv" data-d="5">
+            <button class="card__media scan" type="button" data-proj="sms"
+                    aria-label="Open Student Management System case study">
+              <img src="assets/images/Projects/SMS%20for%20LECS/sms-landing-page.png"
+                   alt="Student Management System landing page" width="1280" height="800" loading="lazy" decoding="async">
+              <span class="card__tag mono">Capstone</span>
+              <span class="card__badge mono">View<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+            </button>
+            <div class="card__body">
+              <div class="card__top">
+                <h3>Student Management System</h3>
+                <span class="card__yr">2025</span>
+              </div>
+              <p>Digitizes school records and generates official forms automatically.</p>
+              <div class="card__ft">
+                <ul class="stack"><li>PHP</li><li>MySQL</li><li>JS</li></ul>
+                <span class="card__view">
+                  Case study
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+                </span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <div class="sectact rv">
+        <button class="btn btn--sm" type="button" data-magnet data-open-projects>
+          <span>View all projects</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+        </button>
+        <p>All eight in one list, each with a live link and a case study.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 03 Stack ──────────────────────────────────────────── -->
+  <section id="stack" aria-labelledby="h-stack">
+    <div class="shell">
+      <div class="head rv">
+        <span class="head__no">03</span>
+        <h2 id="h-stack">Stack</h2>
+        <span class="draw" aria-hidden="true"></span>
+        <span class="head__meta">What I work with</span>
+      </div>
+
+      <div class="matrix">
+        <div class="cap rv">
+          <div class="cap__top"><h3>Front-End</h3><span class="cap__no">A</span></div>
+          <ul>
+            <li>React · Next.js</li>
+            <li>TypeScript · JavaScript (ES6+)</li>
+            <li>Tailwind CSS · Hand-written CSS</li>
+            <li>HTML5 · Semantic markup</li>
+            <li>Responsive &amp; accessible UI</li>
+          </ul>
+        </div>
+
+        <div class="cap rv" data-d="1">
+          <div class="cap__top"><h3>Back-End &amp; Data</h3><span class="cap__no">B</span></div>
+          <ul>
+            <li>Node.js</li>
+            <li>Neon Serverless Postgres</li>
+            <li>Supabase · Drizzle ORM</li>
+            <li>PHP · Laravel · MySQL</li>
+            <li>Auth.js · Google OAuth · Zod</li>
+          </ul>
+        </div>
+
+        <div class="cap rv" data-d="2">
+          <div class="cap__top"><h3>Tooling</h3><span class="cap__no">C</span></div>
+          <ul>
+            <li>Vite · Oxlint</li>
+            <li>Git &amp; GitHub</li>
+            <li>Vercel · Cloudinary</li>
+            <li>Figma · VS Code</li>
+            <li>XAMPP · Composer</li>
+          </ul>
+        </div>
+
+        <div class="cap rv" data-d="3">
+          <div class="cap__top"><h3>Practice</h3><span class="cap__no">D</span></div>
+          <ul>
+            <li>Requirements gathering</li>
+            <li>Usability testing (ISO 25010)</li>
+            <li>Technical documentation</li>
+            <li>Analytical problem solving</li>
+            <li>Adaptability</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="sectact rv">
+        <button class="btn btn--sm" type="button" data-magnet data-open-stack>
+          <span>View full stack</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+        </button>
+        <p>Every language, framework and platform I've shipped with, grouped.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 04 Experience ─────────────────────────────────────── -->
+  <section id="experience" aria-labelledby="h-exp">
+    <div class="shell">
+      <div class="head rv">
+        <span class="head__no">04</span>
+        <h2 id="h-exp">Experience</h2>
+        <span class="draw" aria-hidden="true"></span>
+        <span class="head__meta">2022 — present</span>
+      </div>
+
+      <ol class="tl">
+        <li class="tl__item" data-now="true">
+          <span class="tl__yr">Feb — May 2026</span>
+          <h3>OJT Intern</h3>
+          <p class="tl__org">Bicol University · Office of the University Registrar</p>
+          <ul class="tl__pts">
+            <li>Developed the Services page for the BU Registrar Online Request System, streamlining how students find office information and submit requests.</li>
+            <li>Digitized student records and updated curricula and Transcript of Records databases, cutting document retrieval time for administrative staff.</li>
+          </ul>
+        </li>
+
+        <li class="tl__item">
+          <span class="tl__yr">2026</span>
+          <h3>BS Information System · Cum Laude</h3>
+          <p class="tl__org">Bicol University Polangui</p>
+          <ul class="tl__pts">
+            <li>Graduated with Latin honors and received Best Undergraduate Capstone Thesis in BS Information System.</li>
+            <li>Placed 2nd at the BU Polangui Student Research and Development Forum, Development Category.</li>
+          </ul>
+        </li>
+
+        <li class="tl__item">
+          <span class="tl__yr">2025 — 2026</span>
+          <h3>Capstone · Student Management System</h3>
+          <p class="tl__org">Libon East Central School</p>
+          <ul class="tl__pts">
+            <li>Engineered a secure full-stack platform to digitize academic records and automate school form generation.</li>
+            <li>Scored 4.83 / 5.00 overall usability against ISO 25010 standards across 32 respondents.</li>
+          </ul>
+        </li>
+
+        <li class="tl__item">
+          <span class="tl__yr">2024</span>
+          <h3>CartCraft &amp; FAST for CSD</h3>
+          <p class="tl__org">Academic project work</p>
+          <ul class="tl__pts">
+            <li>Built an art marketplace with a live bidding system and automated PDF reporting.</li>
+            <li>Delivered a responsive scheduling app giving students 24/7 access to faculty consultation hours.</li>
+          </ul>
+        </li>
+
+        <li class="tl__item">
+          <span class="tl__yr">2023</span>
+          <h3>First e-commerce webpage</h3>
+          <p class="tl__org">Self-directed practice</p>
+        </li>
+
+        <li class="tl__item">
+          <span class="tl__yr">2022</span>
+          <h3>Started BS Information System</h3>
+          <p class="tl__org">Bicol University Polangui</p>
+        </li>
+
+      </ol>
+    </div>
+  </section>
+
+  <!-- ── 05 Credentials ────────────────────────────────────── -->
+  <section id="credentials" aria-labelledby="h-cred">
+    <div class="shell">
+      <div class="head rv">
+        <span class="head__no">05</span>
+        <h2 id="h-cred">Credentials</h2>
+        <span class="draw" aria-hidden="true"></span>
+        <span class="head__meta">Awards &amp; recognition</span>
+      </div>
+
+      <div class="creds">
+        <article class="cred rv">
+          <div class="cred__top">
+            <span class="cred__award">Award</span>
+            <span class="mono">2026</span>
+          </div>
+          <h3>Best Undergraduate Capstone Thesis — BSIS</h3>
+          <p>
+            Awarded for the Student Management System for Libon East Central
+            School. Bicol University Polangui.
+          </p>
+        </article>
+
+        <article class="cred rv" data-d="1">
+          <div class="cred__top">
+            <span class="cred__award">2nd Place</span>
+            <span class="mono">2026</span>
+          </div>
+          <h3>BU Polangui Student Research &amp; Development Forum</h3>
+          <p>
+            Agenda 5: Inclusive and Lifelong Learning — Development Category.
+            Bicol University Polangui.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 06 Field notes ────────────────────────────────────── -->
+  <section id="fieldnotes" aria-labelledby="h-notes">
+    <div class="shell">
+      <div class="head rv">
+        <span class="head__no">06</span>
+        <h2 id="h-notes">Field Notes</h2>
+        <span class="draw" aria-hidden="true"></span>
+        <span class="head__meta">Moments from the work</span>
+      </div>
+
+      <div class="gallery">
+        <button class="shot rv" type="button" data-gal="notes" data-i="0">
+          <img src="assets/images/gallery/defended.jpg" alt="Capstone thesis defense presentation" width="800" height="600" loading="lazy" decoding="async">
+          <span class="cap">01 · Capstone defense</span>
+        </button>
+        <button class="shot rv" data-d="1" type="button" data-gal="notes" data-i="1">
+          <img src="assets/images/gallery/consePL.jpg" alt="Academic recognition ceremony" width="800" height="600" loading="lazy" decoding="async">
+          <span class="cap">02 · Academic recognition</span>
+        </button>
+        <button class="shot rv" data-d="2" type="button" data-gal="notes" data-i="2">
+          <img src="assets/images/gallery/awarded.jpg" alt="Receiving an award on stage" width="800" height="600" loading="lazy" decoding="async">
+          <span class="cap">03 · Awarding ceremony</span>
+        </button>
+        <button class="shot rv" data-d="3" type="button" data-gal="notes" data-i="3">
+          <img src="assets/images/gallery/certi.jpg" alt="Certificate of achievement" width="800" height="600" loading="lazy" decoding="async">
+          <span class="cap">04 · Certificate</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 07 Contact ────────────────────────────────────────── -->
+  <section id="contact" aria-labelledby="h-contact">
+    <div class="shell">
+      <div class="head rv">
+        <span class="head__no">07</span>
+        <h2 id="h-contact">Contact</h2>
+        <span class="draw" aria-hidden="true"></span>
+        <span class="head__meta">Let's build something</span>
+      </div>
+
+      <div class="contact">
+        <div>
+          <p class="bigtype wipe rv">Let's put me<br>to work<em>.</em></p>
+          <p class="contact__lede rv" data-d="1">
+            I'm looking for a junior web, front-end, or software engineering role
+            where I can keep shipping and keep learning. If that sounds like your
+            team, my inbox is open.
+          </p>
+          <div class="actions rv" data-d="2" style="margin-top:0">
+            <a class="btn btn--primary" data-magnet href="mailto:markerickserrano1@gmail.com?subject=Developer%20opportunity">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="1.5"/><path d="m3 6 9 6.5L21 6"/></svg>
+              <span>Send an email</span>
+            </a>
+          </div>
+        </div>
+
+        <dl class="chan rv" data-d="1">
+          <a href="mailto:markerickserrano1@gmail.com">
+            <dt>Email</dt>
+            <dd>markerickserrano1@gmail.com
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </dd>
+          </a>
+          <a href="tel:+639456823067">
+            <dt>Phone</dt>
+            <dd>+63 945 682 3067
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </dd>
+          </a>
+          <a href="https://github.com/renjiyomo" target="_blank" rel="noopener noreferrer">
+            <dt>GitHub</dt>
+            <dd>renjiyomo
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </dd>
+          </a>
+          <a href="https://www.linkedin.com/in/mark-erick-serrano-aa7763396/" target="_blank" rel="noopener noreferrer">
+            <dt>LinkedIn</dt>
+            <dd>Mark Erick Serrano
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </dd>
+          </a>
+          <a href="assets/resume/RESUME-Serrano_Mark-Erick.pdf" download="Serrano-Mark-Erick-CV.pdf">
+            <dt>Résumé</dt>
+            <dd>Download PDF
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m-4-4 4 4 4-4M5 20h14"/></svg>
+            </dd>
+          </a>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="shell foot">
+    <p>&copy; 2026 Mark Erick Serrano</p>
+    <a class="totop" href="#top">
+      Back to top
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5m-6 6 6-6 6 6"/></svg>
     </a>
+  </div>
+</footer>
 
-    <script src="assets/js/theme.js"></script>
+<!-- ── Modal shell: project detail / full stack / project index ─────── -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" data-open="false">
+  <button class="modal__veil" type="button" data-close tabindex="-1" aria-label="Close dialog"></button>
+  <div class="modal__box">
+    <div class="modal__hd">
+      <b id="modal-title">Project</b>
+      <button class="modal__x" type="button" data-close>
+        Close <span aria-hidden="true">✕</span>
+      </button>
+    </div>
+    <div class="modal__slot"></div>
+    <div class="modal__ft"></div>
+  </div>
+</div>
+
+<script src="assets/js/projects.js"></script>
+<script src="assets/js/theme.js"></script>
+<script src="assets/js/main.js"></script>
 </body>
 </html>
