@@ -244,35 +244,27 @@ window.PROJECT_ORDER = ['sms', 'bueno', 'obra', 'bulf', 'bufw', 'bugwa', 'cart',
 /* Full technology inventory for the "View full stack" modal. */
 window.TECH = [
   {
-    group: 'Frameworks & Libraries',
-    items: ['React', 'Next.js', 'React Router', 'SWR', 'Laravel']
+    group: 'Frontend',
+    items: ['React', 'Next.js', 'React Router', 'TypeScript', 'JavaScript (ES6+)', 'HTML5', 'CSS3', 'Tailwind CSS', 'Lucide React', 'SWR', 'Responsive layout', 'Accessible components']
   },
   {
-    group: 'Languages',
-    items: ['TypeScript', 'JavaScript (ES6+)', 'PHP', 'HTML5', 'CSS3', 'SQL']
+    group: 'Backend',
+    items: ['Node.js', 'PHP', 'Laravel', 'SQL', 'Auth.js / NextAuth.js', 'Google OAuth', 'Zod', 'Role-based access control', 'Cloudflare Turnstile']
   },
   {
-    group: 'Styling & UI',
-    items: ['Tailwind CSS', 'Hand-written CSS', 'Lucide React', 'Responsive layout', 'Accessible components']
-  },
-  {
-    group: 'Data',
+    group: 'Database & ORM',
     items: ['Neon Serverless Postgres', 'Supabase', 'MySQL', 'Drizzle ORM', 'Drizzle Kit', 'Schema design']
   },
   {
-    group: 'Auth & Validation',
-    items: ['Auth.js / NextAuth.js', 'Google OAuth', 'Cloudflare Turnstile', 'Zod', 'Role-based access control']
+    group: 'Developer Tools',
+    items: ['Vite', 'Git & GitHub', 'Oxlint', 'Composer', 'VS Code', 'Figma', 'XAMPP']
   },
   {
-    group: 'Tooling',
-    items: ['Vite', 'Node.js', 'Oxlint', 'Git & GitHub', 'Composer', 'VS Code', 'Figma']
+    group: 'Deployment & Services',
+    items: ['Vercel', 'Cloudinary', 'PDF / Excel / DOCX export']
   },
   {
-    group: 'Platform',
-    items: ['Vercel', 'Cloudinary', 'XAMPP', 'PDF / Excel / DOCX export']
-  },
-  {
-    group: 'Practice',
-    items: ['Requirements gathering', 'Usability testing (ISO 25010)', 'Technical documentation', 'Analytical problem solving']
+    group: 'Engineering Practice',
+    items: ['Requirements gathering', 'Usability testing (ISO 25010)', 'Technical documentation', 'Analytical problem solving', 'Adaptability']
   }
 ];
