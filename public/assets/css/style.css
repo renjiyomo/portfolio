@@ -1,27 +1,26 @@
 /* ==========================================================================
    MARK ERICK SERRANO — PORTFOLIO
-   Design system: "Technical Blueprint"
    Hand-written CSS. No framework, no build step.
 
    Contents
    01. Tokens
    02. Reset & base
-   03. Blueprint field (grid backdrop)
-   04. Layout primitives
-   05. Instruments (rail, progress, nav)
-   06. Section headers
-   07. Masthead
+   03. Layout primitives
+   04. Top bar & scroll progress
+   05. Section headers
+   06. Hero
+   07. Wave dividers & bands
    08. Buttons
-   09. Profile
-   10. Capability matrix
+   09. Facts list
+   10. Stack
    11. Work
    12. Timeline
    13. Credentials
-   14. Gallery
-   15. Contact & footer
-   16. Modal (detail / stack / index)
-   17. Motion
-   18. Reduced motion & print
+   14. Contact & footer
+   15. Modal (detail / stack / index)
+   16. Motion
+   17. Reduced motion & print
+   18. Addenda
    ========================================================================== */
 
 /* ---- 01. TOKENS -------------------------------------------------------- */
@@ -49,9 +48,37 @@
   --shell:  1180px;
   --gutter: clamp(1.25rem, 4vw, 3rem);
 
+  /* Radius scale — applied consistently, no sharp-corner cosplay */
+  --r-sm: 6px;
+  --r:    10px;
+  --r-lg: 14px;
+
+  /* Wave divider height */
+  --wave-h: clamp(44px, 6.5vw, 92px);
+
+  /* Portrait stage. The cut-out gets an arch niche behind it rather than a
+     frame. Dark theme builds depth with LIGHT — a pale wash rising behind
+     the figure. Neutral on purpose: --signal stays reserved for actions. */
+  --stage:      rgba(255, 255, 255, .052);
+  --stage-edge: rgba(255, 255, 255, .085);
+  --wash:       rgba(214, 226, 232, .10);
+
   --ease-out:  cubic-bezier(.16, 1, .3, 1);
   --ease-soft: cubic-bezier(.4, 0, .2, 1);
+  /* Theme sweep: leaves gently, then coasts a long way out, so a circle
+     crossing the whole viewport never feels like it slams open. */
+  --ease-sweep: cubic-bezier(.4, 0, .22, 1);
+  --sweep-dur: 620ms;
+
+  /* Origin of the theme sweep. theme.js overwrites these with the measured
+     centre of the toggle; the defaults aim at the top-right corner, which
+     is where the toggle lives, so the effect is still correct if the swap
+     is triggered before that script runs. */
+  --tx: 92%;
+  --ty: 2.5rem;
+  --tr: 150vmax;
 }
+
 
 html.light {
   color-scheme: light;
@@ -69,7 +96,27 @@ html.light {
   --signal-soft: rgba(138, 82, 0, .10);
   --grid:        rgba(20, 24, 26, .050);
   --shadow:      0 18px 50px -30px rgba(60, 50, 30, .45);
+  /* Inverted logic: depth on a bright ochre canvas comes from SHADE, not
+     glow — a glow here would only read as a smudge. Warm-grey so it sits
+     in the paper rather than looking like a grey sticker on it.
+
+     Deliberately not a uniform scale-up of the dark values. Ochre paper
+     (#F4F2EC) has far less headroom beneath it than near-black has above
+     it, so the same alpha that reads clearly in the dark simply vanishes
+     here — but the three layers do not need equal help:
+
+       --stage       3.4x  the arch itself has to be legible as a shape
+       --stage-edge  4.0x  the contour carries the most weight; it is the
+                           part that states "this was drawn", where soft
+                           tone alone reads as a compression artefact
+       --wash        1.5x  lightest touch — pushed further it stops being
+                           depth behind him and becomes a grey cloud */
+
+  --stage:      rgba(94, 81, 58, .175);
+  --stage-edge: rgba(94, 81, 58, .34);
+  --wash:       rgba(94, 81, 58, .145);
 }
+
 
 /* ---- 02. RESET & BASE -------------------------------------------------- */
 
@@ -179,23 +226,7 @@ p { text-wrap: pretty; }
   font-feature-settings: "zero" 1;
 }
 
-/* ---- 03. BLUEPRINT FIELD ---------------------------------------------- */
-
-.field {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background-image:
-    linear-gradient(to right,  var(--grid) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
-  background-size: 72px 72px;
-  background-position: center top;
-  -webkit-mask-image: radial-gradient(125% 85% at 50% 0%, #000 35%, transparent 78%);
-          mask-image: radial-gradient(125% 85% at 50% 0%, #000 35%, transparent 78%);
-}
-
-/* ---- 04. LAYOUT PRIMITIVES -------------------------------------------- */
+/* ---- 03. LAYOUT PRIMITIVES -------------------------------------------- */
 
 .shell {
   width: 100%;
@@ -214,40 +245,7 @@ section[id] {
   border-top: 1px solid var(--rule);
 }
 
-/* Panel: the recurring bordered surface, with registration marks */
-.panel {
-  position: relative;
-  background: var(--surface);
-  border: 1px solid var(--rule);
-  padding: clamp(1.4rem, 3vw, 2.25rem);
-}
-
-/* Corner crop marks — drafting detail */
-.panel::before,
-.panel::after {
-  content: "";
-  position: absolute;
-  width: 9px;
-  height: 9px;
-  border: 1px solid var(--rule-strong);
-  pointer-events: none;
-}
-
-.panel::before {
-  top: -1px;
-  left: -1px;
-  border-right: 0;
-  border-bottom: 0;
-}
-
-.panel::after {
-  right: -1px;
-  bottom: -1px;
-  border-left: 0;
-  border-top: 0;
-}
-
-/* ---- 05. INSTRUMENTS -------------------------------------------------- */
+/* ---- 04. TOP BAR & SCROLL PROGRESS ------------------------------------ */
 
 /* Top navigation */
 .topbar {
@@ -318,9 +316,8 @@ section[id] {
 .navlinks a:hover::after,
 .navlinks a[aria-current="true"]::after { transform: scaleX(1); }
 
-/* Small screens: the rail and crosshair are gone, so the nav becomes a
-   second row that scrolls sideways. Keeps section jumping (and the
-   aria-current position marker) available on a phone. */
+/* Small screens: the nav becomes a second row that scrolls sideways, so
+   every section stays one tap away. */
 @media (max-width: 46rem) {
   .topbar__in {
     flex-wrap: wrap;
@@ -358,6 +355,7 @@ section[id] {
 
 /* Theme toggle — a two-state mono switch, not a rounded pill */
 .themetoggle {
+  border-radius: var(--r-sm);
   display: inline-flex;
   align-items: stretch;
   border: 1px solid var(--rule);
@@ -391,72 +389,7 @@ html.light        .themetoggle span[data-for="light"] {
 
 .themetoggle:hover { border-color: var(--rule-strong); }
 
-/* Scroll rail (desktop) */
-.rail {
-  position: fixed;
-  left: max(.85rem, calc((100vw - var(--shell)) / 2 - 2.6rem));
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 80;
-  display: none;
-  flex-direction: column;
-  gap: .55rem;
-  align-items: flex-start;
-}
-
-@media (min-width: 78rem) and (pointer: fine) {
-  .rail { display: flex; }
-}
-
-.rail__pct {
-  font-family: var(--font-mono);
-  font-size: .625rem;
-  letter-spacing: .1em;
-  color: var(--muted);
-  margin-bottom: .3rem;
-  font-variant-numeric: tabular-nums;
-}
-
-.rail a {
-  display: flex;
-  align-items: center;
-  gap: .5rem;
-  color: var(--muted);
-}
-
-.rail i {
-  display: block;
-  width: 14px;
-  height: 1px;
-  background: var(--rule-strong);
-  transition: width .4s var(--ease-out), background-color .4s var(--ease-soft);
-}
-
-.rail em {
-  font-family: var(--font-mono);
-  font-size: .5625rem;
-  letter-spacing: .12em;
-  font-style: normal;
-  opacity: 0;
-  transform: translateX(-4px);
-  transition: opacity .35s var(--ease-soft), transform .35s var(--ease-out);
-  white-space: nowrap;
-}
-
-.rail a:hover i,
-.rail a[aria-current="true"] i {
-  width: 26px;
-  background: var(--signal);
-}
-
-.rail a:hover em,
-.rail a[aria-current="true"] em {
-  opacity: 1;
-  transform: none;
-  color: var(--text);
-}
-
-/* Mobile scroll progress */
+/* Reading-progress line, pinned to the very top of the viewport */
 .progress {
   position: fixed;
   top: 0;
@@ -469,33 +402,20 @@ html.light        .themetoggle span[data-for="light"] {
   z-index: 95;
 }
 
-@media (min-width: 78rem) and (pointer: fine) {
-  .progress { display: none; }
-}
+/* ---- 05. SECTION HEADERS ---------------------------------------------- */
 
-/* ---- 06. SECTION HEADERS ---------------------------------------------- */
-
+/* A real heading, then a hairline that draws itself in on reveal. */
 .head {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: clamp(1rem, 3vw, 1.75rem);
   margin-bottom: clamp(1.75rem, 4vw, 3rem);
 }
 
-.head__no {
-  font-family: var(--font-mono);
-  font-size: .6875rem;
-  letter-spacing: .1em;
-  color: var(--signal);
-  flex: none;
-}
-
 .head h2 {
-  font-family: var(--font-mono);
-  font-size: .75rem;
-  font-weight: 500;
-  letter-spacing: .18em;
-  text-transform: uppercase;
+  font-size: clamp(1.5rem, 3vw, 1.875rem);
+  font-weight: 600;
+  letter-spacing: -.03em;
   color: var(--text);
   flex: none;
 }
@@ -503,7 +423,7 @@ html.light        .themetoggle span[data-for="light"] {
 .head .draw {
   flex: 1;
   height: 1px;
-  background: var(--rule-strong);
+  background: var(--rule);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 1.1s var(--ease-out);
@@ -513,9 +433,7 @@ html.light        .themetoggle span[data-for="light"] {
 
 .head__meta {
   flex: none;
-  font-family: var(--font-mono);
-  font-size: .625rem;
-  letter-spacing: .1em;
+  font-size: .8125rem;
   color: var(--muted);
 }
 
@@ -523,61 +441,50 @@ html.light        .themetoggle span[data-for="light"] {
   .head__meta { display: none; }
 }
 
-/* ---- 07. MASTHEAD ----------------------------------------------------- */
+/* ---- 06. HERO --------------------------------------------------------- */
 
-.mast {
-  padding-block: clamp(2.5rem, 7vw, 5.5rem) clamp(2.5rem, 6vw, 4.5rem);
+/* The hero holds the cut-out portrait, so it clips at its own floor and
+   hands the last few pixels over to the wave divider. Qualified with
+   [id] to outrank the generic section[id] padding above. */
+section[id].mast {
+  position: relative;
+  overflow: hidden;
+  border-top: 0;
+  padding-block: clamp(2.25rem, 6vw, 4.5rem) 0;
 }
+
+/* Note: alignment is per-item, not on the grid. The portrait bottom-aligns
+   so the cut at its base runs into the wave; the copy is centred so the
+   name leads the section instead of sinking to the floor with it. */
 
 .mast__grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: clamp(1.75rem, 4vw, 3.25rem);
-  align-items: end;
+  gap: clamp(1.25rem, 3vw, 2.5rem);
 }
 
 @media (min-width: 56rem) {
-  .mast__grid { grid-template-columns: minmax(0, 1fr) 15.5rem; }
+  .mast__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, .78fr);
+    gap: clamp(2rem, 5vw, 4rem);
+  }
 }
 
-.status {
-  display: inline-flex;
-  align-items: center;
-  gap: .55rem;
-  border: 1px solid var(--rule);
-  background: var(--surface);
-  padding: .3rem .7rem .3rem .55rem;
-  margin-bottom: 1.5rem;
+/* Optically centred against the portrait column, with enough floor to keep
+   the buttons clear of the wave. One value for both layouts, because the
+   copy sits above the wave either way: beside the portrait on desktop,
+   below it and last in the flow on mobile. */
+.mast__intro {
+  align-self: center;
+  padding-bottom: calc(var(--wave-h) + .5rem);
 }
 
-.status i {
-  position: relative;
-  width: 6px;
-  height: 6px;
-  background: var(--signal);
-  flex: none;
-}
-
-.status i::after {
-  content: "";
-  position: absolute;
-  inset: -4px;
-  border: 1px solid var(--signal);
-  opacity: 0;
-  animation: ping 2.6s var(--ease-out) infinite;
-}
-
-@keyframes ping {
-  0%   { opacity: .8; transform: scale(.55); }
-  70%  { opacity: 0;  transform: scale(1.5); }
-  100% { opacity: 0;  transform: scale(1.5); }
-}
 
 .mast h1 {
-  font-size: clamp(2rem, 6vw, 4rem);
+  font-size: clamp(2.25rem, 6.5vw, 4.25rem);
   letter-spacing: -.045em;
   font-weight: 600;
-  margin-bottom: 1.35rem;
+  margin-bottom: .9rem;
 }
 
 .mast h1 .ln {
@@ -600,12 +507,14 @@ html.light        .themetoggle span[data-for="light"] {
   color: var(--muted);
 }
 
+/* Rhythm below the name is one proportional scale, so the block reads as a
+   single unit instead of five separately-spaced pieces. */
 .role {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: .5rem .85rem;
-  margin-bottom: 1.15rem;
+  margin-bottom: clamp(1rem, 2vw, 1.4rem);
 }
 
 .role b {
@@ -616,34 +525,43 @@ html.light        .themetoggle span[data-for="light"] {
   color: var(--text-dim);
 }
 
-.role s {
+/* Hairline between the role labels. Drawn on the label itself rather than
+   as a sibling element, so when the row wraps — which it always does on a
+   phone — a separator can never be orphaned at the start of a line. */
+.role b:not(:last-child)::after {
+  content: "";
+  display: inline-block;
   width: 18px;
   height: 1px;
+  margin-left: .85rem;
   background: var(--rule-strong);
-  text-decoration: none;
+  vertical-align: middle;
 }
 
+/* 44ch keeps the ragged edge from reaching the portrait at mid widths */
 .mast__lede {
-  max-width: 46ch;
+  max-width: 44ch;
   color: var(--muted);
   font-size: clamp(.95rem, .4vw + .86rem, 1.0625rem);
+  line-height: 1.7;
 }
 
 .mast__loc {
   display: inline-flex;
   align-items: center;
   gap: .45rem;
-  margin-top: 1.1rem;
+  margin-top: clamp(.85rem, 1.8vw, 1.15rem);
 }
 
 .mast__loc svg { width: 13px; height: 13px; flex: none; }
 
+/* Largest step in the scale — separates the actions from the copy above */
 .actions {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: .7rem;
-  margin-top: 2rem;
+  margin-top: clamp(1.5rem, 3vw, 2.1rem);
 }
 
 /* Divider between the primary actions and the social cluster */
@@ -663,6 +581,7 @@ html.light        .themetoggle span[data-for="light"] {
 
 /* Compact profile links — same visual language as .btn, icon-led */
 .iconbtn {
+  border-radius: var(--r-sm);
   display: inline-flex;
   align-items: center;
   gap: .5rem;
@@ -706,103 +625,342 @@ html.light        .themetoggle span[data-for="light"] {
   }
 }
 
-/* Portrait — no frame, just the photograph */
+/* Portrait — a cut-out figure, so no card, no frame, no border radius.
+   The source itself ends mid-calf (there are no feet in the PNG), and the
+   wave divider is what conceals that cut on this layout. */
+
 .plate {
   position: relative;
   margin: 0;
-}
-
-.plate__img {
-  position: relative;
-  aspect-ratio: 4 / 5;
-  overflow: hidden;
-  border-radius: 6px;
-  background: var(--surface-2);
-  box-shadow:
-    0 1px 2px rgba(0, 0, 0, .14),
-    0 16px 36px -18px rgba(0, 0, 0, .38);
-}
-
-.plate__img img {
+  align-self: end;
+  justify-self: center;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: inherit;
-  transition: opacity .4s var(--ease-soft), transform 1.2s var(--ease-out);
+  max-width: 24rem;
 }
 
-.plate:hover .plate__img img { transform: scale(1.03); }
+/* No contact shadow: the wave crops the figure mid-calf, so the point where
+   he would meet the floor is hidden anyway, and anything drawn in that band
+   sits beneath the wave (z-index 3). The wave is what grounds him. */
 
-/* Mobile — portrait leads the masthead */
-@media (max-width: 56rem) {
+/* ── Portrait stage ───────────────────────────────────────────────────────
+   An arch niche behind the figure. Three reasons this works where a circle
+   didn't: it echoes the standing 2:3 proportion instead of fighting it, it
+   is shorter than he is so his head and shoulders break past its top edge
+   (depth, not a sticker), and it seats into the wave at the bottom so the
+   whole composition is one object rather than a portrait plus decoration. */
+.plate__glow {
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 76%;
+  /* Starts below the crown and runs into the wave, which crops its foot */
+  top: 13%;
+  bottom: calc(var(--wave-h) * .20);
+  border-radius: 999px 999px 0 0;
+  pointer-events: none;
+  /* Densest at the base, dissolving as it rises — reads as depth behind
+     him rather than a flat panel with a visible top edge. */
+  background: linear-gradient(to top, var(--stage), transparent 88%);
+}
+
+/* Hairline tracing the arch's own contour. Structural, matching the
+   hairline vocabulary in .head .draw / .facts / .matrix — not a ring
+   floating at an arbitrary radius. Fades out before the base so it
+   never terminates in two hard stubs. */
+.plate__glow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid var(--stage-edge);
+  border-bottom: 0;
+  -webkit-mask-image: linear-gradient(to top, transparent, #000 22%);
+          mask-image: linear-gradient(to top, transparent, #000 22%);
+}
+
+/* Light wash, centred on the upper torso. Taller than wide so it follows
+   the figure, with a long falloff so there is no visible disc edge. */
+.plate__glow::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 6%;
+  width: 116%;
+  height: 62%;
+  transform: translateX(-50%);
+  background: radial-gradient(50% 50% at 50% 50%, var(--wash), transparent 72%);
+}
+
+.plate img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: auto;
+  /* Anchored to the floor of the hero — the wave takes it from here */
+  margin-bottom: 0;
+}
+
+/* ── Stacked: the portrait leads ──────────────────────────────────────────
+   He moves above the name and heads the hero. `order` does that visually
+   while the DOM keeps the h1 first, so reading order and tab order are
+   still name → role → copy → actions.
+
+   Everything below is driven by the actual pixels in Profile-nobg.png,
+   measured from its alpha channel rather than eyeballed:
+
+     canvas        1600 x 2400
+     figure        x 458..1261, y 138..2399  (804 x 2262)
+     so he fills   50.3% of the width, and his true centre line is 53.7%
+     widest row    y 1378 — 780px across
+     base          a single 613px-wide mass at the very last pixel row
+
+   Two consequences drive the whole block. First, ~47% of the image box is
+   transparent side margin, so laying it out untouched wastes half the
+   footprint and he reads small and slightly left of centre. Second, that
+   solid base is not feet — the source is cropped straight through his
+   calves. On desktop the wave hides that cut; up here nothing does.
+
+   The composition is a portrait STANDING IN the name: he is sized off the
+   viewport height, grounded by a contact pool, and the tail of his fade
+   is pulled down into the h1's cap band, so the two are one object rather
+   than a photo sitting on top of a heading.
+
+   55.999rem, not 56rem: `max-width` and `min-width` are both inclusive, so
+   a plain 56rem here would match at exactly 56rem alongside the two-column
+   rule above — and because this block comes later in the file it would win,
+   stacking the portrait inside a two-column grid on that one width. */
+@media (max-width: 55.999rem) {
+
+  /* One knob for the whole composition. Height-led, not width-led: a phone
+     in landscape or a short browser window is constrained vertically, so
+     sizing off dvh keeps him from pushing the name and the CTAs below the
+     fold. The clamp floor protects 320px; the ceiling stops him dominating
+     a 768px tablet. */
+  .mast {
+    /* Because `cover` matches the box HEIGHT (see .plate img below), the
+       figure's rendered size depends on this token alone and not on the
+       box ratio: he lands at 0.94x this height and 0.335x it wide. 42dvh
+       therefore puts him at ~333px tall on a 390x844 phone — a deliberate
+       match for the old 3/8 layout, so he is re-composed at the same
+       presence rather than quietly shrunk.
+
+       The floor is for landscape phones, where 42dvh would collapse him;
+       the ceiling stops a 768px tablet from turning him into a billboard.
+
+       vh first, dvh second: browsers without dynamic units keep the
+       fallback and everything else gets the unit that ignores the mobile
+       browser chrome, so the figure does not resize as the URL bar hides. */
+    --fig-h: clamp(13rem, 42vh, 26rem);
+    --fig-h: clamp(13rem, 42dvh, 26rem);
+
+    /* How far the base of the figure sinks into the name. A fraction of the
+       figure rather than of the viewport width, so it stays locked to the
+       18% dissolve below: 5.5 / 18 means the name always meets the fade at
+       just under a third of its ramp — visible haze over the cap band, well
+       short of the density that would cost legibility. Sizing this off vw
+       instead would drift, and the overlap would read differently on every
+       device for no reason. */
+    --fig-sink: calc(var(--fig-h) * .055);
+  }
+
   .plate {
     order: -1;
-    max-width: 15rem;
+    /* A 1 / 2 box, expressed off the height token so there is one source of
+       truth. 62vw is a guard, not the plan — it only engages on very narrow
+       or very short-and-wide viewports, where it crops a little tighter
+       instead of letting the figure run past the gutters. */
+    width: calc(var(--fig-h) / 2);
+    max-width: 62vw;
     margin-inline: auto;
+    /* Above the h1 in the paint order, so the masked tail of the figure
+       can wash over the top of the name instead of being clipped by it */
+    position: relative;
+    z-index: 2;
+  }
+
+  /* 1/2 is narrower than the source's 2/3, so `cover` matches the height and
+     spills the width — which is exactly the transparent side margin we want
+     gone. 1200px of the 1600 survives, so his 804px silhouette fills 67% of
+     the box: cropped enough to read at phone scale, but with the air around
+     him that 3/8 (89%) squeezed out. 65% (not 53.7%) is the object-position
+     that lands his centre line on the box centre once the 400px of overflow
+     is split between the two edges. */
+  .plate img {
+    height: var(--fig-h);
+    object-fit: cover;
+    object-position: 65% top;
+    /* Dissolves the calf crop. Without this the figure ends in a flat
+       613px guillotine directly above the name and reads as amputated;
+       with it he fades out and reads as standing in haze. Longer ramp
+       than the desktop arch mask (18% vs 10%) because here the fade has
+       to resolve on the open canvas with no wave to help it. */
+    -webkit-mask-image: linear-gradient(to top, transparent, #000 18%);
+            mask-image: linear-gradient(to top, transparent, #000 18%);
+  }
+
+  /* Contact pool — the figure needs a floor, otherwise he hovers. Sized and
+     placed in percentages of the figure box so it tracks --fig-h: centred at
+     10% of his height, which is the middle of the 18% dissolve above. That
+     coincidence is the whole point — the haze is densest exactly where he
+     stops being opaque, so he reads as standing IN it rather than above it.
+     Same tone as the arch, so both themes are covered with no new tokens. */
+  .plate::after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    left: 50%;
+    bottom: 2%;
+    width: 124%;
+    height: 16%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: radial-gradient(50% 50% at 50% 50%, var(--stage), transparent 72%);
+    pointer-events: none;
+  }
+
+  /* Grid gap goes to zero and the intro is pulled up by --fig-sink, so the
+     tail of the dissolve lands inside the name's cap band. Those pixels are
+     already masked to near-transparent, so it reads as haze behind the
+     letters — never a hard edge crossing them. */
+  .mast__grid { gap: 0; }
+
+  .mast__intro {
+    margin-top: calc(var(--fig-sink) * -1);
+    /* One axis for the whole stack: the name, the role, the lede, the
+       location and the actions all sit on the portrait's centre line. */
+    text-align: center;
+  }
+
+  /* Optical size-down: at 1 / 2 the figure carries the top of the hero, so
+     the name no longer has to shout to hold it. */
+  .mast h1 {
+    font-size: clamp(2rem, 8.5vw, 3.25rem);
+    margin-bottom: .75rem;
+  }
+
+  /* Centred blocks need their own centring — these are inline-flex and
+     max-width elements, which `text-align` alone does not move. */
+  .role,
+  .actions { justify-content: center; }
+
+  /* The hairline tick only works while all three labels fit on one line —
+     that needs ~590px, so on a phone the row always wraps and a stray rule
+     would be left hanging at the end of a broken line. A middot survives
+     wrapping without looking like a loose end, keeps the three labels on
+     two compact lines instead of three tall ones (vertical budget matters
+     here — the CTAs have to stay above the fold), and it is already the
+     site's separator elsewhere: "Libon, Albay · Philippines". */
+  .role { gap: .15rem .6rem; }
+
+  .role b:not(:last-child)::after {
+    content: "·";
+    width: auto;
+    height: auto;
+    margin-left: .6rem;
+    background: none;
+    color: var(--rule-strong);
+  }
+
+  /* Near the natural measure at phone widths, so it does not force extra
+     lines; on a tablet it becomes a real centred column. */
+  .mast__lede {
+    max-width: 42ch;
+    margin-inline: auto;
+  }
+
+  /* Re-fitted to the cropped box: 76% was sized against a half-empty one and
+     would now sit inside his silhouette instead of behind it. His crown is at
+     5.75%, so top:10% still lets his head and shoulders break past the arch —
+     the detail that reads as depth rather than a sticker. The base mask peaks
+     the tone just under the figure's own dissolve so the two fades agree. */
+  .plate__glow {
+    width: 92%;
+    top: 10%;
+    bottom: 0;
+    -webkit-mask-image: linear-gradient(to top, transparent, #000 14%);
+            mask-image: linear-gradient(to top, transparent, #000 14%);
+  }
+
+  /* He is the first thing seen, so he arrives first. Visual order only —
+     the DOM order, and therefore the reading and tab order, is unchanged. */
+  .plate.rv[data-d="2"] { transition-delay: 0s; }
+  .mast h1 .ln > span   { transition-delay: .08s; }
+
+  /* Less headroom above him, since he now heads the hero */
+  section[id].mast { padding-top: clamp(1rem, 3.5vw, 2rem); }
+}
+
+/* Phones: the two CTAs share a row as equal halves — side-by-side auto-width
+   buttons wrap raggedly at this size, and one full-width button per row reads
+   like a form. The social cluster then gets its own centred row, so the
+   divider between the two groups has nothing left to divide.
+
+   auto-fit, not a hard `1fr 1fr`: the longer label needs ~9.5rem to sit on
+   one line, and two of those plus the gap do not fit inside a 320px gutter,
+   where a fixed pair would clip the text (.btn is overflow:hidden for its
+   wipe fill). Below that width the pair simply becomes one column. */
+@media (max-width: 34rem) {
+  .mast .actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+    gap: .6rem;
+  }
+
+  .mast .actions .btn { justify-content: center; }
+
+  .mast .actions__rule { display: none; }
+
+  .mast .social {
+    grid-column: 1 / -1;
+    justify-content: center;
+    /* Keeps the icon row from crowding the buttons above it */
+    margin-top: .15rem;
   }
 }
 
 
-/* Spec sheet — the credential numbers */
-.spec {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  border: 1px solid var(--rule);
-  border-bottom: 0;
-  margin-top: clamp(2.5rem, 6vw, 4rem);
+
+/* ---- 07. WAVE DIVIDERS & BANDS ---------------------------------------- */
+
+/* Inline SVG pinned to the edge of a band. Slightly over-wide so the
+   sub-pixel seam at the left and right edges never shows. */
+.wave {
+  position: absolute;
+  left: -.5%;
+  width: 101%;
+  height: var(--wave-h);
+  display: block;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.wave--bottom { bottom: -1px; }
+
+/* Fill follows the band the wave hands off to, so both themes work */
+.wave path            { fill: var(--surface); }
+.wave--canvas path    { fill: var(--canvas); }
+
+/* A tinted band. The work grid sits between two waves: the hero's wave
+   closes it at the top, its own wave opens the canvas below it. */
+.band {
+  position: relative;
   background: var(--surface);
 }
 
-@media (min-width: 52rem) {
-  .spec { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+section[id].band {
+  border-top: 0;
+  padding-block:
+    clamp(3.25rem, 7vw, 6rem)
+    calc(clamp(3.25rem, 7vw, 6rem) + var(--wave-h));
 }
 
-.spec > div {
-  padding: 1.1rem clamp(.9rem, 2vw, 1.4rem) 1.2rem;
-  border-bottom: 1px solid var(--rule);
-  border-right: 1px solid var(--rule);
-  position: relative;
-  overflow: hidden;
-}
-
-@media (min-width: 52rem) {
-  .spec > div:last-child { border-right: 0; }
-}
-
-@media (max-width: 52rem) {
-  .spec > div:nth-child(2n) { border-right: 0; }
-}
-
-.spec b {
-  display: block;
-  font-family: var(--font-mono);
-  font-size: clamp(1.3rem, 3.4vw, 1.75rem);
-  font-weight: 500;
-  letter-spacing: -.02em;
-  color: var(--text);
-  font-variant-numeric: tabular-nums;
-  margin-bottom: .3rem;
-}
-
-.spec b i {
-  font-style: normal;
-  color: var(--signal);
-}
-
-.spec p {
-  font-family: var(--font-mono);
-  font-size: .625rem;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: var(--muted);
-  line-height: 1.5;
-}
+/* The next section begins beneath that wave, so it needs no rule of its own */
+.band + section[id] { border-top: 0; }
 
 /* ---- 08. BUTTONS ------------------------------------------------------ */
 
 .btn {
-  --tx: 0px;
-  --ty: 0px;
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -817,8 +975,8 @@ html.light        .themetoggle span[data-for="light"] {
   letter-spacing: .12em;
   text-transform: uppercase;
   overflow: hidden;
-  transform: translate(var(--tx), var(--ty));
-  transition: transform .45s var(--ease-out), border-color .3s var(--ease-soft), color .3s var(--ease-soft);
+  border-radius: var(--r-sm);
+  transition: border-color .3s var(--ease-soft), color .3s var(--ease-soft);
 }
 
 .btn svg {
@@ -862,34 +1020,14 @@ html.light        .themetoggle span[data-for="light"] {
 
 .btn--primary:hover { color: var(--text); }
 
-/* ---- 09. PROFILE ------------------------------------------------------ */
+/* ---- 09. FACTS LIST --------------------------------------------------- */
 
-.prose {
-  display: grid;
-  gap: clamp(1.5rem, 4vw, 3rem);
-  grid-template-columns: 1fr;
-}
-
-@media (min-width: 56rem) {
-  .prose { grid-template-columns: 1fr 1fr; }
-}
-
-.prose p {
-  color: var(--text-dim);
-  font-size: clamp(1rem, .5vw + .9rem, 1.1875rem);
-  line-height: 1.75;
-}
-
-.prose p + p { margin-top: 1.15rem; }
-
-.prose p b {
-  color: var(--text);
-  font-weight: 600;
-}
-
+/* At-a-glance credentials — degree, honors, availability. Lives in the
+   Contact section, under the ask, so the details that decide whether to
+   send the email are in the same eyeline as the button that sends it. */
 .facts {
-  align-self: start;
   border-top: 1px solid var(--rule);
+  margin-top: clamp(1.75rem, 3.5vw, 2.5rem);
 }
 
 .facts div {
@@ -916,9 +1054,11 @@ html.light        .themetoggle span[data-for="light"] {
   color: var(--text);
 }
 
-/* ---- 10. CAPABILITY MATRIX -------------------------------------------- */
+/* ---- 10. STACK -------------------------------------------------------- */
 
 .matrix {
+  border-radius: var(--r);
+  overflow: hidden;
   display: grid;
   gap: 1px;
   background: var(--rule);
@@ -961,12 +1101,6 @@ html.light        .themetoggle span[data-for="light"] {
   color: var(--text);
 }
 
-.cap__no {
-  font-family: var(--font-mono);
-  font-size: .625rem;
-  color: var(--signal);
-}
-
 .cap li {
   position: relative;
   padding-left: 1.05rem;
@@ -1001,30 +1135,6 @@ html.light        .themetoggle span[data-for="light"] {
   gap: clamp(1.75rem, 4vw, 3rem);
 }
 
-/* Tier label between project groups */
-.tier {
-  display: flex;
-
-  align-items: center;
-  gap: .85rem;
-  margin-bottom: -.4rem;
-}
-
-.tier span {
-  font-family: var(--font-mono);
-  font-size: .625rem;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  color: var(--muted);
-  flex: none;
-}
-
-.tier i {
-  flex: 1;
-  height: 1px;
-  background: var(--rule);
-}
-
 /* Standard project cards */
 .cards {
   display: grid;
@@ -1041,6 +1151,8 @@ html.light        .themetoggle span[data-for="light"] {
 }
 
 .card {
+  border-radius: var(--r);
+  overflow: hidden;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -1095,32 +1207,6 @@ html.light        .themetoggle span[data-for="light"] {
   padding: .3rem .55rem;
 }
 
-/* No-image variant gets a blueprint hatch instead of a stock photo */
-
-.card__hatch {
-  display: grid;
-  place-items: center;
-  aspect-ratio: 16 / 10;
-  border-bottom: 1px solid var(--rule);
-  background-image: repeating-linear-gradient(
-    -45deg,
-    var(--grid) 0 1px,
-    transparent 1px 9px
-  );
-  background-color: var(--surface-2);
-}
-
-.card__hatch span {
-  font-family: var(--font-mono);
-  font-size: .625rem;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  color: var(--muted);
-  border: 1px solid var(--rule-strong);
-  background: var(--surface);
-  padding: .4rem .7rem;
-}
-
 .card__body {
   padding: 1.15rem 1.25rem 1.35rem;
   display: flex;
@@ -1172,6 +1258,7 @@ html.light        .themetoggle span[data-for="light"] {
 }
 
 .stack li {
+  border-radius: 4px;
   font-family: var(--font-mono);
   font-size: .5625rem;
   letter-spacing: .1em;
@@ -1226,6 +1313,21 @@ html.light        .themetoggle span[data-for="light"] {
 }
 
 .links svg { width: 12px; height: 12px; }
+
+/* On the tinted band the cards would otherwise be --surface on --surface,
+   losing their edge entirely. Everything lifts one step up the scale so the
+   separation survives — and it survives in both themes, because the tokens
+   move in opposite directions: dark goes lighter (#121517 → #171B1E) while
+   light goes deeper (#FBFAF7 → #EFECE2).
+
+   :not(.btn--primary) guards the wipe-fill button — a primary in here must
+   keep its --signal background, and .band .btn would otherwise outrank it. */
+.band .card,
+.band .btn:not(.btn--primary) { background: var(--surface-2); }
+
+/* Media placeholder, seen while a screenshot is still loading — held one
+   step back so it reads as a recess in the card, not a panel on top. */
+.band .card__media { background: var(--surface); }
 
 /* ---- 12. TIMELINE ----------------------------------------------------- */
 
@@ -1334,6 +1436,8 @@ html.light        .themetoggle span[data-for="light"] {
 /* ---- 13. CREDENTIALS -------------------------------------------------- */
 
 .creds {
+  border-radius: var(--r);
+  overflow: hidden;
   display: grid;
   gap: 1px;
   background: var(--rule);
@@ -1384,46 +1488,7 @@ html.light        .themetoggle span[data-for="light"] {
   color: var(--muted);
 }
 
-/* ---- 14. GALLERY ------------------------------------------------------ */
-
-.gallery {
-  display: grid;
-  gap: clamp(.75rem, 2vw, 1.15rem);
-  grid-template-columns: repeat(2, 1fr);
-}
-
-@media (min-width: 52rem) {
-  .gallery { grid-template-columns: repeat(4, 1fr); }
-}
-
-.shot {
-  position: relative;
-  aspect-ratio: 4 / 3;
-  overflow: hidden;
-  border: 1px solid var(--rule);
-  background: var(--surface-2);
-  width: 100%;
-  padding: 0;
-}
-
-.shot img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: saturate(.8);
-  transition: transform 1s var(--ease-out), filter .45s var(--ease-soft);
-}
-
-.shot:hover img,
-.shot:focus-visible img {
-  transform: scale(1.05);
-  filter: saturate(1);
-}
-
-/* Caption styling lives in §19 (.shot .cap) — a <button> cannot contain
-   a <figcaption>, so the markup uses a <span>. */
-
-/* ---- 15. CONTACT & FOOTER -------------------------------------------- */
+/* ---- 14. CONTACT & FOOTER -------------------------------------------- */
 
 .contact {
   display: grid;
@@ -1437,7 +1502,7 @@ html.light        .themetoggle span[data-for="light"] {
 }
 
 /* The large contact statement is a <p class="bigtype">, not a heading —
-   the section already has its h2 in the .head row. See §19. */
+   the section already has its h2 in the .head row. See §18. */
 
 .contact__lede {
   color: var(--text-dim);
@@ -1544,7 +1609,7 @@ footer {
 
 .totop:hover svg { transform: translateY(-3px); }
 
-/* ---- 16. MODAL ------------------------------------------------------- */
+/* ---- 15. MODAL ------------------------------------------------------- */
 
 /* One shell, three views: project detail, full stack, project index. */
 .modal {
@@ -1577,6 +1642,7 @@ footer {
 .modal[data-shown="true"] .modal__veil { opacity: 1; }
 
 .modal__box {
+  border-radius: var(--r-lg);
   position: relative;
   width: min(78rem, 100%);
 
@@ -1621,6 +1687,7 @@ footer {
 }
 
 .modal__x {
+  border-radius: 4px;
   display: inline-flex;
   align-items: center;
   gap: .4rem;
@@ -1666,7 +1733,7 @@ footer {
 
 body[data-locked="true"] { overflow: hidden; }
 
-/* ---- 16a. VIEW: PROJECT DETAIL --------------------------------------- */
+/* ---- 15a. VIEW: PROJECT DETAIL --------------------------------------- */
 
 .det {
   display: grid;
@@ -1727,6 +1794,7 @@ body[data-locked="true"] { overflow: hidden; }
 
 
 .det__nav {
+  border-radius: 4px;
   position: absolute;
   top: calc(50% - 2.2rem);
   transform: translateY(-50%);
@@ -1884,6 +1952,7 @@ body[data-locked="true"] { overflow: hidden; }
 }
 
 .chips li {
+  border-radius: 4px;
   font-family: var(--font-mono);
   font-size: .625rem;
   letter-spacing: .06em;
@@ -1901,7 +1970,7 @@ body[data-locked="true"] { overflow: hidden; }
   padding: .22rem .45rem;
 }
 
-/* ---- 16b. VIEW: FULL STACK ------------------------------------------- */
+/* ---- 15b. VIEW: FULL STACK ------------------------------------------- */
 
 .techlist {
   display: grid;
@@ -1943,7 +2012,7 @@ body[data-locked="true"] { overflow: hidden; }
 
 .techlist__hd span { color: var(--signal); }
 
-/* ---- 16c. VIEW: PROJECT INDEX ---------------------------------------- */
+/* ---- 15c. VIEW: PROJECT INDEX ---------------------------------------- */
 
 .plist { display: flex; flex-direction: column; }
 
@@ -1974,6 +2043,7 @@ body[data-locked="true"] { overflow: hidden; }
 }
 
 .plist__go {
+  border-radius: 4px;
   display: inline-flex;
   align-items: center;
   gap: .4rem;
@@ -2068,7 +2138,7 @@ body[data-locked="true"] { overflow: hidden; }
   margin-top: .15rem;
 }
 
-/* ---- 17. MOTION ------------------------------------------------------ */
+/* ---- 16. MOTION ------------------------------------------------------ */
 
 /* Base reveal: fade + rise */
 .rv {
@@ -2097,64 +2167,101 @@ body[data-locked="true"] { overflow: hidden; }
 .rv[data-d="4"] { transition-delay: .28s; }
 .rv[data-d="5"] { transition-delay: .35s; }
 
-/* Scanline sweep across media on reveal */
-.scan { position: relative; }
+/* ── Theme sweep ──────────────────────────────────────────────────────────
+   A circle centred on the toggle, and the direction carries meaning:
 
-.scan::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 1px;
-  background: var(--signal);
-  box-shadow: 0 0 14px 2px var(--signal);
-  opacity: 0;
-  pointer-events: none;
-  z-index: 2;
+     dark → light   the incoming theme GROWS out of the toggle
+     light → dark   the outgoing theme RETREATS back into the toggle
+
+   So the toggle is always the source of the change, and reversing your
+   choice literally reverses the motion. theme.js measures the toggle and
+   writes --tx / --ty / --tr before the swap.
+
+   Crucially the layer that is not moving holds perfectly still underneath
+   instead of fading, so there is never a washed-out halfway state where
+   both themes are semi-transparent at once — the new theme is simply
+   uncovered, one hard edge travelling across the page. */
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    /* Drop the UA crossfade; the geometry below replaces it. plus-lighter
+       would brighten wherever the two snapshots overlap. */
+    animation: none;
+    mix-blend-mode: normal;
+  }
+
+  /* Going light: new theme on top, opening from the toggle */
+  html.sweep-in::view-transition-new(root) {
+    z-index: 1;
+    animation: sweep-open var(--sweep-dur) var(--ease-sweep) both;
+  }
+
+  /* Going dark: old theme on top, closing into the toggle */
+  html.sweep-out::view-transition-old(root) {
+    z-index: 1;
+    animation: sweep-shut var(--sweep-dur) var(--ease-sweep) both;
+  }
 }
 
-.scan > img,
-.scan > video {
-  clip-path: inset(0 0 100% 0);
-  transition: clip-path 1.15s var(--ease-out);
+/* 0px, not 0 — a bare 0 is not a <length-percentage>, so the radius would
+   fail to interpolate and the circle would jump instead of growing. */
+@keyframes sweep-open {
+  from { clip-path: circle(0px       at var(--tx) var(--ty)); }
+  to   { clip-path: circle(var(--tr) at var(--tx) var(--ty)); }
 }
 
-.scan.in > img,
-.scan.in > video { clip-path: inset(0 0 0 0); }
-
-.scan.in::after { animation: sweep 1.15s var(--ease-out) forwards; }
-
-@keyframes sweep {
-  0%   { opacity: 0;   transform: translateY(0); }
-  12%  { opacity: .95; }
-  85%  { opacity: .55; }
-  100% { opacity: 0;   transform: translateY(var(--sweep-h, 400px)); }
+@keyframes sweep-shut {
+  from { clip-path: circle(var(--tr) at var(--tx) var(--ty)); }
+  to   { clip-path: circle(0px       at var(--tx) var(--ty)); }
 }
 
-/* Theme crossfade fallback for browsers without View Transitions */
+
+/* Fallback for browsers with no View Transitions (Firefox, older Safari).
+   Snapshots are not available there, so the colours are crossfaded via a
+   property transition instead — and a soft wavefront of the incoming
+   canvas rides out from (or back into) the toggle on top of it, so the
+   swap still reads as "this came from the button you pressed". */
 html.theming,
 html.theming *,
 html.theming *::before,
 html.theming *::after {
   transition:
-    background-color .45s var(--ease-soft),
-    border-color     .45s var(--ease-soft),
-    color            .45s var(--ease-soft),
-    fill             .45s var(--ease-soft),
-    box-shadow       .45s var(--ease-soft) !important;
+    background-color var(--sweep-dur) var(--ease-sweep),
+    border-color     var(--sweep-dur) var(--ease-sweep),
+    color            var(--sweep-dur) var(--ease-sweep),
+    fill             var(--sweep-dur) var(--ease-sweep),
+    box-shadow       var(--sweep-dur) var(--ease-sweep) !important;
 }
 
-/* View Transitions crossfade */
-@media (prefers-reduced-motion: no-preference) {
-  ::view-transition-old(root),
-  ::view-transition-new(root) {
-    animation-duration: .45s;
-    animation-timing-function: cubic-bezier(.4, 0, .2, 1);
-  }
+.sweep {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  pointer-events: none;
+  /* Soft-edged, and never fully opaque — it tints the wavefront rather
+     than hiding the page behind a flat disc of colour. theme.js passes the
+     light canvas as the tint in both directions, so light is always the
+     thing that arrives or leaves. */
+  background: radial-gradient(circle at var(--tx) var(--ty),
+              var(--sweep-tint, var(--canvas)) 40%, transparent 72%);
+  animation: sweep-wave var(--sweep-dur) var(--ease-sweep) both;
 }
 
-/* ---- 18. REDUCED MOTION & PRINT -------------------------------------- */
+.sweep--out { animation-name: sweep-wave-back; }
+
+@keyframes sweep-wave {
+  from { opacity: .55; clip-path: circle(0px       at var(--tx) var(--ty)); }
+  to   { opacity: 0;   clip-path: circle(var(--tr) at var(--tx) var(--ty)); }
+}
+
+@keyframes sweep-wave-back {
+  from { opacity: 0;   clip-path: circle(var(--tr) at var(--tx) var(--ty)); }
+  to   { opacity: .55; clip-path: circle(0px       at var(--tx) var(--ty)); }
+}
+
+
+
+/* ---- 17. REDUCED MOTION & PRINT -------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -2170,8 +2277,6 @@ html.theming *::after {
 
   .rv,
   .wipe,
-  .scan > img,
-  .scan > video,
   .mast h1 .ln > span {
     opacity: 1 !important;
     transform: none !important;
@@ -2180,15 +2285,11 @@ html.theming *::after {
 
   .head .draw,
   .tl__item::before { transform: scaleX(1) !important; }
-
-  .scan::after { display: none !important; }
 }
 
 @media print {
   .topbar,
-  .rail,
   .progress,
-  .field,
   .modal,
   .totop { display: none !important; }
 
@@ -2204,7 +2305,7 @@ html.theming *::after {
   section[id] { page-break-inside: avoid; }
 }
 
-/* ---- 19. BUTTON-BASED MEDIA & ADDENDA -------------------------------- */
+/* ---- 18. ADDENDA ----------------------------------------------------- */
 
 /* Media areas that open the lightbox are real buttons; strip UA chrome. */
 button.card__media {
@@ -2219,24 +2320,6 @@ button.card__media {
 }
 
 button.card__media:hover img { cursor: zoom-in; }
-
-/* The hatch variant is also a button, but it lays out as a grid, so it keeps
-   its own display and bottom rule rather than joining the reset above. */
-button.card__hatch {
-  width: 100%;
-  padding: 0;
-  border: 0;
-  border-bottom: 1px solid var(--rule);
-  color: inherit;
-  font: inherit;
-  cursor: pointer;
-}
-
-button.card__hatch:hover span,
-button.card__hatch:focus-visible span {
-  color: var(--text);
-  border-color: var(--signal);
-}
 
 /* "View" badge over card media */
 .card__badge {
@@ -2283,29 +2366,6 @@ button.card__media:focus-visible .card__badge {
   color: var(--signal);
 }
 
-/* Gallery caption (span, since figcaption needs a figure parent) */
-.shot .cap {
-  position: absolute;
-  inset: auto 0 0 0;
-  padding: 1.6rem .7rem .55rem;
-  background: linear-gradient(to top, rgba(0, 0, 0, .82), transparent);
-  color: #fff;
-  font-family: var(--font-mono);
-  font-size: .5625rem;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  text-align: left;
-  opacity: 0;
-  transform: translateY(6px);
-  transition: opacity .35s var(--ease-soft), transform .35s var(--ease-out);
-}
-
-.shot:hover .cap,
-.shot:focus-visible .cap {
-  opacity: 1;
-  transform: none;
-}
-
 /* Compact button for section headers and modal footers */
 .btn--sm {
   padding: .55rem .85rem;
@@ -2330,8 +2390,7 @@ button.card__media:focus-visible .card__badge {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .card__badge,
-  .shot .cap {
+  .card__badge {
     opacity: 1 !important;
     transform: none !important;
   }

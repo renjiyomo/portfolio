@@ -4,14 +4,13 @@
    01 · Helpers
    02 · Reveal on scroll
    03 · Scroll progress + sticky top bar
-   04 · Active section (rail + nav)
-   05 · Magnetic buttons
-   06 · Smooth in-page scrolling
-   07 · Modal shell (focus trap, Esc, scroll lock)
-   08 · Project detail modal
-   09 · Full stack modal
-   10 · Project index modal
-   11 · Plain image gallery (field notes)
+   04 · Active section
+   05 · Smooth in-page scrolling
+   06 · Modal shell (focus trap, Esc, scroll lock)
+   07 · Project detail modal
+   08 · Full stack modal
+   09 · Project index modal
+   10 · Triggers
 
    Every animated behaviour is gated behind prefers-reduced-motion. When motion
    is reduced, content is shown immediately rather than withheld.
@@ -79,7 +78,7 @@
   /* ══ 02 · Reveal on scroll ════════════════════════════════ */
 
   (function reveals() {
-    var targets = $$('.rv, .wipe, .scan, .head, .mast, .tl__item');
+    var targets = $$('.rv, .wipe, .head, .mast, .tl__item');
     if (!targets.length) return;
 
     if (reduced || !('IntersectionObserver' in window)) {
@@ -87,15 +86,9 @@
       return;
     }
 
-    function primeScan(node) {
-      if (!node.classList.contains('scan')) return;
-      node.style.setProperty('--sweep-h', node.offsetHeight + 'px');
-    }
-
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
-        primeScan(entry.target);
         entry.target.classList.add('in');
         io.unobserve(entry.target);
       });
@@ -118,7 +111,6 @@
   (function progress() {
     var bar = $('.progress');
     var topbar = $('.topbar');
-    var pct = $('[data-pct]');
 
     var update = onFrame(function () {
       var max = document.documentElement.scrollHeight - window.innerHeight;
@@ -126,10 +118,6 @@
 
       if (bar) bar.style.setProperty('--p', ratio.toFixed(4));
       if (topbar) topbar.dataset.stuck = String(window.scrollY > 12);
-      if (pct) {
-        var n = Math.round(ratio * 100);
-        pct.textContent = (n < 10 ? '00' : n < 100 ? '0' : '') + n;
-      }
     });
 
     update();
@@ -144,7 +132,7 @@
     var sections = $$('main section[id]');
     if (!sections.length) return;
 
-    var links = $$('.rail a[href^="#"], .navlinks a[href^="#"]');
+    var links = $$('.navlinks a[href^="#"]');
 
     var update = onFrame(function () {
       var line = window.innerHeight * 0.34;
@@ -170,34 +158,7 @@
   })();
 
 
-  /* ══ 05 · Magnetic buttons ════════════════════════════════ */
-
-  (function magnets() {
-    if (reduced || !finePointer) return;
-
-    $$('[data-magnet]').forEach(function (node) {
-      var PULL = 5;
-
-      node.addEventListener('mousemove', function (e) {
-        var r = node.getBoundingClientRect();
-        var dx = (e.clientX - (r.left + r.width / 2)) / (r.width / 2);
-        var dy = (e.clientY - (r.top + r.height / 2)) / (r.height / 2);
-        node.style.setProperty('--tx', (clamp(dx, -1, 1) * PULL).toFixed(2) + 'px');
-        node.style.setProperty('--ty', (clamp(dy, -1, 1) * PULL).toFixed(2) + 'px');
-      });
-
-      var release = function () {
-        node.style.setProperty('--tx', '0px');
-        node.style.setProperty('--ty', '0px');
-      };
-
-      node.addEventListener('mouseleave', release);
-      node.addEventListener('blur', release);
-    });
-  })();
-
-
-  /* ══ 06 · Smooth in-page scrolling ════════════════════════ */
+  /* ══ 05 · Smooth in-page scrolling ════════════════════════ */
 
   (function anchors() {
     $$('a[href^="#"]').forEach(function (a) {
@@ -222,7 +183,7 @@
   })();
 
 
-  /* ══ 07 · Modal shell ════════════════════════════════════ */
+  /* ══ 06 · Modal shell ════════════════════════════════════ */
   /* One dialog element serves three views: project detail, full stack, and
      the project index. Whoever opens it supplies a title and a body node.   */
 
@@ -345,7 +306,7 @@
   })();
 
 
-  /* ══ 08 · Project detail modal ═══════════════════════════ */
+  /* ══ 07 · Project detail modal ═══════════════════════════ */
   /* Full case study: description, stack, live/code actions, and a carousel
      of every capture for that project.                                     */
 
@@ -462,8 +423,8 @@
       /* — Written detail — */
       var copy = el('div', 'det__copy');
 
-      /* Records without a stack are galleries, not builds (e.g. field notes),
-         so they skip deployment status entirely. */
+      /* A record with no stack is not a build, so it skips deployment
+         status entirely. */
       var isProject = !!(rec.stack && rec.stack.length);
 
       var meta = el('div', 'det__meta');
@@ -528,7 +489,7 @@
   })();
 
 
-  /* ══ 09 · Full stack modal ═══════════════════════════════ */
+  /* ══ 08 · Full stack modal ═══════════════════════════════ */
 
   (function stackModal() {
     if (!Modal) return;
@@ -554,7 +515,7 @@
   })();
 
 
-  /* ══ 10 · Project index modal ════════════════════════════ */
+  /* ══ 09 · Project index modal ════════════════════════════ */
   /* Every project in one list, each row opening its detail view. */
 
   (function indexModal() {
@@ -622,9 +583,8 @@
   })();
 
 
-  /* ══ 11 · Triggers ═══════════════════════════════════════ */
-  /* [data-proj] opens a project detail view.
-     [data-gal] opens a plain image carousel (field notes).                  */
+  /* ══ 10 · Triggers ═══════════════════════════════════════ */
+  /* [data-proj] opens a project detail view. */
 
   (function triggers() {
     if (!Detail) return;
@@ -632,12 +592,6 @@
     $$('[data-proj]').forEach(function (node) {
       node.addEventListener('click', function () {
         Detail.show(node.dataset.proj, parseInt(node.dataset.i, 10) || 0, false);
-      });
-    });
-
-    $$('[data-gal]').forEach(function (node) {
-      node.addEventListener('click', function () {
-        Detail.show(node.dataset.gal, parseInt(node.dataset.i, 10) || 0, false);
       });
     });
   })();

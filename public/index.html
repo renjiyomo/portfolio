@@ -8,8 +8,8 @@
 <meta name="description" content="Mark Erick Serrano is a web and front-end developer from Albay, Philippines. BS Information System (Cum Laude), Bicol University Polangui. Five deployed applications built with React, Next.js, TypeScript, Postgres and Tailwind CSS.">
 <meta name="author" content="Mark Erick Padua Serrano">
 <meta name="keywords" content="Mark Erick Serrano, Web Developer, Front-End Developer, Junior Software Engineer, React, Next.js, TypeScript, PostgreSQL, Supabase, Tailwind CSS, PHP, Laravel, Philippines, Bicol University">
-<meta name="theme-color" content="#0B0D0E" media="(prefers-color-scheme: dark)">
-<meta name="theme-color" content="#F4F2EC" media="(prefers-color-scheme: light)">
+<!-- Dark is the default for everyone; theme.js rewrites this on opt-in -->
+<meta name="theme-color" content="#0B0D0E">
 <link rel="canonical" href="https://markerick.vercel.app/">
 
 <meta property="og:type" content="website">
@@ -28,13 +28,15 @@
 <link rel="icon" type="image/jpeg" href="assets/images/dark-profile-BW.jpg">
 <link rel="apple-touch-icon" href="assets/images/dark-profile-BW.jpg">
 
-<!-- Theme is resolved before first paint so there is never a flash -->
+<!-- Theme is resolved before first paint so there is never a flash.
+     Dark is the unconditional default: the OS preference is deliberately
+     ignored, so light is only ever a stored, opted-into choice. -->
 <script>
   (function () {
     try {
-      var s = localStorage.getItem('theme');
-      var t = s || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
-      if (t === 'light') document.documentElement.classList.add('light');
+      if (localStorage.getItem('theme') === 'light') {
+        document.documentElement.classList.add('light');
+      }
     } catch (e) {}
   })();
 </script>
@@ -43,6 +45,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="assets/css/style.css">
+<link rel="preload" as="image" href="assets/images/Profile-nobg.png" fetchpriority="high">
 
 <script type="application/ld+json">
 {
@@ -64,7 +67,6 @@
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
-<div class="field" aria-hidden="true"></div>
 <div class="progress" aria-hidden="true"></div>
 
 <!-- ── Top bar ─────────────────────────────────────────────── -->
@@ -75,10 +77,10 @@
     </a>
 
     <nav class="navlinks" aria-label="Sections">
-      <a href="#profile">Profile</a>
       <a href="#projects">Projects</a>
       <a href="#stack">Stack</a>
       <a href="#experience">Experience</a>
+      <a href="#credentials">Credentials</a>
       <a href="#contact">Contact</a>
     </nav>
 
@@ -93,18 +95,6 @@
   </div>
 </header>
 
-<!-- ── Section rail ────────────────────────────────────────── -->
-<nav class="rail" aria-label="Page progress">
-  <span class="rail__pct" data-pct>000</span>
-  <a href="#profile"><i></i><em>01 Profile</em></a>
-  <a href="#projects"><i></i><em>02 Projects</em></a>
-  <a href="#stack"><i></i><em>03 Stack</em></a>
-  <a href="#experience"><i></i><em>04 Experience</em></a>
-  <a href="#credentials"><i></i><em>05 Credentials</em></a>
-  <a href="#fieldnotes"><i></i><em>06 Field Notes</em></a>
-  <a href="#contact"><i></i><em>07 Contact</em></a>
-</nav>
-
 <main id="main">
 
   <!-- ── Masthead ──────────────────────────────────────────── -->
@@ -118,11 +108,11 @@
             <span class="ln"><span>Mark Erick Serrano</span></span>
           </h1>
 
+          <!-- Separators between these are drawn in CSS (.role b::after) so
+               they can never be orphaned when the row wraps on a phone. -->
           <div class="role rv" data-d="1">
             <b>Full Stack Web Developer</b>
-            <s aria-hidden="true"></s>
             <b>Front-End Developer</b>
-            <s aria-hidden="true"></s>
             <b>BS Information System</b>
           </div>
 
@@ -137,11 +127,11 @@
           </p>
 
           <div class="actions rv" data-d="4">
-            <a class="btn btn--primary" data-magnet href="mailto:markerickserrano1@gmail.com?subject=Developer%20opportunity">
+            <a class="btn btn--primary" href="mailto:markerickserrano1@gmail.com?subject=Developer%20opportunity">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="1.5"/><path d="m3 6 9 6.5L21 6"/></svg>
               <span>Get in touch</span>
             </a>
-            <a class="btn" data-magnet href="assets/resume/Mark_Erick_Serrano_Resume.pdf" download="Mark_Erick_Serrano_Resume.pdf">
+            <a class="btn" href="assets/resume/Mark_Erick_Serrano_Resume.pdf" download="Mark_Erick_Serrano_Resume.pdf">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7.5 10.5 4.5 4.5 4.5-4.5"/><path d="M4 20h16"/></svg>
               <span>Download CV</span>
             </a>
@@ -161,92 +151,37 @@
         </div>
 
         <figure class="plate rv" data-d="2">
-          <div class="plate__img">
-            <img id="portrait" src="assets/images/dark-profile.jpg"
-                 alt="Portrait of Mark Erick Serrano" width="640" height="800"
-                 fetchpriority="high" decoding="async">
-          </div>
+          <span class="plate__glow" aria-hidden="true"></span>
+          <img id="portrait" src="assets/images/Profile-nobg.png"
+               alt="Mark Erick Serrano" width="1600" height="2400"
+               fetchpriority="high" decoding="async">
         </figure>
 
       </div>
-
-      <!-- Spec sheet -->
-      <div class="spec rv" data-d="3">
-        <div>
-          <b>4.83<i>/5.00</i></b>
-          <p>ISO 25010 usability<br>32 respondents</p>
-        </div>
-        <div>
-          <b>2<i>nd</i></b>
-          <p>BU Polangui R&amp;D<br>Forum · 2026</p>
-        </div>
-        <div>
-          <b>05</b>
-          <p>Applications live<br>in production</p>
-        </div>
-        <div>
-          <b>2026</b>
-          <p>BSIS Cum Laude<br>BU Polangui</p>
-        </div>
-      </div>
     </div>
+
+    <!-- Closes the hero and crops the portrait at the ankles -->
+    <svg class="wave wave--bottom" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+      <path d="M0,64 C240,120 480,8 720,40 C960,72 1200,120 1440,72 L1440,120 L0,120 Z"/>
+    </svg>
   </section>
 
-  <!-- ── 01 Profile ────────────────────────────────────────── -->
-  <section id="profile" aria-labelledby="h-profile">
+  <!-- ── Projects ─────────────────────────────────────────────
+       The work grid is the banded section: the hero's wave closes into it
+       and its own wave opens the canvas again for Stack. -->
+  <section id="projects" class="band" aria-labelledby="h-projects">
     <div class="shell">
       <div class="head rv">
-        <span class="head__no">01</span>
-        <h2 id="h-profile">Profile</h2>
-        <span class="draw" aria-hidden="true"></span>
-        <span class="head__meta">Who I am</span>
-      </div>
-
-      <div class="prose">
-        <div class="rv">
-          <p>
-            I'm a <b>full-stack web developer and Information System graduate (Cum Laude)</b>
-            from Bicol University Polangui. Most of my work so far has been
-            automating administrative processes that used to run on paper,
-            student records, school forms, faculty schedules, and giving them
-            interfaces people can actually use without training.
-          </p>
-        </div>
-
-        <dl class="facts rv" data-d="1">
-          <div><dt>Location</dt><dd>Libon, Albay, PH</dd></div>
-          <div><dt>Degree</dt><dd>BS Information System</dd></div>
-          <div><dt>Honors</dt><dd>Cum Laude · 2026</dd></div>
-          <div><dt>Focus</dt><dd>Front-End &amp; Full-Stack</dd></div>
-          <div><dt>Languages</dt><dd>English · Tagalog · Bikol</dd></div>
-          <div><dt>Status</dt><dd>Open to opportunities</dd></div>
-        </dl>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── 02 Projects ───────────────────────────────────────── -->
-  <section id="projects" aria-labelledby="h-projects">
-    <div class="shell">
-      <div class="head rv">
-        <span class="head__no">02</span>
         <h2 id="h-projects">Projects</h2>
         <span class="draw" aria-hidden="true"></span>
-        <span class="head__meta">06 featured · 08 total</span>
       </div>
 
       <div class="work">
 
-        <div class="tier rv">
-          <span>Selected work</span>
-          <i aria-hidden="true"></i>
-          <span>06</span>
-        </div>
-
         <div class="cards">
 
           <article class="card rv">
-            <button class="card__media scan" type="button" data-proj="sms"
+            <button class="card__media" type="button" data-proj="sms"
                     aria-label="Open Student Management System case study">
               <img src="assets/images/Projects/SMS%20for%20LECS/sms-landing-page.png"
                    alt="Student Management System landing page" width="1280" height="800" loading="lazy" decoding="async">
@@ -270,7 +205,7 @@
           </article>
 
           <article class="card rv" data-d="1">
-            <button class="card__media scan" type="button" data-proj="bueno"
+            <button class="card__media" type="button" data-proj="bueno"
                     aria-label="Open BUeño case study">
               <img src="assets/images/Projects/BUe%C3%B1o/home-hero.png"
                    alt="BUeño home page" width="1280" height="800" loading="lazy" decoding="async">
@@ -296,7 +231,7 @@
           </article>
 
           <article class="card rv" data-d="2">
-            <button class="card__media scan" type="button" data-proj="obra"
+            <button class="card__media" type="button" data-proj="obra"
                     aria-label="Open Obra BU case study">
               <img src="assets/images/Projects/Obra-BU/home-hero.png"
                    alt="Obra BU home page" width="1280" height="800" loading="lazy" decoding="async">
@@ -321,7 +256,7 @@
           </article>
 
           <article class="card rv" data-d="3">
-            <button class="card__media scan" type="button" data-proj="bulf"
+            <button class="card__media" type="button" data-proj="bulf"
                     aria-label="Open BU Lost and Found case study">
               <img src="assets/images/Projects/BU-L%26F/home-hero.png"
                    alt="BU Lost and Found home page" width="1280" height="800" loading="lazy" decoding="async">
@@ -346,7 +281,7 @@
           </article>
 
           <article class="card rv" data-d="4">
-            <button class="card__media scan" type="button" data-proj="bufw"
+            <button class="card__media" type="button" data-proj="bufw"
                     aria-label="Open BU Freedom Wall case study">
               <img src="assets/images/Projects/BU-FW/bufw.png"
                    alt="BU Freedom Wall post feed" width="1280" height="800" loading="lazy" decoding="async">
@@ -371,7 +306,7 @@
           </article>
 
           <article class="card rv" data-d="5">
-            <button class="card__media scan" type="button" data-proj="bugwa"
+            <button class="card__media" type="button" data-proj="bugwa"
                     aria-label="Open BU GWA Calculator case study">
               <img src="assets/images/Projects/BU-GWA/result-card.png"
                    alt="BU GWA Calculator result card" width="1280" height="800" loading="lazy" decoding="async">
@@ -399,28 +334,31 @@
       </div>
 
       <div class="sectact rv">
-        <button class="btn btn--sm" type="button" data-magnet data-open-projects>
+        <button class="btn btn--sm" type="button" data-open-projects>
           <span>View all projects</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
         </button>
         <p>All eight in one list, each with a live link and a case study.</p>
       </div>
     </div>
+
+    <!-- Hands the canvas back to Stack — the band is waved top and bottom -->
+    <svg class="wave wave--bottom wave--canvas" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+      <path d="M0,48 C220,104 470,104 720,64 C970,24 1220,24 1440,56 L1440,120 L0,120 Z"/>
+    </svg>
   </section>
 
-  <!-- ── 03 Stack ──────────────────────────────────────────── -->
+  <!-- ── Stack ──────────────────────────────────────────── -->
   <section id="stack" aria-labelledby="h-stack">
     <div class="shell">
       <div class="head rv">
-        <span class="head__no">03</span>
         <h2 id="h-stack">Stack</h2>
         <span class="draw" aria-hidden="true"></span>
-        <span class="head__meta">What I work with</span>
       </div>
 
       <div class="matrix">
         <div class="cap rv">
-          <div class="cap__top"><h3>Frontend</h3><span class="cap__no">A</span></div>
+          <div class="cap__top"><h3>Frontend</h3></div>
           <ul>
             <li>React · Next.js</li>
             <li>TypeScript · JavaScript (ES6+)</li>
@@ -431,7 +369,7 @@
         </div>
 
         <div class="cap rv" data-d="1">
-          <div class="cap__top"><h3>Backend</h3><span class="cap__no">B</span></div>
+          <div class="cap__top"><h3>Backend</h3></div>
           <ul>
             <li>Node.js</li>
             <li>PHP · Laravel</li>
@@ -442,7 +380,7 @@
         </div>
 
         <div class="cap rv" data-d="2">
-          <div class="cap__top"><h3>Database</h3><span class="cap__no">C</span></div>
+          <div class="cap__top"><h3>Database</h3></div>
           <ul>
             <li>Neon Serverless Postgres</li>
             <li>Supabase</li>
@@ -453,7 +391,7 @@
         </div>
 
         <div class="cap rv" data-d="3">
-          <div class="cap__top"><h3>Developer Tools</h3><span class="cap__no">D</span></div>
+          <div class="cap__top"><h3>Developer Tools</h3></div>
           <ul>
             <li>Vite · Oxlint</li>
             <li>Git &amp; GitHub</li>
@@ -465,7 +403,7 @@
       </div>
 
       <div class="sectact rv">
-        <button class="btn btn--sm" type="button" data-magnet data-open-stack>
+        <button class="btn btn--sm" type="button" data-open-stack>
           <span>View full stack</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
         </button>
@@ -474,11 +412,10 @@
     </div>
   </section>
 
-  <!-- ── 04 Experience ─────────────────────────────────────── -->
+  <!-- ── Experience ─────────────────────────────────────── -->
   <section id="experience" aria-labelledby="h-exp">
     <div class="shell">
       <div class="head rv">
-        <span class="head__no">04</span>
         <h2 id="h-exp">Experience</h2>
         <span class="draw" aria-hidden="true"></span>
         <span class="head__meta">2022 — present</span>
@@ -541,14 +478,12 @@
     </div>
   </section>
 
-  <!-- ── 05 Credentials ────────────────────────────────────── -->
+  <!-- ── Credentials ────────────────────────────────────── -->
   <section id="credentials" aria-labelledby="h-cred">
     <div class="shell">
       <div class="head rv">
-        <span class="head__no">05</span>
         <h2 id="h-cred">Credentials</h2>
         <span class="draw" aria-hidden="true"></span>
-        <span class="head__meta">Awards &amp; recognition</span>
       </div>
 
       <div class="creds">
@@ -579,45 +514,12 @@
     </div>
   </section>
 
-  <!-- ── 06 Field notes ────────────────────────────────────── -->
-  <section id="fieldnotes" aria-labelledby="h-notes">
-    <div class="shell">
-      <div class="head rv">
-        <span class="head__no">06</span>
-        <h2 id="h-notes">Field Notes</h2>
-        <span class="draw" aria-hidden="true"></span>
-        <span class="head__meta">Moments from the work</span>
-      </div>
-
-      <div class="gallery">
-        <button class="shot rv" type="button" data-gal="notes" data-i="0">
-          <img src="assets/images/gallery/defended.jpg" alt="Capstone thesis defense presentation" width="800" height="600" loading="lazy" decoding="async">
-          <span class="cap">01 · Capstone defense</span>
-        </button>
-        <button class="shot rv" data-d="1" type="button" data-gal="notes" data-i="1">
-          <img src="assets/images/gallery/consePL.jpg" alt="Academic recognition ceremony" width="800" height="600" loading="lazy" decoding="async">
-          <span class="cap">02 · Academic recognition</span>
-        </button>
-        <button class="shot rv" data-d="2" type="button" data-gal="notes" data-i="2">
-          <img src="assets/images/gallery/awarded.jpg" alt="Receiving an award on stage" width="800" height="600" loading="lazy" decoding="async">
-          <span class="cap">03 · Awarding ceremony</span>
-        </button>
-        <button class="shot rv" data-d="3" type="button" data-gal="notes" data-i="3">
-          <img src="assets/images/gallery/certi.jpg" alt="Certificate of achievement" width="800" height="600" loading="lazy" decoding="async">
-          <span class="cap">04 · Certificate</span>
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── 07 Contact ────────────────────────────────────────── -->
+  <!-- ── Contact ────────────────────────────────────────── -->
   <section id="contact" aria-labelledby="h-contact">
     <div class="shell">
       <div class="head rv">
-        <span class="head__no">07</span>
         <h2 id="h-contact">Contact</h2>
         <span class="draw" aria-hidden="true"></span>
-        <span class="head__meta">Let's build something</span>
       </div>
 
       <div class="contact">
@@ -629,11 +531,22 @@
             team, my inbox is open.
           </p>
           <div class="actions rv" data-d="2" style="margin-top:0">
-            <a class="btn btn--primary" data-magnet href="mailto:markerickserrano1@gmail.com?subject=Developer%20opportunity">
+            <a class="btn btn--primary" href="mailto:markerickserrano1@gmail.com?subject=Developer%20opportunity">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="1.5"/><path d="m3 6 9 6.5L21 6"/></svg>
               <span>Send an email</span>
             </a>
           </div>
+
+          <!-- The at-a-glance facts: degree, honors and availability, kept
+               next to the ask so they are read at the point of decision. -->
+          <dl class="facts rv" data-d="3">
+            <div><dt>Location</dt><dd>Libon, Albay, PH</dd></div>
+            <div><dt>Degree</dt><dd>BS Information System</dd></div>
+            <div><dt>Honors</dt><dd>Cum Laude · 2026</dd></div>
+            <div><dt>Focus</dt><dd>Front-End &amp; Full-Stack</dd></div>
+            <div><dt>Languages</dt><dd>English · Tagalog · Bikol</dd></div>
+            <div><dt>Status</dt><dd>Open to opportunities</dd></div>
+          </dl>
         </div>
 
         <dl class="chan rv" data-d="1">

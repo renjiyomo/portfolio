@@ -1,8 +1,8 @@
 /* ==========================================================================
    projects.js — project records + tech inventory
    --------------------------------------------------------------------------
-   Consumed by main.js. Every `data-proj="…"` / `data-gal="…"` attribute in
-   index.html maps to a key in window.PROJECTS.
+   Consumed by main.js. Every `data-proj="…"` attribute in index.html maps
+   to a key in window.PROJECTS.
 
    Record shape:
      title  string   name shown in cards and the detail modal
@@ -30,7 +30,6 @@ window.PROJECTS = (function () {
   var OBRA  = P + 'Obra-BU/';
   var SMS   = P + 'SMS%20for%20LECS/';
   var CART  = P + 'CartCraft/';
-  var NOTES = 'assets/images/gallery/';
 
   function shot(dir, stamp) {
     return dir + 'Screenshot%20' + stamp.replace(' ', '%20') + '.png';
@@ -215,24 +214,6 @@ window.PROJECTS = (function () {
 
       stack: ['PHP', 'MySQL', 'JavaScript'],
       items: []
-    },
-
-    /* ── Field notes (gallery only) ───────────────────────── */
-    notes: {
-      title: 'Field Notes',
-      tag: '',
-      year: '',
-      live: '',
-      code: '',
-      lede: 'Moments from the work.',
-      body: [],
-      stack: [],
-      items: [
-        { src: NOTES + 'defended.jpg', alt: 'Capstone thesis defense presentation', cap: 'Capstone defense' },
-        { src: NOTES + 'consePL.jpg', alt: 'Academic recognition ceremony', cap: 'Academic recognition' },
-        { src: NOTES + 'awarded.jpg', alt: 'Receiving an award on stage', cap: 'Awarding ceremony' },
-        { src: NOTES + 'certi.jpg', alt: 'Certificate of achievement', cap: 'Certificate' }
-      ]
     }
 
   };
