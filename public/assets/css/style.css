@@ -73,10 +73,16 @@
   /* Origin of the theme sweep. theme.js overwrites these with the measured
      centre of the toggle; the defaults aim at the top-right corner, which
      is where the toggle lives, so the effect is still correct if the swap
-     is triggered before that script runs. */
+     is triggered before that script runs.
+
+     Relative units only — never px/rem/vmax. These feed circle() on the
+     ::view-transition pseudos, which are laid out in the snapshot containing
+     block: absolute lengths there are not scaled by browser zoom, so they
+     land off the button (see setOrigin() in theme.js). 141.4% of the radius
+     reference already spans corner to corner; 150% is deliberate slack. */
   --tx: 92%;
-  --ty: 2.5rem;
-  --tr: 150vmax;
+  --ty: 3%;
+  --tr: 150%;
 }
 
 
@@ -2175,7 +2181,9 @@ body[data-locked="true"] { overflow: hidden; }
 
    So the toggle is always the source of the change, and reversing your
    choice literally reverses the motion. theme.js measures the toggle and
-   writes --tx / --ty / --tr before the swap.
+   writes --tx / --ty / --tr before the swap — always as percentages, since
+   these pseudos live in the snapshot containing block, where absolute
+   lengths are not scaled by browser zoom and would land off the button.
 
    Crucially the layer that is not moving holds perfectly still underneath
    instead of fading, so there is never a washed-out halfway state where
@@ -2203,16 +2211,18 @@ body[data-locked="true"] { overflow: hidden; }
   }
 }
 
-/* 0px, not 0 — a bare 0 is not a <length-percentage>, so the radius would
-   fail to interpolate and the circle would jump instead of growing. */
+/* 0%, not a bare 0 — a bare 0 is not a <length-percentage>, so the radius
+   would fail to interpolate and the circle would jump instead of growing.
+   A percentage rather than 0px so both ends of the interpolation share one
+   unit and --tr never has to be resolved against a mismatched basis. */
 @keyframes sweep-open {
-  from { clip-path: circle(0px       at var(--tx) var(--ty)); }
+  from { clip-path: circle(0%        at var(--tx) var(--ty)); }
   to   { clip-path: circle(var(--tr) at var(--tx) var(--ty)); }
 }
 
 @keyframes sweep-shut {
   from { clip-path: circle(var(--tr) at var(--tx) var(--ty)); }
-  to   { clip-path: circle(0px       at var(--tx) var(--ty)); }
+  to   { clip-path: circle(0%        at var(--tx) var(--ty)); }
 }
 
 
@@ -2250,13 +2260,13 @@ html.theming *::after {
 .sweep--out { animation-name: sweep-wave-back; }
 
 @keyframes sweep-wave {
-  from { opacity: .55; clip-path: circle(0px       at var(--tx) var(--ty)); }
+  from { opacity: .55; clip-path: circle(0%        at var(--tx) var(--ty)); }
   to   { opacity: 0;   clip-path: circle(var(--tr) at var(--tx) var(--ty)); }
 }
 
 @keyframes sweep-wave-back {
   from { opacity: 0;   clip-path: circle(var(--tr) at var(--tx) var(--ty)); }
-  to   { opacity: .55; clip-path: circle(0px       at var(--tx) var(--ty)); }
+  to   { opacity: .55; clip-path: circle(0%        at var(--tx) var(--ty)); }
 }
 
 

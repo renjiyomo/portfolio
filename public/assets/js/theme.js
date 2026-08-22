@@ -22,6 +22,10 @@
      2. Otherwise `html.theming` crossfades the colour properties while a
         soft wavefront travels out from (or back into) the toggle.
      3. prefers-reduced-motion → swap instantly, no animation at all.
+
+   The origin is published to CSS as --tx / --ty / --tr, always in percentages
+   — see setOrigin() for why absolute pixels drift off the button under
+   browser zoom.
    ========================================================================== */
 
 (function () {
@@ -78,12 +82,28 @@
 
   /* ── Where the sweep starts ───────────────────────────────
      The centre of the toggle, plus the distance from there to the furthest
-     viewport corner. Using the real corner distance (rather than a blanket
-     150vmax) means the circle finishes exactly as it clears the last pixel,
-     so the easing is spent on screen instead of on empty overshoot. */
+     viewport corner, so the circle finishes exactly as it clears the last
+     pixel and the easing is spent on screen instead of on empty overshoot.
+
+     Everything is published as a PERCENTAGE, never as px, and that is the
+     whole trick. `clip-path` is applied to ::view-transition-old/new(root),
+     which live in the snapshot containing block — a separate coordinate
+     space that is not scaled by browser zoom the way normal layout is. Hand
+     it an absolute `1590px` measured with getBoundingClientRect() and at
+     125% zoom it resolves ~1590/1.25 ≈ 1272px inside the pseudo, dragging
+     the circle up and to the left of the button (the exact symptom: the
+     sweep opening beside the nav instead of at the toggle). Percentages
+     resolve against whatever box they land in, so they stay correct at any
+     zoom level and device pixel ratio.
+
+     Measured against documentElement.clientWidth/Height, not innerWidth/
+     Height: the latter counts the classic scrollbar, which the snapshot box
+     and the fixed .sweep overlay both exclude — good for ~15px of drift on
+     desktop Windows all by itself. */
   function setOrigin() {
-    var w = window.innerWidth;
-    var h = window.innerHeight;
+    var w = root.clientWidth || window.innerWidth || 1;
+    var h = root.clientHeight || window.innerHeight || 1;
+
     // Sensible default if the button is missing: where it normally sits.
     var x = w - 48;
     var y = 32;
@@ -96,12 +116,26 @@
       }
     }
 
+    // A measurement taken mid-layout must never throw the origin off-screen.
+    x = Math.min(Math.max(x, 0), w);
+    y = Math.min(Math.max(y, 0), h);
+
+    // Furthest corner from the origin — the radius the circle has to reach.
     var dx = Math.max(x, w - x);
     var dy = Math.max(y, h - y);
+    var reach = Math.sqrt(dx * dx + dy * dy);
 
-    root.style.setProperty('--tx', x.toFixed(1) + 'px');
-    root.style.setProperty('--ty', y.toFixed(1) + 'px');
-    root.style.setProperty('--tr', Math.ceil(Math.sqrt(dx * dx + dy * dy)) + 'px');
+    /* A percentage radius in circle() resolves against the box's diagonal
+       normalised by √2, i.e. √(w² + h²) / √2 — not against width or height.
+       Converting through that reference keeps the finish line exact whatever
+       the aspect ratio. +1% of slack absorbs subpixel rounding so the very
+       last pixel is definitely covered. */
+    var ref = Math.sqrt(w * w + h * h) / Math.SQRT2;
+    var r = (reach / ref) * 100 + 1;
+
+    root.style.setProperty('--tx', (x / w * 100).toFixed(3) + '%');
+    root.style.setProperty('--ty', (y / h * 100).toFixed(3) + '%');
+    root.style.setProperty('--tr', r.toFixed(3) + '%');
   }
 
   /* ── Fallback wavefront ───────────────────────────────────
