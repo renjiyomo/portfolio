@@ -226,19 +226,19 @@ window.PROJECT_ORDER = ['sms', 'bueno', 'obra', 'bulf', 'bufw', 'bugwa', 'cart',
 window.TECH = [
   {
     group: 'Frontend',
-    items: ['React', 'Next.js', 'React Router', 'TypeScript', 'JavaScript (ES6+)', 'HTML5', 'CSS3', 'Tailwind CSS', 'Lucide React', 'SWR', 'Responsive layout', 'Accessible components']
+    items: ['HTML5', 'CSS3', 'JavaScript', 'Tailwind CSS', 'React', 'Next.js', 'Vite', 'React Router', 'TypeScript', 'Lucide React', 'SWR', 'Responsive layout', 'Accessible components']
   },
   {
     group: 'Backend',
-    items: ['Node.js', 'PHP', 'Laravel', 'SQL', 'Auth.js / NextAuth.js', 'Google OAuth', 'Zod', 'Role-based access control', 'Cloudflare Turnstile']
+    items: ['PHP', 'Laravel', 'SQL', 'Node.js', 'Google OAuth', 'Role-based access control', 'Cloudflare Turnstile']
   },
   {
     group: 'Database & ORM',
-    items: ['Neon Serverless Postgres', 'Supabase', 'MySQL', 'Drizzle ORM', 'Drizzle Kit', 'Schema design']
+    items: ['MySQL', 'PostgreSQL', 'Supabase', 'Neon Serverless Postgres']
   },
   {
     group: 'Developer Tools',
-    items: ['Vite', 'Git & GitHub', 'Oxlint', 'Composer', 'VS Code', 'Figma', 'XAMPP']
+    items: ['Git', 'GitHub', 'VS Code', 'Figma', 'XAMPP', 'Antigravity', 'Composer']
   },
   {
     group: 'Deployment & Services',
