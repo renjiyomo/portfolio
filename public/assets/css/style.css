@@ -20,6 +20,7 @@
    15. Motion
    16. Reduced motion & print
    17. Addenda
+   18. GitHub contributions
    ========================================================================== */
 
 /* ---- 01. TOKENS -------------------------------------------------------- */
@@ -61,6 +62,24 @@
   --stage:      rgba(255, 255, 255, .052);
   --stage-edge: rgba(255, 255, 255, .085);
   --wash:       rgba(214, 226, 232, .10);
+
+  /* Contribution levels (§18). Five steps from "nothing committed" to
+     "committed all day", and the ramp is the same --signal amber the rest of
+     the page spends on actions — a year of work is the one other thing on
+     this site that has earned it.
+
+     Levels 1–3 are alpha rather than mixed hex so the ramp sits ON whatever
+     surface it is drawn over instead of only matching --surface, and so both
+     themes need one set of stops rather than two. Level 0 is --rule: an
+     empty day is a hairline, not a colour.
+
+     Dark builds UP from the panel — denser weeks glow brighter. */
+  --gh-0: var(--rule);
+  --gh-1: rgba(255, 176, 0, .30);
+  --gh-2: rgba(255, 176, 0, .52);
+  --gh-3: rgba(255, 176, 0, .76);
+  --gh-4: var(--signal);
+  --gh-edge: rgba(255, 255, 255, .045);
 
   --ease-out:  cubic-bezier(.16, 1, .3, 1);
   --ease-soft: cubic-bezier(.4, 0, .2, 1);
@@ -120,6 +139,22 @@ html.light {
   --stage:      rgba(94, 81, 58, .175);
   --stage-edge: rgba(94, 81, 58, .34);
   --wash:       rgba(94, 81, 58, .145);
+
+  /* Same inversion as the portrait stage: on ochre paper the graph gets
+     DARKER as the weeks get busier, because there is no headroom above
+     #F4F2EC to brighten into.
+
+     Level 0 is --surface-2 here, NOT --rule. --rule (#DCD7CB) is a mid grey
+     that a faint amber wash over near-white paper cannot beat — level 1 would
+     come out LIGHTER than an empty day and the ramp would read backwards at
+     its most important step. #EFECE2 is pale enough that level 1 lands
+     visibly darker, so the sequence still runs one direction. */
+  --gh-0: var(--surface-2);
+  --gh-1: rgba(138, 82, 0, .22);
+  --gh-2: rgba(138, 82, 0, .45);
+  --gh-3: rgba(138, 82, 0, .70);
+  --gh-4: var(--signal);
+  --gh-edge: rgba(20, 24, 26, .085);
 }
 
 
@@ -1304,32 +1339,28 @@ section[id].band {
   flex: 1;
 }
 
+/* The card footer used to be a two-ended row: a strip of tech chips on the
+   left, the action on the right. The chips are gone — three of a project's
+   dozen dependencies, abbreviated to fit, told a reader nothing they could
+   act on, and six cards of them turned the grid into a wall of mono caps
+   that competed with the titles above them. The full stack is still stated,
+   in the case study, where there is room to say it properly.
+
+   So this is now a single action on the left, and `flex-start` is the whole
+   point: with `space-between` still declared, one child would be pushed
+   against the left edge anyway — but only by accident of there being one.
+   Stated outright, the rule survives a second element being added later.
+
+   The hairline stays. It is what makes the card read as head / body / foot
+   rather than as copy that happens to end in a link. */
 .card__ft {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: .75rem;
   padding-top: .85rem;
   border-top: 1px solid var(--rule);
   margin-top: .2rem;
-}
-
-.stack {
-  display: flex;
-  flex-wrap: wrap;
-  gap: .3rem;
-}
-
-.stack li {
-  border-radius: 4px;
-  font-family: var(--font-mono);
-  font-size: .5625rem;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: var(--muted);
-  border: 1px solid var(--rule);
-  padding: .22rem .45rem;
-  background: var(--canvas);
 }
 
 .card__view {
@@ -3040,5 +3071,384 @@ button.card__media:focus-visible .card__badge {
     transform: none !important;
   }
 }
+
+/* ---- 18. GITHUB CONTRIBUTIONS ---------------------------------------- */
+
+/* The panel borrows the contact block's construction exactly — 1px gaps over
+   a --rule background, each child carrying its own --surface — so it reads as
+   a sibling of what sits above it rather than a widget bolted on. What it
+   does not borrow is the emphasis: no wash, no .bigtype, no accent border.
+   This is the last section on the page and it is evidence, not a pitch, so
+   it stays quieter than the thing it follows.
+
+   The three geometry values live here as tokens because four rules need to
+   agree on them: the weekday column, the month strip, the grid itself and
+   the legend swatches. One declaration, one source of truth. */
+.gh {
+  --gh-cell: 11px;
+  --gh-gap: 3px;
+  --gh-mo: 14px;
+
+  display: grid;
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+
+/* -- Stats strip ------------------------------------------------------- */
+
+/* Four figures across the top, on the same 1px lattice. They are the part a
+   recruiter actually reads; the graph below is the proof. */
+.gh__stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0;
+  background: var(--rule);
+}
+
+.gh__stat {
+  padding: 1rem 1.1rem 1.05rem;
+  background: var(--surface);
+}
+
+.gh__stat dt {
+  margin-bottom: .4rem;
+  font-family: var(--font-mono);
+  font-size: .5625rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Slashed zero and tabular figures: four numbers stacked in a row want to
+   line up on their digits, and 0 must never be mistaken for O. */
+.gh__stat dd {
+  margin: 0;
+  font-size: 1.0625rem;
+  font-weight: 500;
+  letter-spacing: -.015em;
+  color: var(--text);
+  font-feature-settings: "zero" 1;
+  font-variant-numeric: tabular-nums;
+}
+
+/* The unit rides along at mono scale so "674 days" does not read as one
+   number twice the length it is. */
+.gh__stat dd small {
+  margin-left: .3rem;
+  font-family: var(--font-mono);
+  font-size: .5625rem;
+  font-weight: 400;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* -- Board ------------------------------------------------------------- */
+
+.gh__board {
+  padding: 1.35rem 1.1rem 1.15rem;
+  background: var(--surface);
+}
+
+/* auto for the weekday labels, minmax(0,1fr) for the calendar — the 0 floor
+   is what lets the scroller actually shrink instead of forcing the grid to
+   its full 53-week width and blowing out the page on a phone. */
+.gh__plot {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: .45rem;
+}
+
+/* Mon/Wed/Fri only. Seven labels at this size is noise, and the odd rows are
+   enough for the eye to count from. Rows are explicit so the labels sit on
+   the same 7-track rhythm as the cells; the padding clears the month strip,
+   computed rather than guessed. */
+.gh__wk {
+  display: grid;
+  grid-template-rows: repeat(7, var(--gh-cell));
+  gap: var(--gh-gap);
+  padding-top: calc(var(--gh-mo) + .3rem);
+  font-family: var(--font-mono);
+  font-size: .5rem;
+  line-height: var(--gh-cell);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  user-select: none;
+}
+
+.gh__wk span:nth-child(1) { grid-row: 2; }
+.gh__wk span:nth-child(2) { grid-row: 4; }
+.gh__wk span:nth-child(3) { grid-row: 6; }
+
+/* A year of weeks does not fit a narrow viewport, so it scrolls sideways
+   rather than shrinking the cells into mush. The bar itself is hidden — it
+   would double the panel's visual weight — and the mask below advertises the
+   overflow instead. overscroll-behavior stops a horizontal flick from
+   dragging the whole page with it. */
+.gh__scroll {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  border-radius: 3px;
+}
+
+.gh__scroll::-webkit-scrollbar { height: 0; }
+
+.gh__scroll:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 3px;
+}
+
+/* min-content keeps the calendar at its intrinsic width inside the scroller
+   instead of being squeezed to the container. */
+.gh__cal {
+  display: grid;
+  gap: .3rem;
+  width: min-content;
+}
+
+/* Month labels sit on a grid with the same column geometry as the cells, so
+   JS can place each one with grid-column: <week+1> and it lands over the
+   right week without a single magic pixel. Column count is set inline by JS
+   to match however many weeks were actually rendered. */
+.gh__months {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: var(--gh-cell);
+  gap: var(--gh-gap);
+  height: var(--gh-mo);
+  font-family: var(--font-mono);
+  font-size: .5rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  user-select: none;
+}
+
+.gh__months span { white-space: nowrap; }
+
+/* Column flow, seven rows: weeks run left to right, days top to bottom —
+   the same reading order as the calendar it stands for. */
+.gh__grid {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(7, var(--gh-cell));
+  grid-auto-columns: var(--gh-cell);
+  gap: var(--gh-gap);
+}
+
+/* The inset hairline is doing real work: at level 0 the cell is --rule on
+   --surface, nearly invisible, and without an edge the empty weeks would
+   dissolve into blank paper and the grid would lose its shape. */
+.gh__c {
+  border-radius: 2px;
+  background: var(--gh-0);
+  box-shadow: inset 0 0 0 1px var(--gh-edge);
+}
+
+.gh__c[data-l="1"] { background: var(--gh-1); }
+.gh__c[data-l="2"] { background: var(--gh-2); }
+.gh__c[data-l="3"] { background: var(--gh-3); }
+.gh__c[data-l="4"] { background: var(--gh-4); }
+
+/* Days after today exist in the grid to keep the last column square, but
+   they are not data. Hidden, not dimmed — a dimmed cell still reads as a
+   value. */
+.gh__c[data-void] { visibility: hidden; }
+
+/* Cells wipe in column by column once the panel is in view: 53 weeks at
+   12ms is roughly 640ms end to end, quick enough to feel like the year
+   drawing itself rather than an animation being performed. --w is the week
+   index, written by JS. */
+.gh__c {
+  opacity: 0;
+  transform: scale(.55);
+  transition:
+    opacity .4s var(--ease-soft),
+    transform .45s var(--ease-out);
+  transition-delay: calc(var(--w, 0) * 12ms);
+}
+
+/* Both resolved states reveal, not just the good one. On error the figures
+   stay em-dashed and every cell stays at level 0 — but the empty year still
+   has to be drawn, or the board is a blank rectangle with a note under it
+   and the panel loses the shape the first pass was built to reserve. */
+.gh.in[data-state="ready"] .gh__c,
+.gh.in[data-state="error"] .gh__c {
+  opacity: 1;
+  transform: none;
+}
+
+/* -- Legend ------------------------------------------------------------ */
+
+.gh__legend {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: .6rem;
+  margin-top: 1rem;
+  padding-top: .85rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--font-mono);
+  font-size: .5625rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.gh__range { font-feature-settings: "zero" 1; }
+
+.gh__key {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+}
+
+/* Same size, radius and edge as a real cell, because that is the whole
+   point of a key. */
+.gh__key i {
+  width: var(--gh-cell);
+  height: var(--gh-cell);
+  border-radius: 2px;
+  background: var(--gh-0);
+  box-shadow: inset 0 0 0 1px var(--gh-edge);
+}
+
+.gh__key i[data-l="1"] { background: var(--gh-1); }
+.gh__key i[data-l="2"] { background: var(--gh-2); }
+.gh__key i[data-l="3"] { background: var(--gh-3); }
+.gh__key i[data-l="4"] { background: var(--gh-4); }
+
+/* -- Fallback ---------------------------------------------------------- */
+
+/* GitHub's numbers come from a third party at runtime, so the failure case
+   is a real state, not a hypothetical. When it fires the empty grid stays
+   (the panel keeps its shape) and this line offers the only thing still
+   worth offering: the link. */
+.gh__note {
+  display: none;
+  margin: .9rem 0 0;
+  font-family: var(--font-mono);
+  font-size: .5625rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.gh[data-state="error"] .gh__note { display: block; }
+
+.gh__note a {
+  color: var(--text-dim);
+  border-bottom: 1px solid var(--rule-strong);
+}
+
+.gh__note a:hover,
+.gh__note a:focus-visible { color: var(--signal); }
+
+/* Nothing to read while the request is in flight, so the legend range holds
+   its space rather than popping the layout when the text arrives. */
+.gh[data-state="loading"] .gh__range::after {
+  content: "Loading";
+}
+
+/* -- Tooltip ----------------------------------------------------------- */
+
+/* One element, moved and rewritten — 365 title attributes would be 365
+   sluggish native tooltips, and a per-cell node is 365 nodes for a hover
+   effect. Fixed positioning keeps it correct inside the scroller. */
+.gh__tip {
+  position: fixed;
+  z-index: 60;
+  padding: .4rem .55rem;
+  background: var(--text);
+  color: var(--surface);
+  border-radius: var(--r-sm);
+  font-family: var(--font-mono);
+  font-size: .5625rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(3px);
+  transition: opacity .16s var(--ease-soft), transform .16s var(--ease-out);
+  font-feature-settings: "zero" 1;
+}
+
+.gh__tip[data-on] {
+  opacity: 1;
+  transform: none;
+}
+
+/* -- The header button ------------------------------------------------- */
+
+/* .head__act slides its arrow sideways on hover, which is right for an
+   arrow that points sideways. This one points north-east and must travel
+   the way it points — the same diagonal used by the channel rows and the
+   project cards. */
+.head__act--ext:hover svg,
+.head__act--ext:focus-visible svg {
+  transform: translate(2px, -2px);
+}
+
+/* -- Narrow ------------------------------------------------------------ */
+
+@media (max-width: 46rem) {
+  /* Four figures in a row become four columns too narrow for their own
+     labels; two-by-two keeps every word on one line. */
+  .gh__stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  .gh__stat { padding: .85rem .9rem .9rem; }
+
+  .gh__stat dd { font-size: .9375rem; }
+
+  .gh__board { padding: 1.15rem .9rem 1rem; }
+
+  /* With the scrollbar hidden, the fade is the only thing telling a thumb
+     there is more year to the right. It sits on the scroller so it marks
+     the viewport edge, not the content. */
+  .gh__scroll {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 14px, #000 calc(100% - 22px), transparent);
+    mask-image: linear-gradient(to right, transparent, #000 14px, #000 calc(100% - 22px), transparent);
+  }
+}
+
+@media (max-width: 30rem) {
+  /* One figure per row would be four screens of nothing; the cells shrink
+     instead so more of the year survives a phone. */
+  .gh { --gh-cell: 10px; --gh-gap: 2px; }
+}
+
+/* -- Motion and print -------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  /* The stagger is the one place where a transition carries state: without
+     it the cells would sit at opacity 0 forever, and the graph would simply
+     not exist for anyone who asked the machine to stop moving. */
+  .gh__c {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+@media print {
+  /* The graph is hundreds of tiny filled squares — with background graphics
+     off it prints as a grey rectangle of outlines, and with them on it
+     empties a cartridge. The figures above it carry the same information in
+     four numbers, so they print and the board does not. */
+  .gh__board,
+  .gh__tip { display: none !important; }
+
+  .gh__stats { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+}
+
 
 

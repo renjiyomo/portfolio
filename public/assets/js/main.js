@@ -11,6 +11,7 @@
    08 · Full stack modal
    09 · Project index modal
    10 · Triggers
+   11 · GitHub contributions
 
    Every animated behaviour is gated behind prefers-reduced-motion. When motion
    is reduced, content is shown immediately rather than withheld.
@@ -609,4 +610,272 @@
     });
   })();
 
+
+  /* ══ 11 · GitHub contributions ════════════════════════════ */
+  /* Draws the year graph in #github. The data is a public mirror of GitHub's
+     own contribution calendar — the official API requires a token, and a
+     token cannot live in a static page that anyone can read.
+
+     The panel is built in two passes, and the order matters:
+
+       1. an empty 53-week grid, laid out from local dates the moment this
+          runs, so the section reaches its final height before the request
+          resolves. No skeleton, no shimmer, no reflow when the numbers
+          arrive — a graph that resizes the page under the reader's thumb is
+          worse than one that takes another 200ms.
+       2. the fetch, which only ever writes levels and text into cells that
+          already exist.
+
+     If the request fails the empty grid stays put and .gh__note offers the
+     one thing still worth offering: the link. */
+
+  (function ghGraph() {
+    var root = $('.gh');
+    if (!root) return;
+
+    var user     = root.dataset.user;
+    var grid     = $('.gh__grid', root);
+    var months   = $('.gh__months', root);
+    var scroller = $('.gh__scroll', root);
+    if (!user || !grid) return;
+
+    var COLS = 53;
+    var MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+               'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var DAY = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+    /* Local field-by-field, never toISOString(): east of UTC that would
+       shift every key back a day and paint the whole year off by one. */
+    function key(d) {
+      return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+    }
+
+    /* Same reason in reverse — new Date('2026-03-14') parses as UTC
+       midnight, which is the 13th in half the world. */
+    function parse(s) {
+      var p = String(s).split('-');
+      return new Date(+p[0], +p[1] - 1, +p[2]);
+    }
+
+    function short(d) { return d.getDate() + ' ' + MON[d.getMonth()]; }
+    function full(d)  { return short(d) + ' ' + d.getFullYear(); }
+
+    function stat(name, value, unit) {
+      var dd = $('[data-gh="' + name + '"]', root);
+      if (!dd) return;
+      dd.textContent = String(value);
+      if (unit) dd.appendChild(el('small', null, unit));
+    }
+
+    /* -- Pass 1: the empty year ------------------------------------- */
+
+    var today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    /* Columns are Sunday-to-Saturday weeks and the last one holds today,
+       which is the alignment GitHub itself uses — the shape has to be
+       familiar or the reader has to work out what they are looking at. */
+    var start = new Date(today);
+    start.setDate(start.getDate() - today.getDay() - (COLS - 1) * 7);
+
+    var cells = {};
+
+    for (var c = 0; c < COLS; c++) {
+      for (var r = 0; r < 7; r++) {
+        var d = new Date(start);
+        d.setDate(start.getDate() + c * 7 + r);
+
+        var cell = el('div', 'gh__c');
+        cell.setAttribute('data-l', '0');
+
+        /* Week index drives the column-by-column wipe in §18 */
+        cell.style.setProperty('--w', String(c));
+
+        /* Days that have not happened yet keep the final column square
+           without posing as days on which nothing was committed. */
+        if (d > today) cell.setAttribute('data-void', '');
+        else cells[key(d)] = cell;
+
+        grid.appendChild(cell);
+      }
+    }
+
+    /* Month strip. Each label is placed on the column its month opens in and
+       spanned across the columns it owns, so it sits over its own weeks
+       instead of being nudged there by hand. A month holding fewer than
+       three columns is dropped — that is what stops "Aug Sep" colliding at
+       the two ends, where the year is cut mid-month. */
+    if (months) {
+      var marks = [];
+
+      for (var mc = 0; mc < COLS; mc++) {
+        var md = new Date(start);
+        md.setDate(start.getDate() + mc * 7);
+
+        if (!marks.length || marks[marks.length - 1].m !== md.getMonth()) {
+          marks.push({ c: mc, m: md.getMonth() });
+        }
+      }
+
+      marks.forEach(function (mark, i) {
+        var span = (marks[i + 1] ? marks[i + 1].c : COLS) - mark.c;
+        if (span < 3) return;
+
+        var label = el('span', null, MON[mark.m]);
+        label.style.gridColumn = (mark.c + 1) + ' / span ' + span;
+        months.appendChild(label);
+      });
+    }
+
+    /* -- Pass 2: the data ------------------------------------------- */
+
+    /* The label the markup ships with says "loading", which stops being true
+       the moment this fires. Left alone, a screen reader would announce a
+       graph as still loading forever, so the state is corrected in the one
+       place that knows the request is over. */
+    function fail() {
+      root.dataset.state = 'error';
+      grid.setAttribute('aria-label',
+        'Contribution graph unavailable — see the link below');
+    }
+
+    function paint(data) {
+      var days = (data && data.contributions) || [];
+      if (!days.length) { fail(); return; }
+
+      var total = data.total && data.total.lastYear;
+      var sum = 0;
+      var best = null;
+      var run = 0;
+      var longest = 0;
+
+      days.forEach(function (day) {
+        sum += day.count;
+        if (!best || day.count > best.count) best = day;
+
+        if (day.count > 0) {
+          run++;
+          if (run > longest) longest = run;
+        } else {
+          run = 0;
+        }
+
+        var node = cells[day.date];
+        if (!node) return;
+
+        node.setAttribute('data-l', String(day.level || 0));
+        node.dataset.n = String(day.count);
+        node.dataset.d = day.date;
+      });
+
+      /* The first column starts on a Sunday, so its opening days can fall
+         before the 365-day window. That is absent data, not an empty day,
+         so those cells are hidden rather than drawn as zero. */
+      for (var k in cells) {
+        if (Object.prototype.hasOwnProperty.call(cells, k) && cells[k].dataset.n == null) {
+          cells[k].setAttribute('data-void', '');
+        }
+      }
+
+      /* Counted backwards from the most recent day. A zero on the FINAL day
+         does not end the streak — the day is not over — but a zero on any
+         earlier one does. */
+      var cur = 0;
+      for (var i = days.length - 1; i >= 0; i--) {
+        if (days[i].count > 0) cur++;
+        else if (i !== days.length - 1) break;
+      }
+
+      var first = parse(days[0].date);
+      var last  = parse(days[days.length - 1].date);
+      var count = total == null ? sum : total;
+
+      stat('total', count, null);
+      stat('current', cur, cur === 1 ? 'day' : 'days');
+      stat('longest', longest, longest === 1 ? 'day' : 'days');
+      stat('best', best ? best.count : 0, best ? short(parse(best.date)) : null);
+
+      var range = $('[data-gh="range"]', root);
+      if (range) {
+        range.textContent =
+          MON[first.getMonth()] + ' ' + first.getFullYear() + ' — ' +
+          MON[last.getMonth()] + ' ' + last.getFullYear();
+      }
+
+      /* The grid is role="img", so this label is the whole graph as far as a
+         screen reader is concerned. It has to say what the picture says. */
+      grid.setAttribute('aria-label',
+        count + ' contributions between ' + full(first) + ' and ' + full(last));
+
+      root.dataset.state = 'ready';
+
+      /* The recent weeks are the point, so a viewport too narrow to hold the
+         year opens at the right-hand end of it rather than a year ago. */
+      if (scroller) scroller.scrollLeft = scroller.scrollWidth;
+
+      if (finePointer) tooltip();
+    }
+
+    /* One node, moved and rewritten on hover. 365 title attributes would be
+       365 sluggish native tooltips, and a node per cell is 365 nodes for a
+       hover state — so this is delegated, and it is skipped entirely on
+       touch, where there is no hover to serve. */
+    function tooltip() {
+      var tip = el('div', 'gh__tip');
+      document.body.appendChild(tip);
+
+      function hide() { tip.removeAttribute('data-on'); }
+
+      grid.addEventListener('mouseover', function (e) {
+        var cell = e.target;
+        if (!cell || !cell.dataset || cell.dataset.n == null) return;
+
+        var n = parseInt(cell.dataset.n, 10);
+        var d = parse(cell.dataset.d);
+
+        tip.textContent =
+          n + (n === 1 ? ' contribution · ' : ' contributions · ') +
+          DAY[d.getDay()] + ', ' + short(d);
+        tip.setAttribute('data-on', '');
+
+        /* Measured after the text is in, and clamped to the viewport so a
+           cell in the first or last week cannot push it off screen. */
+        var box = cell.getBoundingClientRect();
+        var w = tip.offsetWidth;
+        var h = tip.offsetHeight;
+
+        tip.style.left = clamp(
+          box.left + box.width / 2 - w / 2, 8, window.innerWidth - w - 8) + 'px';
+
+        /* Above the cell by default; below it when the board is near the top
+           of the viewport and there is no room up there. */
+        var above = box.top - h - 8;
+        tip.style.top = (above < 8 ? box.bottom + 8 : above) + 'px';
+      });
+
+      /* mouseleave, not mouseout: mouseout fires on every cell-to-cell move
+         inside the grid, so the tooltip would be told to hide 365 times on
+         the way across a year it never actually left. */
+      grid.addEventListener('mouseleave', hide);
+
+      /* position: fixed, so any scroll — the page or the graph's own
+         scroller — would otherwise leave it stranded mid-air. Captured, so
+         it hears the inner scroller too. */
+      window.addEventListener('scroll', hide, true);
+    }
+
+    if (!window.fetch) { fail(); return; }
+
+    fetch('https://github-contributions-api.jogruber.de/v4/' +
+          encodeURIComponent(user) + '?y=last')
+      .then(function (res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      })
+      .then(paint)
+      .catch(fail);
+  })();
+
 })();
+
+
