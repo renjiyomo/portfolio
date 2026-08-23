@@ -108,17 +108,14 @@
             <span class="ln"><span>Mark Erick Serrano</span></span>
           </h1>
 
-          <!-- Separators between these are drawn in CSS (.role b::after) so
-               they can never be orphaned when the row wraps on a phone. -->
           <div class="role rv" data-d="1">
-            <b>Full Stack Web Developer</b>
-            <b>Front-End Developer</b>
-            <b>BS Information System</b>
+            <b>Full Stack Web Developer | Front-End Developer | BS Information System</b>
           </div>
 
           <p class="mast__lede rv" data-d="2">
-            I'm a full-stack web developer. I build modern web apps, and these days
-            I'm focused on building new ideas that people actually use.
+            I'm a full-stack web developer who builds modern web applications
+            end to end, accessible, and fast interfaces on the front. Right 
+            now I'm focused on turning new ideas into products that people actually use.
           </p>
 
           <p class="mono mast__loc rv" data-d="3">
@@ -172,8 +169,13 @@
   <section id="projects" class="band" aria-labelledby="h-projects">
     <div class="shell">
       <div class="head rv">
-        <h2 id="h-projects">Projects</h2>
-        <span class="draw" aria-hidden="true"></span>
+        <span class="head__ix" aria-hidden="true">
+          <span class="head__no">01</span>
+          <span class="head__tick"></span>
+        </span>
+        <div class="head__row">
+          <h2 id="h-projects">Projects</h2>
+        </div>
       </div>
 
       <div class="work">
@@ -352,8 +354,13 @@
   <section id="stack" aria-labelledby="h-stack">
     <div class="shell">
       <div class="head rv">
-        <h2 id="h-stack">Stack</h2>
-        <span class="draw" aria-hidden="true"></span>
+        <span class="head__ix" aria-hidden="true">
+          <span class="head__no">02</span>
+          <span class="head__tick"></span>
+        </span>
+        <div class="head__row">
+          <h2 id="h-stack">Stack</h2>
+        </div>
       </div>
 
       <div class="matrix">
@@ -416,9 +423,14 @@
   <section id="experience" aria-labelledby="h-exp">
     <div class="shell">
       <div class="head rv">
-        <h2 id="h-exp">Experience</h2>
-        <span class="draw" aria-hidden="true"></span>
-        <span class="head__meta">2022 — present</span>
+        <span class="head__ix" aria-hidden="true">
+          <span class="head__no">03</span>
+          <span class="head__tick"></span>
+        </span>
+        <div class="head__row">
+          <h2 id="h-exp">Experience</h2>
+          <span class="head__meta">2022 — present</span>
+        </div>
       </div>
 
       <ol class="tl">
@@ -482,8 +494,13 @@
   <section id="credentials" aria-labelledby="h-cred">
     <div class="shell">
       <div class="head rv">
-        <h2 id="h-cred">Credentials</h2>
-        <span class="draw" aria-hidden="true"></span>
+        <span class="head__ix" aria-hidden="true">
+          <span class="head__no">04</span>
+          <span class="head__tick"></span>
+        </span>
+        <div class="head__row">
+          <h2 id="h-cred">Credentials</h2>
+        </div>
       </div>
 
       <div class="creds">
@@ -518,69 +535,113 @@
   <section id="contact" aria-labelledby="h-contact">
     <div class="shell">
       <div class="head rv">
-        <h2 id="h-contact">Contact</h2>
-        <span class="draw" aria-hidden="true"></span>
+        <span class="head__ix" aria-hidden="true">
+          <span class="head__no">05</span>
+          <span class="head__tick"></span>
+        </span>
+        <div class="head__row">
+          <h2 id="h-contact">Contact</h2>
+        </div>
       </div>
 
-      <div class="contact">
-        <div>
+      <!-- Closing panel. Framed rather than open canvas so the last section
+           has the weight to end the page, and built on the same 1px hairline
+           grid as .creds so it belongs to the rest of the design. -->
+      <div class="contact rv">
+        <div class="contact__ask">
           <p class="bigtype wipe rv">Let's put me<br>to work<em>.</em></p>
-          <p class="contact__lede rv" data-d="1">
+
+          <p class="contact__lede">
             I'm looking for a junior web, front-end, or software engineering role
             where I can keep shipping and keep learning. If that sounds like your
             team, my inbox is open.
           </p>
-          <div class="actions rv" data-d="2" style="margin-top:0">
+
+          <div class="contact__act">
             <a class="btn btn--primary" href="mailto:markerickserrano1@gmail.com?subject=Developer%20opportunity">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="1.5"/><path d="m3 6 9 6.5L21 6"/></svg>
               <span>Send an email</span>
             </a>
+            <a class="btn" href="assets/resume/Mark_Erick_Serrano_Resume.pdf" download="Mark_Erick_Serrano_Resume.pdf">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7.5 10.5 4.5 4.5 4.5-4.5"/><path d="M4 20h16"/></svg>
+              <span>Download CV</span>
+            </a>
           </div>
 
-          <!-- The at-a-glance facts: degree, honors and availability, kept
-               next to the ask so they are read at the point of decision. -->
-          <dl class="facts rv" data-d="3">
-            <div><dt>Location</dt><dd>Libon, Albay, PH</dd></div>
-            <div><dt>Degree</dt><dd>BS Information System</dd></div>
-            <div><dt>Honors</dt><dd>Cum Laude · 2026</dd></div>
-            <div><dt>Focus</dt><dd>Front-End &amp; Full-Stack</dd></div>
-            <div><dt>Languages</dt><dd>English · Tagalog · Bikol</dd></div>
-            <div><dt>Status</dt><dd>Open to opportunities</dd></div>
-          </dl>
+          <p class="contact__note mono">Usually replies within a day</p>
         </div>
 
-        <dl class="chan rv" data-d="1">
-          <a href="mailto:markerickserrano1@gmail.com">
-            <dt>Email</dt>
-            <dd>markerickserrano1@gmail.com
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
-            </dd>
+        <!-- Channels as tiles on a hairline grid: email and phone lead full
+             width, the two profiles pair up, résumé closes. Each tile is one
+             <a> — a single tap target, nothing nested. -->
+        <div class="chan">
+          <a class="chan__t chan__t--wide" href="mailto:markerickserrano1@gmail.com">
+            <span class="chan__ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="15" rx="1.5"/><path d="m3 6 9 6.5L21 6"/></svg>
+            </span>
+            <span class="chan__txt">
+              <span class="chan__k">Email</span>
+              <span class="chan__v">markerickserrano1@gmail.com</span>
+            </span>
+            <span class="chan__go" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </span>
           </a>
-          <a href="tel:+639456823067">
-            <dt>Phone</dt>
-            <dd>+63 945 682 3067
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
-            </dd>
+
+          <a class="chan__t chan__t--wide" href="tel:+639456823067">
+            <span class="chan__ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3h3l1.5 4-2 1.5a12 12 0 0 0 5.5 5.5l1.5-2 4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.5 5.2 2 2 0 0 1 6.5 3z"/></svg>
+            </span>
+            <span class="chan__txt">
+              <span class="chan__k">Phone</span>
+              <span class="chan__v">+63 945 682 3067</span>
+            </span>
+            <span class="chan__go" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </span>
           </a>
-          <a href="https://github.com/renjiyomo" target="_blank" rel="noopener noreferrer">
-            <dt>GitHub</dt>
-            <dd>renjiyomo
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
-            </dd>
+
+          <a class="chan__t" href="https://github.com/renjiyomo" target="_blank" rel="noopener noreferrer"
+             aria-label="GitHub profile — opens in a new tab">
+            <span class="chan__ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.1.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.7.4-1.3.7-1.5-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11.1 11.1 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+            </span>
+            <span class="chan__txt">
+              <span class="chan__k">GitHub</span>
+              <span class="chan__v">renjiyomo</span>
+            </span>
+            <span class="chan__go" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </span>
           </a>
-          <a href="https://www.linkedin.com/in/mark-erick-serrano-aa7763396/" target="_blank" rel="noopener noreferrer">
-            <dt>LinkedIn</dt>
-            <dd>Mark Erick Serrano
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
-            </dd>
+
+          <a class="chan__t" href="https://www.linkedin.com/in/mark-erick-serrano-aa7763396/" target="_blank" rel="noopener noreferrer"
+             aria-label="LinkedIn profile — opens in a new tab">
+            <span class="chan__ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0zM7.12 20.45H3.56V9h3.56v11.45zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zm15.11 13.02h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29z"/></svg>
+            </span>
+            <span class="chan__txt">
+              <span class="chan__k">LinkedIn</span>
+              <span class="chan__v">Mark Erick Serrano</span>
+            </span>
+            <span class="chan__go" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </span>
           </a>
-          <a href="assets/resume/Mark_Erick_Serrano_Resume.pdf" download="Mark_Erick_Serrano_Resume.pdf">
-            <dt>Résumé</dt>
-            <dd>Download PDF
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m-4-4 4 4 4-4M5 20h14"/></svg>
-            </dd>
+
+          <a class="chan__t chan__t--wide" href="assets/resume/Mark_Erick_Serrano_Resume.pdf" download="Mark_Erick_Serrano_Resume.pdf">
+            <span class="chan__ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v5h5"/><path d="M14.5 3H6.5A1.5 1.5 0 0 0 5 4.5v15A1.5 1.5 0 0 0 6.5 21h11a1.5 1.5 0 0 0 1.5-1.5V7.5z"/></svg>
+            </span>
+            <span class="chan__txt">
+              <span class="chan__k">Résumé</span>
+              <span class="chan__v">Download PDF</span>
+            </span>
+            <span class="chan__go chan__go--down" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m-4-4 4 4 4-4M5 20h14"/></svg>
+            </span>
           </a>
-        </dl>
+        </div>
       </div>
     </div>
   </section>

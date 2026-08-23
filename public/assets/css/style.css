@@ -11,16 +11,15 @@
    06. Hero
    07. Wave dividers & bands
    08. Buttons
-   09. Facts list
-   10. Stack
-   11. Work
-   12. Timeline
-   13. Credentials
-   14. Contact & footer
-   15. Modal (detail / stack / index)
-   16. Motion
-   17. Reduced motion & print
-   18. Addenda
+   09. Stack
+   10. Work
+   11. Timeline
+   12. Credentials
+   13. Contact & footer
+   14. Modal (detail / stack / index)
+   15. Motion
+   16. Reduced motion & print
+   17. Addenda
    ========================================================================== */
 
 /* ---- 01. TOKENS -------------------------------------------------------- */
@@ -410,37 +409,70 @@ html.light        .themetoggle span[data-for="light"] {
 
 /* ---- 05. SECTION HEADERS ---------------------------------------------- */
 
-/* A real heading, then a hairline that draws itself in on reveal. */
+/* Indexed headers. The old full-width hairline made every title look like a
+   form fieldset and stretched the eye 900px away from the words; this states
+   position in the document instead — a plate number and a short signal tick,
+   stacked over the title. The tick keeps the plotter-draw motion of the rule
+   it replaces, but as a deliberate mark rather than a line to nowhere. */
 .head {
-  display: flex;
-  align-items: center;
-  gap: clamp(1rem, 3vw, 1.75rem);
+  display: grid;
+  gap: .55rem;
   margin-bottom: clamp(1.75rem, 4vw, 3rem);
 }
 
-.head h2 {
-  font-size: clamp(1.5rem, 3vw, 1.875rem);
-  font-weight: 600;
-  letter-spacing: -.03em;
-  color: var(--text);
-  flex: none;
+/* Plate number + tick share one row so the tick starts on the number's
+   baseline, not the cap height — it reads as underlining the index. */
+.head__ix {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
 }
 
-.head .draw {
-  flex: 1;
-  height: 1px;
-  background: var(--rule);
+.head__no {
+  font-family: var(--font-mono);
+  font-size: .6875rem;
+  font-weight: 500;
+  letter-spacing: .14em;
+  color: var(--signal);
+  font-feature-settings: "zero" 1;
+}
+
+/* Short, fixed length. Draws in on reveal from the left, like the rule did. */
+.head__tick {
+  width: 28px;
+  height: 2px;
+  background: var(--signal);
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 1.1s var(--ease-out);
+  transition: transform .7s var(--ease-out);
 }
 
-.head.in .draw { transform: scaleX(1); }
+.head.in .head__tick { transform: scaleX(1); }
+
+/* Title row: heading left, optional meta pinned right on the same baseline */
+.head__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: clamp(1rem, 3vw, 1.75rem);
+}
+
+.head h2 {
+  font-size: clamp(1.625rem, 3.4vw, 2.125rem);
+  font-weight: 600;
+  letter-spacing: -.035em;
+  line-height: 1.1;
+  color: var(--text);
+}
 
 .head__meta {
   flex: none;
-  font-size: .8125rem;
+  font-family: var(--font-mono);
+  font-size: .6875rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
   color: var(--muted);
+  font-feature-settings: "zero" 1;
 }
 
 @media (max-width: 34rem) {
@@ -496,6 +528,7 @@ section[id].mast {
 .mast h1 .ln {
   display: block;
   overflow: hidden;
+  font-weight: bolder;
 }
 
 .mast h1 .ln > span {
@@ -531,22 +564,10 @@ section[id].mast {
   color: var(--text-dim);
 }
 
-/* Hairline between the role labels. Drawn on the label itself rather than
-   as a sibling element, so when the row wraps — which it always does on a
-   phone — a separator can never be orphaned at the start of a line. */
-.role b:not(:last-child)::after {
-  content: "";
-  display: inline-block;
-  width: 18px;
-  height: 1px;
-  margin-left: .85rem;
-  background: var(--rule-strong);
-  vertical-align: middle;
-}
-
-/* 44ch keeps the ragged edge from reaching the portrait at mid widths */
+/* 50ch keeps the ragged edge from reaching the portrait at mid widths while
+   giving the longer intro a sane number of lines. */
 .mast__lede {
-  max-width: 44ch;
+  max-width: 50ch;
   color: var(--muted);
   font-size: clamp(.95rem, .4vw + .86rem, 1.0625rem);
   line-height: 1.7;
@@ -671,7 +692,7 @@ section[id].mast {
 }
 
 /* Hairline tracing the arch's own contour. Structural, matching the
-   hairline vocabulary in .head .draw / .facts / .matrix — not a ring
+   hairline vocabulary in .matrix / .creds / .contact — not a ring
    floating at an arbitrary radius. Fades out before the base so it
    never terminates in two hard stubs. */
 .plate__glow::before {
@@ -850,23 +871,11 @@ section[id].mast {
   .role,
   .actions { justify-content: center; }
 
-  /* The hairline tick only works while all three labels fit on one line —
-     that needs ~590px, so on a phone the row always wraps and a stray rule
-     would be left hanging at the end of a broken line. A middot survives
-     wrapping without looking like a loose end, keeps the three labels on
-     two compact lines instead of three tall ones (vertical budget matters
-     here — the CTAs have to stay above the fold), and it is already the
-     site's separator elsewhere: "Libon, Albay · Philippines". */
+  /* The three pipe-separated labels need ~590px to share one line, so on a
+     phone the string always wraps to two lines. Tightening the gap keeps that
+     at two compact lines instead of three tall ones — vertical budget matters
+     here, because the CTAs have to stay above the fold. */
   .role { gap: .15rem .6rem; }
-
-  .role b:not(:last-child)::after {
-    content: "·";
-    width: auto;
-    height: auto;
-    margin-left: .6rem;
-    background: none;
-    color: var(--rule-strong);
-  }
 
   /* Near the natural measure at phone widths, so it does not force extra
      lines; on a tablet it becomes a real centred column. */
@@ -1026,41 +1035,7 @@ section[id].band {
 
 .btn--primary:hover { color: var(--text); }
 
-/* ---- 09. FACTS LIST --------------------------------------------------- */
-
-/* At-a-glance credentials — degree, honors, availability. Lives in the
-   Contact section, under the ask, so the details that decide whether to
-   send the email are in the same eyeline as the button that sends it. */
-.facts {
-  border-top: 1px solid var(--rule);
-  margin-top: clamp(1.75rem, 3.5vw, 2.5rem);
-}
-
-.facts div {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 1rem;
-  padding: .8rem 0;
-  border-bottom: 1px solid var(--rule);
-}
-
-.facts dt {
-  font-family: var(--font-mono);
-  font-size: .625rem;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--muted);
-  flex: none;
-}
-
-.facts dd {
-  font-size: .875rem;
-  text-align: right;
-  color: var(--text);
-}
-
-/* ---- 10. STACK -------------------------------------------------------- */
+/* ---- 09. STACK -------------------------------------------------------- */
 
 .matrix {
   border-radius: var(--r);
@@ -1133,7 +1108,7 @@ section[id].band {
   background: var(--signal);
 }
 
-/* ---- 11. WORK --------------------------------------------------------- */
+/* ---- 10. WORK --------------------------------------------------------- */
 
 .work {
   display: flex;
@@ -1335,7 +1310,7 @@ section[id].band {
    step back so it reads as a recess in the card, not a panel on top. */
 .band .card__media { background: var(--surface); }
 
-/* ---- 12. TIMELINE ----------------------------------------------------- */
+/* ---- 11. TIMELINE ----------------------------------------------------- */
 
 .tl {
   position: relative;
@@ -1439,7 +1414,7 @@ section[id].band {
   background: var(--muted);
 }
 
-/* ---- 13. CREDENTIALS -------------------------------------------------- */
+/* ---- 12. CREDENTIALS -------------------------------------------------- */
 
 .creds {
   border-radius: var(--r);
@@ -1494,81 +1469,271 @@ section[id].band {
   color: var(--muted);
 }
 
-/* ---- 14. CONTACT & FOOTER -------------------------------------------- */
+/* ---- 13. CONTACT & FOOTER -------------------------------------------- */
 
+/* One framed panel, split ask | channels. Contact is the last thing on the
+   page, so it is the one section that gets a border: open canvas let it
+   trail off, where a frame closes the document.
+
+   Built on the same 1px hairline grid as .matrix and .creds — gap:1px over
+   a --rule background, children carrying their own --surface — so every
+   divider in here, including the one between the two halves, is the same
+   line used everywhere else. No new colour tokens, so both themes follow. */
 .contact {
   display: grid;
-  gap: clamp(1.75rem, 4vw, 3rem);
   grid-template-columns: 1fr;
-  align-items: start;
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-lg);
+  overflow: hidden;
 }
 
 @media (min-width: 56rem) {
-  .contact { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); }
+  .contact { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); }
+}
+
+.contact__ask {
+  background: var(--surface);
+  padding: clamp(1.35rem, 3.4vw, 2.5rem);
+}
+
+/* Availability, promoted out of the old facts table. It was row six of six
+   there — the single most useful line on the page, read last. As a pill at
+   the top of the ask it is the first thing seen, and it is the only fact
+   left that is not already stated in Experience or Credentials. */
+.avail {
+  display: inline-flex;
+  align-items: center;
+  gap: .55rem;
+  padding: .34rem .7rem .34rem .55rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: 999px;
+  background: var(--canvas);
+  font-family: var(--font-mono);
+  font-size: .625rem;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: clamp(1rem, 2.4vw, 1.5rem);
+}
+
+.avail__dot {
+  position: relative;
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--signal);
+}
+
+/* Slow halo, not a blink — it should read as a live status light, so it is
+   deliberately faint and long. Disabled under reduced motion (see §16). */
+.avail__dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--signal);
+  animation: avail-pulse 2.6s var(--ease-soft) infinite;
+}
+
+@keyframes avail-pulse {
+  0%        { transform: scale(1);   opacity: .5; }
+  70%, 100% { transform: scale(2.8); opacity: 0; }
 }
 
 /* The large contact statement is a <p class="bigtype">, not a heading —
-   the section already has its h2 in the .head row. See §18. */
+   the section already has its h2 in the .head row. See §17. Stepped down
+   here because inside a padded panel the page-level size would collide
+   with the frame. */
+.contact .bigtype {
+  font-size: clamp(1.7rem, 4.4vw, 2.9rem);
+  margin-bottom: .9rem;
+}
 
 .contact__lede {
   color: var(--text-dim);
-  max-width: 42ch;
-  margin-bottom: 1.75rem;
+  max-width: 44ch;
+  margin-bottom: clamp(1.25rem, 2.6vw, 1.75rem);
 }
 
-.chan {
-  border-top: 1px solid var(--rule);
-}
-
-.chan a,
-.chan div {
+.contact__act {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: .95rem .25rem;
-  border-bottom: 1px solid var(--rule);
-  transition: padding-left .35s var(--ease-out), background-color .3s var(--ease-soft);
+  flex-wrap: wrap;
+  gap: .7rem;
 }
 
-.chan a:hover {
-  padding-left: .8rem;
-  background: var(--surface);
+/* Same treatment as the hero pair: equal halves rather than ragged wrapping */
+@media (max-width: 34rem) {
+  .contact__act {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+    gap: .6rem;
+  }
+
+  .contact__act .btn { justify-content: center; }
 }
 
-.chan dt {
-  font-family: var(--font-mono);
-  font-size: .625rem;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--muted);
-  flex: none;
-}
-
-.chan dd {
+/* Sets an expectation for the reply, which is the one thing the CTA cannot
+   say for itself. Led by a short tick, echoing the section headers. */
+.contact__note {
   display: flex;
   align-items: center;
   gap: .5rem;
+  margin-top: clamp(.9rem, 2vw, 1.15rem);
+  font-size: .5625rem;
+  color: var(--muted);
+}
+
+.contact__note::before {
+  content: "";
+  flex: none;
+  width: 14px;
+  height: 1px;
+  background: var(--rule-strong);
+}
+
+/* ── Channel tiles ───────────────────────────────────────────────────────
+   The five channels were five identical flat rows, which gave equal weight
+   to "email me" and "here is a PDF". As tiles on the same hairline grid the
+   two that actually start a conversation take the full width, the two
+   profiles pair up, and the résumé closes the block. */
+.chan {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--rule);
+}
+
+.chan__t--wide { grid-column: 1 / -1; }
+
+/* Below 30rem the paired tiles have no room for their values */
+@media (max-width: 30rem) {
+  .chan { grid-template-columns: 1fr; }
+}
+
+.chan__t {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: .85rem;
+  padding: clamp(.9rem, 2vw, 1.15rem) clamp(.95rem, 2.2vw, 1.35rem);
+  background: var(--surface);
+  transition: background-color .3s var(--ease-soft);
+}
+
+.chan__t:hover { background: var(--surface-2); }
+
+/* Edge marker that draws down the tile on hover — the same plotter gesture
+   as .head__tick and the timeline ticks, so the hover state is part of the
+   design language rather than a generic highlight. */
+.chan__t::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--signal);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform .35s var(--ease-out);
+}
+
+.chan__t:hover::before,
+.chan__t:focus-visible::before { transform: scaleY(1); }
+
+/* The panel is overflow:hidden for its radius, so a positive outline offset
+   would be clipped on the outer tiles. Inset instead. */
+.chan__t:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: -2px;
+}
+
+/* Icon gets a plate of its own rather than sitting loose in the row: it
+   holds the left column on a consistent axis whatever the icon's shape,
+   and gives the hover somewhere to land. */
+.chan__ico {
+  display: grid;
+  place-items: center;
+  width: 2.15rem;
+  height: 2.15rem;
+  flex: none;
+  border: 1px solid var(--rule);
+  border-radius: var(--r-sm);
+  background: var(--canvas);
+  color: var(--muted);
+  transition:
+    color .3s var(--ease-soft),
+    background-color .3s var(--ease-soft),
+    border-color .3s var(--ease-soft);
+}
+
+.chan__ico svg {
+  width: 15px;
+  height: 15px;
+  display: block;
+}
+
+.chan__t:hover .chan__ico {
+  background: var(--signal);
+  border-color: var(--signal);
+  color: var(--signal-ink);
+}
+
+.chan__txt {
+  display: grid;
+  gap: .15rem;
+  min-width: 0;
+}
+
+.chan__k {
+  font-family: var(--font-mono);
+  font-size: .5625rem;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Long addresses truncate rather than reflowing the tile */
+.chan__v {
   font-size: .875rem;
   color: var(--text);
-  text-align: right;
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.chan svg {
-  width: 13px;
-  height: 13px;
+/* Kept as the arrow and the download glyph the rest of the site uses — the
+   direction of travel on hover is what distinguishes them: out of the page
+   for a link, down into it for the file. */
+.chan__go {
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
   flex: none;
   color: var(--muted);
   transition: color .3s var(--ease-soft), transform .3s var(--ease-out);
 }
 
-.chan a:hover svg {
+.chan__go svg {
+  width: 13px;
+  height: 13px;
+  display: block;
+}
+
+.chan__t:hover .chan__go {
   color: var(--signal);
   transform: translate(2px, -2px);
 }
+
+.chan__t:hover .chan__go--down { transform: translateY(2px); }
 
 footer {
   border-top: 1px solid var(--rule);
@@ -1615,7 +1780,7 @@ footer {
 
 .totop:hover svg { transform: translateY(-3px); }
 
-/* ---- 15. MODAL ------------------------------------------------------- */
+/* ---- 14. MODAL ------------------------------------------------------- */
 
 /* One shell, three views: project detail, full stack, project index. */
 .modal {
@@ -1739,7 +1904,7 @@ footer {
 
 body[data-locked="true"] { overflow: hidden; }
 
-/* ---- 15a. VIEW: PROJECT DETAIL --------------------------------------- */
+/* ---- 14a. VIEW: PROJECT DETAIL --------------------------------------- */
 
 .det {
   display: grid;
@@ -1976,7 +2141,7 @@ body[data-locked="true"] { overflow: hidden; }
   padding: .22rem .45rem;
 }
 
-/* ---- 15b. VIEW: FULL STACK ------------------------------------------- */
+/* ---- 14b. VIEW: FULL STACK ------------------------------------------- */
 
 .techlist {
   display: grid;
@@ -2018,7 +2183,7 @@ body[data-locked="true"] { overflow: hidden; }
 
 .techlist__hd span { color: var(--signal); }
 
-/* ---- 15c. VIEW: PROJECT INDEX ---------------------------------------- */
+/* ---- 14c. VIEW: PROJECT INDEX ---------------------------------------- */
 
 .plist { display: flex; flex-direction: column; }
 
@@ -2144,7 +2309,7 @@ body[data-locked="true"] { overflow: hidden; }
   margin-top: .15rem;
 }
 
-/* ---- 16. MOTION ------------------------------------------------------ */
+/* ---- 15. MOTION ------------------------------------------------------ */
 
 /* Base reveal: fade + rise */
 .rv {
@@ -2271,7 +2436,7 @@ html.theming *::after {
 
 
 
-/* ---- 17. REDUCED MOTION & PRINT -------------------------------------- */
+/* ---- 16. REDUCED MOTION & PRINT -------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -2293,8 +2458,13 @@ html.theming *::after {
     clip-path: none !important;
   }
 
-  .head .draw,
+  .head__tick,
   .tl__item::before { transform: scaleX(1) !important; }
+
+  .chan__t::before { transform: scaleY(1) !important; }
+
+  /* A status light that cannot pulse is just the dot itself */
+  .avail__dot::after { display: none; }
 }
 
 @media print {
@@ -2315,7 +2485,7 @@ html.theming *::after {
   section[id] { page-break-inside: avoid; }
 }
 
-/* ---- 18. ADDENDA ----------------------------------------------------- */
+/* ---- 17. ADDENDA ----------------------------------------------------- */
 
 /* Media areas that open the lightbox are real buttons; strip UA chrome. */
 button.card__media {
