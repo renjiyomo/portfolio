@@ -11,10 +11,10 @@
    06. Hero
    07. Wave dividers & bands
    08. Buttons
-   09. Stack
+   09. Stack register
    10. Work
-   11. Timeline
-   12. Credentials
+   11. Ledger (experience)
+   12. Credentials — plate deck
    13. Contact & footer
    14. Modal (detail / stack / index)
    15. Motion
@@ -409,52 +409,41 @@ html.light        .themetoggle span[data-for="light"] {
 
 /* ---- 05. SECTION HEADERS ---------------------------------------------- */
 
-/* Indexed headers. The old full-width hairline made every title look like a
-   form fieldset and stretched the eye 900px away from the words; this states
-   position in the document instead — a plate number and a short signal tick,
-   stacked over the title. The tick keeps the plotter-draw motion of the rule
-   it replaces, but as a deliberate mark rather than a line to nowhere. */
+/* Section headers. The index plate ("01") and its tick are gone: numbering
+   a five-section page is decoration that has to be read before the title it
+   sits above. What states position now is the register rule beneath the row
+   — the same hairline the ledgers and the chip register are built on, so the
+   header is the first line of the table rather than a label floating over it.
+
+   One row, two ends: the title owns the left, the action or the meta owns the
+   right. Nothing stacks, so "view all" is never orphaned at the foot of a
+   section (which is where .sectact used to leave it). */
 .head {
   display: grid;
-  gap: .55rem;
-  margin-bottom: clamp(1.75rem, 4vw, 3rem);
+  gap: .5rem;
+  margin-bottom: clamp(1.6rem, 3.6vw, 2.5rem);
 }
 
-/* Plate number + tick share one row so the tick starts on the number's
-   baseline, not the cap height — it reads as underlining the index. */
-.head__ix {
-  display: flex;
-  align-items: center;
-  gap: .6rem;
-}
-
-.head__no {
-  font-family: var(--font-mono);
-  font-size: .6875rem;
-  font-weight: 500;
-  letter-spacing: .14em;
-  color: var(--signal);
-  font-feature-settings: "zero" 1;
-}
-
-/* Short, fixed length. Draws in on reveal from the left, like the rule did. */
-.head__tick {
-  width: 28px;
-  height: 2px;
-  background: var(--signal);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform .7s var(--ease-out);
-}
-
-.head.in .head__tick { transform: scaleX(1); }
-
-/* Title row: heading left, optional meta pinned right on the same baseline */
+/* Baseline alignment, not centre: the mono action is much smaller than the
+   h2, and centring it against the cap height leaves it visibly high. */
 .head__row {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   gap: clamp(1rem, 3vw, 1.75rem);
+  padding-bottom: .85rem;
+
+  /* Two-tone register rule: a short --signal lead-in, then the hairline
+     running out to the full width. Drawn as one background so there is no
+     extra element and no second box to keep in sync — and because it is a
+     gradient on the border-box, it lands on the same pixel row as every
+     other hairline on the page. */
+  border-bottom: 1px solid transparent;
+  border-image: linear-gradient(
+    to right,
+    var(--signal) 0 clamp(2.25rem, 6vw, 3.5rem),
+    var(--rule)   clamp(2.25rem, 6vw, 3.5rem) 100%
+  ) 1;
 }
 
 .head h2 {
@@ -463,6 +452,15 @@ html.light        .themetoggle span[data-for="light"] {
   letter-spacing: -.035em;
   line-height: 1.1;
   color: var(--text);
+}
+
+/* The line that used to sit under .sectact at the bottom of the section.
+   It belongs with the title: it says what the section is before it is read,
+   instead of explaining it after the fact. */
+.head__sub {
+  font-size: .8125rem;
+  color: var(--muted);
+  max-width: 62ch;
 }
 
 .head__meta {
@@ -474,6 +472,51 @@ html.light        .themetoggle span[data-for="light"] {
   color: var(--muted);
   font-feature-settings: "zero" 1;
 }
+
+/* ── In-row section action ────────────────────────────────────────────────
+   Deliberately not a .btn. A button in the header row competes with the h2
+   next to it and with the primary CTAs elsewhere on the page; this is set in
+   the same mono register as .head__meta, so it reads as the right-hand end of
+   the header line. The rule beneath it is what carries the affordance. */
+.head__act {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  padding: 0 0 .2rem;
+  border: 0;
+  border-bottom: 1px solid var(--rule-strong);
+  background: none;
+  font-family: var(--font-mono);
+  font-size: .6875rem;
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: color .3s var(--ease-soft), border-color .3s var(--ease-soft);
+}
+
+.head__act:hover,
+.head__act:focus-visible {
+  color: var(--signal);
+  border-bottom-color: var(--signal);
+}
+
+.head__act:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 4px;
+}
+
+.head__act svg {
+  width: 13px;
+  height: 13px;
+  transition: transform .3s var(--ease-out);
+}
+
+/* Travels along its own axis — the arrow points right, so it moves right */
+.head__act:hover svg,
+.head__act:focus-visible svg { transform: translateX(3px); }
 
 @media (max-width: 34rem) {
   .head__meta { display: none; }
@@ -692,9 +735,9 @@ section[id].mast {
 }
 
 /* Hairline tracing the arch's own contour. Structural, matching the
-   hairline vocabulary in .matrix / .creds / .contact — not a ring
-   floating at an arbitrary radius. Fades out before the base so it
-   never terminates in two hard stubs. */
+   hairline vocabulary in .reg / .led / .contact — not a ring floating
+   at an arbitrary radius. Fades out before the base so it never
+   terminates in two hard stubs. */
 .plate__glow::before {
   content: "";
   position: absolute;
@@ -1037,75 +1080,114 @@ section[id].band {
 
 /* ---- 09. STACK -------------------------------------------------------- */
 
-.matrix {
-  border-radius: var(--r);
-  overflow: hidden;
-  display: grid;
-  gap: 1px;
-  background: var(--rule);
-  border: 1px solid var(--rule);
-  grid-template-columns: 1fr;
-}
-
-@media (min-width: 44rem) {
-  .matrix { grid-template-columns: repeat(2, 1fr); }
-}
-
-@media (min-width: 68rem) {
-  .matrix { grid-template-columns: repeat(4, 1fr); }
-}
-
-.cap {
-  background: var(--surface);
-  padding: clamp(1.15rem, 2.5vw, 1.6rem);
-  transition: background-color .35s var(--ease-soft);
-}
-
-.cap:hover { background: var(--surface-2); }
-
-.cap__top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: .5rem;
-  padding-bottom: .8rem;
-  margin-bottom: 1rem;
+/* The stack reads as a register, not a set of cards: a labelled key on the
+   left, the tools themselves set as mono chips on the right. Rows are
+   separated by the same hairline used everywhere else, so the section sits
+   flush with the page rather than floating on top of it. */
+.reg {
   border-bottom: 1px solid var(--rule);
 }
 
-.cap h3 {
+.reg__row {
+  border-top: 1px solid var(--rule);
+  padding-block: clamp(.95rem, 2.2vw, 1.3rem);
+  display: grid;
+  gap: .65rem;
+}
+
+@media (min-width: 44rem) {
+  .reg__row {
+    grid-template-columns: clamp(5.5rem, 14vw, 8rem) 1fr;
+    align-items: start;
+    gap: clamp(1rem, 3vw, 2rem);
+  }
+}
+
+.reg__k {
   font-family: var(--font-mono);
   font-size: .6875rem;
   font-weight: 500;
   letter-spacing: .14em;
   text-transform: uppercase;
-  color: var(--text);
+  color: var(--muted);
+  padding-top: .2rem;
+  transition: color .35s var(--ease-soft);
 }
 
-.cap li {
-  position: relative;
-  padding-left: 1.05rem;
-  font-size: .875rem;
+.reg__row:hover .reg__k { color: var(--text); }
+
+.reg__set {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+}
+
+.reg__set li {
+  font-family: var(--font-mono);
+  font-size: .6875rem;
+  line-height: 1;
+  letter-spacing: .02em;
   color: var(--text-dim);
-  padding-block: .3rem;
+  padding: .5rem .6rem;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: var(--canvas);
+  transition:
+    color .3s var(--ease-soft),
+    border-color .3s var(--ease-soft);
 }
 
-.cap li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: .95em;
-  width: 6px;
-  height: 1px;
-  background: var(--rule-strong);
-  transition: width .3s var(--ease-out), background-color .3s var(--ease-soft);
+.reg__set li:hover {
+  color: var(--text);
+  border-color: var(--rule-strong);
 }
 
-.cap li:hover { color: var(--text); }
+/* The last <li> in the Tooling row wraps a button, which carries its own
+   chrome — without this the chip renders as a box inside a box.
 
-.cap li:hover::before {
-  width: 11px;
-  background: var(--signal);
+   Two separate rules on purpose, NOT one comma-separated list. A selector
+   list is all-or-nothing: a browser that does not understand :has() throws
+   out the entire list it appears in, declarations included — which would
+   drop the class rule too, on precisely the older browsers the class is
+   here to cover.
+
+   Qualified as `li.reg__hold` (0,2,1) so it outranks `.reg__set li` (0,1,1).
+   A bare `.reg__hold` is only (0,1,0) and would lose to it, leaving the
+   chip border it is trying to remove still painted. */
+.reg__set li.reg__hold {
+  padding: 0;
+  border: 0;
+  background: none;
+}
+
+/* Safety net, in case this markup is ever copied without the class */
+.reg__set li:has(> .reg__more) {
+  padding: 0;
+  border: 0;
+  background: none;
+}
+
+/* Dashed, so it reads as an opening rather than another entry */
+.reg__more {
+  font-family: var(--font-mono);
+  font-size: .6875rem;
+  line-height: 1;
+  letter-spacing: .02em;
+  color: var(--muted);
+  padding: .5rem .7rem;
+  border: 1px dashed var(--rule-strong);
+  border-radius: 4px;
+  background: none;
+  cursor: pointer;
+  transition:
+    color .3s var(--ease-soft),
+    border-color .3s var(--ease-soft);
+}
+
+.reg__more:hover,
+.reg__more:focus-visible {
+  color: var(--signal);
+  border-color: var(--signal);
 }
 
 /* ---- 10. WORK --------------------------------------------------------- */
@@ -1310,101 +1392,220 @@ section[id].band {
    step back so it reads as a recess in the card, not a panel on top. */
 .band .card__media { background: var(--surface); }
 
-/* ---- 11. TIMELINE ----------------------------------------------------- */
+/* ---- 11. LEDGER (EXPERIENCE) ------------------------------------------ */
 
-.tl {
+/* Experience is a ledger. Year on the left, the entry in the middle, the
+   institution squared off on the right, one hairline between rows and
+   nothing else — the layout a CV actually has.
+
+   It replaces a timeline drawn on a scale, which put a rail down the page
+   carrying no information. Rows here are as tall as their content and no
+   taller, so ten years fit in the space four cards took.
+
+   Rows are <details>, so the detail is available without a modal, without
+   JavaScript, and with keyboard support already built in. Nothing is open
+   on load: an auto-expanded first row makes the newest entry shout over
+   the five below it, and it spends a third of the section's height before
+   the reader has asked for anything. The marker states where to press. */
+.led {
+  border-bottom: 1px solid var(--rule);
+}
+
+.led__row {
   position: relative;
-  padding-left: clamp(2.75rem, 6vw, 4.5rem);
+  border-top: 1px solid var(--rule);
 }
 
-/* The measuring scale */
-.tl::before {
+/* Edge marker, same plotter gesture as the channel tiles: it draws DOWN the
+   row rather than lifting it. No translate, no shadow — a ledger line that
+   floats stops being a ledger line. */
+.led__row::before {
   content: "";
   position: absolute;
-  left: clamp(1.15rem, 2.5vw, 2rem);
-  top: .5rem;
-  bottom: .5rem;
-  width: 1px;
-  background: var(--rule-strong);
-}
-
-.tl__item {
-  position: relative;
-  padding-bottom: clamp(1.75rem, 4vw, 2.75rem);
-}
-
-.tl__item:last-child { padding-bottom: 0; }
-
-/* Tick mark reaching from the scale to the entry */
-.tl__item::before {
-  content: "";
-  position: absolute;
-  left: calc(clamp(1.15rem, 2.5vw, 2rem) - clamp(2.75rem, 6vw, 4.5rem));
-  top: .68rem;
-  width: clamp(1.1rem, 2.6vw, 2rem);
-  height: 1px;
-  background: var(--rule-strong);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform .7s var(--ease-out), background-color .3s var(--ease-soft);
-}
-
-.tl__item.in::before { transform: scaleX(1); }
-
-/* Node on the scale */
-.tl__item::after {
-  content: "";
-  position: absolute;
-  left: calc(clamp(1.15rem, 2.5vw, 2rem) - clamp(2.75rem, 6vw, 4.5rem) - 3px);
-  top: calc(.68rem - 3px);
-  width: 7px;
-  height: 7px;
-  background: var(--canvas);
-  border: 1px solid var(--rule-strong);
-  transition: background-color .3s var(--ease-soft), border-color .3s var(--ease-soft);
-}
-
-.tl__item[data-now="true"]::after {
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
   background: var(--signal);
-  border-color: var(--signal);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform .4s var(--ease-out);
 }
 
-.tl__item:hover::before { background: var(--signal); }
-.tl__item:hover::after  { border-color: var(--signal); }
+.led__row:hover::before,
+.led__row:focus-within::before,
+.led__row[open]::before { transform: scaleY(1); }
 
-.tl__yr {
-  font-family: var(--font-mono);
-  font-size: .625rem;
-  letter-spacing: .12em;
-  color: var(--signal);
-  display: block;
-  margin-bottom: .35rem;
+/* Stacked by default: year, then entry, then institution.
+
+   The row scale is deliberately tight. This is a reference table, and a
+   table earns its authority by fitting on the page — padding that suits a
+   card leaves six entries spanning two screens. */
+.led__ln {
+  display: grid;
+  gap: .22rem;
+  padding: clamp(.72rem, 1.6vw, .95rem) 0;
+  padding-left: clamp(.7rem, 1.8vw, 1.1rem);
 }
 
-.tl h3 {
-  font-size: 1.0625rem;
-  letter-spacing: -.02em;
-  margin-bottom: .25rem;
+/* Room for the disclosure marker, which is pinned to the right up here */
+details.led__row > .led__ln { padding-right: 1.9rem; }
+
+.led__row > summary {
+  cursor: pointer;
+  list-style: none;
 }
 
-.tl__org {
+.led__row > summary::-webkit-details-marker { display: none; }
+
+/* Inset, so the ring never straddles the hairline above the row */
+.led__row > summary:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: -3px;
+}
+
+/* One line per entry once there is room for it. The marker track is declared
+   on every row, including the flat ones, so the right-hand column squares off
+   at the same x whether or not that row can be opened. */
+@media (min-width: 46rem) {
+  .led__ln {
+    grid-template-columns:
+      clamp(3.25rem, 7vw, 4.75rem)
+      minmax(0, 1fr)
+      auto
+      1.1rem;
+    align-items: baseline;
+    gap: clamp(.9rem, 2.5vw, 1.75rem);
+  }
+
+  details.led__row > .led__ln { padding-right: 0; }
+}
+
+/* Tabular figures with a slashed zero: the years form a column, so they have
+   to sit on the same width. Standard --font-mono treatment on this site. */
+.led__yr {
   font-family: var(--font-mono);
   font-size: .6875rem;
-  letter-spacing: .06em;
+  letter-spacing: .1em;
   color: var(--muted);
-  margin-bottom: .6rem;
+  font-feature-settings: "zero" 1;
+  font-variant-numeric: tabular-nums;
+  transition: color .3s var(--ease-soft);
 }
 
-.tl__pts li {
+/* The only entry marked as current gets the signal — one per section */
+.led__row[data-now="true"] .led__yr { color: var(--signal); }
+
+.led__ttl {
+  font-size: .9375rem;
+  font-weight: 600;
+  letter-spacing: -.02em;
+  line-height: 1.3;
+  color: var(--text);
+}
+
+.led__org {
+  font-family: var(--font-mono);
+  font-size: .6875rem;
+  letter-spacing: .04em;
+  color: var(--muted);
+  transition: color .3s var(--ease-soft);
+}
+
+.led__row:hover .led__org { color: var(--text-dim); }
+
+@media (min-width: 46rem) {
+  .led__org { text-align: right; }
+}
+
+/* ── Disclosure marker ───────────────────────────────────────────────────
+   A hairline + built from two 1px bars, which collapses to a − when the row
+   opens. Same weight as every rule on the page, so it belongs to the table
+   instead of arriving as a borrowed chevron glyph. */
+.led__mk {
+  position: absolute;
+  right: 0;
+  top: clamp(.85rem, 1.9vw, 1.1rem);
+  width: 9px;
+  height: 9px;
+  flex: none;
+}
+
+/* relative, NOT static: the two bars inside are absolutely positioned, so
+   this element has to stay their containing block. Left static they would
+   resolve against .led__row instead and stripe the full width of the row. */
+@media (min-width: 46rem) {
+  .led__mk {
+    position: relative;
+    right: auto;
+    top: auto;
+    justify-self: end;
+    align-self: center;
+  }
+}
+
+.led__mk::before,
+.led__mk::after {
+  content: "";
+  position: absolute;
+  background: var(--rule-strong);
+  transition: transform .4s var(--ease-out), background-color .3s var(--ease-soft);
+}
+
+/* Horizontal bar — always present */
+.led__mk::before {
+  left: 0;
+  right: 0;
+  top: 4px;
+  height: 1px;
+}
+
+/* Vertical bar — retracts into the horizontal one on open: + becomes − */
+.led__mk::after {
+  top: 0;
+  bottom: 0;
+  left: 4px;
+  width: 1px;
+}
+
+.led__row[open] .led__mk::after { transform: scaleY(0); }
+
+.led__row:hover .led__mk::before,
+.led__row:hover .led__mk::after,
+.led__row[open] .led__mk::before { background: var(--signal); }
+
+/* ── Row detail ──────────────────────────────────────────────────────────
+   Indented to the title column, so the detail reads as belonging to the
+   entry above it rather than starting a new one. The summary's own bottom
+   padding shrinks when open, otherwise the two stack into a gap. */
+.led__row[open] > .led__ln { padding-bottom: .3rem; }
+
+.led__body {
+  padding: 0 0 clamp(.72rem, 1.6vw, .95rem);
+  padding-left: clamp(.7rem, 1.8vw, 1.1rem);
+}
+
+@media (min-width: 46rem) {
+  .led__body {
+    padding-left: calc(
+      clamp(3.25rem, 7vw, 4.75rem) +
+      clamp(.9rem, 2.5vw, 1.75rem) +
+      clamp(.7rem, 1.8vw, 1.1rem)
+    );
+  }
+}
+
+.led__body li {
   position: relative;
   padding-left: 1rem;
-  font-size: .875rem;
+  font-size: .8125rem;
+  line-height: 1.6;
   color: var(--text-dim);
-  margin-top: .35rem;
+  margin-top: .3rem;
   max-width: 68ch;
 }
 
-.tl__pts li::before {
+.led__body li::before {
   content: "";
   position: absolute;
   left: 0;
@@ -1414,59 +1615,262 @@ section[id].band {
   background: var(--muted);
 }
 
-/* ---- 12. CREDENTIALS -------------------------------------------------- */
+/* ---- 12. CREDENTIALS — PLATE DECK ------------------------------------- */
 
+/* Credentials used to be a second ledger, stacked directly beneath the
+   first. Two identical hairline tables in a row read as one long table with
+   a heading dropped into the middle of it, and four short entries is not
+   enough material to justify a table at all — a table earns its keep when
+   the reader needs to scan a column, and nobody scans four rows.
+
+   So this section is the one place on the page that gets objects: four
+   portrait plates, laid out as a deck. Each plate is a real thing that was
+   handed over — a certificate, an award — and the layout says so.
+
+   The plate is read from the corners in. A line mark holds the top-left,
+   the kind is squared off top-right, the title sits LOW instead of at the
+   top, and the issuing body with its date closes the floor. That order is
+   deliberate: the title is the largest thing on the plate, so putting it at
+   the bottom leaves quiet space above it and the eye lands on the mark
+   first — the same reason the hero lets the portrait break past the arch.
+
+   Colour carries meaning rather than variety: FILLED plates are awards,
+   INK plates are certificates. So the deck is legible as two ranks before
+   a single word of it is read, and adding a fifth certificate later cannot
+   quietly break the pattern.
+
+   Every value below is an existing token, so both themes follow with no
+   second palette to maintain — including the pale plate, which is --text on
+   --canvas and therefore inverts itself when the theme does. */
 .creds {
-  border-radius: var(--r);
-  overflow: hidden;
   display: grid;
-  gap: 1px;
-  background: var(--rule);
-  border: 1px solid var(--rule);
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(14.5rem, 1fr));
+  gap: clamp(.85rem, 2vw, 1.25rem);
 }
 
-@media (min-width: 52rem) {
-  .creds { grid-template-columns: repeat(2, 1fr); }
-}
+/* Column flex, because the vertical rhythm inside the plate is set by a
+   single auto margin rather than by fixed spacing — see .crd__ttl below.
+   The 1px transparent border is declared here rather than only on the ink
+   variant, so all four plates share one box: without it the certificates
+   would be 2px shorter than the awards and the deck would not line up. */
+.crd {
+  --tilt: 0deg;
+  --rise: 0px;
+  --dim: .78;
 
-.cred {
-  background: var(--surface);
-  padding: clamp(1.25rem, 3vw, 1.9rem);
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: .65rem;
-  transition: background-color .35s var(--ease-soft);
+  min-height: clamp(14rem, 24vw, 18.5rem);
+  padding: clamp(1.1rem, 2.4vw, 1.5rem);
+  border: 1px solid transparent;
+  border-radius: var(--r-lg);
 }
 
-.cred:hover { background: var(--surface-2); }
+/* ── Plate ranks ─────────────────────────────────────────────────────────
+   The reference for this deck had a blue plate in the middle. Importing a
+   foreign blue would put a colour on the page that means nothing anywhere
+   else in it, so the filled plate is --signal: the accent this site already
+   spends on the thing that matters most in a section.
 
-.cred__top {
-  display: flex;
+   Both awards are filled, and they are filled DIFFERENTLY — solid signal
+   for the capstone, the inverted plate for the forum placing — so the two
+   read as one rank without the page carrying two amber blocks of equal
+   weight. */
+.crd--signal {
+  /* Amber has the least contrast headroom of the three plates, so its
+     secondary text is dimmed the least — see the --dim note below. */
+  --dim: .88;
+
+  background: var(--signal);
+  color: var(--signal-ink);
+}
+
+/* The silver plate of the reference, built from the type colour rather than
+   a grey of its own: near-white on the dark theme, near-black on the light
+   one, and legible on both without a second token. */
+.crd--pale {
+  background: var(--text);
+  color: var(--canvas);
+}
+
+/* Certificates: attendance, not distinction. They keep the surface tone and
+   a hairline, so they sit a full step behind the two awards. */
+.crd--ink {
+  background: var(--surface-2);
+  border-color: var(--rule);
+  color: var(--text);
+}
+
+/* ── --dim ───────────────────────────────────────────────────────────────
+   Secondary text inside a plate is `currentColor` at reduced opacity, never
+   --muted: the plate ink changes with the rank, and --muted is only ever
+   correct against --canvas.
+
+   ONE dim level per plate, routed through a property, because every piece
+   of secondary text here is small (9–12px) and therefore owes the same
+   4.5:1 that WCAG asks of body copy — a label cannot be dimmer than the
+   note just because it looks quieter that way. Hierarchy between them is
+   carried by position, size and the mono face instead, which is the more
+   robust signal anyway.
+
+   The values are measured, not taste. Worst case is the amber plate in
+   LIGHT theme, where --signal is #8A5200 against near-white ink: those two
+   are only 6.12:1 even at full strength, so there is very little to spend.
+   Composited against that plate, a flat .72 lands at 4.01:1 and the base
+   .78 at 4.42:1 — both fail, though both look perfectly reasonable on the
+   dark theme, where the same .78 reads 6.87:1. So the .88 override on
+   --signal is load-bearing, not cosmetic: drop it and the amber plate
+   fails on light alone.
+
+   With .88 there and .78 elsewhere the floor across all three plates in
+   both themes is 5.15:1 for text and 5.30:1 for the .9 icon, against the
+   4.5 and 3.0 those sizes require. Anything raised here is safe; anything
+   lowered has to be re-measured on light amber first, since that is the
+   only combination with no headroom. */
+
+
+/* ── Plate contents ──────────────────────────────────────────────────────
+   A line mark, at the same 1.6 stroke as every other icon on the page. It
+   states the kind at a glance, which is why the mono label beside it can
+   stay as quiet as it does. */
+.crd__ico {
+  display: block;
+  height: 1.25rem;
+  opacity: .9;
+}
+
+.crd__ico svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+/* Absolute, not a flex row with the mark: the two are siblings in a column,
+   and pairing them any other way would need a wrapper element in the markup
+   that exists purely to hold a layout. Same inset as the plate padding, and
+   the shared 1.25rem height centres it against the mark. */
+.crd__kind {
+  position: absolute;
+  top: clamp(1.1rem, 2.4vw, 1.5rem);
+  right: clamp(1.1rem, 2.4vw, 1.5rem);
+  display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  gap: .75rem;
-}
-
-.cred__award {
+  height: 1.25rem;
   font-family: var(--font-mono);
   font-size: .5625rem;
-  letter-spacing: .14em;
+  font-weight: 500;
+  letter-spacing: .16em;
   text-transform: uppercase;
-  color: var(--signal-ink);
-  background: var(--signal);
-  padding: .25rem .5rem;
+  opacity: var(--dim);
 }
 
-.cred h3 {
-  font-size: 1.0625rem;
-  letter-spacing: -.02em;
-  line-height: 1.3;
+/* This one declaration is the layout. It is the ONLY auto margin in the
+   plate, and that is the point: all the free space collects above the title,
+   which drops the title, the note and the meta line together onto the floor
+   of the plate and leaves the quiet band up top for the mark to sit in.
+
+   A second `margin-top: auto` on .crd__note would look like it does the same
+   job and does not — auto margins SPLIT free space evenly, so the pair would
+   halve that band and float the title back up to around a third of the way
+   down, which is precisely the top-loaded card this section was redrawn to
+   get away from.
+
+   No fixed offsets anywhere, so the proportion holds at every plate width,
+   and a long title simply eats the band instead of overflowing. */
+.crd__ttl {
+  margin-top: auto;
+  font-size: clamp(1.05rem, 2.1vw, 1.3rem);
+  font-weight: 600;
+  letter-spacing: -.03em;
+  line-height: 1.15;
+  text-wrap: balance;
 }
 
-.cred p {
-  font-size: .875rem;
-  color: var(--muted);
+.crd__note {
+  padding-top: clamp(.6rem, 1.4vw, .85rem);
+  font-size: .75rem;
+  line-height: 1.55;
+  opacity: var(--dim);
+}
+
+/* Issuer left, date right, closed by a hairline of the plate's own ink. The
+   rule is a pseudo-element rather than a border so the opacity that dims it
+   cannot also dim the text — the same reason .contact__wash is its own
+   layer instead of a gradient on the panel. */
+.crd__meta {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: .25rem .75rem;
+  margin-top: .9rem;
+  padding-top: .7rem;
+  font-family: var(--font-mono);
+  font-size: .5625rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.crd__meta::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 1px;
+  background: currentColor;
+  opacity: .22;
+}
+
+.crd__org { opacity: var(--dim); }
+
+/* Slashed zero and tabular figures, as everywhere else dates are set */
+.crd__date {
+  flex: none;
+  font-feature-settings: "zero" 1;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── The fan ─────────────────────────────────────────────────────────────
+   The tilt is composed INTO the reveal transform rather than declared
+   separately. .rv/.rv.in in §15 set `transform` themselves, and a plain
+   `.crd:nth-child(n) { transform: rotate(…) }` would either be overwritten
+   by `.rv.in { transform: none }` further down the file or cancel the rise
+   it is supposed to arrive with. Routing the angle through a custom
+   property means one transform per state, and the reveal survives.
+
+   Desktop only. Below 62rem the plates are one or two per row, where a tilt
+   has nothing to fan against and only costs the copy its alignment. */
+.creds .crd.rv { transform: translateY(18px) rotate(var(--tilt)); }
+
+.creds .crd.rv.in {
+  transform: translateY(var(--rise)) rotate(var(--tilt));
+  transition:
+    opacity .8s var(--ease-soft),
+    transform .5s var(--ease-out),
+    box-shadow .45s var(--ease-soft);
+}
+
+@media (min-width: 62rem) {
+  /* Uneven on purpose, and never the same angle twice: a deck alternating
+     by a fixed ±2deg reads as a pattern, which is the tell that nobody
+     actually laid it out. Kept under 2.5deg so the mono labels stay level
+     enough to read as labels. */
+  .crd:nth-child(1) { --tilt: -2.4deg; --rise: .5rem;  }
+  .crd:nth-child(2) { --tilt:  1.4deg; --rise: -.3rem; }
+  .crd:nth-child(3) { --tilt: -1deg;   --rise: .25rem; }
+  .crd:nth-child(4) { --tilt:  2.2deg; --rise: -.45rem; }
+
+  /* Hover straightens the plate and lifts it out of the deck — the one
+     gesture a stack of physical cards actually makes. z-index so the lifted
+     plate passes over its neighbours instead of under them. */
+  .creds .crd.rv.in:hover {
+    z-index: 2;
+    transform: translateY(-6px) rotate(0deg);
+    box-shadow: var(--shadow);
+  }
 }
 
 /* ---- 13. CONTACT & FOOTER -------------------------------------------- */
@@ -1475,8 +1879,8 @@ section[id].band {
    page, so it is the one section that gets a border: open canvas let it
    trail off, where a frame closes the document.
 
-   Built on the same 1px hairline grid as .matrix and .creds — gap:1px over
-   a --rule background, children carrying their own --surface — so every
+   Built on the same 1px hairline grid as .reg and .led — gap:1px over a
+   --rule background, children carrying their own --surface — so every
    divider in here, including the one between the two halves, is the same
    line used everywhere else. No new colour tokens, so both themes follow. */
 .contact {
@@ -1493,55 +1897,59 @@ section[id].band {
   .contact { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); }
 }
 
+/* ── The ask ─────────────────────────────────────────────────────────────
+   This column was the weak half of the page: it ran shorter than the five
+   channel tiles beside it, the grid stretched it to match, and everything it
+   held sat at the top — so the eye landed on a large empty rectangle before
+   it reached a single word. Worse, the headline carried BOTH .wipe (clipped
+   to zero width) and .rv (opacity 0), so before the reveal fired that space
+   was not merely sparse, it was literally blank.
+
+   Three changes fix it, in order of how much they do:
+
+     1. flex column with the facts strip pushed to the bottom by
+        `margin-top: auto` — the height the grid forces on this column is
+        now SPENT rather than left over. Nothing is stretched or padded to
+        fake a fit; the content simply reaches both ends.
+     2. the .wipe is gone from the headline (see index.html), so there is
+        something legible at the very top of the column from the first
+        frame instead of an empty box waiting on an observer.
+     3. a wash behind the headline, so the upper area reads as considered
+        space instead of unfilled space.
+
+   The fourth part of the fix is on the other side: the résumé tile was
+   removed from .chan (it duplicates the CV button here), which shortens the
+   right column so the two halves resolve at a similar height on their own. */
 .contact__ask {
+  position: relative;
+  display: flex;
+  flex-direction: column;
   background: var(--surface);
   padding: clamp(1.35rem, 3.4vw, 2.5rem);
 }
 
-/* Availability, promoted out of the old facts table. It was row six of six
-   there — the single most useful line on the page, read last. As a pill at
-   the top of the ask it is the first thing seen, and it is the only fact
-   left that is not already stated in Experience or Credentials. */
-.avail {
-  display: inline-flex;
-  align-items: center;
-  gap: .55rem;
-  padding: .34rem .7rem .34rem .55rem;
-  border: 1px solid var(--rule-strong);
-  border-radius: 999px;
-  background: var(--canvas);
-  font-family: var(--font-mono);
-  font-size: .625rem;
-  font-weight: 500;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  color: var(--text-dim);
-  margin-bottom: clamp(1rem, 2.4vw, 1.5rem);
-}
+/* Faint light behind the statement, on the existing --wash token — the same
+   tone that sits behind the portrait, so this reads as the bookend to the
+   hero rather than a new effect. Anchored to the top-left because that is
+   the corner the eye enters, and it is the corner that used to be bare.
 
-.avail__dot {
-  position: relative;
-  flex: none;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--signal);
-}
-
-/* Slow halo, not a blink — it should read as a live status light, so it is
-   deliberately faint and long. Disabled under reduced motion (see §16). */
-.avail__dot::after {
-  content: "";
+   Deliberately not a gradient on .contact__ask itself: as its own layer it
+   can be masked to a soft ellipse and cannot tint the text above it. */
+.contact__wash {
   position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: var(--signal);
-  animation: avail-pulse 2.6s var(--ease-soft) infinite;
+  z-index: 0;
+  left: 0;
+  top: 0;
+  width: min(28rem, 82%);
+  height: min(18rem, 62%);
+  pointer-events: none;
+  background: radial-gradient(60% 60% at 22% 24%, var(--wash), transparent 70%);
 }
 
-@keyframes avail-pulse {
-  0%        { transform: scale(1);   opacity: .5; }
-  70%, 100% { transform: scale(2.8); opacity: 0; }
+/* Everything else in the column rides above the wash */
+.contact__ask > *:not(.contact__wash) {
+  position: relative;
+  z-index: 1;
 }
 
 /* The large contact statement is a <p class="bigtype">, not a heading —
@@ -1576,30 +1984,63 @@ section[id].band {
   .contact__act .btn { justify-content: center; }
 }
 
-/* Sets an expectation for the reply, which is the one thing the CTA cannot
-   say for itself. Led by a short tick, echoing the section headers. */
-.contact__note {
-  display: flex;
-  align-items: center;
-  gap: .5rem;
-  margin-top: clamp(.9rem, 2vw, 1.15rem);
+/* ── Terms strip ─────────────────────────────────────────────────────────
+   Replaces .contact__note, which was a single line of small print about
+   reply time. Three facts instead of one, and they are the three a reader
+   weighs before writing: how fast, from where, and on what terms.
+
+   `margin-top: auto` is the load-bearing declaration in this chapter — it
+   drops this block to the floor of the column, so the height the grid hands
+   .contact__ask is absorbed HERE, between the buttons and the frame, instead
+   of accumulating as dead air above the headline.
+
+   A <dl> because that is what this is: three term/value pairs. Read as a
+   description list by a screen reader, read as a spec strip by everyone.
+
+   No rule above it, deliberately — the padding separates it with air. A
+   hairline here only looks correct while `margin-top: auto` has slack to
+   spend, which is to say only while the CHANNELS column is the taller of
+   the two. Whenever the ask column wins (most desktop widths, and every
+   mobile one, where the two are stacked) the gap closes and that line
+   lands hard under the two buttons, reading as a stray underline nobody
+   drew. Air separates at every height; a rule does not. */
+.contact__facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
+  gap: .35rem clamp(1rem, 3vw, 2rem);
+  margin-top: auto;
+  padding-top: clamp(1.25rem, 2.8vw, 1.75rem);
+}
+
+.contact__facts > div {
+  display: grid;
+  gap: .15rem;
+}
+
+.contact__facts dt {
+  font-family: var(--font-mono);
   font-size: .5625rem;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
   color: var(--muted);
 }
 
-.contact__note::before {
-  content: "";
-  flex: none;
-  width: 14px;
-  height: 1px;
-  background: var(--rule-strong);
+.contact__facts dd {
+  font-size: .8125rem;
+  color: var(--text-dim);
 }
 
 /* ── Channel tiles ───────────────────────────────────────────────────────
-   The five channels were five identical flat rows, which gave equal weight
-   to "email me" and "here is a PDF". As tiles on the same hairline grid the
-   two that actually start a conversation take the full width, the two
-   profiles pair up, and the résumé closes the block. */
+   These were five identical flat rows, which gave equal weight to "email me"
+   and "here is a PDF". Now four tiles on the same hairline grid, ranked: the
+   two that actually start a conversation take the full width, and the two
+   profiles pair up beneath them.
+
+   The résumé tile is gone on purpose. It was the fifth row, and it pointed
+   at the same PDF as the Download CV button two inches to its left — so it
+   spent a whole row repeating an action already on screen, and the extra
+   height was exactly what left the ask column looking empty. */
 .chan {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1627,9 +2068,9 @@ section[id].band {
 
 .chan__t:hover { background: var(--surface-2); }
 
-/* Edge marker that draws down the tile on hover — the same plotter gesture
-   as .head__tick and the timeline ticks, so the hover state is part of the
-   design language rather than a generic highlight. */
+/* Edge marker that draws down the tile on hover — the same gesture as the
+   ledger rows in §11, so the hover state is part of the design language
+   rather than a generic highlight. */
 .chan__t::before {
   content: "";
   position: absolute;
@@ -1709,9 +2150,8 @@ section[id].band {
   white-space: nowrap;
 }
 
-/* Kept as the arrow and the download glyph the rest of the site uses — the
-   direction of travel on hover is what distinguishes them: out of the page
-   for a link, down into it for the file. */
+/* The same arrow the rest of the site uses, travelling out of the page on
+   hover. The download variant went with the résumé tile. */
 .chan__go {
   display: grid;
   place-items: center;
@@ -1732,8 +2172,6 @@ section[id].band {
   color: var(--signal);
   transform: translate(2px, -2px);
 }
-
-.chan__t:hover .chan__go--down { transform: translateY(2px); }
 
 footer {
   border-top: 1px solid var(--rule);
@@ -2458,13 +2896,22 @@ html.theming *::after {
     clip-path: none !important;
   }
 
-  .head__tick,
-  .tl__item::before { transform: scaleX(1) !important; }
-
+  /* Every edge marker on the page is a scaleY wipe that hover drives. With
+     transitions flattened to .01ms they would still work, but the ones that
+     mark STATE rather than hover have to be shown unconditionally: an open
+     ledger row keeps its marker either way. */
+  .led__row[open]::before,
   .chan__t::before { transform: scaleY(1) !important; }
 
-  /* A status light that cannot pulse is just the dot itself */
-  .avail__dot::after { display: none; }
+  /* The disclosure marker is state, not decoration — it must still read as
+     − when the row is open, so this transform is preserved deliberately. */
+  .led__row[open] .led__mk::after { transform: scaleY(0) !important; }
+
+  /* The credential deck needs nothing here. Its fan angle is composed into
+     the .rv transform rather than declared on its own (see §12), so the
+     `transform: none !important` above already lands the plates square —
+     tilt, reveal rise and hover lift all cancel together, and the deck
+     degrades to a plain grid of four upright plates. */
 }
 
 @media print {
@@ -2482,7 +2929,39 @@ html.theming *::after {
     clip-path: none !important;
   }
 
+  /* The in-row "view all" opens a modal, which cannot print. The ledger and
+     the wash are ink that a printer cannot reproduce usefully either. */
+  .head__act,
+  .contact__wash,
+  .led__mk { display: none !important; }
+
+  /* Every ledger entry prints expanded, whether or not it was opened on
+     screen — a printed CV that hides half its own detail is a broken CV. */
+  .led__body { display: block !important; }
+
+  /* The plates print as outlines. Their fills are large solid areas that a
+     printer either floods or, with background graphics off, drops entirely
+     — taking --signal-ink type with them and leaving the award plates
+     blank. Outlined and set in black, all four survive either setting.
+     min-height goes too: on paper a plate need only be as tall as it
+     reads. The tilt is already flattened by the .rv reset above. */
+  .crd {
+    min-height: 0 !important;
+    background: none !important;
+    border-color: #999 !important;
+    color: #000 !important;
+  }
+
+  /* currentColor at .22 is a hairline the eye finds on a lit screen and a
+     printer renders as nothing at all */
+  .crd__meta::before { opacity: .55 !important; }
+
   section[id] { page-break-inside: avoid; }
+
+  /* Rows, register lines and plates must not be split across a page break */
+  .led__row,
+  .reg__row,
+  .crd { page-break-inside: avoid; }
 }
 
 /* ---- 17. ADDENDA ----------------------------------------------------- */
@@ -2554,20 +3033,6 @@ button.card__media:focus-visible .card__badge {
 }
 
 .btn--sm svg { width: 12px; height: 12px; }
-
-/* Section-level "view all" action, sits under the header rule */
-.sectact {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: .7rem;
-  margin-top: clamp(1.5rem, 3.5vw, 2.25rem);
-}
-
-.sectact p {
-  font-size: .8125rem;
-  color: var(--muted);
-}
 
 @media (prefers-reduced-motion: reduce) {
   .card__badge {

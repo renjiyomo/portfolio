@@ -78,7 +78,7 @@
   /* ══ 02 · Reveal on scroll ════════════════════════════════ */
 
   (function reveals() {
-    var targets = $$('.rv, .wipe, .head, .mast, .tl__item');
+    var targets = $$('.rv, .wipe, .head, .mast');
     if (!targets.length) return;
 
     if (reduced || !('IntersectionObserver' in window)) {
@@ -494,10 +494,13 @@
   (function stackModal() {
     if (!Modal) return;
 
-    var trigger = $('[data-open-stack]');
-    if (!trigger || !TECH.length) return;
+    /* Two triggers now open this: the "view all" in the section header row,
+       and the "+ more" chip that closes the Tooling register line. $$ rather
+       than $, or the second one would silently do nothing. */
+    var triggers = $$('[data-open-stack]');
+    if (!triggers.length || !TECH.length) return;
 
-    trigger.addEventListener('click', function () {
+    function open() {
       var wrap = el('div', 'techlist');
 
       TECH.forEach(function (group) {
@@ -511,6 +514,10 @@
       });
 
       Modal.open('Full technology stack', wrap, null, null);
+    }
+
+    triggers.forEach(function (node) {
+      node.addEventListener('click', open);
     });
   })();
 
@@ -521,10 +528,12 @@
   (function indexModal() {
     if (!Modal || !Detail) return;
 
-    var trigger = $('[data-open-projects]');
-    if (!trigger) return;
+    /* Same pattern as the stack modal — the header action today, and any
+       further entry point added later, without touching this block again. */
+    var triggers = $$('[data-open-projects]');
+    if (!triggers.length) return;
 
-    trigger.addEventListener('click', function () {
+    function open() {
       var wrap = el('div', 'plist');
 
       ORDER.forEach(function (key) {
@@ -579,6 +588,10 @@
       });
 
       Modal.open('All projects — ' + pad(ORDER.length), wrap, null, null);
+    }
+
+    triggers.forEach(function (node) {
+      node.addEventListener('click', open);
     });
   })();
 

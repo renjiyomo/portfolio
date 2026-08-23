@@ -54,7 +54,6 @@
   "name": "Mark Erick Padua Serrano",
   "jobTitle": "Full Stack Developer, Software Engineer & Front-End Developer",
   "email": "mailto:markerickserrano1@gmail.com",
-  "telephone": "+639456823067",
   "url": "https://markerick.vercel.app/",
   "address": { "@type": "PostalAddress", "addressLocality": "Libon", "addressRegion": "Albay", "addressCountry": "PH" },
   "alumniOf": { "@type": "CollegeOrUniversity", "name": "Bicol University Polangui" },
@@ -169,13 +168,14 @@
   <section id="projects" class="band" aria-labelledby="h-projects">
     <div class="shell">
       <div class="head rv">
-        <span class="head__ix" aria-hidden="true">
-          <span class="head__no">01</span>
-          <span class="head__tick"></span>
-        </span>
         <div class="head__row">
           <h2 id="h-projects">Projects</h2>
+          <button class="head__act" type="button" data-open-projects>
+            <span>View all</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg>
+          </button>
         </div>
+        <p class="head__sub">All eight in one list, each with a live link and a case study.</p>
       </div>
 
       <div class="work">
@@ -335,13 +335,6 @@
         </div>
       </div>
 
-      <div class="sectact rv">
-        <button class="btn btn--sm" type="button" data-open-projects>
-          <span>View all projects</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
-        </button>
-        <p>All eight in one list, each with a live link and a case study.</p>
-      </div>
     </div>
 
     <!-- Hands the canvas back to Stack — the band is waved top and bottom -->
@@ -354,67 +347,69 @@
   <section id="stack" aria-labelledby="h-stack">
     <div class="shell">
       <div class="head rv">
-        <span class="head__ix" aria-hidden="true">
-          <span class="head__no">02</span>
-          <span class="head__tick"></span>
-        </span>
         <div class="head__row">
           <h2 id="h-stack">Stack</h2>
+          <button class="head__act" type="button" data-open-stack>
+            <span>View all</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg>
+          </button>
         </div>
+        <p class="head__sub">Everything I've shipped with — frontend, backend, database and tooling.</p>
       </div>
 
-      <div class="matrix">
-        <div class="cap rv">
-          <div class="cap__top"><h3>Frontend</h3></div>
-          <ul>
-            <li>React · Next.js</li>
-            <li>TypeScript · JavaScript (ES6+)</li>
-            <li>Tailwind CSS · CSS3</li>
-            <li>HTML5 · Semantic markup</li>
-            <li>Responsive &amp; accessible UI</li>
+      <!-- Chip register. One hairline row per group: the label holds the left
+           column, the tools sit in the right. The dashed chip that closes the
+           last row opens the full inventory. -->
+      <div class="reg">
+        <div class="reg__row rv">
+          <span class="reg__k">Frontend</span>
+          <ul class="reg__set">
+            <li>React</li>
+            <li>Next.js</li>
+            <li>TypeScript</li>
+            <li>JavaScript</li>
+            <li>Tailwind CSS</li>
+            <li>CSS3</li>
+            <li>HTML5</li>
           </ul>
         </div>
 
-        <div class="cap rv" data-d="1">
-          <div class="cap__top"><h3>Backend</h3></div>
-          <ul>
+        <div class="reg__row rv" data-d="1">
+          <span class="reg__k">Backend</span>
+          <ul class="reg__set">
             <li>Node.js</li>
-            <li>PHP · Laravel</li>
-            <li>REST &amp; route handlers</li>
-            <li>Auth.js · Google OAuth</li>
-            <li>Zod · Role-based access</li>
+            <li>PHP</li>
+            <li>Laravel</li>
+            <li>Auth.js</li>
+            <li>Google OAuth</li>
+            <li>Zod</li>
           </ul>
         </div>
 
-        <div class="cap rv" data-d="2">
-          <div class="cap__top"><h3>Database</h3></div>
-          <ul>
-            <li>Neon Serverless Postgres</li>
+        <div class="reg__row rv" data-d="2">
+          <span class="reg__k">Database</span>
+          <ul class="reg__set">
+            <li>Neon Postgres</li>
             <li>Supabase</li>
             <li>MySQL</li>
-            <li>Drizzle ORM · Drizzle Kit</li>
+            <li>Drizzle ORM</li>
             <li>Schema design</li>
           </ul>
         </div>
 
-        <div class="cap rv" data-d="3">
-          <div class="cap__top"><h3>Developer Tools</h3></div>
-          <ul>
-            <li>Vite · Oxlint</li>
-            <li>Git &amp; GitHub</li>
-            <li>Vercel · Cloudinary</li>
-            <li>Figma · VS Code</li>
-            <li>XAMPP · Composer</li>
+        <div class="reg__row rv" data-d="3">
+          <span class="reg__k">Tooling</span>
+          <ul class="reg__set">
+            <li>Vite</li>
+            <li>Git</li>
+            <li>Vercel</li>
+            <li>Cloudinary</li>
+            <li>Figma</li>
+            <li class="reg__hold">
+              <button class="reg__more" type="button" data-open-stack>+ more</button>
+            </li>
           </ul>
         </div>
-      </div>
-
-      <div class="sectact rv">
-        <button class="btn btn--sm" type="button" data-open-stack>
-          <span>View full stack</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
-        </button>
-        <p>Everything I've shipped with — frontend, backend, database and tooling.</p>
       </div>
     </div>
   </section>
@@ -423,70 +418,95 @@
   <section id="experience" aria-labelledby="h-exp">
     <div class="shell">
       <div class="head rv">
-        <span class="head__ix" aria-hidden="true">
-          <span class="head__no">03</span>
-          <span class="head__tick"></span>
-        </span>
         <div class="head__row">
           <h2 id="h-exp">Experience</h2>
           <span class="head__meta">2022 — present</span>
         </div>
+        <p class="head__sub">Four years of study, work and shipped software — most recent first.</p>
       </div>
 
-      <ol class="tl">
-        <li class="tl__item" data-now="true">
-          <span class="tl__yr">June 2026</span>
-          <h3>BS Information System · Cum Laude</h3>
-          <p class="tl__org">Bicol University Polangui</p>
-          <ul class="tl__pts">
-            <li>Graduated with Latin honors and received Best Undergraduate Capstone Thesis in BS Information System.</li>
-            <li>Placed 2nd at the BU Polangui Student Research and Development Forum, Development Category.</li>
-          </ul>
-        </li>
+      <!-- Ledger. year · title · organisation on one line, hairline between
+           entries. Rows carrying detail are a native <details> so the summary
+           stays keyboard-operable and needs no JavaScript. -->
+      <div class="led">
 
-        <li class="tl__item">
-          <span class="tl__yr">Feb — May 2026</span>
-          <h3>OJT Intern</h3>
-          <p class="tl__org">Bicol University · Office of the University Registrar</p>
-          <ul class="tl__pts">
-            <li>Developed the Services page for the BU Registrar Online Request System, streamlining how students find office information and submit requests.</li>
-            <li>Digitized student records and updated curricula and Transcript of Records databases, cutting document retrieval time for administrative staff.</li>
-          </ul>
-        </li>
+        <details class="led__row rv" data-now="true">
+          <summary class="led__ln">
+            <span class="led__yr">2026</span>
+            <span class="led__ttl">BS Information System · Cum Laude</span>
+            <span class="led__org">Bicol University Polangui</span>
+            <span class="led__mk" aria-hidden="true"></span>
+          </summary>
+          <div class="led__body">
+            <ul>
+              <li>Graduated with Latin honors and received Best Undergraduate Capstone Thesis in BS Information System.</li>
+              <li>Placed 2nd at the BU Polangui Student Research and Development Forum, Development Category.</li>
+            </ul>
+          </div>
+        </details>
 
-        <li class="tl__item">
-          <span class="tl__yr">2025 — 2026</span>
-          <h3>Capstone · Student Management System</h3>
-          <p class="tl__org">Libon East Central School</p>
-          <ul class="tl__pts">
-            <li>Engineered a secure full-stack platform to digitize academic records and automate school form generation.</li>
-            <li>Scored 4.83 / 5.00 overall usability against ISO 25010 standards across 32 respondents.</li>
-          </ul>
-        </li>
+        <details class="led__row rv" data-d="1">
+          <summary class="led__ln">
+            <span class="led__yr">2026</span>
+            <span class="led__ttl">OJT Intern</span>
+            <span class="led__org">BU · Office of the University Registrar</span>
+            <span class="led__mk" aria-hidden="true"></span>
+          </summary>
+          <div class="led__body">
+            <ul>
+              <li>Developed the Services page for the BU Registrar Online Request System, streamlining how students find office information and submit requests.</li>
+              <li>Digitized student records and updated curricula and Transcript of Records databases, cutting document retrieval time for administrative staff.</li>
+            </ul>
+          </div>
+        </details>
 
-        <li class="tl__item">
-          <span class="tl__yr">2024</span>
-          <h3>CartCraft &amp; FAST for CSD</h3>
-          <p class="tl__org">Academic project work</p>
-          <ul class="tl__pts">
-            <li>Built an art marketplace with a live bidding system and automated PDF reporting.</li>
-            <li>Delivered a responsive scheduling app giving students 24/7 access to faculty consultation hours.</li>
-          </ul>
-        </li>
+        <details class="led__row rv" data-d="2">
+          <summary class="led__ln">
+            <span class="led__yr">2025</span>
+            <span class="led__ttl">Capstone · Student Management System</span>
+            <span class="led__org">Libon East Central School</span>
+            <span class="led__mk" aria-hidden="true"></span>
+          </summary>
+          <div class="led__body">
+            <ul>
+              <li>Engineered a secure full-stack platform to digitize academic records and automate school form generation.</li>
+              <li>Scored 4.83 / 5.00 overall usability against ISO 25010 standards across 32 respondents.</li>
+            </ul>
+          </div>
+        </details>
 
-        <li class="tl__item">
-          <span class="tl__yr">2023</span>
-          <h3>First e-commerce webpage</h3>
-          <p class="tl__org">Self-directed practice</p>
-        </li>
+        <details class="led__row rv" data-d="3">
+          <summary class="led__ln">
+            <span class="led__yr">2024</span>
+            <span class="led__ttl">CartCraft &amp; FAST for CSD</span>
+            <span class="led__org">Academic project work</span>
+            <span class="led__mk" aria-hidden="true"></span>
+          </summary>
+          <div class="led__body">
+            <ul>
+              <li>Built an art marketplace with a live bidding system and automated PDF reporting.</li>
+              <li>Delivered a responsive scheduling app giving students 24/7 access to faculty consultation hours.</li>
+            </ul>
+          </div>
+        </details>
 
-        <li class="tl__item">
-          <span class="tl__yr">2022</span>
-          <h3>Started BS Information System</h3>
-          <p class="tl__org">Bicol University Polangui</p>
-        </li>
+        <div class="led__row led__row--flat rv" data-d="4">
+          <div class="led__ln">
+            <span class="led__yr">2023</span>
+            <span class="led__ttl">First e-commerce webpage</span>
+            <span class="led__org">Self-directed practice</span>
+          </div>
+        </div>
 
-      </ol>
+        <div class="led__row led__row--flat rv" data-d="5">
+          <div class="led__ln">
+            <span class="led__yr">2022</span>
+            <span class="led__ttl">Started BS Information System</span>
+            <span class="led__org">Bicol University Polangui</span>
+          </div>
+        </div>
+
+      </div>
     </div>
   </section>
 
@@ -494,40 +514,73 @@
   <section id="credentials" aria-labelledby="h-cred">
     <div class="shell">
       <div class="head rv">
-        <span class="head__ix" aria-hidden="true">
-          <span class="head__no">04</span>
-          <span class="head__tick"></span>
-        </span>
         <div class="head__row">
           <h2 id="h-cred">Credentials</h2>
+          <span class="head__meta">2 awards · 2 certificates</span>
         </div>
+        <p class="head__sub">Recognised work from the BSIS programme, and training completed alongside it.</p>
       </div>
 
-      <div class="creds">
-        <article class="cred rv">
-          <div class="cred__top">
-            <span class="cred__award">Award</span>
-            <span class="mono">2026</span>
-          </div>
-          <h3>Best Undergraduate Capstone Thesis — BSIS</h3>
-          <p>
-            Awarded for the Student Management System for Libon East Central
-            School. Bicol University Polangui.
-          </p>
-        </article>
+      <!-- Plate deck. Credentials are the one section where each entry is a
+           single fact rather than a story, so they are set as plates instead
+           of ledger rows: the title carries the weight, the issuer and date
+           sit at the floor, and the kind is stated in the corner.
 
-        <article class="cred rv" data-d="1">
-          <div class="cred__top">
-            <span class="cred__award">2nd Place</span>
-            <span class="mono">2026</span>
-          </div>
-          <h3>BU Polangui Student Research &amp; Development Forum</h3>
-          <p>
-            Agenda 5: Inclusive and Lifelong Learning — Development Category.
-            Bicol University Polangui.
+           The fan is a wide-screen affectation only (see §12) — on a phone
+           these are four upright plates in a column, never overlapping. -->
+      <ul class="creds">
+        <li class="crd crd--signal rv">
+          <span class="crd__ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5.2"/><path d="M9 13.6 7.6 21l4.4-2.4 4.4 2.4-1.4-7.4"/></svg>
+          </span>
+          <span class="crd__kind">Award</span>
+          <h3 class="crd__ttl">Best Undergraduate Capstone Thesis</h3>
+          <p class="crd__note">Awarded for the Student Management System built for Libon East Central School.</p>
+          <p class="crd__meta">
+            <span class="crd__org">Bicol University Polangui</span>
+            <span class="crd__date">2026</span>
           </p>
-        </article>
-      </div>
+        </li>
+
+        <li class="crd crd--pale rv" data-d="1">
+          <span class="crd__ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17.5 9.5 11l4 4L21 7.5"/><path d="M15.5 7.5H21v5.5"/></svg>
+          </span>
+          <span class="crd__kind">2nd Place</span>
+          <h3 class="crd__ttl">Student Research &amp; Development Forum</h3>
+          <p class="crd__note">Agenda 5: Inclusive and Lifelong Learning — Development Category.</p>
+          <p class="crd__meta">
+            <span class="crd__org">Bicol University Polangui</span>
+            <span class="crd__date">2026</span>
+          </p>
+        </li>
+
+        <li class="crd crd--ink rv" data-d="2">
+          <span class="crd__ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.2l1.7 4.1 4.1 1.7-4.1 1.7L12 14.8l-1.7-4.1L6.2 9l4.1-1.7z"/><path d="M18.5 15.5l.8 1.9 1.9.8-1.9.8-.8 1.9-.8-1.9-1.9-.8 1.9-.8z"/></svg>
+          </span>
+          <span class="crd__kind">Certificate</span>
+          <h3 class="crd__ttl">Artificial Intelligence &amp; Machine Learning</h3>
+          <p class="crd__note">Public Lecture Series on applied AI and machine learning fundamentals.</p>
+          <p class="crd__meta">
+            <span class="crd__org">Asia Open RAN Academy</span>
+            <span class="crd__date">05 Mar 2025</span>
+          </p>
+        </li>
+
+        <li class="crd crd--ink rv" data-d="3">
+          <span class="crd__ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 5 5.8v5.4c0 4.3 2.9 7.7 7 9.8 4.1-2.1 7-5.5 7-9.8V5.8z"/><path d="m9 12 2.2 2.2L15.5 10"/></svg>
+          </span>
+          <span class="crd__kind">Certificate</span>
+          <h3 class="crd__ttl">Digital Safety &amp; Security Awareness</h3>
+          <p class="crd__note">DICT–ITU DTC Initiative, delivered through the Cisco Networking Academy program.</p>
+          <p class="crd__meta">
+            <span class="crd__org">DICT · Cisco Networking Academy</span>
+            <span class="crd__date">13 May 2025</span>
+          </p>
+        </li>
+      </ul>
     </div>
   </section>
 
@@ -535,21 +588,21 @@
   <section id="contact" aria-labelledby="h-contact">
     <div class="shell">
       <div class="head rv">
-        <span class="head__ix" aria-hidden="true">
-          <span class="head__no">05</span>
-          <span class="head__tick"></span>
-        </span>
         <div class="head__row">
           <h2 id="h-contact">Contact</h2>
+          <span class="head__meta">Libon, Albay · GMT+8</span>
         </div>
+        <p class="head__sub">Open to junior roles — onsite, hybrid or remote.</p>
       </div>
 
       <!-- Closing panel. Framed rather than open canvas so the last section
            has the weight to end the page, and built on the same 1px hairline
-           grid as .creds so it belongs to the rest of the design. -->
+           grid as the ledgers so it belongs to the rest of the design. -->
       <div class="contact rv">
         <div class="contact__ask">
-          <p class="bigtype wipe rv">Let's put me<br>to work<em>.</em></p>
+          <span class="contact__wash" aria-hidden="true"></span>
+
+          <p class="bigtype rv">Let's put me to work<em>.</em></p>
 
           <p class="contact__lede">
             I'm looking for a junior web, front-end, or software engineering role
@@ -568,12 +621,31 @@
             </a>
           </div>
 
-          <p class="contact__note mono">Usually replies within a day</p>
+          <!-- Foot of the ask column, pushed to the panel floor so the two
+               halves resolve at the same height instead of leaving a void. -->
+          <dl class="contact__facts">
+            <div>
+              <dt>Reply time</dt>
+              <dd>Within a day</dd>
+            </div>
+            <div>
+              <dt>Based in</dt>
+              <dd>Libon, Albay · PH</dd>
+            </div>
+            <div>
+              <dt>Work</dt>
+              <dd>Onsite · Remote</dd>
+            </div>
+          </dl>
         </div>
 
-        <!-- Channels as tiles on a hairline grid: email and phone lead full
-             width, the two profiles pair up, résumé closes. Each tile is one
-             <a> — a single tap target, nothing nested. -->
+        <!-- Channels as tiles on a hairline grid: email leads full width,
+             the two profiles pair up beneath it. Each tile is one <a> — a
+             single tap target, nothing nested. The résumé tile was dropped:
+             it repeated the Download CV button in the left column. The phone
+             tile is gone too — a number published on a static page is a
+             standing invitation to scrapers, and email already opens the
+             same conversation. -->
         <div class="chan">
           <a class="chan__t chan__t--wide" href="mailto:markerickserrano1@gmail.com">
             <span class="chan__ico" aria-hidden="true">
@@ -588,20 +660,7 @@
             </span>
           </a>
 
-          <a class="chan__t chan__t--wide" href="tel:+639456823067">
-            <span class="chan__ico" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3h3l1.5 4-2 1.5a12 12 0 0 0 5.5 5.5l1.5-2 4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.5 5.2 2 2 0 0 1 6.5 3z"/></svg>
-            </span>
-            <span class="chan__txt">
-              <span class="chan__k">Phone</span>
-              <span class="chan__v">+63 945 682 3067</span>
-            </span>
-            <span class="chan__go" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
-            </span>
-          </a>
-
-          <a class="chan__t" href="https://github.com/renjiyomo" target="_blank" rel="noopener noreferrer"
+          <a class="chan__t chan__t--wide" href="https://github.com/renjiyomo" target="_blank" rel="noopener noreferrer"
              aria-label="GitHub profile — opens in a new tab">
             <span class="chan__ico" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.1.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.7.4-1.3.7-1.5-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11.1 11.1 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
@@ -615,7 +674,7 @@
             </span>
           </a>
 
-          <a class="chan__t" href="https://www.linkedin.com/in/mark-erick-serrano-aa7763396/" target="_blank" rel="noopener noreferrer"
+          <a class="chan__t chan__t--wide" href="https://www.linkedin.com/in/mark-erick-serrano-aa7763396/" target="_blank" rel="noopener noreferrer"
              aria-label="LinkedIn profile — opens in a new tab">
             <span class="chan__ico" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0zM7.12 20.45H3.56V9h3.56v11.45zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zm15.11 13.02h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29z"/></svg>
@@ -629,18 +688,6 @@
             </span>
           </a>
 
-          <a class="chan__t chan__t--wide" href="assets/resume/Mark_Erick_Serrano_Resume.pdf" download="Mark_Erick_Serrano_Resume.pdf">
-            <span class="chan__ico" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v5h5"/><path d="M14.5 3H6.5A1.5 1.5 0 0 0 5 4.5v15A1.5 1.5 0 0 0 6.5 21h11a1.5 1.5 0 0 0 1.5-1.5V7.5z"/></svg>
-            </span>
-            <span class="chan__txt">
-              <span class="chan__k">Résumé</span>
-              <span class="chan__v">Download PDF</span>
-            </span>
-            <span class="chan__go chan__go--down" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m-4-4 4 4 4-4M5 20h14"/></svg>
-            </span>
-          </a>
         </div>
       </div>
     </div>
