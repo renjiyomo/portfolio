@@ -2655,16 +2655,28 @@ button.card__media:focus-visible .card__badge {
   opacity: 0;
   transform: scale(.55);
   transition:
-    opacity .4s var(--ease-soft),
-    transform .45s var(--ease-out);
-  transition-delay: calc(var(--w, 0) * 12ms);
+    opacity .28s var(--ease-soft),
+    transform .32s var(--ease-out);
+  /* 4ms, not 12: across 53 columns that is the difference between the grid
+     finishing in ~330ms and taking over a second. The sweep still reads
+     left-to-right — it just stops being something you wait for. */
+  transition-delay: calc(var(--w, 0) * 4ms);
 }
 
 .gh.in[data-state="ready"] .gh__c,
+.gh.in[data-state="cached"] .gh__c,
 .gh.in[data-state="stale"] .gh__c,
 .gh.in[data-state="error"] .gh__c {
   opacity: 1;
   transform: none;
+}
+
+/* A grid that was already drawn from cache must not replay the sweep when the
+   live response repaints it — the cells are on screen already, and
+   re-animating them would read as a glitch rather than an update. Set by JS
+   only on a second paint, so a genuine first visit keeps its reveal. */
+.gh[data-repaint] .gh__c {
+  transition-delay: 0s;
 }
 
 /* -- Legend ------------------------------------------------------------ */
@@ -2735,6 +2747,11 @@ button.card__media:focus-visible .card__badge {
   color: var(--muted);
 }
 
+/* Shown for a degraded graph only. `cached` is deliberately absent: painting
+   from storage is now the normal fast start for a returning visitor, not a
+   failure, and announcing "live graph unavailable" over data that is about to
+   be revalidated a moment later would be a lie. `stale` remains the genuine
+   degraded case — storage was all we could get. */
 .gh[data-state="stale"] .gh__note,
 .gh[data-state="error"] .gh__note { display: block; }
 
