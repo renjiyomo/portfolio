@@ -56,24 +56,10 @@
   /* Wave divider height */
   --wave-h: clamp(44px, 6.5vw, 92px);
 
-  /* Portrait stage. The cut-out gets an arch niche behind it rather than a
-     frame. Dark theme builds depth with LIGHT — a pale wash rising behind
-     the figure. Neutral on purpose: --signal stays reserved for actions. */
   --stage:      rgba(255, 255, 255, .052);
   --stage-edge: rgba(255, 255, 255, .085);
   --wash:       rgba(214, 226, 232, .10);
 
-  /* Contribution levels (§18). Five steps from "nothing committed" to
-     "committed all day", and the ramp is the same --signal amber the rest of
-     the page spends on actions — a year of work is the one other thing on
-     this site that has earned it.
-
-     Levels 1–3 are alpha rather than mixed hex so the ramp sits ON whatever
-     surface it is drawn over instead of only matching --surface, and so both
-     themes need one set of stops rather than two. Level 0 is --rule: an
-     empty day is a hairline, not a colour.
-
-     Dark builds UP from the panel — denser weeks glow brighter. */
   --gh-0: var(--rule);
   --gh-1: rgba(255, 176, 0, .30);
   --gh-2: rgba(255, 176, 0, .52);
@@ -83,21 +69,9 @@
 
   --ease-out:  cubic-bezier(.16, 1, .3, 1);
   --ease-soft: cubic-bezier(.4, 0, .2, 1);
-  /* Theme sweep: leaves gently, then coasts a long way out, so a circle
-     crossing the whole viewport never feels like it slams open. */
   --ease-sweep: cubic-bezier(.4, 0, .22, 1);
   --sweep-dur: 620ms;
 
-  /* Origin of the theme sweep. theme.js overwrites these with the measured
-     centre of the toggle; the defaults aim at the top-right corner, which
-     is where the toggle lives, so the effect is still correct if the swap
-     is triggered before that script runs.
-
-     Relative units only — never px/rem/vmax. These feed circle() on the
-     ::view-transition pseudos, which are laid out in the snapshot containing
-     block: absolute lengths there are not scaled by browser zoom, so they
-     land off the button (see setOrigin() in theme.js). 141.4% of the radius
-     reference already spans corner to corner; 150% is deliberate slack. */
   --tx: 92%;
   --ty: 3%;
   --tr: 150%;
@@ -120,35 +94,11 @@ html.light {
   --signal-soft: rgba(138, 82, 0, .10);
   --grid:        rgba(20, 24, 26, .050);
   --shadow:      0 18px 50px -30px rgba(60, 50, 30, .45);
-  /* Inverted logic: depth on a bright ochre canvas comes from SHADE, not
-     glow — a glow here would only read as a smudge. Warm-grey so it sits
-     in the paper rather than looking like a grey sticker on it.
-
-     Deliberately not a uniform scale-up of the dark values. Ochre paper
-     (#F4F2EC) has far less headroom beneath it than near-black has above
-     it, so the same alpha that reads clearly in the dark simply vanishes
-     here — but the three layers do not need equal help:
-
-       --stage       3.4x  the arch itself has to be legible as a shape
-       --stage-edge  4.0x  the contour carries the most weight; it is the
-                           part that states "this was drawn", where soft
-                           tone alone reads as a compression artefact
-       --wash        1.5x  lightest touch — pushed further it stops being
-                           depth behind him and becomes a grey cloud */
 
   --stage:      rgba(94, 81, 58, .175);
   --stage-edge: rgba(94, 81, 58, .34);
   --wash:       rgba(94, 81, 58, .145);
 
-  /* Same inversion as the portrait stage: on ochre paper the graph gets
-     DARKER as the weeks get busier, because there is no headroom above
-     #F4F2EC to brighten into.
-
-     Level 0 is --surface-2 here, NOT --rule. --rule (#DCD7CB) is a mid grey
-     that a faint amber wash over near-white paper cannot beat — level 1 would
-     come out LIGHTER than an empty day and the ramp would read backwards at
-     its most important step. #EFECE2 is pale enough that level 1 lands
-     visibly darker, so the sequence still runs one direction. */
   --gh-0: var(--surface-2);
   --gh-1: rgba(138, 82, 0, .22);
   --gh-2: rgba(138, 82, 0, .45);
@@ -444,35 +394,18 @@ html.light        .themetoggle span[data-for="light"] {
 
 /* ---- 05. SECTION HEADERS ---------------------------------------------- */
 
-/* Section headers. The index plate ("01") and its tick are gone: numbering
-   a five-section page is decoration that has to be read before the title it
-   sits above. What states position now is the register rule beneath the row
-   — the same hairline the ledgers and the chip register are built on, so the
-   header is the first line of the table rather than a label floating over it.
-
-   One row, two ends: the title owns the left, the action or the meta owns the
-   right. Nothing stacks, so "view all" is never orphaned at the foot of a
-   section (which is where .sectact used to leave it). */
 .head {
   display: grid;
   gap: .5rem;
   margin-bottom: clamp(1.6rem, 3.6vw, 2.5rem);
 }
 
-/* Baseline alignment, not centre: the mono action is much smaller than the
-   h2, and centring it against the cap height leaves it visibly high. */
 .head__row {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   gap: clamp(1rem, 3vw, 1.75rem);
   padding-bottom: .85rem;
-
-  /* Two-tone register rule: a short --signal lead-in, then the hairline
-     running out to the full width. Drawn as one background so there is no
-     extra element and no second box to keep in sync — and because it is a
-     gradient on the border-box, it lands on the same pixel row as every
-     other hairline on the page. */
   border-bottom: 1px solid transparent;
   border-image: linear-gradient(
     to right,
@@ -489,9 +422,6 @@ html.light        .themetoggle span[data-for="light"] {
   color: var(--text);
 }
 
-/* The line that used to sit under .sectact at the bottom of the section.
-   It belongs with the title: it says what the section is before it is read,
-   instead of explaining it after the fact. */
 .head__sub {
   font-size: .8125rem;
   color: var(--muted);
@@ -508,11 +438,7 @@ html.light        .themetoggle span[data-for="light"] {
   font-feature-settings: "zero" 1;
 }
 
-/* ── In-row section action ────────────────────────────────────────────────
-   Deliberately not a .btn. A button in the header row competes with the h2
-   next to it and with the primary CTAs elsewhere on the page; this is set in
-   the same mono register as .head__meta, so it reads as the right-hand end of
-   the header line. The rule beneath it is what carries the affordance. */
+/* ── In-row section action ── */
 .head__act {
   flex: none;
   display: inline-flex;
@@ -559,9 +485,6 @@ html.light        .themetoggle span[data-for="light"] {
 
 /* ---- 06. HERO --------------------------------------------------------- */
 
-/* The hero holds the cut-out portrait, so it clips at its own floor and
-   hands the last few pixels over to the wave divider. Qualified with
-   [id] to outrank the generic section[id] padding above. */
 section[id].mast {
   position: relative;
   overflow: hidden;
@@ -586,10 +509,6 @@ section[id].mast {
   }
 }
 
-/* Optically centred against the portrait column, with enough floor to keep
-   the buttons clear of the wave. One value for both layouts, because the
-   copy sits above the wave either way: beside the portrait on desktop,
-   below it and last in the flow on mobile. */
 .mast__intro {
   align-self: center;
   padding-bottom: calc(var(--wave-h) + .5rem);
@@ -624,8 +543,6 @@ section[id].mast {
   color: var(--muted);
 }
 
-/* Rhythm below the name is one proportional scale, so the block reads as a
-   single unit instead of five separately-spaced pieces. */
 .role {
   display: flex;
   flex-wrap: wrap;
@@ -642,8 +559,6 @@ section[id].mast {
   color: var(--text-dim);
 }
 
-/* 50ch keeps the ragged edge from reaching the portrait at mid widths while
-   giving the longer intro a sane number of lines. */
 .mast__lede {
   max-width: 50ch;
   color: var(--muted);
@@ -660,7 +575,6 @@ section[id].mast {
 
 .mast__loc svg { width: 13px; height: 13px; flex: none; }
 
-/* Largest step in the scale — separates the actions from the copy above */
 .actions {
   display: flex;
   flex-wrap: wrap;
@@ -669,7 +583,6 @@ section[id].mast {
   margin-top: clamp(1.5rem, 3vw, 2.1rem);
 }
 
-/* Divider between the primary actions and the social cluster */
 .actions__rule {
   flex: none;
   align-self: stretch;
@@ -684,7 +597,6 @@ section[id].mast {
   gap: .5rem;
 }
 
-/* Compact profile links — same visual language as .btn, icon-led */
 .iconbtn {
   border-radius: var(--r-sm);
   display: inline-flex;
@@ -730,9 +642,6 @@ section[id].mast {
   }
 }
 
-/* Portrait — a cut-out figure, so no card, no frame, no border radius.
-   The source itself ends mid-calf (there are no feet in the PNG), and the
-   wave divider is what conceals that cut on this layout. */
 
 .plate {
   position: relative;
@@ -743,36 +652,19 @@ section[id].mast {
   max-width: 24rem;
 }
 
-/* No contact shadow: the wave crops the figure mid-calf, so the point where
-   he would meet the floor is hidden anyway, and anything drawn in that band
-   sits beneath the wave (z-index 3). The wave is what grounds him. */
-
-/* ── Portrait stage ───────────────────────────────────────────────────────
-   An arch niche behind the figure. Three reasons this works where a circle
-   didn't: it echoes the standing 2:3 proportion instead of fighting it, it
-   is shorter than he is so his head and shoulders break past its top edge
-   (depth, not a sticker), and it seats into the wave at the bottom so the
-   whole composition is one object rather than a portrait plus decoration. */
 .plate__glow {
   position: absolute;
   z-index: 0;
   left: 50%;
   transform: translateX(-50%);
   width: 76%;
-  /* Starts below the crown and runs into the wave, which crops its foot */
   top: 13%;
   bottom: calc(var(--wave-h) * .20);
   border-radius: 999px 999px 0 0;
   pointer-events: none;
-  /* Densest at the base, dissolving as it rises — reads as depth behind
-     him rather than a flat panel with a visible top edge. */
   background: linear-gradient(to top, var(--stage), transparent 88%);
 }
 
-/* Hairline tracing the arch's own contour. Structural, matching the
-   hairline vocabulary in .reg / .led / .contact — not a ring floating
-   at an arbitrary radius. Fades out before the base so it never
-   terminates in two hard stubs. */
 .plate__glow::before {
   content: "";
   position: absolute;
@@ -784,8 +676,6 @@ section[id].mast {
           mask-image: linear-gradient(to top, transparent, #000 22%);
 }
 
-/* Light wash, centred on the upper torso. Taller than wide so it follows
-   the figure, with a long falloff so there is no visible disc edge. */
 .plate__glow::after {
   content: "";
   position: absolute;
@@ -802,114 +692,35 @@ section[id].mast {
   z-index: 1;
   width: 100%;
   height: auto;
-  /* Anchored to the floor of the hero — the wave takes it from here */
   margin-bottom: 0;
 }
 
-/* ── Stacked: the portrait leads ──────────────────────────────────────────
-   He moves above the name and heads the hero. `order` does that visually
-   while the DOM keeps the h1 first, so reading order and tab order are
-   still name → role → copy → actions.
-
-   Everything below is driven by the actual pixels in Profile-nobg.png,
-   measured from its alpha channel rather than eyeballed:
-
-     canvas        1600 x 2400
-     figure        x 458..1261, y 138..2399  (804 x 2262)
-     so he fills   50.3% of the width, and his true centre line is 53.7%
-     widest row    y 1378 — 780px across
-     base          a single 613px-wide mass at the very last pixel row
-
-   Two consequences drive the whole block. First, ~47% of the image box is
-   transparent side margin, so laying it out untouched wastes half the
-   footprint and he reads small and slightly left of centre. Second, that
-   solid base is not feet — the source is cropped straight through his
-   calves. On desktop the wave hides that cut; up here nothing does.
-
-   The composition is a portrait STANDING IN the name: he is sized off the
-   viewport height, grounded by a contact pool, and the tail of his fade
-   is pulled down into the h1's cap band, so the two are one object rather
-   than a photo sitting on top of a heading.
-
-   55.999rem, not 56rem: `max-width` and `min-width` are both inclusive, so
-   a plain 56rem here would match at exactly 56rem alongside the two-column
-   rule above — and because this block comes later in the file it would win,
-   stacking the portrait inside a two-column grid on that one width. */
+/* ── Stacked: the portrait leads ── */
 @media (max-width: 55.999rem) {
 
-  /* One knob for the whole composition. Height-led, not width-led: a phone
-     in landscape or a short browser window is constrained vertically, so
-     sizing off dvh keeps him from pushing the name and the CTAs below the
-     fold. The clamp floor protects 320px; the ceiling stops him dominating
-     a 768px tablet. */
   .mast {
-    /* Because `cover` matches the box HEIGHT (see .plate img below), the
-       figure's rendered size depends on this token alone and not on the
-       box ratio: he lands at 0.94x this height and 0.335x it wide. 42dvh
-       therefore puts him at ~333px tall on a 390x844 phone — a deliberate
-       match for the old 3/8 layout, so he is re-composed at the same
-       presence rather than quietly shrunk.
-
-       The floor is for landscape phones, where 42dvh would collapse him;
-       the ceiling stops a 768px tablet from turning him into a billboard.
-
-       vh first, dvh second: browsers without dynamic units keep the
-       fallback and everything else gets the unit that ignores the mobile
-       browser chrome, so the figure does not resize as the URL bar hides. */
     --fig-h: clamp(13rem, 42vh, 26rem);
     --fig-h: clamp(13rem, 42dvh, 26rem);
-
-    /* How far the base of the figure sinks into the name. A fraction of the
-       figure rather than of the viewport width, so it stays locked to the
-       18% dissolve below: 5.5 / 18 means the name always meets the fade at
-       just under a third of its ramp — visible haze over the cap band, well
-       short of the density that would cost legibility. Sizing this off vw
-       instead would drift, and the overlap would read differently on every
-       device for no reason. */
     --fig-sink: calc(var(--fig-h) * .055);
   }
 
   .plate {
     order: -1;
-    /* A 1 / 2 box, expressed off the height token so there is one source of
-       truth. 62vw is a guard, not the plan — it only engages on very narrow
-       or very short-and-wide viewports, where it crops a little tighter
-       instead of letting the figure run past the gutters. */
     width: calc(var(--fig-h) / 2);
     max-width: 62vw;
     margin-inline: auto;
-    /* Above the h1 in the paint order, so the masked tail of the figure
-       can wash over the top of the name instead of being clipped by it */
     position: relative;
     z-index: 2;
   }
 
-  /* 1/2 is narrower than the source's 2/3, so `cover` matches the height and
-     spills the width — which is exactly the transparent side margin we want
-     gone. 1200px of the 1600 survives, so his 804px silhouette fills 67% of
-     the box: cropped enough to read at phone scale, but with the air around
-     him that 3/8 (89%) squeezed out. 65% (not 53.7%) is the object-position
-     that lands his centre line on the box centre once the 400px of overflow
-     is split between the two edges. */
   .plate img {
     height: var(--fig-h);
     object-fit: cover;
     object-position: 65% top;
-    /* Dissolves the calf crop. Without this the figure ends in a flat
-       613px guillotine directly above the name and reads as amputated;
-       with it he fades out and reads as standing in haze. Longer ramp
-       than the desktop arch mask (18% vs 10%) because here the fade has
-       to resolve on the open canvas with no wave to help it. */
     -webkit-mask-image: linear-gradient(to top, transparent, #000 18%);
             mask-image: linear-gradient(to top, transparent, #000 18%);
   }
 
-  /* Contact pool — the figure needs a floor, otherwise he hovers. Sized and
-     placed in percentages of the figure box so it tracks --fig-h: centred at
-     10% of his height, which is the middle of the 18% dissolve above. That
-     coincidence is the whole point — the haze is densest exactly where he
-     stops being opaque, so he reads as standing IN it rather than above it.
-     Same tone as the arch, so both themes are covered with no new tokens. */
   .plate::after {
     content: "";
     position: absolute;
@@ -924,49 +735,29 @@ section[id].mast {
     pointer-events: none;
   }
 
-  /* Grid gap goes to zero and the intro is pulled up by --fig-sink, so the
-     tail of the dissolve lands inside the name's cap band. Those pixels are
-     already masked to near-transparent, so it reads as haze behind the
-     letters — never a hard edge crossing them. */
   .mast__grid { gap: 0; }
 
   .mast__intro {
     margin-top: calc(var(--fig-sink) * -1);
-    /* One axis for the whole stack: the name, the role, the lede, the
-       location and the actions all sit on the portrait's centre line. */
     text-align: center;
   }
 
-  /* Optical size-down: at 1 / 2 the figure carries the top of the hero, so
-     the name no longer has to shout to hold it. */
   .mast h1 {
     font-size: clamp(2rem, 8.5vw, 3.25rem);
     margin-bottom: .75rem;
   }
 
-  /* Centred blocks need their own centring — these are inline-flex and
-     max-width elements, which `text-align` alone does not move. */
   .role,
   .actions { justify-content: center; }
 
-  /* The three pipe-separated labels need ~590px to share one line, so on a
-     phone the string always wraps to two lines. Tightening the gap keeps that
-     at two compact lines instead of three tall ones — vertical budget matters
-     here, because the CTAs have to stay above the fold. */
   .role { gap: .15rem .6rem; }
 
-  /* Near the natural measure at phone widths, so it does not force extra
-     lines; on a tablet it becomes a real centred column. */
+
   .mast__lede {
     max-width: 42ch;
     margin-inline: auto;
   }
 
-  /* Re-fitted to the cropped box: 76% was sized against a half-empty one and
-     would now sit inside his silhouette instead of behind it. His crown is at
-     5.75%, so top:10% still lets his head and shoulders break past the arch —
-     the detail that reads as depth rather than a sticker. The base mask peaks
-     the tone just under the figure's own dissolve so the two fades agree. */
   .plate__glow {
     width: 92%;
     top: 10%;
@@ -975,24 +766,12 @@ section[id].mast {
             mask-image: linear-gradient(to top, transparent, #000 14%);
   }
 
-  /* He is the first thing seen, so he arrives first. Visual order only —
-     the DOM order, and therefore the reading and tab order, is unchanged. */
   .plate.rv[data-d="2"] { transition-delay: 0s; }
   .mast h1 .ln > span   { transition-delay: .08s; }
 
-  /* Less headroom above him, since he now heads the hero */
   section[id].mast { padding-top: clamp(1rem, 3.5vw, 2rem); }
 }
 
-/* Phones: the two CTAs share a row as equal halves — side-by-side auto-width
-   buttons wrap raggedly at this size, and one full-width button per row reads
-   like a form. The social cluster then gets its own centred row, so the
-   divider between the two groups has nothing left to divide.
-
-   auto-fit, not a hard `1fr 1fr`: the longer label needs ~9.5rem to sit on
-   one line, and two of those plus the gap do not fit inside a 320px gutter,
-   where a fixed pair would clip the text (.btn is overflow:hidden for its
-   wipe fill). Below that width the pair simply becomes one column. */
 @media (max-width: 34rem) {
   .mast .actions {
     display: grid;
@@ -1007,7 +786,6 @@ section[id].mast {
   .mast .social {
     grid-column: 1 / -1;
     justify-content: center;
-    /* Keeps the icon row from crowding the buttons above it */
     margin-top: .15rem;
   }
 }
@@ -1016,8 +794,6 @@ section[id].mast {
 
 /* ---- 07. WAVE DIVIDERS & BANDS ---------------------------------------- */
 
-/* Inline SVG pinned to the edge of a band. Slightly over-wide so the
-   sub-pixel seam at the left and right edges never shows. */
 .wave {
   position: absolute;
   left: -.5%;
@@ -1030,28 +806,12 @@ section[id].mast {
 
 .wave--bottom { bottom: -1px; }
 
-/* Fill follows the band the wave hands off to, so both themes work */
 .wave path            { fill: var(--surface); }
 .wave--canvas path    { fill: var(--canvas); }
 
-/* A tinted band. The work grid sits between two waves: the hero's wave
-   closes it at the top, its own wave opens the canvas below it. */
 .band {
   position: relative;
   background: var(--surface);
-
-  /* The wave hangs .5% past each edge to hide the sub-pixel seam, and until
-     now nothing caught the overhang: the right-hand ~6px escaped the section
-     and turned into six pixels of horizontal scroll on the whole document —
-     a page that shudders sideways for a decoration nobody can see.
-
-     `clip`, not `hidden`. Setting overflow-x: hidden here would compute
-     overflow-y to auto, making this section a scroll container and cropping
-     the same wave's 1px bottom overhang — the one part of it that has to
-     survive, because that is what seats it into the next section. `clip`
-     leaves the other axis visible. Where it is unsupported the declaration
-     is simply dropped and we are back to the 6px, which is what shipped
-     before, so there is nothing to fall back to. */
   overflow-x: clip;
 }
 
@@ -1062,7 +822,6 @@ section[id].band {
     calc(clamp(3.25rem, 7vw, 6rem) + var(--wave-h));
 }
 
-/* The next section begins beneath that wave, so it needs no rule of its own */
 .band + section[id] { border-top: 0; }
 
 /* ---- 08. BUTTONS ------------------------------------------------------ */
@@ -1099,7 +858,6 @@ section[id].band {
   z-index: 1;
 }
 
-/* Wipe fill on hover — travels left to right */
 .btn::before {
   content: "";
   position: absolute;
@@ -1129,10 +887,6 @@ section[id].band {
 
 /* ---- 09. STACK -------------------------------------------------------- */
 
-/* The stack reads as a register, not a set of cards: a labelled key on the
-   left, the tools themselves set as mono chips on the right. Rows are
-   separated by the same hairline used everywhere else, so the section sits
-   flush with the page rather than floating on top of it. */
 .reg {
   border-bottom: 1px solid var(--rule);
 }
@@ -1191,32 +945,18 @@ section[id].band {
   border-color: var(--rule-strong);
 }
 
-/* The last <li> in the Tooling row wraps a button, which carries its own
-   chrome — without this the chip renders as a box inside a box.
-
-   Two separate rules on purpose, NOT one comma-separated list. A selector
-   list is all-or-nothing: a browser that does not understand :has() throws
-   out the entire list it appears in, declarations included — which would
-   drop the class rule too, on precisely the older browsers the class is
-   here to cover.
-
-   Qualified as `li.reg__hold` (0,2,1) so it outranks `.reg__set li` (0,1,1).
-   A bare `.reg__hold` is only (0,1,0) and would lose to it, leaving the
-   chip border it is trying to remove still painted. */
 .reg__set li.reg__hold {
   padding: 0;
   border: 0;
   background: none;
 }
 
-/* Safety net, in case this markup is ever copied without the class */
 .reg__set li:has(> .reg__more) {
   padding: 0;
   border: 0;
   background: none;
 }
 
-/* Dashed, so it reads as an opening rather than another entry */
 .reg__more {
   font-family: var(--font-mono);
   font-size: .6875rem;
@@ -1281,12 +1021,6 @@ section[id].band {
   transform: translateY(-3px);
 }
 
-/* The box is cut to the captures' own ratio — every screenshot in the grid
-   is a 1919×908 browser window, ~2.113:1 — so `contain` shows the whole
-   interface with no visible letterbox. A 16/10 box and `object-fit: cover`
-   used to sit here, and it took a quarter off the width of every screen: the
-   navigation on one edge, the primary action on the other. These captures
-   are the argument this section makes, so they are shown entire. */
 .card__media {
   position: relative;
   aspect-ratio: 1919 / 908;
@@ -1304,12 +1038,8 @@ section[id].band {
   filter: saturate(.82);
 }
 
-/* Saturation only. A hover scale would crop back in exactly what `contain`
-   is here to keep, so the card lifts (see .card:hover above) and the image
-   holds still. */
 .card:hover .card__media img { filter: saturate(1); }
 
-/* Small label over card media — marks the flagship and the capstone */
 .card__tag {
   position: absolute;
   top: 0;
@@ -1359,20 +1089,6 @@ section[id].band {
   flex: 1;
 }
 
-/* The card footer used to be a two-ended row: a strip of tech chips on the
-   left, the action on the right. The chips are gone — three of a project's
-   dozen dependencies, abbreviated to fit, told a reader nothing they could
-   act on, and six cards of them turned the grid into a wall of mono caps
-   that competed with the titles above them. The full stack is still stated,
-   in the case study, where there is room to say it properly.
-
-   So this is now a single action on the left, and `flex-start` is the whole
-   point: with `space-between` still declared, one child would be pushed
-   against the left edge anyway — but only by accident of there being one.
-   Stated outright, the rule survives a second element being added later.
-
-   The hairline stays. It is what makes the card read as head / body / foot
-   rather than as copy that happens to end in a link. */
 .card__ft {
   display: flex;
   align-items: center;
@@ -1428,36 +1144,11 @@ section[id].band {
 
 .links svg { width: 12px; height: 12px; }
 
-/* On the tinted band the cards would otherwise be --surface on --surface,
-   losing their edge entirely. Everything lifts one step up the scale so the
-   separation survives — and it survives in both themes, because the tokens
-   move in opposite directions: dark goes lighter (#121517 → #171B1E) while
-   light goes deeper (#FBFAF7 → #EFECE2).
-
-   :not(.btn--primary) guards the wipe-fill button — a primary in here must
-   keep its --signal background, and .band .btn would otherwise outrank it. */
 .band .card,
 .band .btn:not(.btn--primary) { background: var(--surface-2); }
 
-/* Media placeholder, seen while a screenshot is still loading — held one
-   step back so it reads as a recess in the card, not a panel on top. */
 .band .card__media { background: var(--surface); }
 
-/* ---- 11. LEDGER (EXPERIENCE) ------------------------------------------ */
-
-/* Experience is a ledger. Year on the left, the entry in the middle, the
-   institution squared off on the right, one hairline between rows and
-   nothing else — the layout a CV actually has.
-
-   It replaces a timeline drawn on a scale, which put a rail down the page
-   carrying no information. Rows here are as tall as their content and no
-   taller, so ten years fit in the space four cards took.
-
-   Rows are <details>, so the detail is available without a modal, without
-   JavaScript, and with keyboard support already built in. Nothing is open
-   on load: an auto-expanded first row makes the newest entry shout over
-   the five below it, and it spends a third of the section's height before
-   the reader has asked for anything. The marker states where to press. */
 .led {
   border-bottom: 1px solid var(--rule);
 }
@@ -1467,9 +1158,6 @@ section[id].band {
   border-top: 1px solid var(--rule);
 }
 
-/* Edge marker, same plotter gesture as the channel tiles: it draws DOWN the
-   row rather than lifting it. No translate, no shadow — a ledger line that
-   floats stops being a ledger line. */
 .led__row::before {
   content: "";
   position: absolute;
@@ -1487,11 +1175,6 @@ section[id].band {
 .led__row:focus-within::before,
 .led__row[open]::before { transform: scaleY(1); }
 
-/* Stacked by default: year, then entry, then institution.
-
-   The row scale is deliberately tight. This is a reference table, and a
-   table earns its authority by fitting on the page — padding that suits a
-   card leaves six entries spanning two screens. */
 .led__ln {
   display: grid;
   gap: .22rem;
@@ -1499,7 +1182,6 @@ section[id].band {
   padding-left: clamp(.7rem, 1.8vw, 1.1rem);
 }
 
-/* Room for the disclosure marker, which is pinned to the right up here */
 details.led__row > .led__ln { padding-right: 1.9rem; }
 
 .led__row > summary {
@@ -1515,9 +1197,6 @@ details.led__row > .led__ln { padding-right: 1.9rem; }
   outline-offset: -3px;
 }
 
-/* One line per entry once there is room for it. The marker track is declared
-   on every row, including the flat ones, so the right-hand column squares off
-   at the same x whether or not that row can be opened. */
 @media (min-width: 46rem) {
   .led__ln {
     grid-template-columns:
@@ -1532,8 +1211,6 @@ details.led__row > .led__ln { padding-right: 1.9rem; }
   details.led__row > .led__ln { padding-right: 0; }
 }
 
-/* Tabular figures with a slashed zero: the years form a column, so they have
-   to sit on the same width. Standard --font-mono treatment on this site. */
 .led__yr {
   font-family: var(--font-mono);
   font-size: .6875rem;
@@ -1544,7 +1221,6 @@ details.led__row > .led__ln { padding-right: 1.9rem; }
   transition: color .3s var(--ease-soft);
 }
 
-/* The only entry marked as current gets the signal — one per section */
 .led__row[data-now="true"] .led__yr { color: var(--signal); }
 
 .led__ttl {
@@ -1569,10 +1245,6 @@ details.led__row > .led__ln { padding-right: 1.9rem; }
   .led__org { text-align: right; }
 }
 
-/* ── Disclosure marker ───────────────────────────────────────────────────
-   A hairline + built from two 1px bars, which collapses to a − when the row
-   opens. Same weight as every rule on the page, so it belongs to the table
-   instead of arriving as a borrowed chevron glyph. */
 .led__mk {
   position: absolute;
   right: 0;
@@ -1582,9 +1254,6 @@ details.led__row > .led__ln { padding-right: 1.9rem; }
   flex: none;
 }
 
-/* relative, NOT static: the two bars inside are absolutely positioned, so
-   this element has to stay their containing block. Left static they would
-   resolve against .led__row instead and stripe the full width of the row. */
 @media (min-width: 46rem) {
   .led__mk {
     position: relative;
@@ -1603,7 +1272,6 @@ details.led__row > .led__ln { padding-right: 1.9rem; }
   transition: transform .4s var(--ease-out), background-color .3s var(--ease-soft);
 }
 
-/* Horizontal bar — always present */
 .led__mk::before {
   left: 0;
   right: 0;
@@ -1611,7 +1279,6 @@ details.led__row > .led__ln { padding-right: 1.9rem; }
   height: 1px;
 }
 
-/* Vertical bar — retracts into the horizontal one on open: + becomes − */
 .led__mk::after {
   top: 0;
   bottom: 0;
@@ -1625,10 +1292,6 @@ details.led__row > .led__ln { padding-right: 1.9rem; }
 .led__row:hover .led__mk::after,
 .led__row[open] .led__mk::before { background: var(--signal); }
 
-/* ── Row detail ──────────────────────────────────────────────────────────
-   Indented to the title column, so the detail reads as belonging to the
-   entry above it rather than starting a new one. The summary's own bottom
-   padding shrinks when open, otherwise the two stack into a gap. */
 .led__row[open] > .led__ln { padding-bottom: .3rem; }
 
 .led__body {
@@ -1667,43 +1330,12 @@ details.led__row > .led__ln { padding-right: 1.9rem; }
 }
 
 /* ---- 12. CREDENTIALS — PLATE DECK ------------------------------------- */
-
-/* Credentials used to be a second ledger, stacked directly beneath the
-   first. Two identical hairline tables in a row read as one long table with
-   a heading dropped into the middle of it, and four short entries is not
-   enough material to justify a table at all — a table earns its keep when
-   the reader needs to scan a column, and nobody scans four rows.
-
-   So this section is the one place on the page that gets objects: four
-   portrait plates, laid out as a deck. Each plate is a real thing that was
-   handed over — a certificate, an award — and the layout says so.
-
-   The plate is read from the corners in. A line mark holds the top-left,
-   the kind is squared off top-right, the title sits LOW instead of at the
-   top, and the issuing body with its date closes the floor. That order is
-   deliberate: the title is the largest thing on the plate, so putting it at
-   the bottom leaves quiet space above it and the eye lands on the mark
-   first — the same reason the hero lets the portrait break past the arch.
-
-   Colour carries meaning rather than variety: FILLED plates are awards,
-   INK plates are certificates. So the deck is legible as two ranks before
-   a single word of it is read, and adding a fifth certificate later cannot
-   quietly break the pattern.
-
-   Every value below is an existing token, so both themes follow with no
-   second palette to maintain — including the pale plate, which is --text on
-   --canvas and therefore inverts itself when the theme does. */
 .creds {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(14.5rem, 1fr));
   gap: clamp(.85rem, 2vw, 1.25rem);
 }
 
-/* Column flex, because the vertical rhythm inside the plate is set by a
-   single auto margin rather than by fixed spacing — see .crd__ttl below.
-   The 1px transparent border is declared here rather than only on the ink
-   variant, so all four plates share one box: without it the certificates
-   would be 2px shorter than the awards and the deck would not line up. */
 .crd {
   --tilt: 0deg;
   --rise: 0px;
@@ -1718,73 +1350,23 @@ details.led__row > .led__ln { padding-right: 1.9rem; }
   border-radius: var(--r-lg);
 }
 
-/* ── Plate ranks ─────────────────────────────────────────────────────────
-   The reference for this deck had a blue plate in the middle. Importing a
-   foreign blue would put a colour on the page that means nothing anywhere
-   else in it, so the filled plate is --signal: the accent this site already
-   spends on the thing that matters most in a section.
-
-   Both awards are filled, and they are filled DIFFERENTLY — solid signal
-   for the capstone, the inverted plate for the forum placing — so the two
-   read as one rank without the page carrying two amber blocks of equal
-   weight. */
 .crd--signal {
-  /* Amber has the least contrast headroom of the three plates, so its
-     secondary text is dimmed the least — see the --dim note below. */
   --dim: .88;
-
   background: var(--signal);
   color: var(--signal-ink);
 }
 
-/* The silver plate of the reference, built from the type colour rather than
-   a grey of its own: near-white on the dark theme, near-black on the light
-   one, and legible on both without a second token. */
 .crd--pale {
   background: var(--text);
   color: var(--canvas);
 }
 
-/* Certificates: attendance, not distinction. They keep the surface tone and
-   a hairline, so they sit a full step behind the two awards. */
 .crd--ink {
   background: var(--surface-2);
   border-color: var(--rule);
   color: var(--text);
 }
 
-/* ── --dim ───────────────────────────────────────────────────────────────
-   Secondary text inside a plate is `currentColor` at reduced opacity, never
-   --muted: the plate ink changes with the rank, and --muted is only ever
-   correct against --canvas.
-
-   ONE dim level per plate, routed through a property, because every piece
-   of secondary text here is small (9–12px) and therefore owes the same
-   4.5:1 that WCAG asks of body copy — a label cannot be dimmer than the
-   note just because it looks quieter that way. Hierarchy between them is
-   carried by position, size and the mono face instead, which is the more
-   robust signal anyway.
-
-   The values are measured, not taste. Worst case is the amber plate in
-   LIGHT theme, where --signal is #8A5200 against near-white ink: those two
-   are only 6.12:1 even at full strength, so there is very little to spend.
-   Composited against that plate, a flat .72 lands at 4.01:1 and the base
-   .78 at 4.42:1 — both fail, though both look perfectly reasonable on the
-   dark theme, where the same .78 reads 6.87:1. So the .88 override on
-   --signal is load-bearing, not cosmetic: drop it and the amber plate
-   fails on light alone.
-
-   With .88 there and .78 elsewhere the floor across all three plates in
-   both themes is 5.15:1 for text and 5.30:1 for the .9 icon, against the
-   4.5 and 3.0 those sizes require. Anything raised here is safe; anything
-   lowered has to be re-measured on light amber first, since that is the
-   only combination with no headroom. */
-
-
-/* ── Plate contents ──────────────────────────────────────────────────────
-   A line mark, at the same 1.6 stroke as every other icon on the page. It
-   states the kind at a glance, which is why the mono label beside it can
-   stay as quiet as it does. */
 .crd__ico {
   display: block;
   height: 1.25rem;
@@ -1797,10 +1379,6 @@ details.led__row > .led__ln { padding-right: 1.9rem; }
   display: block;
 }
 
-/* Absolute, not a flex row with the mark: the two are siblings in a column,
-   and pairing them any other way would need a wrapper element in the markup
-   that exists purely to hold a layout. Same inset as the plate padding, and
-   the shared 1.25rem height centres it against the mark. */
 .crd__kind {
   position: absolute;
   top: clamp(1.1rem, 2.4vw, 1.5rem);
@@ -1816,19 +1394,6 @@ details.led__row > .led__ln { padding-right: 1.9rem; }
   opacity: var(--dim);
 }
 
-/* This one declaration is the layout. It is the ONLY auto margin in the
-   plate, and that is the point: all the free space collects above the title,
-   which drops the title, the note and the meta line together onto the floor
-   of the plate and leaves the quiet band up top for the mark to sit in.
-
-   A second `margin-top: auto` on .crd__note would look like it does the same
-   job and does not — auto margins SPLIT free space evenly, so the pair would
-   halve that band and float the title back up to around a third of the way
-   down, which is precisely the top-loaded card this section was redrawn to
-   get away from.
-
-   No fixed offsets anywhere, so the proportion holds at every plate width,
-   and a long title simply eats the band instead of overflowing. */
 .crd__ttl {
   margin-top: auto;
   font-size: clamp(1.05rem, 2.1vw, 1.3rem);
@@ -1845,10 +1410,6 @@ details.led__row > .led__ln { padding-right: 1.9rem; }
   opacity: var(--dim);
 }
 
-/* Issuer left, date right, closed by a hairline of the plate's own ink. The
-   rule is a pseudo-element rather than a border so the opacity that dims it
-   cannot also dim the text — the same reason .contact__wash is its own
-   layer instead of a gradient on the panel. */
 .crd__meta {
   position: relative;
   display: flex;
@@ -1877,23 +1438,12 @@ details.led__row > .led__ln { padding-right: 1.9rem; }
 
 .crd__org { opacity: var(--dim); }
 
-/* Slashed zero and tabular figures, as everywhere else dates are set */
 .crd__date {
   flex: none;
   font-feature-settings: "zero" 1;
   font-variant-numeric: tabular-nums;
 }
 
-/* ── The fan ─────────────────────────────────────────────────────────────
-   The tilt is composed INTO the reveal transform rather than declared
-   separately. .rv/.rv.in in §15 set `transform` themselves, and a plain
-   `.crd:nth-child(n) { transform: rotate(…) }` would either be overwritten
-   by `.rv.in { transform: none }` further down the file or cancel the rise
-   it is supposed to arrive with. Routing the angle through a custom
-   property means one transform per state, and the reveal survives.
-
-   Desktop only. Below 62rem the plates are one or two per row, where a tilt
-   has nothing to fan against and only costs the copy its alignment. */
 .creds .crd.rv { transform: translateY(18px) rotate(var(--tilt)); }
 
 .creds .crd.rv.in {
@@ -1905,18 +1455,10 @@ details.led__row > .led__ln { padding-right: 1.9rem; }
 }
 
 @media (min-width: 62rem) {
-  /* Uneven on purpose, and never the same angle twice: a deck alternating
-     by a fixed ±2deg reads as a pattern, which is the tell that nobody
-     actually laid it out. Kept under 2.5deg so the mono labels stay level
-     enough to read as labels. */
   .crd:nth-child(1) { --tilt: -2.4deg; --rise: .5rem;  }
   .crd:nth-child(2) { --tilt:  1.4deg; --rise: -.3rem; }
   .crd:nth-child(3) { --tilt: -1deg;   --rise: .25rem; }
   .crd:nth-child(4) { --tilt:  2.2deg; --rise: -.45rem; }
-
-  /* Hover straightens the plate and lifts it out of the deck — the one
-     gesture a stack of physical cards actually makes. z-index so the lifted
-     plate passes over its neighbours instead of under them. */
   .creds .crd.rv.in:hover {
     z-index: 2;
     transform: translateY(-6px) rotate(0deg);
@@ -1926,14 +1468,6 @@ details.led__row > .led__ln { padding-right: 1.9rem; }
 
 /* ---- 13. CONTACT & FOOTER -------------------------------------------- */
 
-/* One framed panel, split ask | channels. Contact is the last thing on the
-   page, so it is the one section that gets a border: open canvas let it
-   trail off, where a frame closes the document.
-
-   Built on the same 1px hairline grid as .reg and .led — gap:1px over a
-   --rule background, children carrying their own --surface — so every
-   divider in here, including the one between the two halves, is the same
-   line used everywhere else. No new colour tokens, so both themes follow. */
 .contact {
   display: grid;
   grid-template-columns: 1fr;
@@ -1947,30 +1481,6 @@ details.led__row > .led__ln { padding-right: 1.9rem; }
 @media (min-width: 56rem) {
   .contact { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); }
 }
-
-/* ── The ask ─────────────────────────────────────────────────────────────
-   This column was the weak half of the page: it ran shorter than the five
-   channel tiles beside it, the grid stretched it to match, and everything it
-   held sat at the top — so the eye landed on a large empty rectangle before
-   it reached a single word. Worse, the headline carried BOTH .wipe (clipped
-   to zero width) and .rv (opacity 0), so before the reveal fired that space
-   was not merely sparse, it was literally blank.
-
-   Three changes fix it, in order of how much they do:
-
-     1. flex column with the facts strip pushed to the bottom by
-        `margin-top: auto` — the height the grid forces on this column is
-        now SPENT rather than left over. Nothing is stretched or padded to
-        fake a fit; the content simply reaches both ends.
-     2. the .wipe is gone from the headline (see index.html), so there is
-        something legible at the very top of the column from the first
-        frame instead of an empty box waiting on an observer.
-     3. a wash behind the headline, so the upper area reads as considered
-        space instead of unfilled space.
-
-   The fourth part of the fix is on the other side: the résumé tile was
-   removed from .chan (it duplicates the CV button here), which shortens the
-   right column so the two halves resolve at a similar height on their own. */
 .contact__ask {
   position: relative;
   display: flex;
@@ -1979,13 +1489,6 @@ details.led__row > .led__ln { padding-right: 1.9rem; }
   padding: clamp(1.35rem, 3.4vw, 2.5rem);
 }
 
-/* Faint light behind the statement, on the existing --wash token — the same
-   tone that sits behind the portrait, so this reads as the bookend to the
-   hero rather than a new effect. Anchored to the top-left because that is
-   the corner the eye enters, and it is the corner that used to be bare.
-
-   Deliberately not a gradient on .contact__ask itself: as its own layer it
-   can be masked to a soft ellipse and cannot tint the text above it. */
 .contact__wash {
   position: absolute;
   z-index: 0;
@@ -1997,16 +1500,11 @@ details.led__row > .led__ln { padding-right: 1.9rem; }
   background: radial-gradient(60% 60% at 22% 24%, var(--wash), transparent 70%);
 }
 
-/* Everything else in the column rides above the wash */
 .contact__ask > *:not(.contact__wash) {
   position: relative;
   z-index: 1;
 }
 
-/* The large contact statement is a <p class="bigtype">, not a heading —
-   the section already has its h2 in the .head row. See §17. Stepped down
-   here because inside a padded panel the page-level size would collide
-   with the frame. */
 .contact .bigtype {
   font-size: clamp(1.7rem, 4.4vw, 2.9rem);
   margin-bottom: .9rem;
@@ -2024,7 +1522,6 @@ details.led__row > .led__ln { padding-right: 1.9rem; }
   gap: .7rem;
 }
 
-/* Same treatment as the hero pair: equal halves rather than ragged wrapping */
 @media (max-width: 34rem) {
   .contact__act {
     display: grid;
@@ -2035,26 +1532,6 @@ details.led__row > .led__ln { padding-right: 1.9rem; }
   .contact__act .btn { justify-content: center; }
 }
 
-/* ── Terms strip ─────────────────────────────────────────────────────────
-   Replaces .contact__note, which was a single line of small print about
-   reply time. Three facts instead of one, and they are the three a reader
-   weighs before writing: how fast, from where, and on what terms.
-
-   `margin-top: auto` is the load-bearing declaration in this chapter — it
-   drops this block to the floor of the column, so the height the grid hands
-   .contact__ask is absorbed HERE, between the buttons and the frame, instead
-   of accumulating as dead air above the headline.
-
-   A <dl> because that is what this is: three term/value pairs. Read as a
-   description list by a screen reader, read as a spec strip by everyone.
-
-   No rule above it, deliberately — the padding separates it with air. A
-   hairline here only looks correct while `margin-top: auto` has slack to
-   spend, which is to say only while the CHANNELS column is the taller of
-   the two. Whenever the ask column wins (most desktop widths, and every
-   mobile one, where the two are stacked) the gap closes and that line
-   lands hard under the two buttons, reading as a stray underline nobody
-   drew. Air separates at every height; a rule does not. */
 .contact__facts {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
@@ -2082,16 +1559,6 @@ details.led__row > .led__ln { padding-right: 1.9rem; }
   color: var(--text-dim);
 }
 
-/* ── Channel tiles ───────────────────────────────────────────────────────
-   These were five identical flat rows, which gave equal weight to "email me"
-   and "here is a PDF". Now four tiles on the same hairline grid, ranked: the
-   two that actually start a conversation take the full width, and the two
-   profiles pair up beneath them.
-
-   The résumé tile is gone on purpose. It was the fifth row, and it pointed
-   at the same PDF as the Download CV button two inches to its left — so it
-   spent a whole row repeating an action already on screen, and the extra
-   height was exactly what left the ask column looking empty. */
 .chan {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2101,7 +1568,6 @@ details.led__row > .led__ln { padding-right: 1.9rem; }
 
 .chan__t--wide { grid-column: 1 / -1; }
 
-/* Below 30rem the paired tiles have no room for their values */
 @media (max-width: 30rem) {
   .chan { grid-template-columns: 1fr; }
 }
@@ -2119,9 +1585,6 @@ details.led__row > .led__ln { padding-right: 1.9rem; }
 
 .chan__t:hover { background: var(--surface-2); }
 
-/* Edge marker that draws down the tile on hover — the same gesture as the
-   ledger rows in §11, so the hover state is part of the design language
-   rather than a generic highlight. */
 .chan__t::before {
   content: "";
   position: absolute;
@@ -2138,16 +1601,11 @@ details.led__row > .led__ln { padding-right: 1.9rem; }
 .chan__t:hover::before,
 .chan__t:focus-visible::before { transform: scaleY(1); }
 
-/* The panel is overflow:hidden for its radius, so a positive outline offset
-   would be clipped on the outer tiles. Inset instead. */
 .chan__t:focus-visible {
   outline: 2px solid var(--signal);
   outline-offset: -2px;
 }
 
-/* Icon gets a plate of its own rather than sitting loose in the row: it
-   holds the left column on a consistent axis whatever the icon's shape,
-   and gives the hover somewhere to land. */
 .chan__ico {
   display: grid;
   place-items: center;
@@ -2191,7 +1649,6 @@ details.led__row > .led__ln { padding-right: 1.9rem; }
   color: var(--muted);
 }
 
-/* Long addresses truncate rather than reflowing the tile */
 .chan__v {
   font-size: .875rem;
   color: var(--text);
@@ -2201,8 +1658,6 @@ details.led__row > .led__ln { padding-right: 1.9rem; }
   white-space: nowrap;
 }
 
-/* The same arrow the rest of the site uses, travelling out of the page on
-   hover. The download variant went with the résumé tile. */
 .chan__go {
   display: grid;
   place-items: center;
@@ -2271,7 +1726,6 @@ footer {
 
 /* ---- 14. MODAL ------------------------------------------------------- */
 
-/* One shell, three views: project detail, full stack, project index. */
 .modal {
   position: fixed;
   inset: 0;
@@ -2369,7 +1823,6 @@ footer {
 
 .modal__x svg { width: 12px; height: 12px; }
 
-/* The view is injected here */
 .modal__slot {
   min-height: 0;
   flex: 1;
@@ -2405,8 +1858,6 @@ body[data-locked="true"] { overflow: hidden; }
 
 }
 
-/* Projects with no captures on disk render copy only — let it span both
-   columns instead of leaving an empty second track. */
 .det > .det__copy:only-child {
   grid-column: 1 / -1;
   max-width: 62ch;
@@ -2440,8 +1891,6 @@ body[data-locked="true"] { overflow: hidden; }
   .det__slot { padding: .6rem 3rem .6rem; }
 }
 
-/* Fill the stage — captures are wide screenshots, so width leads and the
-   height cap only kicks in on short viewports. */
 .det__slot img,
 .det__slot video {
   width: 100%;
@@ -2479,7 +1928,6 @@ body[data-locked="true"] { overflow: hidden; }
 
 .det__nav svg { width: 15px; height: 15px; }
 
-/* Caption bar below the stage: caption, key hint, counter */
 .det__strip {
   display: flex;
   align-items: center;
@@ -2529,7 +1977,6 @@ body[data-locked="true"] { overflow: hidden; }
   padding: .15rem .3rem;
 }
 
-/* Shown in the footer when a project has no public deployment */
 .det__none {
   display: inline-flex;
   align-items: center;
@@ -2542,7 +1989,6 @@ body[data-locked="true"] { overflow: hidden; }
   color: var(--muted);
 }
 
-/* Copy column */
 .det__copy {
   padding: clamp(1.15rem, 2.6vw, 1.75rem);
   display: flex;
@@ -2594,9 +2040,6 @@ body[data-locked="true"] { overflow: hidden; }
   padding-top: .6rem;
 }
 
-/* Chips — the Stack section's inventory modal, and nothing else. Projects
-   used to print their own technologies here too; that is stated once now,
-   in §14b, so .chips--sm went with it. */
 .chips {
   display: flex;
   flex-wrap: wrap;
@@ -2660,8 +2103,6 @@ body[data-locked="true"] { overflow: hidden; }
 
 .plist { display: flex; flex-direction: column; }
 
-/* Rows are plain containers — the actions inside them are the interactive
-   parts, so a live link can sit next to the case-study button. */
 .plist__row {
   display: grid;
   grid-template-columns: 1fr;
@@ -2723,7 +2164,6 @@ body[data-locked="true"] { overflow: hidden; }
   background: var(--surface);
 }
 
-/* Stated instead of a link when a project has no public deployment */
 .plist__off {
   font-family: var(--font-mono);
   font-size: .5625rem;
@@ -2784,7 +2224,6 @@ body[data-locked="true"] { overflow: hidden; }
 
 /* ---- 15. MOTION ------------------------------------------------------ */
 
-/* Base reveal: fade + rise */
 .rv {
   opacity: 0;
   transform: translateY(18px);
@@ -2811,48 +2250,24 @@ body[data-locked="true"] { overflow: hidden; }
 .rv[data-d="4"] { transition-delay: .28s; }
 .rv[data-d="5"] { transition-delay: .35s; }
 
-/* ── Theme sweep ──────────────────────────────────────────────────────────
-   A circle centred on the toggle, and the direction carries meaning:
-
-     dark → light   the incoming theme GROWS out of the toggle
-     light → dark   the outgoing theme RETREATS back into the toggle
-
-   So the toggle is always the source of the change, and reversing your
-   choice literally reverses the motion. theme.js measures the toggle and
-   writes --tx / --ty / --tr before the swap — always as percentages, since
-   these pseudos live in the snapshot containing block, where absolute
-   lengths are not scaled by browser zoom and would land off the button.
-
-   Crucially the layer that is not moving holds perfectly still underneath
-   instead of fading, so there is never a washed-out halfway state where
-   both themes are semi-transparent at once — the new theme is simply
-   uncovered, one hard edge travelling across the page. */
 @media (prefers-reduced-motion: no-preference) {
   ::view-transition-old(root),
   ::view-transition-new(root) {
-    /* Drop the UA crossfade; the geometry below replaces it. plus-lighter
-       would brighten wherever the two snapshots overlap. */
     animation: none;
     mix-blend-mode: normal;
   }
 
-  /* Going light: new theme on top, opening from the toggle */
   html.sweep-in::view-transition-new(root) {
     z-index: 1;
     animation: sweep-open var(--sweep-dur) var(--ease-sweep) both;
   }
 
-  /* Going dark: old theme on top, closing into the toggle */
   html.sweep-out::view-transition-old(root) {
     z-index: 1;
     animation: sweep-shut var(--sweep-dur) var(--ease-sweep) both;
   }
 }
 
-/* 0%, not a bare 0 — a bare 0 is not a <length-percentage>, so the radius
-   would fail to interpolate and the circle would jump instead of growing.
-   A percentage rather than 0px so both ends of the interpolation share one
-   unit and --tr never has to be resolved against a mismatched basis. */
 @keyframes sweep-open {
   from { clip-path: circle(0%        at var(--tx) var(--ty)); }
   to   { clip-path: circle(var(--tr) at var(--tx) var(--ty)); }
@@ -2863,12 +2278,6 @@ body[data-locked="true"] { overflow: hidden; }
   to   { clip-path: circle(0%        at var(--tx) var(--ty)); }
 }
 
-
-/* Fallback for browsers with no View Transitions (Firefox, older Safari).
-   Snapshots are not available there, so the colours are crossfaded via a
-   property transition instead — and a soft wavefront of the incoming
-   canvas rides out from (or back into) the toggle on top of it, so the
-   swap still reads as "this came from the button you pressed". */
 html.theming,
 html.theming *,
 html.theming *::before,
@@ -2886,10 +2295,6 @@ html.theming *::after {
   inset: 0;
   z-index: 300;
   pointer-events: none;
-  /* Soft-edged, and never fully opaque — it tints the wavefront rather
-     than hiding the page behind a flat disc of colour. theme.js passes the
-     light canvas as the tint in both directions, so light is always the
-     thing that arrives or leaves. */
   background: radial-gradient(circle at var(--tx) var(--ty),
               var(--sweep-tint, var(--canvas)) 40%, transparent 72%);
   animation: sweep-wave var(--sweep-dur) var(--ease-sweep) both;
@@ -2931,22 +2336,11 @@ html.theming *::after {
     clip-path: none !important;
   }
 
-  /* Every edge marker on the page is a scaleY wipe that hover drives. With
-     transitions flattened to .01ms they would still work, but the ones that
-     mark STATE rather than hover have to be shown unconditionally: an open
-     ledger row keeps its marker either way. */
   .led__row[open]::before,
   .chan__t::before { transform: scaleY(1) !important; }
 
-  /* The disclosure marker is state, not decoration — it must still read as
-     − when the row is open, so this transform is preserved deliberately. */
   .led__row[open] .led__mk::after { transform: scaleY(0) !important; }
 
-  /* The credential deck needs nothing here. Its fan angle is composed into
-     the .rv transform rather than declared on its own (see §12), so the
-     `transform: none !important` above already lands the plates square —
-     tilt, reveal rise and hover lift all cancel together, and the deck
-     degrades to a plain grid of four upright plates. */
 }
 
 @media print {
@@ -2964,22 +2358,11 @@ html.theming *::after {
     clip-path: none !important;
   }
 
-  /* The in-row "view all" opens a modal, which cannot print. The ledger and
-     the wash are ink that a printer cannot reproduce usefully either. */
   .head__act,
   .contact__wash,
   .led__mk { display: none !important; }
-
-  /* Every ledger entry prints expanded, whether or not it was opened on
-     screen — a printed CV that hides half its own detail is a broken CV. */
   .led__body { display: block !important; }
 
-  /* The plates print as outlines. Their fills are large solid areas that a
-     printer either floods or, with background graphics off, drops entirely
-     — taking --signal-ink type with them and leaving the award plates
-     blank. Outlined and set in black, all four survive either setting.
-     min-height goes too: on paper a plate need only be as tall as it
-     reads. The tilt is already flattened by the .rv reset above. */
   .crd {
     min-height: 0 !important;
     background: none !important;
@@ -2987,13 +2370,10 @@ html.theming *::after {
     color: #000 !important;
   }
 
-  /* currentColor at .22 is a hairline the eye finds on a lit screen and a
-     printer renders as nothing at all */
   .crd__meta::before { opacity: .55 !important; }
 
   section[id] { page-break-inside: avoid; }
 
-  /* Rows, register lines and plates must not be split across a page break */
   .led__row,
   .reg__row,
   .crd { page-break-inside: avoid; }
@@ -3001,7 +2381,6 @@ html.theming *::after {
 
 /* ---- 17. ADDENDA ----------------------------------------------------- */
 
-/* Media areas that open the lightbox are real buttons; strip UA chrome. */
 button.card__media {
   display: block;
   width: 100%;
@@ -3015,7 +2394,6 @@ button.card__media {
 
 button.card__media:hover img { cursor: zoom-in; }
 
-/* "View" badge over card media */
 .card__badge {
   position: absolute;
   right: .55rem;
@@ -3044,8 +2422,6 @@ button.card__media:focus-visible .card__badge {
   flex: none;
 }
 
-/* Large display type that is not a heading element */
-
 .bigtype {
   font-family: var(--font-sans);
   font-weight: 600;
@@ -3060,7 +2436,6 @@ button.card__media:focus-visible .card__badge {
   color: var(--signal);
 }
 
-/* Compact button for section headers and modal footers */
 .btn--sm {
   padding: .55rem .85rem;
   font-size: .625rem;
@@ -3078,51 +2453,12 @@ button.card__media:focus-visible .card__badge {
 
 /* ---- 18. GITHUB CONTRIBUTIONS ---------------------------------------- */
 
-/* The panel borrows the contact block's construction exactly — 1px gaps over
-   a --rule background, each child carrying its own --surface — so it reads as
-   a sibling of what sits above it rather than a widget bolted on. What it
-   does not borrow is the emphasis: no wash, no .bigtype, no accent border.
-   This is the last section on the page and it is evidence, not a pitch, so
-   it stays quieter than the thing it follows.
-
-   The geometry lives here as tokens because several rules have to agree on
-   it: the weekday column, the month strip, the grid and the legend key.
-
-   The cells carry no width of their own. They used to be exactly 11px, which
-   made the calendar exactly 742px, and one fixed number cannot be right at
-   both ends of the range: on a 1088px board it stopped dead two thirds of the
-   way across and left a slab of empty surface — the year looked cut off,
-   because it was drawn in a fixed box inside a fluid one — while on a phone
-   the same 742px overflowed and the panel scrolled sideways instead. The
-   columns are minmax(0, 1fr) with no floor at all: they divide whatever the
-   board gives them, stretching to about 16px on a wide screen and falling to
-   about 4px on a 320px phone. Four pixels is small, and small is the right
-   trade — what this panel claims is the shape of a year at a glance, and that
-   reads in tiny squares but does not read at all through a 340px window onto
-   a wider drawing.
-
-   It only holds because every box between the cells and the board carries
-   min-width: 0 — see .gh__cal. A grid item's automatic minimum is its own
-   content, so leave one `auto` anywhere in that chain and 53 columns of
-   min-content climb back out and take the document's width with them.
-
-   --gh-cols is written by §11 of main.js from the number of weeks it
-   actually drew, and declared here so the layout still holds if it doesn't
-   run. Both must agree; neither may guess. */
 .gh {
   --gh-cols: 53;
   --gh-gap: 3px;
   --gh-mo: 14px;
   --gh-swatch: 11px;
-
   display: grid;
-  /* The 0 floor is load-bearing: it is the last link in the min-width chain
-     the comment above describes, and the one that keeps the calendar's
-     53-column minimum from escaping this panel. Every box inside declares
-     min-width: 0, but a grid track's own default minimum is auto — leave
-     minmax off here and the minimum simply climbs one level further and
-     widens the document, turning a graph that will not fit a phone into a
-     whole site that will not fit it. */
   grid-template-columns: minmax(0, 1fr);
   gap: 1px;
   background: var(--rule);
@@ -3131,16 +2467,11 @@ button.card__media:focus-visible .card__badge {
   overflow: hidden;
 }
 
-/* Same reason one level down: a grid item's min-width: auto is its
-   content-based minimum, so the track floor alone is not enough — the item
-   has to be allowed to be narrower than the year it contains. */
 .gh__stats,
 .gh__board { min-width: 0; }
 
 /* -- Stats strip ------------------------------------------------------- */
 
-/* Four figures across the top, on the same 1px lattice. They are the part a
-   recruiter actually reads; the graph below is the proof. */
 .gh__stats {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -3163,8 +2494,6 @@ button.card__media:focus-visible .card__badge {
   color: var(--muted);
 }
 
-/* Slashed zero and tabular figures: four numbers stacked in a row want to
-   line up on their digits, and 0 must never be mistaken for O. */
 .gh__stat dd {
   margin: 0;
   font-size: 1.0625rem;
@@ -3175,8 +2504,6 @@ button.card__media:focus-visible .card__badge {
   font-variant-numeric: tabular-nums;
 }
 
-/* The unit rides along at mono scale so "674 days" does not read as one
-   number twice the length it is. */
 .gh__stat dd small {
   margin-left: .3rem;
   font-family: var(--font-mono);
@@ -3193,39 +2520,11 @@ button.card__media:focus-visible .card__badge {
   padding: 1.35rem 1.1rem 1.15rem;
   background: var(--surface);
 }
-
-/* A guard, not a viewport. This box used to be the scroller: overflow-x
-   auto, its bar hidden, a fade at the edges advertising the overflow, and a
-   tabindex and a role so a keyboard could reach the part of the year sitting
-   off screen. Every bit of that described a box whose contents might be
-   somewhere other than fully visible, and this one's cannot be — the calendar
-   inside it is built to fit whatever width it is given. `clip` states that
-   precisely: it will not scroll, and it will not leak. It stays because a
-   hairline of sub-pixel rounding is cheaper to clip than to chase, and
-   because if some later change puts a minimum width back on the cells, this
-   is where the overflow would land and this is the comment that should stop
-   it shipping. */
 .gh__frame {
   overflow-x: clip;
   border-radius: 3px;
 }
 
-/* The whole calendar in one grid: weekday rail in column 1, month strip and
-   cells stacked in column 2. It used to be a wrapper grid holding a separate
-   rail and a separate scroller, with the rail clearing the month strip by a
-   hand-computed padding — two boxes kept in step by arithmetic. One grid
-   puts every label on the track it belongs to instead.
-
-   `width: 100%` is what makes the calendar fill the board — the old
-   `min-content` pinned it to 742px and left the rest of the panel empty.
-   `min-width: 0` is what makes it fit. It read `min-content`, which let the
-   box grow past its container so the frame could scroll it — that was the
-   sideways scroll, written in one declaration. Zero is the first link in the
-   chain the section comment describes; the second is minmax(0, 1fr) on the
-   cells' track below, and the third is min-width: 0 on the two strips that
-   sit in that track. All three are load-bearing: a track that can shrink is
-   no use holding an item that refuses to, and an item that can shrink is no
-   use inside a track that will not let it. */
 .gh__cal {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
@@ -3236,10 +2535,6 @@ button.card__media:focus-visible .card__badge {
   min-width: 0;
 }
 
-/* Mon/Wed/Fri only. Seven labels at this size is noise, and the odd rows are
-   enough for the eye to count from. Seven 1fr rows against the cells' seven,
-   sharing their gap, so the labels track the rows however wide the cells
-   have grown — no padding to keep in sync, nothing to drift. */
 .gh__wk {
   grid-column: 1;
   grid-row: 2;
@@ -3261,10 +2556,6 @@ button.card__media:focus-visible .card__badge {
 .gh__wk span:nth-child(2) { grid-row: 4; }
 .gh__wk span:nth-child(3) { grid-row: 6; }
 
-/* Month labels sit on exactly the cells' column geometry, so JS can place
-   each one with grid-column: <week+1> / span <weeks> and it lands over its
-   own weeks without a single magic pixel — and keeps landing there as the
-   columns stretch. */
 .gh__months {
   grid-column: 2;
   grid-row: 1;
@@ -3282,21 +2573,11 @@ button.card__media:focus-visible .card__badge {
   user-select: none;
 }
 
-/* nowrap so a three-letter month never breaks into a column of letters, and
-   hidden so that at the width where a label finally outgrows the weeks it
-   spans it gives up its last letter rather than colliding with the month
-   after it. */
 .gh__months span {
   white-space: nowrap;
   overflow: hidden;
 }
 
-/* Column flow over seven explicit rows: weeks run left to right, days top to
-   bottom — the same reading order as the calendar it stands for. The columns
-   are explicit now rather than auto, which is what lets them share the free
-   space instead of each taking a fixed 11px and leaving the remainder blank.
-   Rows are `auto` and the cells carry aspect-ratio: 1, so height follows
-   whatever width a column ends up with and the squares stay square. */
 .gh__grid {
   grid-column: 2;
   grid-row: 2;
@@ -3308,9 +2589,6 @@ button.card__media:focus-visible .card__badge {
   min-width: 0;
 }
 
-/* The inset hairline is doing real work: at level 0 the cell is --rule on
-   --surface, nearly invisible, and without an edge the empty weeks would
-   dissolve into blank paper and the grid would lose its shape. */
 .gh__c {
   aspect-ratio: 1;
   border-radius: 2px;
@@ -3322,16 +2600,7 @@ button.card__media:focus-visible .card__badge {
 .gh__c[data-l="2"] { background: var(--gh-2); }
 .gh__c[data-l="3"] { background: var(--gh-3); }
 .gh__c[data-l="4"] { background: var(--gh-4); }
-
-/* Days after today exist in the grid to keep the last column square, but
-   they are not data. Hidden, not dimmed — a dimmed cell still reads as a
-   value. */
 .gh__c[data-void] { visibility: hidden; }
-
-/* Cells wipe in column by column once the panel is in view: 53 weeks at
-   12ms is roughly 640ms end to end, quick enough to feel like the year
-   drawing itself rather than an animation being performed. --w is the week
-   index, written by JS. */
 .gh__c {
   opacity: 0;
   transform: scale(.55);
@@ -3341,10 +2610,6 @@ button.card__media:focus-visible .card__badge {
   transition-delay: calc(var(--w, 0) * 12ms);
 }
 
-/* Every resolved state reveals, not just the good one. On error the figures
-   stay em-dashed and every cell stays at level 0 — but the empty year still
-   has to be drawn, or the board is a blank rectangle with a note under it
-   and the panel loses the shape the first pass was built to reserve. */
 .gh.in[data-state="ready"] .gh__c,
 .gh.in[data-state="stale"] .gh__c,
 .gh.in[data-state="error"] .gh__c {
@@ -3382,12 +2647,6 @@ button.card__media:focus-visible .card__badge {
   font-feature-settings: "zero" 1;
 }
 
-/* The date the graph was read. A step quieter than the range it follows,
-   because the span is what the graph shows and this is only how fresh it is —
-   but it is here, in the open, because the claim the section makes is that
-   the panel is today's. A claim like that has to be checkable. The separator
-   hangs off :not(:empty) so nothing dangles while the request is in
-   flight. */
 .gh__sync { font-feature-settings: "zero" 1; }
 
 .gh__sync:not(:empty)::before {
@@ -3401,10 +2660,6 @@ button.card__media:focus-visible .card__badge {
   gap: .3rem;
 }
 
-/* Same radius and inset edge as a real cell. Not the same width any more —
-   the cells are fluid now and would drag the key wider with them on a big
-   screen, so the swatch is sized against the legend's own 9px type, where
-   what it has to look like is a small square of colour. */
 .gh__key i {
   width: var(--gh-swatch);
   height: var(--gh-swatch);
@@ -3420,14 +2675,6 @@ button.card__media:focus-visible .card__badge {
 
 /* -- Fallback ---------------------------------------------------------- */
 
-/* GitHub's numbers come from a third party at runtime, so failure is a real
-   state, not a hypothetical — and it has two degrees. If the request fails
-   with a stored payload behind it, the last known year is drawn and the
-   legend's sync date says which day it is from; if there is nothing stored,
-   the empty grid stays (the panel keeps its shape) and this line offers the
-   only thing still worth offering: the link. It shows in both cases, because
-   a graph that is not today's should say so above the fold of its own
-   panel. */
 .gh__note {
   display: none;
   margin: .9rem 0 0;
@@ -3448,20 +2695,12 @@ button.card__media:focus-visible .card__badge {
 
 .gh__note a:hover,
 .gh__note a:focus-visible { color: var(--signal); }
-
-/* Nothing to read while the request is in flight, so the legend range holds
-   its space rather than popping the layout when the text arrives. */
 .gh[data-state="loading"] .gh__range::after {
   content: "Loading";
 }
 
 /* -- Tooltip ----------------------------------------------------------- */
 
-/* One element, moved and rewritten — 365 title attributes would be 365
-   sluggish native tooltips, and a per-cell node is 365 nodes for a hover
-   effect. Fixed positioning, and appended to <body> rather than the board,
-   so it is measured against the viewport it has to stay inside and no
-   ancestor's overflow can clip it. */
 .gh__tip {
   position: fixed;
   z-index: 60;
@@ -3488,10 +2727,6 @@ button.card__media:focus-visible .card__badge {
 
 /* -- The header button ------------------------------------------------- */
 
-/* .head__act slides its arrow sideways on hover, which is right for an
-   arrow that points sideways. This one points north-east and must travel
-   the way it points — the same diagonal used by the channel rows and the
-   project cards. */
 .head__act--ext:hover svg,
 .head__act--ext:focus-visible svg {
   transform: translate(2px, -2px);
@@ -3500,8 +2735,6 @@ button.card__media:focus-visible .card__badge {
 /* -- Narrow ------------------------------------------------------------ */
 
 @media (max-width: 46rem) {
-  /* Four figures in a row become four columns too narrow for their own
-     labels; two-by-two keeps every word on one line. */
   .gh__stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
   .gh__stat { padding: .85rem .9rem .9rem; }
@@ -3510,25 +2743,12 @@ button.card__media:focus-visible .card__badge {
 
   .gh__board { padding: 1.15rem .9rem 1rem; }
 
-  /* The gap is a fixed length while the cells are a fraction of what is
-     left over, so every pixel the board loses comes out of the squares and
-     none of it out of the spaces between them. Held at 3px down here the
-     grid inverts: the gaps become the larger half of the pattern and you
-     read the gridlines instead of the days. It steps down with the width. */
   .gh { --gh-gap: 2px; }
 }
 
 @media (max-width: 30rem) {
   .gh { --gh-gap: 1px; }
 
-  /* The weekday rail goes. It costs about 25px of the ~300 the cells have to
-     divide at this width — a twelfth of the year's legibility spent on three
-     abbreviations nobody navigates a calendar by, and against four-pixel rows
-     its 8px type has stopped lining up with the days it labels in any case.
-     The month strip stays; that is how a reader finds their place in the
-     year. With the rail gone the calendar is a single column, so both strips
-     move into it and the column gap that separated them has nothing left to
-     separate. */
   .gh__wk { display: none; }
 
   .gh__cal {
@@ -3540,11 +2760,6 @@ button.card__media:focus-visible .card__badge {
   .gh__grid { grid-column: 1; }
 }
 
-/* Cells stretch to fill the board, so on a wide screen they land around
-   16px. The gap has to grow with them or the squares crowd each other and the
-   grid reads as a solid block with lines scratched into it rather than a
-   field of days. This is the top of the same ladder the two narrow queries
-   above step down: 1px, 2px, 3px, 4px, following the cells. */
 @media (min-width: 64rem) {
   .gh { --gh-gap: 4px; }
 }
@@ -3552,9 +2767,6 @@ button.card__media:focus-visible .card__badge {
 /* -- Motion and print -------------------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
-  /* The stagger is the one place where a transition carries state: without
-     it the cells would sit at opacity 0 forever, and the graph would simply
-     not exist for anyone who asked the machine to stop moving. */
   .gh__c {
     opacity: 1 !important;
     transform: none !important;
@@ -3563,15 +2775,9 @@ button.card__media:focus-visible .card__badge {
 }
 
 @media print {
-  /* The graph is hundreds of tiny filled squares — with background graphics
-     off it prints as a grey rectangle of outlines, and with them on it
-     empties a cartridge. The figures above it carry the same information in
-     four numbers, so they print and the board does not. */
   .gh__board,
   .gh__tip { display: none !important; }
 
   .gh__stats { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
 }
-
-
 

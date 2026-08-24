@@ -28,9 +28,6 @@
 <link rel="icon" type="image/jpeg" href="assets/images/dark-profile-BW.jpg">
 <link rel="apple-touch-icon" href="assets/images/dark-profile-BW.jpg">
 
-<!-- Theme is resolved before first paint so there is never a flash.
-     Dark is the unconditional default: the OS preference is deliberately
-     ignored, so light is only ever a stored, opted-into choice. -->
 <script>
   (function () {
     try {
@@ -162,9 +159,7 @@
     </svg>
   </section>
 
-  <!-- ── Projects ─────────────────────────────────────────────
-       The work grid is the banded section: the hero's wave closes into it
-       and its own wave opens the canvas again for Stack. -->
+  <!-- ── Projects ── -->
   <section id="projects" class="band" aria-labelledby="h-projects">
     <div class="shell">
       <div class="head rv">
@@ -351,9 +346,6 @@
         <p class="head__sub">Everything I've shipped with — frontend, backend, database and tooling.</p>
       </div>
 
-      <!-- Chip register. One hairline row per group: the label holds the left
-           column, the tools sit in the right. The dashed chip that closes the
-           last row opens the full inventory. -->
       <div class="reg">
         <div class="reg__row rv">
           <span class="reg__k">Frontend</span>
@@ -416,9 +408,6 @@
         <p class="head__sub">Four years of study, work and shipped software — most recent first.</p>
       </div>
 
-      <!-- Ledger. year · title · organisation on one line, hairline between
-           entries. Rows carrying detail are a native <details> so the summary
-           stays keyboard-operable and needs no JavaScript. -->
       <div class="led">
 
         <details class="led__row rv" data-now="true">
@@ -512,13 +501,6 @@
         <p class="head__sub">Recognised work from the BSIS programme, and training completed alongside it.</p>
       </div>
 
-      <!-- Plate deck. Credentials are the one section where each entry is a
-           single fact rather than a story, so they are set as plates instead
-           of ledger rows: the title carries the weight, the issuer and date
-           sit at the floor, and the kind is stated in the corner.
-
-           The fan is a wide-screen affectation only (see §12) — on a phone
-           these are four upright plates in a column, never overlapping. -->
       <ul class="creds">
         <li class="crd crd--signal rv">
           <span class="crd__ico" aria-hidden="true">
@@ -586,9 +568,6 @@
         <p class="head__sub">Open to junior roles — onsite, hybrid or remote.</p>
       </div>
 
-      <!-- Closing panel. Framed rather than open canvas so the last section
-           has the weight to end the page, and built on the same 1px hairline
-           grid as the ledgers so it belongs to the rest of the design. -->
       <div class="contact rv">
         <div class="contact__ask">
           <span class="contact__wash" aria-hidden="true"></span>
@@ -612,8 +591,6 @@
             </a>
           </div>
 
-          <!-- Foot of the ask column, pushed to the panel floor so the two
-               halves resolve at the same height instead of leaving a void. -->
           <dl class="contact__facts">
             <div>
               <dt>Reply time</dt>
@@ -630,13 +607,6 @@
           </dl>
         </div>
 
-        <!-- Channels as tiles on a hairline grid: email leads full width,
-             the two profiles pair up beneath it. Each tile is one <a> — a
-             single tap target, nothing nested. The résumé tile was dropped:
-             it repeated the Download CV button in the left column. The phone
-             tile is gone too — a number published on a static page is a
-             standing invitation to scrapers, and email already opens the
-             same conversation. -->
         <div class="chan">
           <a class="chan__t chan__t--wide" href="mailto:markerickserrano1@gmail.com">
             <span class="chan__ico" aria-hidden="true">
@@ -684,15 +654,6 @@
     </div>
   </section>
 
-  <!-- ── GitHub ─────────────────────────────────────────────────
-       The page ends on evidence rather than on another claim. Contact is the
-       framed panel that closes the argument; this is the receipt underneath
-       it — a year of commits, pulled live from the API at read time, so it
-       cannot quietly go stale the way a committed screenshot would.
-
-       The header action is labelled @markerick (the name to remember) and
-       points at github.com/renjiyomo (the account that holds the work). One
-       is display, the other is the address — see §18. -->
   <section id="github" aria-labelledby="h-github">
     <div class="shell">
       <div class="head rv">
@@ -707,20 +668,6 @@
         </div>
       </div>
 
-
-      <!-- Empty on purpose. Every cell, month label and figure below is
-           written by §11 of main.js from the live payload; shipping a grid in
-           the markup would mean shipping numbers that start going stale the
-           moment they are committed. The dd values read "—" until then, which
-           is the honest state of a figure that has not arrived yet.
-
-           The figures come first because the graph answers "when" and they
-           answer "how much" — a reader who will not decode 53 columns of
-           squares should still leave with the total. They are a sibling of
-           the board rather than a child of it: the two are the panes of the
-           1px lattice .gh sets up, and print hides the board (hundreds of
-           filled squares) while keeping the figures, which carry the same
-           information in four numbers. -->
       <div class="gh rv" data-state="loading" data-user="renjiyomo">
 
         <dl class="gh__stats">
