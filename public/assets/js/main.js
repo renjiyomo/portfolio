@@ -32,9 +32,6 @@
   var ORDER = window.PROJECT_ORDER || Object.keys(DATA);
   var TECH  = window.TECH || [];
 
-  /* Micro-interaction sound, if sound.js loaded and the visitor turned it on.
-     Optional by design: every call goes through here, so this file has no
-     hard dependency on the audio layer and works unchanged without it. */
   function sfx(name) {
     if (window.SFX) window.SFX.play(name);
   }
@@ -61,8 +58,6 @@
     return node;
   }
 
-  /* Chip list. Only the Stack section's full-inventory modal renders these
-     now — project views state no technologies of their own. */
   function chips(list, cls) {
     var ul = el('ul', cls || 'chips');
     (list || []).forEach(function (name) {
@@ -113,23 +108,13 @@
   })();
 
 
-  /* ══ 03 · Scroll state: progress, sticky bar, active section ══
-
-     One module, because all three answer the same question — where is the
-     page — and because the two things that used to answer it separately both
-     forced a synchronous layout on every scroll frame: a `scrollHeight` read
-     here, and a `getBoundingClientRect()` loop over every section there. The
-     height is now cached and invalidated on resize, and the active section
-     comes from an IntersectionObserver, so a scroll frame reads no geometry
-     at all. */
+  /* ══ 03 · Scroll state: progress, sticky bar, active section ══ */
 
   (function scrollState() {
     var bar = $('.progress');
     var topbar = $('.topbar');
     var sections = $$('main section[id]');
     var links = $$('.navlinks a[href^="#"]');
-
-    /* — Cached page height — */
 
     var maxScroll = 0;
 
@@ -156,17 +141,6 @@
     if (sections.length && links.length && 'IntersectionObserver' in window) {
       spying = true;
 
-      /* A thin band whose lower edge sits 34% down the viewport — the same
-         threshold the old rect loop compared against, expressed as a region
-         instead of a per-frame measurement.
-
-         Two details make this exactly equivalent rather than merely close. The
-         band has height (1%) because a zero-height line intersects a section
-         with zero area, which is the degenerate case observer implementations
-         disagree about. And it sits *above* the line rather than below it, so
-         a section becomes current as its top reaches the line — precisely what
-         the old loop tested. Checked against the old rule at every scroll
-         offset on the page: no disagreement. */
       var inBand = [];
 
       var spy = new IntersectionObserver(function (entries) {
@@ -174,9 +148,6 @@
           inBand[sections.indexOf(entry.target)] = entry.isIntersecting;
         });
 
-        /* Take the last section in document order, not the last one in the
-           batch: a band has height, so two sections can straddle it, and the
-           order entries arrive in is not specified. */
         for (var i = sections.length - 1; i >= 0; i--) {
           if (inBand[i]) { current = sections[i].id; break; }
         }
@@ -195,9 +166,6 @@
       if (bar) bar.style.setProperty('--p', ratio.toFixed(4));
       if (topbar) topbar.dataset.stuck = String(y > 12);
 
-      /* The final section is usually shorter than the distance from the band
-         to the foot of the page, so it can never satisfy the crossing on its
-         own. At the very bottom it is unambiguously the one being read. */
       var bottom = maxScroll > 0 && y >= maxScroll - 2;
       if (bottom !== atBottom) {
         atBottom = bottom;
@@ -212,9 +180,6 @@
     window.addEventListener('scroll', update, { passive: true });
     window.addEventListener('resize', function () { measure(); update(); });
 
-    /* Modals, the contributions grid and lazy images all change the page
-       height after load. Without this the progress bar would stay calibrated
-       to whatever the document measured on the first frame. */
     if ('ResizeObserver' in window) {
       new ResizeObserver(function () { measure(); update(); }).observe(document.body);
     }
@@ -318,8 +283,6 @@
 
     function isOpen() { return box.dataset.open === 'true'; }
 
-    /* Replace the body without the open/close animation — used when the
-       project index hands off to a project detail view. */
     function swap(headline, bodyNode, footNode, keyHandler) {
       onKeyExtra = keyHandler || null;
       title.textContent = headline;
@@ -398,10 +361,6 @@
           media.src = item.src;
           media.controls = true;
           media.playsInline = true;
-          /* A poster frame plus preload="none" means the modal opens on a real
-             image immediately and the multi-megabyte file only moves if the
-             visitor presses play. "metadata" used to pull a chunk of it every
-             time the panel was opened, whether or not anyone watched. */
           if (item.poster) media.poster = item.poster;
           media.preload = 'none';
           media.setAttribute('aria-label', item.alt || rec.title + ' walkthrough');
@@ -411,11 +370,7 @@
           media.alt = item.alt || '';
           media.decoding = 'async';
         }
-        /* The record carries each capture's real pixel size, so the browser can
-           reserve the right box before the file arrives. Without it the slot is
-           `height: auto` around nothing, and every step through the carousel
-           collapses the frame and springs it back — worst in CartCraft, which
-           mixes portrait, 16:9 and letterboxed shots. */
+        
         if (item.w && item.h) {
           media.width = item.w;
           media.height = item.h;
@@ -425,9 +380,6 @@
         capEl.textContent = item.cap || '';
         countEl.textContent = pad(idx + 1) + ' / ' + pad(rec.items.length);
 
-        /* Warm the next frame only, and only once the current one has landed.
-           Preloading both neighbours up front put two full-resolution captures
-           in flight against the one actually on screen. */
         var next = rec.items[idx + 1];
         if (next && next.type !== 'video') {
           var warm = function () {
@@ -447,9 +399,7 @@
         if (rec.items.length < 2) return;
         idx = (idx + step + rec.items.length) % rec.items.length;
         paint();
-        /* Voiced here rather than on the arrow buttons, because this is the
-           one place that knows a step actually happened — keyboard arrows and
-           swipes get the same detent as a click. */
+        
         sfx('tick');
       }
 
@@ -805,13 +755,6 @@
       return 4;
     }
 
-    /* `fresh` is a live response, `cached` a first paint from localStorage.
-       The distinction matters: a cached paint is a normal fast start, whereas
-       falling back to storage after the network failed is a degraded one, and
-       only the latter should say so in the interface.
-
-       Guarded because paint() now runs twice on a warm visit — cache first,
-       then the live data — and the tooltip must only be wired once. */
     var tipReady = false;
     var paints = 0;
 
@@ -834,9 +777,6 @@
 
         if (n === null) { cell.setAttribute('data-void', ''); return; }
 
-        /* Cleared explicitly: a cached paint can cover fewer days than the
-           live response, and those cells must stop reading as absent when the
-           real data arrives behind them. */
         cell.removeAttribute('data-void');
 
         drawn++;
@@ -972,18 +912,6 @@
 
     /* -- Pass 3: cache first, then revalidate ----------------------- */
 
-    /* The graph is third-party data from another continent, measured at
-       roughly two seconds. Two things follow from that.
-
-       First: a returning visitor should never look at an empty grid waiting
-       for it. Storage is now the first paint, not the failure path it used to
-       be, and the live response quietly repaints over it.
-
-       Second: the request should already be in flight by the time this file
-       runs. index.html starts it during head parsing and leaves it on
-       window.__ghEarly, so it overlaps the stylesheet, the fonts and the
-       portrait rather than queueing behind all four scripts. */
-
     var painted = false;
 
     var kept = recall();
@@ -1004,9 +932,7 @@
     }
 
     function load(attempt) {
-      /* Adopt the head-started request on the first attempt; retries have to
-         issue their own. No `cache: 'no-store'` any more — it was defeating
-         HTTP caching outright for data that changes at most once a day. */
+
       var pending = attempt === 1 && window.__ghEarly
         ? window.__ghEarly
         : fetch(url()).then(function (res) {
@@ -1024,9 +950,7 @@
             window.setTimeout(function () { load(attempt + 1); }, attempt * 350);
             return;
           }
-          /* Out of attempts. An empty grid has nothing to show; a cached one
-             keeps its cells but is now genuinely stale rather than merely
-             ahead of the network, so it drops to the state that says so. */
+
           if (painted) root.dataset.state = 'stale';
           else fail();
         });
@@ -1036,31 +960,15 @@
   })();
 
 
-  /* ══ 11 · Pointer tilt ════════════════════════════════════
-     The work cards follow the cursor on two axes. The restraint is the whole
-     point: 4.5° maximum, which is enough for the surface to read as a plane
-     catching light and not enough to keystone the type. Most tilt effects on
-     the web are set to 15–20°, which is why they look like a demo.
-
-     All the visual state lives in CSS custom properties (§19 of style.css) —
-     this file writes four numbers and never touches `transform` itself. That
-     keeps the transition curves, the reduced-motion escape and the print
-     escape declarative, where they belong.
-
-     Writes are batched into one rAF per frame. `pointermove` can fire faster
-     than the display refreshes, and setting four properties per event would
-     mean laying out the same frame three times for nothing. */
+  /* ══ 11 · Pointer tilt ════════════════════════════════════ */
 
   (function tilt() {
     var cards = $$('.card');
     if (!cards.length) return;
 
-    /* Mouse only. Touch has no cursor to follow, and under reduced-motion the
-       stylesheet neutralises the transform anyway — so don't pay for the
-       listeners at all. */
     if (!finePointer || reduced) return;
 
-    var MAX = 4.5;   /* degrees, per axis, from centre */
+    var MAX = 4.5;
 
     cards.forEach(function (card) {
       var frame = null;
@@ -1088,13 +996,10 @@
         var py = clamp((e.clientY - box.top)  / box.height, 0, 1);
 
         next = {
-          /* Cursor right ⇒ the right edge recedes. Cursor low ⇒ the bottom
-             edge recedes. Invert either one and the card leans *into* the
-             pointer, which the eye reads as a bug rather than as a surface. */
+
           ry:  ((px - 0.5) * 2 * MAX).toFixed(2),
           rx: (-(py - 0.5) * 2 * MAX).toFixed(2),
 
-          /* Specular highlight tracks the cursor exactly. */
           gx: (px * 100).toFixed(1),
           gy: (py * 100).toFixed(1)
         };
@@ -1105,8 +1010,6 @@
       card.addEventListener('pointerenter', function (e) {
         if (e.pointerType === 'touch') return;
 
-        /* Leave a card alone while it is still sliding in from §02 — the
-           reveal owns the transform until it lands. */
         if (!card.classList.contains('in')) return;
 
         /* A modal is open: the grid behind it is inert. */
@@ -1115,8 +1018,6 @@
         card.dataset.tilt = 'on';
         card.addEventListener('pointermove', move);
 
-        /* Seed from the entry point, so the card is already oriented on the
-           first frame instead of springing from flat. */
         move(e);
 
         sfx('tilt');
@@ -1131,8 +1032,6 @@
         }
         next = null;
 
-        /* "off" keeps the perspective wrapper in play so the return is a
-           transition rather than a snap — it only changes the curve. */
         card.dataset.tilt = 'off';
         card.style.setProperty('--tilt-x', '0deg');
         card.style.setProperty('--tilt-y', '0deg');

@@ -50,11 +50,6 @@
 <link rel="stylesheet" href="assets/css/style.css">
 <link rel="preload" as="image" href="assets/images/Profile-nobg.webp" type="image/webp" fetchpriority="high">
 
-<!-- Contributions request, started here rather than in main.js. The graph is
-     third-party data from another continent — measured at ~2s — and firing it
-     during head parsing lets it run alongside the stylesheet, the fonts and
-     the portrait instead of queueing behind all four scripts. main.js adopts
-     this promise; if anything here fails it just falls back to fetching. -->
 <script>
   (function () {
     if (!window.fetch) return;
@@ -65,8 +60,6 @@
       if (!res.ok) throw new Error('HTTP ' + res.status);
       return res.json();
     });
-    /* Nothing awaits this yet. Claim it now so a slow main.js can never turn
-       the rejection into an unhandled one. */
     window.__ghEarly.catch(function () {});
   })();
 </script>
@@ -788,9 +781,6 @@
   </div>
 </div>
 
-<!-- `defer` on all four: they never write during parse, and defer preserves
-     execution order, so sound.js still exposes window.SFX before theme.js and
-     main.js reach for it. -->
 <script src="assets/js/projects.js" defer></script>
 <script src="assets/js/sound.js" defer></script>
 <script src="assets/js/theme.js" defer></script>
