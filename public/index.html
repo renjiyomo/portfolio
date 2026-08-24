@@ -18,10 +18,6 @@
 <meta property="og:site_name" content="Mark Erick Serrano">
 <meta property="og:locale" content="en_PH">
 
-<!-- Link preview: a typeset nameplate, not a portrait. A face crops badly in
-     a feed and says nothing; the card leads with the name and what I build.
-     Source lives in tools/og/og-card.html — re-render with
-     `node tools/og/render.mjs` after editing it. -->
 <meta property="og:image" content="https://markerick.dev/assets/og/og-cover.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
@@ -34,7 +30,7 @@
 <meta name="twitter:image" content="https://markerick.dev/assets/og/og-cover.png">
 <meta name="twitter:image:alt" content="Mark Erick Serrano — I build modern web applications end to end, accessible, and fast interfaces on the front. markerick.dev">
 
-<link rel="icon" type="image/jpeg" href="assets/images/dark-profile-BW.jpg">
+<link rel="icon" href="assets/images/dark-profile-BW.jpg" type="image/jpeg">
 <link rel="apple-touch-icon" href="assets/images/dark-profile-BW.jpg">
 
 <script>
@@ -49,9 +45,31 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://github-contributions-api.jogruber.de" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="assets/css/style.css">
-<link rel="preload" as="image" href="assets/images/Profile-nobg.png" fetchpriority="high">
+<link rel="preload" as="image" href="assets/images/Profile-nobg.webp" type="image/webp" fetchpriority="high">
+
+<!-- Contributions request, started here rather than in main.js. The graph is
+     third-party data from another continent — measured at ~2s — and firing it
+     during head parsing lets it run alongside the stylesheet, the fonts and
+     the portrait instead of queueing behind all four scripts. main.js adopts
+     this promise; if anything here fails it just falls back to fetching. -->
+<script>
+  (function () {
+    if (!window.fetch) return;
+    var year = new Date().getFullYear();
+    var url = 'https://github-contributions-api.jogruber.de/v4/renjiyomo?y=' +
+              year + '&y=' + (year - 1);
+    window.__ghEarly = fetch(url).then(function (res) {
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    });
+    /* Nothing awaits this yet. Claim it now so a slow main.js can never turn
+       the rejection into an unhandled one. */
+    window.__ghEarly.catch(function () {});
+  })();
+</script>
 
 <script type="application/ld+json">
 {
@@ -166,7 +184,7 @@
 
         <figure class="plate rv" data-d="2">
           <span class="plate__glow" aria-hidden="true"></span>
-          <img id="portrait" src="assets/images/Profile-nobg.png"
+          <img id="portrait" src="assets/images/Profile-nobg.webp"
                alt="Mark Erick Serrano" width="1600" height="2400"
                fetchpriority="high" decoding="async">
         </figure>
@@ -770,9 +788,12 @@
   </div>
 </div>
 
-<script src="assets/js/projects.js"></script>
-<script src="assets/js/sound.js"></script>
-<script src="assets/js/theme.js"></script>
-<script src="assets/js/main.js"></script>
+<!-- `defer` on all four: they never write during parse, and defer preserves
+     execution order, so sound.js still exposes window.SFX before theme.js and
+     main.js reach for it. -->
+<script src="assets/js/projects.js" defer></script>
+<script src="assets/js/sound.js" defer></script>
+<script src="assets/js/theme.js" defer></script>
+<script src="assets/js/main.js" defer></script>
 </body>
 </html>

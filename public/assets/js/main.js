@@ -3,16 +3,15 @@
    --------------------------------------------------------------------------
    01 · Helpers
    02 · Reveal on scroll
-   03 · Scroll progress + sticky top bar
-   04 · Active section
-   05 · Smooth in-page scrolling
-   06 · Modal shell (focus trap, Esc, scroll lock)
-   07 · Project detail modal
-   08 · Full stack modal
-   09 · Project index modal
-   10 · Triggers
-   11 · GitHub contributions
-   12 · Pointer tilt
+   03 · Scroll state: progress, sticky bar, active section
+   04 · Smooth in-page scrolling
+   05 · Modal shell (focus trap, Esc, scroll lock)
+   06 · Project detail modal
+   07 · Full stack modal
+   08 · Project index modal
+   09 · Triggers
+   10 · GitHub contributions
+   11 · Pointer tilt
 
    ========================================================================== */
 
@@ -114,59 +113,115 @@
   })();
 
 
-  /* ══ 03 · Scroll progress + sticky top bar ════════════════ */
+  /* ══ 03 · Scroll state: progress, sticky bar, active section ══
 
-  (function progress() {
+     One module, because all three answer the same question — where is the
+     page — and because the two things that used to answer it separately both
+     forced a synchronous layout on every scroll frame: a `scrollHeight` read
+     here, and a `getBoundingClientRect()` loop over every section there. The
+     height is now cached and invalidated on resize, and the active section
+     comes from an IntersectionObserver, so a scroll frame reads no geometry
+     at all. */
+
+  (function scrollState() {
     var bar = $('.progress');
     var topbar = $('.topbar');
-
-    var update = onFrame(function () {
-      var max = document.documentElement.scrollHeight - window.innerHeight;
-      var ratio = max > 0 ? clamp(window.scrollY / max, 0, 1) : 0;
-
-      if (bar) bar.style.setProperty('--p', ratio.toFixed(4));
-      if (topbar) topbar.dataset.stuck = String(window.scrollY > 12);
-    });
-
-    update();
-    window.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
-  })();
-
-
-  /* ══ 04 · Active section ══════════════════════════════════ */
-
-  (function activeSection() {
     var sections = $$('main section[id]');
-    if (!sections.length) return;
-
     var links = $$('.navlinks a[href^="#"]');
 
-    var update = onFrame(function () {
-      var line = window.innerHeight * 0.34;
-      var active = sections[0].id;
+    /* — Cached page height — */
 
-      for (var i = 0; i < sections.length; i++) {
-        if (sections[i].getBoundingClientRect().top <= line) active = sections[i].id;
-      }
+    var maxScroll = 0;
 
-      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
-        active = sections[sections.length - 1].id;
-      }
+    function measure() {
+      maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    }
+
+    /* — Active section — */
+
+    var spying = false;
+    var atBottom = false;
+    var current = sections.length ? sections[0].id : null;
+
+    function mark() {
+      if (!spying) return;
+      var id = atBottom ? sections[sections.length - 1].id : current;
 
       links.forEach(function (a) {
-        if (a.getAttribute('href') === '#' + active) a.setAttribute('aria-current', 'true');
+        if (a.getAttribute('href') === '#' + id) a.setAttribute('aria-current', 'true');
         else a.removeAttribute('aria-current');
       });
+    }
+
+    if (sections.length && links.length && 'IntersectionObserver' in window) {
+      spying = true;
+
+      /* A thin band whose lower edge sits 34% down the viewport — the same
+         threshold the old rect loop compared against, expressed as a region
+         instead of a per-frame measurement.
+
+         Two details make this exactly equivalent rather than merely close. The
+         band has height (1%) because a zero-height line intersects a section
+         with zero area, which is the degenerate case observer implementations
+         disagree about. And it sits *above* the line rather than below it, so
+         a section becomes current as its top reaches the line — precisely what
+         the old loop tested. Checked against the old rule at every scroll
+         offset on the page: no disagreement. */
+      var inBand = [];
+
+      var spy = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          inBand[sections.indexOf(entry.target)] = entry.isIntersecting;
+        });
+
+        /* Take the last section in document order, not the last one in the
+           batch: a band has height, so two sections can straddle it, and the
+           order entries arrive in is not specified. */
+        for (var i = sections.length - 1; i >= 0; i--) {
+          if (inBand[i]) { current = sections[i].id; break; }
+        }
+        mark();
+      }, { rootMargin: '-33% 0px -66% 0px', threshold: 0 });
+
+      sections.forEach(function (node) { spy.observe(node); });
+    }
+
+    /* — Progress bar and sticky state — */
+
+    var update = onFrame(function () {
+      var y = window.scrollY;
+      var ratio = maxScroll > 0 ? clamp(y / maxScroll, 0, 1) : 0;
+
+      if (bar) bar.style.setProperty('--p', ratio.toFixed(4));
+      if (topbar) topbar.dataset.stuck = String(y > 12);
+
+      /* The final section is usually shorter than the distance from the band
+         to the foot of the page, so it can never satisfy the crossing on its
+         own. At the very bottom it is unambiguously the one being read. */
+      var bottom = maxScroll > 0 && y >= maxScroll - 2;
+      if (bottom !== atBottom) {
+        atBottom = bottom;
+        mark();
+      }
     });
 
+    measure();
+    mark();
     update();
+
     window.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
+    window.addEventListener('resize', function () { measure(); update(); });
+
+    /* Modals, the contributions grid and lazy images all change the page
+       height after load. Without this the progress bar would stay calibrated
+       to whatever the document measured on the first frame. */
+    if ('ResizeObserver' in window) {
+      new ResizeObserver(function () { measure(); update(); }).observe(document.body);
+    }
   })();
 
 
-  /* ══ 05 · Smooth in-page scrolling ════════════════════════ */
+  /* ══ 04 · Smooth in-page scrolling ════════════════════════ */
 
   (function anchors() {
     $$('a[href^="#"]').forEach(function (a) {
@@ -191,7 +246,7 @@
   })();
 
 
-  /* ══ 06 · Modal shell ════════════════════════════════════ */
+  /* ══ 05 · Modal shell ════════════════════════════════════ */
 
   var Modal = (function () {
     var box = $('#modal');
@@ -318,7 +373,7 @@
   })();
 
 
-  /* ══ 07 · Project detail modal ═══════════════════════════ */
+  /* ══ 06 · Project detail modal ═══════════════════════════ */
 
   var Detail = (function () {
     if (!Modal) return null;
@@ -343,7 +398,12 @@
           media.src = item.src;
           media.controls = true;
           media.playsInline = true;
-          media.preload = 'metadata';
+          /* A poster frame plus preload="none" means the modal opens on a real
+             image immediately and the multi-megabyte file only moves if the
+             visitor presses play. "metadata" used to pull a chunk of it every
+             time the panel was opened, whether or not anyone watched. */
+          if (item.poster) media.poster = item.poster;
+          media.preload = 'none';
           media.setAttribute('aria-label', item.alt || rec.title + ' walkthrough');
         } else {
           media = document.createElement('img');
@@ -351,17 +411,36 @@
           media.alt = item.alt || '';
           media.decoding = 'async';
         }
+        /* The record carries each capture's real pixel size, so the browser can
+           reserve the right box before the file arrives. Without it the slot is
+           `height: auto` around nothing, and every step through the carousel
+           collapses the frame and springs it back — worst in CartCraft, which
+           mixes portrait, 16:9 and letterboxed shots. */
+        if (item.w && item.h) {
+          media.width = item.w;
+          media.height = item.h;
+        }
         slot.appendChild(media);
 
         capEl.textContent = item.cap || '';
         countEl.textContent = pad(idx + 1) + ' / ' + pad(rec.items.length);
 
-        [idx + 1, idx - 1].forEach(function (i) {
-          if (i < 0 || i >= rec.items.length) return;
-          if (rec.items[i].type === 'video') return;
-          var pre = new Image();
-          pre.src = rec.items[i].src;
-        });
+        /* Warm the next frame only, and only once the current one has landed.
+           Preloading both neighbours up front put two full-resolution captures
+           in flight against the one actually on screen. */
+        var next = rec.items[idx + 1];
+        if (next && next.type !== 'video') {
+          var warm = function () {
+            var pre = new Image();
+            pre.src = next.src;
+          };
+          if (media.tagName === 'IMG' && !media.complete) {
+            media.addEventListener('load', warm, { once: true });
+            media.addEventListener('error', warm, { once: true });
+          } else {
+            warm();
+          }
+        }
       }
 
       function go(step) {
@@ -486,7 +565,7 @@
   })();
 
 
-  /* ══ 08 · Full stack modal ═══════════════════════════════ */
+  /* ══ 07 · Full stack modal ═══════════════════════════════ */
 
   (function stackModal() {
     if (!Modal) return;
@@ -516,7 +595,7 @@
   })();
 
 
-  /* ══ 09 · Project index modal ════════════════════════════ */
+  /* ══ 08 · Project index modal ════════════════════════════ */
 
   (function indexModal() {
     if (!Modal || !Detail) return;
@@ -583,7 +662,7 @@
   })();
 
 
-  /* ══ 10 · Triggers ═══════════════════════════════════════ */
+  /* ══ 09 · Triggers ═══════════════════════════════════════ */
 
   (function triggers() {
     if (!Detail) return;
@@ -596,7 +675,7 @@
   })();
 
 
-  /* ══ 11 · GitHub contributions ════════════════════════════ */
+  /* ══ 10 · GitHub contributions ════════════════════════════ */
 
   (function ghGraph() {
     var root = $('.gh');
@@ -726,7 +805,17 @@
       return 4;
     }
 
-    function paint(days, syncedOn, fresh) {
+    /* `fresh` is a live response, `cached` a first paint from localStorage.
+       The distinction matters: a cached paint is a normal fast start, whereas
+       falling back to storage after the network failed is a degraded one, and
+       only the latter should say so in the interface.
+
+       Guarded because paint() now runs twice on a warm visit — cache first,
+       then the live data — and the tooltip must only be wired once. */
+    var tipReady = false;
+    var paints = 0;
+
+    function paint(days, syncedOn, fresh, cached) {
       var byDate = {};
       (days || []).forEach(function (day) {
         if (day && day.date != null) byDate[day.date] = +day.count || 0;
@@ -744,6 +833,11 @@
         var cell = cells[k];
 
         if (n === null) { cell.setAttribute('data-void', ''); return; }
+
+        /* Cleared explicitly: a cached paint can cover fewer days than the
+           live response, and those cells must stop reading as absent when the
+           real data arrives behind them. */
+        cell.removeAttribute('data-void');
 
         drawn++;
         sum += n;
@@ -794,9 +888,12 @@
       grid.setAttribute('aria-label',
         sum + ' contributions between ' + full(first) + ' and ' + full(last));
 
-      root.dataset.state = fresh ? 'ready' : 'stale';
+      root.dataset.state = fresh ? 'ready' : (cached ? 'cached' : 'stale');
 
-      if (finePointer) tooltip();
+      /* Second and later paints skip the reveal stagger — see style.css. */
+      if (paints++) root.setAttribute('data-repaint', '');
+
+      if (finePointer && !tipReady) { tipReady = true; tooltip(); }
 
       if (fresh) keep(counts);
     }
@@ -863,7 +960,9 @@
 
       grid.addEventListener('mouseleave', hide);
 
-      window.addEventListener('scroll', hide, true);
+      /* Capture phase so any scrolling ancestor dismisses the tip, passive so
+         it can never hold up a scroll frame. */
+      window.addEventListener('scroll', hide, { capture: true, passive: true });
     }
 
     function url() {
@@ -871,32 +970,65 @@
       return API + encodeURIComponent(user) + '?y=' + y + '&y=' + (y - 1);
     }
 
-    function fallback() {
-      var kept = recall();
-      if (!kept) { fail(); return; }
-      paint(kept.days, kept.on, false);
+    /* -- Pass 3: cache first, then revalidate ----------------------- */
+
+    /* The graph is third-party data from another continent, measured at
+       roughly two seconds. Two things follow from that.
+
+       First: a returning visitor should never look at an empty grid waiting
+       for it. Storage is now the first paint, not the failure path it used to
+       be, and the live response quietly repaints over it.
+
+       Second: the request should already be in flight by the time this file
+       runs. index.html starts it during head parsing and leaves it on
+       window.__ghEarly, so it overlaps the stylesheet, the fonts and the
+       portrait rather than queueing behind all four scripts. */
+
+    var painted = false;
+
+    var kept = recall();
+    if (kept) {
+      paint(kept.days, kept.on, false, true);
+      painted = true;
     }
 
-    if (!window.fetch) { fallback(); return; }
+    if (!window.fetch) {
+      if (!painted) fail();
+      return;
+    }
+
+    function accept(data) {
+      var days = data && data.contributions;
+      if (!days || !days.length) throw new Error('empty payload');
+      return days;
+    }
 
     function load(attempt) {
-      fetch(url(), { cache: 'no-store' })
-        .then(function (res) {
-          if (!res.ok) throw new Error('HTTP ' + res.status);
-          return res.json();
-        })
-        .then(function (data) {
-          var days = data && data.contributions;
-          if (!days || !days.length) throw new Error('empty payload');
-          return days;
+      /* Adopt the head-started request on the first attempt; retries have to
+         issue their own. No `cache: 'no-store'` any more — it was defeating
+         HTTP caching outright for data that changes at most once a day. */
+      var pending = attempt === 1 && window.__ghEarly
+        ? window.__ghEarly
+        : fetch(url()).then(function (res) {
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            return res.json();
+          });
+
+      pending
+        .then(accept)
+        .then(function (days) {
+          paint(days, key(today), true, false);
         })
         .catch(function () {
-          if (attempt < 2) window.setTimeout(function () { load(attempt + 1); }, 900);
-          else fallback();
-          return null;
-        })
-        .then(function (days) {
-          if (days) paint(days, key(today), true);
+          if (attempt < 3) {
+            window.setTimeout(function () { load(attempt + 1); }, attempt * 350);
+            return;
+          }
+          /* Out of attempts. An empty grid has nothing to show; a cached one
+             keeps its cells but is now genuinely stale rather than merely
+             ahead of the network, so it drops to the state that says so. */
+          if (painted) root.dataset.state = 'stale';
+          else fail();
         });
     }
 
@@ -904,7 +1036,7 @@
   })();
 
 
-  /* ══ 12 · Pointer tilt ════════════════════════════════════
+  /* ══ 11 · Pointer tilt ════════════════════════════════════
      The work cards follow the cursor on two axes. The restraint is the whole
      point: 4.5° maximum, which is enough for the surface to read as a plane
      catching light and not enough to keystone the type. Most tilt effects on

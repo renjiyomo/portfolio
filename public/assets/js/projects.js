@@ -29,11 +29,11 @@ window.PROJECTS = (function () {
         'Each tool ships as its own deployed app, and the hub brings them together in one place.'
       ],
       items: [
-        { src: BUENO + 'BUe%C3%B1o.mp4', type: 'video', alt: 'Screen recording of the BUeño platform', cap: 'Walkthrough — navigating the hub and its apps' },
-        { src: BUENO + 'home-hero.png', alt: 'BUeño home page hero section', cap: 'Landing page — the entry point for the ecosystem' },
-        { src: BUENO + 'tools.png', alt: 'BUeño tools directory', cap: 'Tools directory' },
-        { src: BUENO + 'web-apps.png', alt: 'BUeño web applications overview', cap: 'Web apps overview' },
-        { src: BUENO + 'community.png', alt: 'BUeño community section', cap: 'Community section' }
+        { src: BUENO + 'BUe%C3%B1o.mp4', type: 'video', poster: BUENO + 'home-hero.png', w: 1920, h: 1080, alt: 'Screen recording of the BUeño platform', cap: 'Walkthrough — navigating the hub and its apps' },
+        { src: BUENO + 'home-hero.png', w: 1919, h: 908, alt: 'BUeño home page hero section', cap: 'Landing page — the entry point for the ecosystem' },
+        { src: BUENO + 'tools.png', w: 1918, h: 906, alt: 'BUeño tools directory', cap: 'Tools directory' },
+        { src: BUENO + 'web-apps.png', w: 1918, h: 905, alt: 'BUeño web applications overview', cap: 'Web apps overview' },
+        { src: BUENO + 'community.png', w: 1918, h: 906, alt: 'BUeño community section', cap: 'Community section' }
       ]
     },
 
@@ -50,9 +50,9 @@ window.PROJECTS = (function () {
         'Artists sign in with Google, upload to their own collection, and get a public profile.'
       ],
       items: [
-        { src: OBRA + 'home-hero.png', alt: 'Obra BU gallery home page', cap: 'Gallery landing page' },
-        { src: OBRA + 'collection.png', alt: 'Obra BU artwork collection grid', cap: 'Artwork collection' },
-        { src: OBRA + 'student-artists.png', alt: 'Obra BU student artists directory', cap: 'Student artists directory' }
+        { src: OBRA + 'home-hero.png', w: 1918, h: 907, alt: 'Obra BU gallery home page', cap: 'Gallery landing page' },
+        { src: OBRA + 'collection.png', w: 1918, h: 907, alt: 'Obra BU artwork collection grid', cap: 'Artwork collection' },
+        { src: OBRA + 'student-artists.png', w: 1918, h: 907, alt: 'Obra BU student artists directory', cap: 'Student artists directory' }
       ]
     },
 
@@ -68,8 +68,8 @@ window.PROJECTS = (function () {
         'Report what you lost, browse what has been turned in, and claim it. New reports appear without a refresh.'
       ],
       items: [
-        { src: LF + 'home-hero.png', alt: 'Lost and Found home page', cap: 'Home — report or search for an item' },
-        { src: LF + 'browse-items.png', alt: 'Lost and Found item browser', cap: 'Browse reported items' }
+        { src: LF + 'home-hero.png', w: 1918, h: 907, alt: 'Lost and Found home page', cap: 'Home — report or search for an item' },
+        { src: LF + 'browse-items.png', w: 1918, h: 913, alt: 'Lost and Found item browser', cap: 'Browse reported items' }
       ]
     },
 
@@ -85,8 +85,8 @@ window.PROJECTS = (function () {
         'Turnstile screens every submission without asking students to log in or solve a puzzle first.'
       ],
       items: [
-        { src: FW + 'bufw.png', alt: 'BU Freedom Wall post feed', cap: 'Post feed' },
-        { src: FW + 'submit-confession.png', alt: 'BU Freedom Wall submission form', cap: 'Submission form' }
+        { src: FW + 'bufw.png', w: 1918, h: 907, alt: 'BU Freedom Wall post feed', cap: 'Post feed' },
+        { src: FW + 'submit-confession.png', w: 1918, h: 906, alt: 'BU Freedom Wall submission form', cap: 'Submission form' }
       ]
     },
 
@@ -102,10 +102,10 @@ window.PROJECTS = (function () {
         'Everything runs client-side, so results are instant and grades never leave the browser.'
       ],
       items: [
-        { src: GWA + 'result-card.png', alt: 'GWA calculator result card', cap: 'Result card — computed weighted average' },
-        { src: GWA + 'semester-honor.png', alt: 'Semester honor eligibility view', cap: 'Semester honor eligibility' },
-        { src: GWA + 'latin-honors.png', alt: 'Latin honors calculator input', cap: 'Latin honors — input' },
-        { src: GWA + 'latin-results.png', alt: 'Latin honors calculator results', cap: 'Latin honors — results' }
+        { src: GWA + 'result-card.png', w: 1918, h: 905, alt: 'GWA calculator result card', cap: 'Result card — computed weighted average' },
+        { src: GWA + 'semester-honor.png', w: 1918, h: 903, alt: 'Semester honor eligibility view', cap: 'Semester honor eligibility' },
+        { src: GWA + 'latin-honors.png', w: 1918, h: 906, alt: 'Latin honors calculator input', cap: 'Latin honors — input' },
+        { src: GWA + 'latin-results.png', w: 1918, h: 902, alt: 'Latin honors calculator results', cap: 'Latin honors — results' }
       ]
     },
 
@@ -122,21 +122,21 @@ window.PROJECTS = (function () {
         'Scored 4.83 out of 5.00 against ISO 25010 across 32 respondents, and named Best Undergraduate Capstone Thesis in BSIS.'
       ],
       items: [
-        { src: SMS + 'sms-landing-page.png', alt: 'Student Management System landing page', cap: 'Landing page' },
-        { src: SMS + 'sms-login-page-dark.png', alt: 'Login screen in dark theme', cap: 'Login — dark theme' },
-        { src: SMS + 'sms-login-page-light.png', alt: 'Login screen in light theme', cap: 'Login — light theme' },
-        { src: shot(SMS, '2025-12-02 122759'), alt: 'System interface screen', cap: 'Interface 01' },
-        { src: shot(SMS, '2025-12-02 160800'), alt: 'System interface screen', cap: 'Interface 02' },
-        { src: shot(SMS, '2025-12-02 183613'), alt: 'System interface screen', cap: 'Interface 03' },
-        { src: shot(SMS, '2025-12-02 193123'), alt: 'System interface screen', cap: 'Interface 04' },
-        { src: shot(SMS, '2025-12-02 205400'), alt: 'System interface screen', cap: 'Interface 05' },
-        { src: shot(SMS, '2025-12-02 224458'), alt: 'System interface screen', cap: 'Interface 06' },
-        { src: shot(SMS, '2025-12-03 102002'), alt: 'System interface screen', cap: 'Interface 07' },
-        { src: shot(SMS, '2025-12-03 161036'), alt: 'System interface screen', cap: 'Interface 08' },
-        { src: shot(SMS, '2025-12-03 164617'), alt: 'System interface screen', cap: 'Interface 09' },
-        { src: shot(SMS, '2025-12-04 130721'), alt: 'System interface screen', cap: 'Interface 10' },
-        { src: shot(SMS, '2025-12-04 143323'), alt: 'System interface screen', cap: 'Interface 11' },
-        { src: shot(SMS, '2025-12-04 150035'), alt: 'System interface screen', cap: 'Interface 12' }
+        { src: SMS + 'sms-landing-page.png', w: 1919, h: 908, alt: 'Student Management System landing page', cap: 'Landing page' },
+        { src: SMS + 'sms-login-page-dark.png', w: 1919, h: 905, alt: 'Login screen in dark theme', cap: 'Login — dark theme' },
+        { src: SMS + 'sms-login-page-light.png', w: 1919, h: 908, alt: 'Login screen in light theme', cap: 'Login — light theme' },
+        { src: shot(SMS, '2025-12-02 122759'), w: 1919, h: 908, alt: 'System interface screen', cap: 'Interface 01' },
+        { src: shot(SMS, '2025-12-02 160800'), w: 1919, h: 910, alt: 'System interface screen', cap: 'Interface 02' },
+        { src: shot(SMS, '2025-12-02 183613'), w: 1919, h: 911, alt: 'System interface screen', cap: 'Interface 03' },
+        { src: shot(SMS, '2025-12-02 193123'), w: 1919, h: 910, alt: 'System interface screen', cap: 'Interface 04' },
+        { src: shot(SMS, '2025-12-02 205400'), w: 1919, h: 908, alt: 'System interface screen', cap: 'Interface 05' },
+        { src: shot(SMS, '2025-12-02 224458'), w: 1919, h: 907, alt: 'System interface screen', cap: 'Interface 06' },
+        { src: shot(SMS, '2025-12-03 102002'), w: 1919, h: 911, alt: 'System interface screen', cap: 'Interface 07' },
+        { src: shot(SMS, '2025-12-03 161036'), w: 1919, h: 910, alt: 'System interface screen', cap: 'Interface 08' },
+        { src: shot(SMS, '2025-12-03 164617'), w: 1919, h: 910, alt: 'System interface screen', cap: 'Interface 09' },
+        { src: shot(SMS, '2025-12-04 130721'), w: 1919, h: 908, alt: 'System interface screen', cap: 'Interface 10' },
+        { src: shot(SMS, '2025-12-04 143323'), w: 1919, h: 907, alt: 'System interface screen', cap: 'Interface 11' },
+        { src: shot(SMS, '2025-12-04 150035'), w: 1919, h: 908, alt: 'System interface screen', cap: 'Interface 12' }
       ]
     },
 
@@ -152,16 +152,16 @@ window.PROJECTS = (function () {
         'Both sides can export their transaction history as a PDF report.'
       ],
       items: [
-        { src: shot(CART, '2024-11-08 142245'), alt: 'CartCraft interface screen', cap: 'Interface 01' },
-        { src: shot(CART, '2024-11-08 142701'), alt: 'CartCraft interface screen', cap: 'Interface 02' },
-        { src: shot(CART, '2024-11-11 174536'), alt: 'CartCraft interface screen', cap: 'Interface 03' },
-        { src: shot(CART, '2024-11-13 123626'), alt: 'CartCraft interface screen', cap: 'Interface 04' },
-        { src: shot(CART, '2024-11-14 204755'), alt: 'CartCraft interface screen', cap: 'Interface 05' },
-        { src: shot(CART, '2024-12-01 103915'), alt: 'CartCraft interface screen', cap: 'Interface 06' },
-        { src: shot(CART, '2024-12-02 095712'), alt: 'CartCraft interface screen', cap: 'Interface 07' },
-        { src: shot(CART, '2024-12-09 212218'), alt: 'CartCraft interface screen', cap: 'Interface 08' },
-        { src: shot(CART, '2024-12-10 131219'), alt: 'CartCraft interface screen', cap: 'Interface 09' },
-        { src: shot(CART, '2024-12-10 151211'), alt: 'CartCraft interface screen', cap: 'Interface 10' }
+        { src: shot(CART, '2024-11-08 142245'), w: 772, h: 907, alt: 'CartCraft interface screen', cap: 'Interface 01' },
+        { src: shot(CART, '2024-11-08 142701'), w: 769, h: 910, alt: 'CartCraft interface screen', cap: 'Interface 02' },
+        { src: shot(CART, '2024-11-11 174536'), w: 1920, h: 1080, alt: 'CartCraft interface screen', cap: 'Interface 03' },
+        { src: shot(CART, '2024-11-13 123626'), w: 1120, h: 550, alt: 'CartCraft interface screen', cap: 'Interface 04' },
+        { src: shot(CART, '2024-11-14 204755'), w: 790, h: 907, alt: 'CartCraft interface screen', cap: 'Interface 05' },
+        { src: shot(CART, '2024-12-01 103915'), w: 1920, h: 1080, alt: 'CartCraft interface screen', cap: 'Interface 06' },
+        { src: shot(CART, '2024-12-02 095712'), w: 1121, h: 630, alt: 'CartCraft interface screen', cap: 'Interface 07' },
+        { src: shot(CART, '2024-12-09 212218'), w: 1919, h: 1017, alt: 'CartCraft interface screen', cap: 'Interface 08' },
+        { src: shot(CART, '2024-12-10 131219'), w: 1919, h: 1020, alt: 'CartCraft interface screen', cap: 'Interface 09' },
+        { src: shot(CART, '2024-12-10 151211'), w: 1919, h: 1079, alt: 'CartCraft interface screen', cap: 'Interface 10' }
       ]
     },
 

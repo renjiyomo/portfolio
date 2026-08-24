@@ -26,9 +26,17 @@
    from sounding like eight separate websites: they share a key and they
    share a shape, so the ear files them as one instrument.
 
-   Loudness is deliberately near the floor — master 0.5 against per-voice
-   peaks of 0.03–0.16, so nothing ever approaches full scale. The intent is
-   that you notice the sound when you stop hearing it, not when you start.
+   Loudness is set to be heard at a normal system volume. The earlier tuning
+   sat around -23dBFS at its loudest, which was inaudible at the 25-40% most
+   people actually run, and a confirmation sound nobody hears is worse than no
+   confirmation sound at all — you toggle it on and cannot tell whether it
+   worked. Master is 0.9 into a soft-clip stage (see boot), so the level can
+   sit where it is useful without any stack of voices reaching full scale.
+
+   What is preserved is the hierarchy, because that is what carries meaning:
+   passive voices the pointer triggers by accident (hover, tilt) stay roughly
+   12dB under a deliberate press, and the enable chime is the loudest single
+   event in the file. Loudness here is a signal, not a setting.
 
    Defaults and consent:
      Sound is OFF until asked for. It is stored per-browser, so the choice
@@ -48,7 +56,7 @@ window.SFX = (function () {
 
   var on = false;            /* the visitor's choice        */
   var ctx = null;            /* AudioContext, once needed   */
-  var bus = null;            /* master gain -> filter -> out */
+  var bus = null;            /* master gain -> filters -> soft clip -> out */
   var noiseBuf = null;       /* one buffer, reused forever  */
 
   var finePointer = window.matchMedia('(pointer: fine)').matches;
@@ -71,6 +79,39 @@ window.SFX = (function () {
      the glassy edge off synthesised transients, which is the difference
      between "a considered interface" and "a toy". */
 
+  /* Soft-clip curve, tanh-shaped. This is what lets the master gain sit high
+     enough to hear: voices overlap freely — a tap lands while a modal chime
+     is still ringing and a card is still tilting — and their peaks add. Left
+     alone that sum crosses 1.0 and the browser hard-clips it, which is the
+     one artefact that makes synthesised audio sound broken rather than quiet.
+
+     Chosen over a DynamicsCompressorNode on purpose. A compressor needs an
+     attack time, and during those few milliseconds a fast transient passes
+     through unclamped — precisely the part of these voices that peaks. A
+     waveshaper is instantaneous and bounded by construction: the curve's own
+     endpoint is the ceiling, so no input can produce an output above it.
+
+     K sets how early the curve bends. At 1.5 a single voice near 0.3 passes
+     within half a decibel of linear, while a three-voice pile-up at 1.2 is
+     folded back to 0.60. Transparent when it can be, firm when it must be. */
+  function softClip(ctx) {
+    var K = 1.5;
+    var n = 1024;
+    var curve = new Float32Array(n);
+
+    for (var i = 0; i < n; i++) {
+      var x = (i / (n - 1)) * 2 - 1;      /* -1 .. 1 */
+      curve[i] = Math.tanh(K * x) / K;
+    }
+
+    var node = ctx.createWaveShaper();
+    node.curve = curve;
+    /* The curve is a nonlinearity, so it generates harmonics; running it at
+       double rate keeps the ones above Nyquist from folding back as grit. */
+    node.oversample = '2x';
+    return node;
+  }
+
   function boot() {
     if (ctx) return ctx;
 
@@ -80,7 +121,7 @@ window.SFX = (function () {
     try { ctx = new Ctor(); } catch (e) { return null; }
 
     var master = ctx.createGain();
-    master.gain.value = 0.5;
+    master.gain.value = 0.9;
 
     var lp = ctx.createBiquadFilter();
     lp.type = 'lowpass';
@@ -93,9 +134,14 @@ window.SFX = (function () {
     hp.type = 'highpass';
     hp.frequency.value = 90;
 
+    /* Last in the chain, after the filters — they can lift a peak on their
+       way through, so the ceiling has to be the final word. */
+    var limit = softClip(ctx);
+
     master.connect(lp);
     lp.connect(hp);
-    hp.connect(ctx.destination);
+    hp.connect(limit);
+    limit.connect(ctx.destination);
 
     bus = master;
 
@@ -142,12 +188,17 @@ window.SFX = (function () {
   var ZERO = 0.00012;
 
   /* Rate limits, per voice, in ms. Without these a fast mouse across a card
-     grid becomes a machine gun. */
+     grid becomes a machine gun.
+
+     Widened along with the level. The old gaps were tuned against voices you
+     had to lean in to hear, where an overlap was just texture; at an audible
+     level the same sweep across the grid chatters. The pointer-driven pair
+     moved most, because they are the ones fired by accident. */
   var GAP = {
-    hover: 110,
-    tilt:  190,
+    hover: 160,
+    tilt:  240,
     tick:   40,
-    tap:    28
+    tap:    40
   };
   var last = {};
 
@@ -223,108 +274,127 @@ window.SFX = (function () {
   /* ══ 04 · Voices ══════════════════════════════════════════
      Each voice is a recipe, not a sample. Comments give the intent, because
      "sine 420 to 150 over 45ms" tells you nothing about how it should feel.
+
+     Gains were scaled per voice rather than globally, so every recipe keeps
+     the internal balance between its noise transient and its pitched body.
+     The multiplier differs by role: the passive pair got the smallest lift
+     and the enable chime the largest, which is what holds the hierarchy in
+     place now that everything is loud enough to hear.
   */
 
   var VOICE = {
 
     /* Primary press. Noise transient for the contact, pitched body dropping
-       an octave-ish underneath it for the weight. Reads as a firm key. */
+       an octave-ish underneath it for the weight. Reads as a firm key.
+       Around -9.5dBFS: the loudest routine gesture, but held below the enable
+       chime, and below where a click on every card would start to grate. */
     tap: function (t) {
-      air({ at: t, from: 3200, to: 1500, dur: 0.026, q: 0.9, gain: 0.075 });
-      tone({ at: t, type: 'sine', from: 430, to: 150, dur: 0.052, gain: 0.14, attack: 0.002 });
-      tone({ at: t, type: 'triangle', from: NOTE.d6, to: NOTE.a5, dur: 0.038, gain: 0.030 });
+      air({ at: t, from: 3200, to: 1500, dur: 0.026, q: 0.9, gain: 0.125 });
+      tone({ at: t, type: 'sine', from: 430, to: 150, dur: 0.052, gain: 0.234, attack: 0.002 });
+      tone({ at: t, type: 'triangle', from: NOTE.d6, to: NOTE.a5, dur: 0.038, gain: 0.050 });
     },
 
     /* Secondary press — same gesture, less mass. For chrome: close buttons,
-       carousel arrows, in-row actions. */
+       carousel arrows, in-row actions. Sits ~3dB under a tap, which is the
+       margin at which the ear reads it as the lighter of the two. */
     press: function (t) {
-      air({ at: t, from: 2600, to: 1400, dur: 0.020, q: 1.0, gain: 0.050 });
-      tone({ at: t, type: 'sine', from: 360, to: 155, dur: 0.040, gain: 0.085, attack: 0.002 });
+      air({ at: t, from: 2600, to: 1400, dur: 0.020, q: 1.0, gain: 0.098 });
+      tone({ at: t, type: 'sine', from: 360, to: 155, dur: 0.040, gain: 0.165, attack: 0.002 });
     },
 
     /* A detent. Stepping a carousel, jumping to a section — small, dry,
        mechanical, no tail. */
     tick: function (t) {
-      air({ at: t, from: 5200, to: 3600, dur: 0.012, q: 2.6, gain: 0.055 });
-      tone({ at: t, type: 'triangle', from: NOTE.d6, dur: 0.026, gain: 0.038 });
+      air({ at: t, from: 5200, to: 3600, dur: 0.012, q: 2.6, gain: 0.136 });
+      tone({ at: t, type: 'triangle', from: NOTE.d6, dur: 0.026, gain: 0.094 });
     },
 
-    /* Hover. The quietest thing in the set by a wide margin — at this level
-       it registers as texture, and you would not describe it as a beep. */
+    /* Hover. Still the quietest thing in the set, and still not a beep — but
+       it is now above the noise floor of a laptop speaker, which it was not.
+       Roughly 12dB under a tap: present, never announcing itself. */
     hover: function (t) {
-      tone({ at: t, type: 'sine', from: NOTE.b5, dur: 0.028, gain: 0.026, attack: 0.006 });
+      tone({ at: t, type: 'sine', from: NOTE.b5, dur: 0.028, gain: 0.085, attack: 0.006 });
     },
 
     /* Card tilt. A cloth brush, not a click: the band opens upward so it
-       reads as a surface being caught by the light rather than pressed. */
+       reads as a surface being caught by the light rather than pressed.
+       Lifted least of all — the pointer triggers this without being asked. */
     tilt: function (t) {
-      air({ at: t, from: 850, to: 2700, dur: 0.130, q: 0.7, gain: 0.042, attack: 0.020 });
-      tone({ at: t, type: 'sine', from: NOTE.fs5, to: NOTE.a5, dur: 0.100, gain: 0.022, attack: 0.018 });
+      air({ at: t, from: 850, to: 2700, dur: 0.130, q: 0.7, gain: 0.085, attack: 0.020 });
+      tone({ at: t, type: 'sine', from: NOTE.fs5, to: NOTE.a5, dur: 0.100, gain: 0.044, attack: 0.018 });
     },
 
     /* Modal expansion. Air rising underneath a rising fifth — the interval
        is doing the work, the noise only gives it somewhere to live. */
     modalOpen: function (t) {
-      air({ at: t, from: 380, to: 2300, dur: 0.240, q: 0.8, gain: 0.055, attack: 0.030 });
-      tone({ at: t, type: 'triangle', from: NOTE.d5, dur: 0.200, gain: 0.070 });
-      tone({ at: t + 0.055, type: 'triangle', from: NOTE.a5, dur: 0.230, gain: 0.055 });
+      air({ at: t, from: 380, to: 2300, dur: 0.240, q: 0.8, gain: 0.126, attack: 0.030 });
+      tone({ at: t, type: 'triangle', from: NOTE.d5, dur: 0.200, gain: 0.160 });
+      tone({ at: t + 0.055, type: 'triangle', from: NOTE.a5, dur: 0.230, gain: 0.126 });
     },
 
     /* Collapse. The same figure inverted and cut shorter — closing should
        feel quicker than opening, or the interface feels reluctant. */
     modalClose: function (t) {
-      air({ at: t, from: 2100, to: 400, dur: 0.180, q: 0.8, gain: 0.045, attack: 0.010 });
-      tone({ at: t, type: 'triangle', from: NOTE.a5, dur: 0.130, gain: 0.050 });
-      tone({ at: t + 0.045, type: 'triangle', from: NOTE.d5, dur: 0.170, gain: 0.045 });
+      air({ at: t, from: 2100, to: 400, dur: 0.180, q: 0.8, gain: 0.103, attack: 0.010 });
+      tone({ at: t, type: 'triangle', from: NOTE.a5, dur: 0.130, gain: 0.114 });
+      tone({ at: t + 0.045, type: 'triangle', from: NOTE.d5, dur: 0.170, gain: 0.103 });
     },
 
     /* Swapping the modal's contents in place. Not an open, not a close —
        a page turn. */
     swap: function (t) {
-      air({ at: t, from: 1500, to: 2600, dur: 0.090, q: 1.2, gain: 0.040, attack: 0.012 });
-      tone({ at: t, type: 'triangle', from: NOTE.e5, to: NOTE.fs5, dur: 0.090, gain: 0.038 });
+      air({ at: t, from: 1500, to: 2600, dur: 0.090, q: 1.2, gain: 0.116, attack: 0.012 });
+      tone({ at: t, type: 'triangle', from: NOTE.e5, to: NOTE.fs5, dur: 0.090, gain: 0.110 });
     },
 
     /* Ledger row opening / closing. A third of a modal, in every sense. */
     expand: function (t) {
-      air({ at: t, from: 600, to: 1900, dur: 0.110, q: 0.9, gain: 0.032, attack: 0.016 });
-      tone({ at: t, type: 'sine', from: NOTE.fs5, dur: 0.110, gain: 0.042 });
+      air({ at: t, from: 600, to: 1900, dur: 0.110, q: 0.9, gain: 0.093, attack: 0.016 });
+      tone({ at: t, type: 'sine', from: NOTE.fs5, dur: 0.110, gain: 0.122 });
     },
 
     collapse: function (t) {
-      air({ at: t, from: 1700, to: 550, dur: 0.095, q: 0.9, gain: 0.028, attack: 0.008 });
-      tone({ at: t, type: 'sine', from: NOTE.d5, dur: 0.095, gain: 0.038 });
+      air({ at: t, from: 1700, to: 550, dur: 0.095, q: 0.9, gain: 0.081, attack: 0.008 });
+      tone({ at: t, type: 'sine', from: NOTE.d5, dur: 0.095, gain: 0.110 });
     },
 
     /* Theme sweep. Runs the length of the 620ms visual sweep so the ear and
        the eye finish together; the band travels in the same direction the
        light does. */
     themeToLight: function (t) {
-      air({ at: t, from: 320, to: 3400, dur: 0.560, q: 0.55, gain: 0.040, attack: 0.090 });
-      tone({ at: t + 0.040, type: 'sine', from: NOTE.a5, dur: 0.300, gain: 0.042 });
-      tone({ at: t + 0.150, type: 'sine', from: NOTE.d6, dur: 0.320, gain: 0.032 });
+      air({ at: t, from: 320, to: 3400, dur: 0.560, q: 0.55, gain: 0.116, attack: 0.090 });
+      tone({ at: t + 0.040, type: 'sine', from: NOTE.a5, dur: 0.300, gain: 0.122 });
+      tone({ at: t + 0.150, type: 'sine', from: NOTE.d6, dur: 0.320, gain: 0.093 });
     },
 
     themeToDark: function (t) {
-      air({ at: t, from: 3200, to: 300, dur: 0.560, q: 0.55, gain: 0.036, attack: 0.060 });
-      tone({ at: t + 0.040, type: 'sine', from: NOTE.d6, dur: 0.300, gain: 0.036 });
-      tone({ at: t + 0.150, type: 'sine', from: NOTE.a4, dur: 0.340, gain: 0.038 });
+      air({ at: t, from: 3200, to: 300, dur: 0.560, q: 0.55, gain: 0.104, attack: 0.060 });
+      tone({ at: t + 0.040, type: 'sine', from: NOTE.d6, dur: 0.300, gain: 0.104 });
+      tone({ at: t + 0.150, type: 'sine', from: NOTE.a4, dur: 0.340, gain: 0.110 });
     },
 
     /* Sound turning on. A rising triad — the one flourish in the file, and
        it earns the exception because it is the receipt for a deliberate
-       choice the visitor just made. */
+       choice the visitor just made.
+
+       Deliberately the loudest event in the file — around -7dBFS, some 22dB
+       up on where it used to sit, and 2dB clear of even a tap. Everything else
+       here can afford to be missed; this one is the answer to "did that
+       work?", so it has to arrive at a low system volume. The final note holds
+       longest so the chime resolves rather than stopping. */
     on: function (t) {
-      tone({ at: t,         type: 'triangle', from: NOTE.d5,  dur: 0.150, gain: 0.070 });
-      tone({ at: t + 0.070, type: 'triangle', from: NOTE.fs5, dur: 0.150, gain: 0.065 });
-      tone({ at: t + 0.140, type: 'triangle', from: NOTE.a5,  dur: 0.260, gain: 0.060 });
-      air({  at: t + 0.140, from: 1800, to: 3600, dur: 0.200, q: 0.9, gain: 0.022, attack: 0.040 });
+      tone({ at: t,         type: 'triangle', from: NOTE.d5,  dur: 0.150, gain: 0.325 });
+      tone({ at: t + 0.070, type: 'triangle', from: NOTE.fs5, dur: 0.150, gain: 0.301 });
+      tone({ at: t + 0.140, type: 'triangle', from: NOTE.a5,  dur: 0.320, gain: 0.279 });
+      air({  at: t + 0.140, from: 1800, to: 3600, dur: 0.240, q: 0.9, gain: 0.103, attack: 0.040 });
     },
 
-    /* Sound turning off. Falling, darker, shorter — a lid closing. */
+    /* Sound turning off. Falling, darker, shorter — a lid closing. Audible,
+       but 5dB under the chime: switching off needs acknowledging, not
+       celebrating. */
     off: function (t) {
-      tone({ at: t,         type: 'sine', from: NOTE.a5, dur: 0.130, gain: 0.055 });
-      tone({ at: t + 0.080, type: 'sine', from: NOTE.d5, dur: 0.220, gain: 0.048 });
+      tone({ at: t,         type: 'sine', from: NOTE.a5, dur: 0.130, gain: 0.221 });
+      tone({ at: t + 0.080, type: 'sine', from: NOTE.d5, dur: 0.220, gain: 0.192 });
     }
   };
 
