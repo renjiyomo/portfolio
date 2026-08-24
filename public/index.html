@@ -17,12 +17,22 @@
 <meta property="og:url" content="https://markerick.dev">
 <meta property="og:site_name" content="Mark Erick Serrano">
 <meta property="og:locale" content="en_PH">
-<meta property="og:image" content="https://markerick.dev/assets/images/dark-profile.jpg">
-<meta property="og:image:alt" content="Portrait of Mark Erick Serrano">
+
+<!-- Link preview: a typeset nameplate, not a portrait. A face crops badly in
+     a feed and says nothing; the card leads with the name and what I build.
+     Source lives in tools/og/og-card.html — re-render with
+     `node tools/og/render.mjs` after editing it. -->
+<meta property="og:image" content="https://markerick.dev/assets/og/og-cover.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Mark Erick Serrano — I build modern web applications end to end, accessible, and fast interfaces on the front. markerick.dev">
+
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Mark Erick Serrano — Full Stack Developer &amp; Software Engineer">
+<meta name="twitter:title" content="Mark Erick Serrano — Web &amp; Front-End Developer">
 <meta name="twitter:description" content="I'm Mark Erick Serrano, a web and front-end developer from Albay, Philippines. BS Information System (Cum Laude). I build modern web applications end to end, accessible, and fast interfaces on the front.">
-<meta name="twitter:image" content="https://markerick.dev/assets/images/dark-profile.jpg">
+<meta name="twitter:image" content="https://markerick.dev/assets/og/og-cover.png">
+<meta name="twitter:image:alt" content="Mark Erick Serrano — I build modern web applications end to end, accessible, and fast interfaces on the front. markerick.dev">
 
 <link rel="icon" type="image/jpeg" href="assets/images/dark-profile-BW.jpg">
 <link rel="apple-touch-icon" href="assets/images/dark-profile-BW.jpg">
@@ -79,14 +89,26 @@
       <a href="#contact">Contact</a>
     </nav>
 
-    <button class="themetoggle" id="theme" type="button" role="switch" aria-checked="false" aria-label="Switch to light theme">
-      <span data-for="dark" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-      </span>
-      <span data-for="light" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 1.8v2.4M12 19.8v2.4M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M1.8 12h2.4M19.8 12h2.4M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7"/></svg>
-      </span>
-    </button>
+    <div class="tools">
+      <!-- Sound is off until asked for; sound.js owns the state and remembers it. -->
+      <button class="switch sndtoggle" id="sound" type="button" role="switch" aria-checked="false" aria-label="Turn interaction sound on" title="Sound off">
+        <span data-for="off" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11.5 5.2 6.8 9.2H3.6v5.6h3.2l4.7 4z"/><path d="m15.6 10.2 4.2 4.2m0-4.2-4.2 4.2"/></svg>
+        </span>
+        <span data-for="on" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11.5 5.2 6.8 9.2H3.6v5.6h3.2l4.7 4z"/><path d="M15.2 9.6a4.2 4.2 0 0 1 0 4.8"/><path d="M18 7.2a8 8 0 0 1 0 9.6"/></svg>
+        </span>
+      </button>
+
+      <button class="switch themetoggle" id="theme" type="button" role="switch" aria-checked="false" aria-label="Switch to light theme">
+        <span data-for="dark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </span>
+        <span data-for="light" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 1.8v2.4M12 19.8v2.4M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M1.8 12h2.4M19.8 12h2.4M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7"/></svg>
+        </span>
+      </button>
+    </div>
   </div>
 </header>
 
@@ -749,6 +771,7 @@
 </div>
 
 <script src="assets/js/projects.js"></script>
+<script src="assets/js/sound.js"></script>
 <script src="assets/js/theme.js"></script>
 <script src="assets/js/main.js"></script>
 </body>
