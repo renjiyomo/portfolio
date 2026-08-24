@@ -1,31 +1,3 @@
-/* ==========================================================================
-   projects.js — project records + tech inventory
-   --------------------------------------------------------------------------
-   Consumed by main.js. Every `data-proj="…"` attribute in index.html maps
-   to a key in window.PROJECTS.
-
-   Record shape:
-     title  string   name shown in cards and the detail modal
-     tag    string   "Flagship" | "Live" | "Academic"
-     year   string
-     live   string   deployed URL, or "" when not deployed
-     code   string   repo URL, or "" to hide the code action
-     lede   string   one-line summary for cards and the project index
-     body   [string] paragraphs for the detail modal
-     items  [{ src, alt, cap, type? }]   type "video" renders a <video>
-
-   No `stack` field, deliberately. Projects used to carry their own list of
-   technologies and print it in three places — the card foot, the case study,
-   and the project index. It was the same twenty names cycling round in mono
-   caps, competing with the titles for attention and telling a reader nothing
-   they could act on. What I build with is one claim, so it is made once, in
-   the Stack section, from window.TECH at the foot of this file. The work
-   itself is what these records are for.
-
-   Paths are URL-encoded: several folders contain spaces, ampersands and
-   non-ASCII characters (BUeño, BU-L&F, "SMS for LECS").
-   ========================================================================== */
-
 window.PROJECTS = (function () {
   'use strict';
 
