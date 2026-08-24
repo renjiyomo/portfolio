@@ -12,8 +12,15 @@
      code   string   repo URL, or "" to hide the code action
      lede   string   one-line summary for cards and the project index
      body   [string] paragraphs for the detail modal
-     stack  [string] real technologies, verified against each deployment
      items  [{ src, alt, cap, type? }]   type "video" renders a <video>
+
+   No `stack` field, deliberately. Projects used to carry their own list of
+   technologies and print it in three places — the card foot, the case study,
+   and the project index. It was the same twenty names cycling round in mono
+   caps, competing with the titles for attention and telling a reader nothing
+   they could act on. What I build with is one claim, so it is made once, in
+   the Stack section, from window.TECH at the foot of this file. The work
+   itself is what these records are for.
 
    Paths are URL-encoded: several folders contain spaces, ampersands and
    non-ASCII characters (BUeño, BU-L&F, "SMS for LECS").
@@ -49,8 +56,6 @@ window.PROJECTS = (function () {
         'BUeño is the front door to a small ecosystem of apps I built for Bicol University students.',
         'Each tool ships as its own deployed app, and the hub brings them together in one place.'
       ],
-
-      stack: ['React', 'React Router', 'Vite', 'TypeScript', 'Neon (PostgreSQL)', 'CSS', 'Lucide React', 'Oxlint', 'Vercel'],
       items: [
         { src: BUENO + 'BUe%C3%B1o.mp4', type: 'video', alt: 'Screen recording of the BUeño platform', cap: 'Walkthrough — navigating the hub and its apps' },
         { src: BUENO + 'home-hero.png', alt: 'BUeño home page hero section', cap: 'Landing page — the entry point for the ecosystem' },
@@ -72,8 +77,6 @@ window.PROJECTS = (function () {
         'Obra BU gives student artists somewhere to publish and be found.',
         'Artists sign in with Google, upload to their own collection, and get a public profile.'
       ],
-
-      stack: ['Next.js', 'React', 'TypeScript', 'Node.js', 'Neon Serverless Postgres', 'Drizzle ORM', 'Drizzle Kit', 'Auth.js / NextAuth.js', 'Google OAuth', 'Tailwind CSS', 'Cloudinary', 'Zod', 'Lucide React'],
       items: [
         { src: OBRA + 'home-hero.png', alt: 'Obra BU gallery home page', cap: 'Gallery landing page' },
         { src: OBRA + 'collection.png', alt: 'Obra BU artwork collection grid', cap: 'Artwork collection' },
@@ -92,8 +95,6 @@ window.PROJECTS = (function () {
         'Lost items on campus used to get buried in group chats. This gives them a searchable registry instead.',
         'Report what you lost, browse what has been turned in, and claim it. New reports appear without a refresh.'
       ],
-
-      stack: ['Next.js', 'React', 'Node.js', 'Supabase', 'SWR', 'Zod', 'Lucide React'],
       items: [
         { src: LF + 'home-hero.png', alt: 'Lost and Found home page', cap: 'Home — report or search for an item' },
         { src: LF + 'browse-items.png', alt: 'Lost and Found item browser', cap: 'Browse reported items' }
@@ -111,8 +112,6 @@ window.PROJECTS = (function () {
         'A freedom wall is only useful if it stays readable, so the real problem was spam rather than posting.',
         'Turnstile screens every submission without asking students to log in or solve a puzzle first.'
       ],
-
-      stack: ['Next.js', 'React', 'Node.js', 'Supabase', 'Cloudflare Turnstile', 'Tailwind CSS', 'Lucide React'],
       items: [
         { src: FW + 'bufw.png', alt: 'BU Freedom Wall post feed', cap: 'Post feed' },
         { src: FW + 'submit-confession.png', alt: 'BU Freedom Wall submission form', cap: 'Submission form' }
@@ -130,8 +129,6 @@ window.PROJECTS = (function () {
         'Students used to recompute their weighted average by hand and argue about honors eligibility. This settles it.',
         'Everything runs client-side, so results are instant and grades never leave the browser.'
       ],
-
-      stack: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'HTML5', 'Lucide React'],
       items: [
         { src: GWA + 'result-card.png', alt: 'GWA calculator result card', cap: 'Result card — computed weighted average' },
         { src: GWA + 'semester-honor.png', alt: 'Semester honor eligibility view', cap: 'Semester honor eligibility' },
@@ -152,8 +149,6 @@ window.PROJECTS = (function () {
         'My capstone for Libon East Central School. It replaced paper record-keeping and generates the school forms teachers used to fill in by hand.',
         'Scored 4.83 out of 5.00 against ISO 25010 across 32 respondents, and named Best Undergraduate Capstone Thesis in BSIS.'
       ],
-
-      stack: ['PHP', 'MySQL', 'JavaScript', 'Role-Based Access Control', 'PDF / Excel / DOCX export'],
       items: [
         { src: SMS + 'sms-landing-page.png', alt: 'Student Management System landing page', cap: 'Landing page' },
         { src: SMS + 'sms-login-page-dark.png', alt: 'Login screen in dark theme', cap: 'Login — dark theme' },
@@ -184,8 +179,6 @@ window.PROJECTS = (function () {
         'Artists publish their work, buyers place competing bids, and the highest bid closes the sale.',
         'Both sides can export their transaction history as a PDF report.'
       ],
-
-      stack: ['PHP', 'MySQL', 'JavaScript', 'PDF generation'],
       items: [
         { src: shot(CART, '2024-11-08 142245'), alt: 'CartCraft interface screen', cap: 'Interface 01' },
         { src: shot(CART, '2024-11-08 142701'), alt: 'CartCraft interface screen', cap: 'Interface 02' },
@@ -211,8 +204,6 @@ window.PROJECTS = (function () {
         'Students used to walk room to room asking whether a faculty member was free.',
         'FAST replaced that with a schedule anyone can check before planning a visit.'
       ],
-
-      stack: ['PHP', 'MySQL', 'JavaScript'],
       items: []
     }
 

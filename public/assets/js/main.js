@@ -56,7 +56,8 @@
     return node;
   }
 
-  /* Chip list used for stacks in cards and modals. */
+  /* Chip list. Only the Stack section's full-inventory modal renders these
+     now — project views state no technologies of their own. */
   function chips(list, cls) {
     var ul = el('ul', cls || 'chips');
     (list || []).forEach(function (name) {
@@ -308,8 +309,8 @@
 
 
   /* ══ 07 · Project detail modal ═══════════════════════════ */
-  /* Full case study: description, stack, live/code actions, and a carousel
-     of every capture for that project.                                     */
+  /* Full case study: description, live/code actions, and a carousel of every
+     capture for that project.                                              */
 
   var Detail = (function () {
     if (!Modal) return null;
@@ -421,41 +422,29 @@
         }, { passive: true });
       }
 
-      /* — Written detail — */
+      /* — Written detail —
+         Tag, year and deployment state, then the prose. No stack chips: the
+         technologies were pulled out of every project view (see the note at
+         the head of projects.js) and are stated once, in the Stack section. */
       var copy = el('div', 'det__copy');
-
-      /* A record with no stack is not a build, so it skips deployment
-         status entirely. */
-      var isProject = !!(rec.stack && rec.stack.length);
 
       var meta = el('div', 'det__meta');
       if (rec.tag) meta.appendChild(el('span', 'det__tag', rec.tag));
       if (rec.year) meta.appendChild(el('span', 'det__yr', rec.year));
-      if (isProject) {
-        meta.appendChild(el('span', 'det__yr', rec.live ? 'Deployed' : 'Not deployed'));
-      }
-      if (meta.childNodes.length) copy.appendChild(meta);
+      meta.appendChild(el('span', 'det__yr', rec.live ? 'Deployed' : 'Not deployed'));
+      copy.appendChild(meta);
 
       (rec.body && rec.body.length ? rec.body : [rec.lede]).forEach(function (para) {
         copy.appendChild(el('p', null, para));
       });
-
-      if (rec.stack && rec.stack.length) {
-        var sh = el('p', 'det__sub', 'Built with');
-        copy.appendChild(sh);
-        copy.appendChild(chips(rec.stack, 'chips'));
-      }
 
       wrap.appendChild(copy);
 
       /* — Footer actions — */
       var actions = el('div', 'det__act');
 
-      if (rec.live) {
-        actions.appendChild(extLink(rec.live, 'Visit live site', true));
-      } else if (isProject) {
-        actions.appendChild(el('span', 'det__none', 'No public deployment'));
-      }
+      if (rec.live) actions.appendChild(extLink(rec.live, 'Visit live site', true));
+      else actions.appendChild(el('span', 'det__none', 'No public deployment'));
 
       if (rec.code) actions.appendChild(extLink(rec.code, 'View code'));
 
@@ -550,7 +539,6 @@
         row.appendChild(head);
 
         row.appendChild(el('p', 'plist__lede', rec.lede));
-        row.appendChild(chips(rec.stack.slice(0, 6), 'chips chips--sm'));
 
         var foot = el('div', 'plist__ft');
 
@@ -612,22 +600,47 @@
 
 
   /* ══ 11 · GitHub contributions ════════════════════════════ */
-  /* Draws the year graph in #github. The data is a public mirror of GitHub's
-     own contribution calendar — the official API requires a token, and a
-     token cannot live in a static page that anyone can read.
+  /* Draws the year graph in #github, and draws it live on every load. This
+     panel is the page's one piece of evidence, and evidence that could just
+     as easily be a committed screenshot is worth nothing — so nothing here
+     is baked in. Open the page on any day and the graph is that day's.
 
-     The panel is built in two passes, and the order matters:
+     The numbers come from a public mirror of GitHub's own contribution
+     calendar. GitHub's official GraphQL endpoint needs a token, and a token
+     cannot live in a static page that anyone can read.
 
-       1. an empty 53-week grid, laid out from local dates the moment this
-          runs, so the section reaches its final height before the request
-          resolves. No skeleton, no shimmer, no reflow when the numbers
-          arrive — a graph that resizes the page under the reader's thumb is
-          worse than one that takes another 200ms.
-       2. the fetch, which only ever writes levels and text into cells that
-          already exist.
+     Four decisions worth stating, because each had a simpler alternative
+     that was wrong:
 
-     If the request fails the empty grid stays put and .gh__note offers the
-     one thing still worth offering: the link. */
+       1. Two passes, in this order. An empty 53-week grid is laid out from
+          local dates the moment this runs, so the section reaches its final
+          height before the request resolves — no skeleton, no shimmer, no
+          reflow when the numbers arrive. A graph that resizes the page under
+          the reader's thumb is worse than one that takes another 200ms. The
+          fetch only ever writes into cells that already exist.
+
+       2. The request asks for this calendar year and the previous one, not
+          the mirror's own `y=last` window. `y=last` ends yesterday, so a
+          day's commits would not surface until the day after — which defeats
+          the point of reading the graph live. Two calendar years always
+          cover the 53 weeks on screen, today included.
+
+       3. Levels are computed here, not taken from the response. The mirror
+          scales each year against that year's own distribution, so across a
+          window that straddles two years the same count lands on different
+          levels — a 12-commit day is level 4 in the quieter year and level 2
+          in the busier one. One scale, quartiles of the active days in the
+          window actually drawn, is the only way the colour means one thing
+          from the left edge to the right.
+
+       4. `cache: 'no-store'`, plus a copy of every good payload in
+          localStorage. The first is what makes "today's graph" true rather
+          than "whatever this browser cached last week". The second is the
+          fallback when the mirror is down: the last known year with an
+          honest date on it beats an empty rectangle.
+
+     If there is nothing to fall back on either, the empty grid stays put and
+     .gh__note offers the one thing still worth offering: the link. */
 
   (function ghGraph() {
     var root = $('.gh');
@@ -636,10 +649,12 @@
     var user     = root.dataset.user;
     var grid     = $('.gh__grid', root);
     var months   = $('.gh__months', root);
-    var scroller = $('.gh__scroll', root);
     if (!user || !grid) return;
 
-    var COLS = 53;
+    var COLS  = 53;
+    var API   = 'https://github-contributions-api.jogruber.de/v4/';
+    var STORE = 'gh:' + user;
+
     var MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     var DAY = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -678,7 +693,14 @@
     var start = new Date(today);
     start.setDate(start.getDate() - today.getDay() - (COLS - 1) * 7);
 
-    var cells = {};
+    /* The week count the stylesheet lays out against: the grid and the month
+       strip are both repeat(var(--gh-cols), …), which is what lets the cells
+       stretch to fill the panel instead of stopping short of its right edge.
+       Declared in CSS as well, and written here so the two cannot drift. */
+    root.style.setProperty('--gh-cols', String(COLS));
+
+    var cells = {};   /* date key → cell node        */
+    var order = [];   /* date keys, first day → today */
 
     for (var c = 0; c < COLS; c++) {
       for (var r = 0; r < 7; r++) {
@@ -693,8 +715,15 @@
 
         /* Days that have not happened yet keep the final column square
            without posing as days on which nothing was committed. */
-        if (d > today) cell.setAttribute('data-void', '');
-        else cells[key(d)] = cell;
+        if (d > today) {
+          cell.setAttribute('data-void', '');
+        } else {
+          var k = key(d);
+          cells[k] = cell;
+          /* The loop runs column-major — week by week, day down each week —
+             so pushing here is already chronological. */
+          order.push(k);
+        }
 
         grid.appendChild(cell);
       }
@@ -730,70 +759,108 @@
     /* -- Pass 2: the data ------------------------------------------- */
 
     /* The label the markup ships with says "loading", which stops being true
-       the moment this fires. Left alone, a screen reader would announce a
-       graph as still loading forever, so the state is corrected in the one
-       place that knows the request is over. */
+       the moment the request settles. Left alone, a screen reader would
+       announce a graph as still loading forever, so the state is corrected
+       in the one place that knows the request is over. */
     function fail() {
       root.dataset.state = 'error';
       grid.setAttribute('aria-label',
         'Contribution graph unavailable — see the link below');
     }
 
-    function paint(data) {
-      var days = (data && data.contributions) || [];
-      if (!days.length) { fail(); return; }
+    /* Quartiles of the active days in the window. The thresholds are forced
+       to climb: a distribution with heavy ties — half the active days at one
+       commit, say — would otherwise land two levels on the same count and
+       throw away a step of the scale. */
+    function scale(counts) {
+      var live = [];
+      counts.forEach(function (n) { if (n > 0) live.push(n); });
+      if (!live.length) return [1, 2, 3];
 
-      var total = data.total && data.total.lastYear;
-      var sum = 0;
-      var best = null;
-      var run = 0;
-      var longest = 0;
+      live.sort(function (a, b) { return a - b; });
 
-      days.forEach(function (day) {
-        sum += day.count;
-        if (!best || day.count > best.count) best = day;
+      function at(p) {
+        return live[Math.min(live.length - 1, Math.floor(live.length * p))];
+      }
 
-        if (day.count > 0) {
+      var t1 = at(0.25);
+      var t2 = Math.max(at(0.5), t1 + 1);
+      var t3 = Math.max(at(0.75), t2 + 1);
+      return [t1, t2, t3];
+    }
+
+    function level(n, t) {
+      if (n <= 0) return 0;
+      if (n <= t[0]) return 1;
+      if (n <= t[1]) return 2;
+      if (n <= t[2]) return 3;
+      return 4;
+    }
+
+    /* days      [{ date, count }] — any order, any span. Only the dates that
+                                     fall inside the drawn window are used.
+       syncedOn  'YYYY-MM-DD'      — the day this payload was read
+       fresh     boolean           — false when it came back from storage  */
+    function paint(days, syncedOn, fresh) {
+      var byDate = {};
+      (days || []).forEach(function (day) {
+        if (day && day.date != null) byDate[day.date] = +day.count || 0;
+      });
+
+      /* Aligned to `order` so the totals, the streak walk and the cells all
+         read off one array. null means no data for that day, which is not
+         the same fact as zero and must not be drawn as one. */
+      var counts = order.map(function (k) {
+        return Object.prototype.hasOwnProperty.call(byDate, k) ? byDate[k] : null;
+      });
+
+      var t = scale(counts);
+      var sum = 0, drawn = 0, run = 0, longest = 0, best = null;
+
+      order.forEach(function (k, i) {
+        var n = counts[i];
+        var cell = cells[k];
+
+        if (n === null) { cell.setAttribute('data-void', ''); return; }
+
+        drawn++;
+        sum += n;
+        if (!best || n > best.n) best = { n: n, on: k };
+
+        if (n > 0) {
           run++;
           if (run > longest) longest = run;
         } else {
           run = 0;
         }
 
-        var node = cells[day.date];
-        if (!node) return;
-
-        node.setAttribute('data-l', String(day.level || 0));
-        node.dataset.n = String(day.count);
-        node.dataset.d = day.date;
+        cell.setAttribute('data-l', String(level(n, t)));
+        cell.dataset.n = String(n);
+        cell.dataset.d = k;
       });
 
-      /* The first column starts on a Sunday, so its opening days can fall
-         before the 365-day window. That is absent data, not an empty day,
-         so those cells are hidden rather than drawn as zero. */
-      for (var k in cells) {
-        if (Object.prototype.hasOwnProperty.call(cells, k) && cells[k].dataset.n == null) {
-          cells[k].setAttribute('data-void', '');
-        }
-      }
+      if (!drawn) { fail(); return; }
 
       /* Counted backwards from the most recent day. A zero on the FINAL day
          does not end the streak — the day is not over — but a zero on any
          earlier one does. */
       var cur = 0;
-      for (var i = days.length - 1; i >= 0; i--) {
-        if (days[i].count > 0) cur++;
-        else if (i !== days.length - 1) break;
+      for (var i = counts.length - 1; i >= 0; i--) {
+        if (counts[i] === null) break;
+        if (counts[i] > 0) cur++;
+        else if (i !== counts.length - 1) break;
       }
 
-      var first = parse(days[0].date);
-      var last  = parse(days[days.length - 1].date);
-      var count = total == null ? sum : total;
+      var first = parse(order[0]);
+      var last  = parse(order[order.length - 1]);
 
-      stat('total', count, null);
+      stat('total', sum, null);
       stat('current', cur, cur === 1 ? 'day' : 'days');
       stat('longest', longest, longest === 1 ? 'day' : 'days');
-      stat('best', best ? best.count : 0, best ? short(parse(best.date)) : null);
+      /* "45 on 5 Jun", not "45 5 Jun" — the figure and the date are two
+         different numbers sitting next to each other, and the preposition is
+         cheaper than making the reader work out which is which. */
+      stat('best', best ? best.n : 0, best ? 'on ' + short(parse(best.on)) : null);
 
       var range = $('[data-gh="range"]', root);
       if (range) {
@@ -802,18 +869,62 @@
           MON[last.getMonth()] + ' ' + last.getFullYear();
       }
 
+      /* States out loud what the panel is claiming: read live, on this date.
+         A graph quietly going stale is the failure this whole section exists
+         to avoid, so the day it was read is part of what it shows. */
+      var sync = $('[data-gh="sync"]', root);
+      if (sync) {
+        sync.textContent =
+          (fresh ? 'Synced ' : 'Last synced ') + full(parse(syncedOn));
+      }
+
       /* The grid is role="img", so this label is the whole graph as far as a
          screen reader is concerned. It has to say what the picture says. */
       grid.setAttribute('aria-label',
-        count + ' contributions between ' + full(first) + ' and ' + full(last));
+        sum + ' contributions between ' + full(first) + ' and ' + full(last));
 
-      root.dataset.state = 'ready';
-
-      /* The recent weeks are the point, so a viewport too narrow to hold the
-         year opens at the right-hand end of it rather than a year ago. */
-      if (scroller) scroller.scrollLeft = scroller.scrollWidth;
+      root.dataset.state = fresh ? 'ready' : 'stale';
 
       if (finePointer) tooltip();
+
+      if (fresh) keep(counts);
+    }
+
+    /* Kept as the window's own counts and the day it opens on — 366 integers
+       rather than the two calendar years the request returns, because the
+       window is all the fallback ever has to redraw. */
+    function keep(counts) {
+      try {
+        window.localStorage.setItem(STORE, JSON.stringify({
+          on: key(today),
+          from: order[0],
+          counts: counts
+        }));
+      } catch (e) {}
+    }
+
+    function recall() {
+      var box;
+      try {
+        box = JSON.parse(window.localStorage.getItem(STORE));
+      } catch (e) { return null; }
+
+      if (!box || !box.from || !box.counts || !box.counts.length) return null;
+
+      /* Re-dated from the day it opens on, so a payload kept last week still
+         lands on the right cells of this week's window — the days that have
+         since rolled off the left edge simply find no cell waiting. */
+      var from = parse(box.from);
+      var days = [];
+
+      box.counts.forEach(function (n, i) {
+        if (n === null) return;
+        var d = new Date(from);
+        d.setDate(from.getDate() + i);
+        days.push({ date: key(d), count: n });
+      });
+
+      return days.length ? { days: days, on: box.on || box.from } : null;
     }
 
     /* One node, moved and rewritten on hover. 365 title attributes would be
@@ -858,22 +969,62 @@
          the way across a year it never actually left. */
       grid.addEventListener('mouseleave', hide);
 
-      /* position: fixed, so any scroll — the page or the graph's own
-         scroller — would otherwise leave it stranded mid-air. Captured, so
-         it hears the inner scroller too. */
+      /* position: fixed, so a page scroll would otherwise leave it hanging
+         in mid-air over nothing. Captured rather than bubbling, so it hears a
+         scroll from any container that may come to sit between the grid and
+         the document, not just from the document itself. */
       window.addEventListener('scroll', hide, true);
     }
 
-    if (!window.fetch) { fail(); return; }
+    /* This calendar year and the one before it: between them they always
+       cover the 53 weeks on screen, whatever day of the year it is. */
+    function url() {
+      var y = today.getFullYear();
+      return API + encodeURIComponent(user) + '?y=' + y + '&y=' + (y - 1);
+    }
 
-    fetch('https://github-contributions-api.jogruber.de/v4/' +
-          encodeURIComponent(user) + '?y=last')
-      .then(function (res) {
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        return res.json();
-      })
-      .then(paint)
-      .catch(fail);
+    function fallback() {
+      var kept = recall();
+      if (!kept) { fail(); return; }
+      paint(kept.days, kept.on, false);
+    }
+
+    if (!window.fetch) { fallback(); return; }
+
+    /* Two attempts, then the cache. This reads from a free community mirror of
+       GitHub's API, and a mirror refuses requests: one unlucky response on load
+       would otherwise leave a visitor looking at last week's squares for the
+       whole visit, which is the single thing a graph claiming to be today's
+       must not do. A second try 900ms later costs nothing when the first one
+       works, and recovers the ordinary transient failure when it does not.
+
+       Note where the catch sits: before the paint, not after it. An exception
+       thrown while drawing is a bug in this file, not a stale network, and
+       wrapping the paint in the same catch would file it as "Last synced" on
+       data that had in fact arrived perfectly — the graph would look a week old
+       and the console would stay silent. Left to reject, it surfaces. */
+    function load(attempt) {
+      fetch(url(), { cache: 'no-store' })
+        .then(function (res) {
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          return res.json();
+        })
+        .then(function (data) {
+          var days = data && data.contributions;
+          if (!days || !days.length) throw new Error('empty payload');
+          return days;
+        })
+        .catch(function () {
+          if (attempt < 2) window.setTimeout(function () { load(attempt + 1); }, 900);
+          else fallback();
+          return null;
+        })
+        .then(function (days) {
+          if (days) paint(days, key(today), true);
+        });
+    }
+
+    load(1);
   })();
 
 })();
