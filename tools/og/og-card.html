@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>OG card — source</title>
+
+<!--
+  ==========================================================================
+  OG CARD — SOURCE TEMPLATE
+  --------------------------------------------------------------------------
+  Rendered to public/assets/og/og-cover.png by tools/og/render.mjs.
+  This file is NOT served: it lives outside public/ on purpose.
+
+  Canvas is exactly 1200 x 630 — the size every platform (Facebook, LinkedIn,
+  X, Slack, Discord, iMessage) crops toward for a large summary card. Every
+  measurement below is an absolute px against that fixed canvas, so nothing
+  is responsive and nothing reflows: what you see here is byte-for-byte what
+  ships.
+
+  Tokens are copied from public/assets/css/style.css §01 (dark theme) rather
+  than imported, so the card cannot silently drift if the site's runtime
+  palette is refactored — a link preview is cached for months by the
+  platforms and must stay a stable artefact.
+  ==========================================================================
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=block">
+
+<style>
+  :root {
+    --canvas:      #0B0D0E;
+    --text:        #E7E9EA;
+    --text-dim:    #B4BABD;
+    --muted:       #8B9296;
+    --rule-strong: #2C3438;
+    --signal:      #FFB000;
+
+    --font-sans: "Instrument Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+    /* One margin governs the whole card. The optical left edge of the name,
+       the rule, the lede and the footer all sit on it. */
+    --pad: 88px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    width: 1200px;
+    height: 630px;
+    overflow: hidden;
+  }
+
+  body {
+    position: relative;
+    background: var(--canvas);
+    color: var(--text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Ground: the site's own graph-paper texture, at the same weight ──
+     Two 1px lines on a 40px module. Barely visible by design — it stops the
+     flat black from banding when a platform re-encodes the PNG to JPEG. */
+  .grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(to right,  rgba(255, 255, 255, .030) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, .030) 1px, transparent 1px);
+    background-size: 40px 40px;
+    -webkit-mask-image: radial-gradient(130% 120% at 8% 50%, #000 0%, rgba(0, 0, 0, .35) 55%, transparent 100%);
+            mask-image: radial-gradient(130% 120% at 8% 50%, #000 0%, rgba(0, 0, 0, .35) 55%, transparent 100%);
+  }
+
+  /* ── Halftone field ──────────────────────────────────────────────────
+     A real halftone ramp, not a flat dot pattern with a fade slapped over
+     it. Three layers share one 20px module, so every dot in the three
+     layers lands on the same lattice point and the only thing that changes
+     inward-to-outward is dot RADIUS. That is how an actual halftone screen
+     encodes tone, and it is why the field reads as a gradient of *ink*
+     rather than as a pattern losing opacity.
+
+       .dots        1.9px  ink      broad, reaches furthest left
+       .dots--mid   2.9px  ink      middle third
+       .dots--warm  3.4px  amber    hot core against the right edge
+
+     The masks are ellipses centred off-canvas to the right, so the densest
+     point sits outside the frame and the card only ever shows the falloff —
+     the composition never resolves into a visible circle. */
+  .dots,
+  .dots--mid,
+  .dots--warm {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-repeat: repeat;
+    background-position: right center;
+  }
+
+  .dots {
+    width: 620px;
+    background-image: radial-gradient(circle at center, rgba(231, 233, 234, .40) 1.9px, transparent 2px);
+    background-size: 20px 20px;
+    -webkit-mask-image: radial-gradient(100% 112% at 116% 50%, #000 0%, #000 40%, rgba(0, 0, 0, .5) 68%, transparent 96%);
+            mask-image: radial-gradient(100% 112% at 116% 50%, #000 0%, #000 40%, rgba(0, 0, 0, .5) 68%, transparent 96%);
+  }
+
+  .dots--mid {
+    width: 400px;
+    background-image: radial-gradient(circle at center, rgba(231, 233, 234, .60) 2.9px, transparent 3px);
+    background-size: 20px 20px;
+    -webkit-mask-image: radial-gradient(100% 96% at 122% 50%, #000 0%, #000 30%, rgba(0, 0, 0, .45) 64%, transparent 94%);
+            mask-image: radial-gradient(100% 96% at 122% 50%, #000 0%, #000 30%, rgba(0, 0, 0, .45) 64%, transparent 94%);
+  }
+
+  .dots--warm {
+    width: 240px;
+    background-image: radial-gradient(circle at center, rgba(255, 176, 0, .78) 3.4px, transparent 3.5px);
+    background-size: 20px 20px;
+    -webkit-mask-image: radial-gradient(100% 78% at 128% 50%, #000 0%, #000 22%, rgba(0, 0, 0, .4) 60%, transparent 92%);
+            mask-image: radial-gradient(100% 78% at 128% 50%, #000 0%, #000 22%, rgba(0, 0, 0, .4) 60%, transparent 92%);
+  }
+
+  /* Low amber light behind the hot core — the same wash the hero portrait
+     sits in on the live site. Sits under the dots so it lifts them off the
+     canvas instead of veiling them. */
+  .glow {
+    position: absolute;
+    top: 50%;
+    right: -300px;
+    width: 900px;
+    height: 860px;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    background: radial-gradient(circle at center, rgba(255, 176, 0, .17) 0%, rgba(255, 176, 0, .05) 45%, transparent 72%);
+  }
+
+  /* ── Progress line ───────────────────────────────────────────────────
+     The live site pins a 2px amber reading-progress bar to the top of the
+     viewport. Quoting it here is the one detail that makes the card read as
+     *that* site rather than as a generic dark nameplate. */
+  .rail {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 38%;
+    background: linear-gradient(to right, var(--signal) 0%, var(--signal) 62%, transparent 100%);
+  }
+
+  /* ── Content column ──────────────────────────────────────────────────
+     Centred in the space ABOVE the footer, not in the whole canvas — the
+     extra bottom padding is what keeps the optical centre from sinking into
+     the footer strip. */
+  .sheet {
+    position: absolute;
+    inset: 0;
+    padding: var(--pad);
+    padding-bottom: 168px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  h1 {
+    font-weight: 600;
+    font-size: 78px;
+    line-height: 1;
+    letter-spacing: -.042em;
+    color: var(--text);
+    white-space: nowrap;
+  }
+
+  /* Two-tone hairline: amber for the first stretch, then ink. Reads as a
+     measured rule rather than a decorative underline. */
+  .rule {
+    width: 552px;
+    height: 2px;
+    margin: 34px 0 30px;
+    background: linear-gradient(to right,
+      var(--signal) 0,
+      var(--signal) 116px,
+      var(--rule-strong) 116px,
+      var(--rule-strong) 100%);
+  }
+
+  .lede {
+    max-width: 610px;
+    font-size: 27px;
+    font-weight: 400;
+    line-height: 1.48;
+    letter-spacing: -.011em;
+    color: var(--text-dim);
+    text-wrap: pretty;
+  }
+
+  /* ── Footer strip ────────────────────────────────────────────────── */
+  .foot {
+    position: absolute;
+    left: var(--pad);
+    right: var(--pad);
+    bottom: 58px;
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    font-family: var(--font-mono);
+  }
+
+  .domain {
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: .04em;
+    color: var(--text);
+  }
+
+  .role {
+    display: inline-flex;
+    align-items: center;
+    gap: 13px;
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: .17em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* The amber tick — same signal mark the site uses to open a ledger row. */
+  .role::before {
+    content: "";
+    width: 3px;
+    height: 17px;
+    background: var(--signal);
+    flex: none;
+  }
+</style>
+</head>
+
+<body>
+  <span class="grid"></span>
+  <span class="glow"></span>
+  <span class="dots"></span>
+  <span class="dots--mid"></span>
+  <span class="dots--warm"></span>
+  <span class="rail"></span>
+
+  <div class="sheet">
+    <h1>Mark Erick Serrano</h1>
+    <span class="rule"></span>
+    <p class="lede">I build modern web applications end to end, accessible, and fast interfaces on the front.</p>
+  </div>
+
+  <div class="foot">
+    <span class="domain">markerick.dev</span>
+    <span class="role">Full-Stack&nbsp;· Front-End Developer</span>
+  </div>
+</body>
+</html>

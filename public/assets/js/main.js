@@ -12,6 +12,7 @@
    09 · Project index modal
    10 · Triggers
    11 · GitHub contributions
+   12 · Pointer tilt
 
    ========================================================================== */
 
@@ -31,6 +32,13 @@
   var DATA  = window.PROJECTS || {};
   var ORDER = window.PROJECT_ORDER || Object.keys(DATA);
   var TECH  = window.TECH || [];
+
+  /* Micro-interaction sound, if sound.js loaded and the visitor turned it on.
+     Optional by design: every call goes through here, so this file has no
+     hard dependency on the audio layer and works unchanged without it. */
+  function sfx(name) {
+    if (window.SFX) window.SFX.play(name);
+  }
 
   function onFrame(fn) {
     var queued = false;
@@ -218,6 +226,8 @@
       box.dataset.open = 'true';
       document.body.dataset.locked = 'true';
 
+      sfx('modalOpen');
+
       window.clearTimeout(timer);
       timer = window.setTimeout(function () {
         box.dataset.shown = 'true';
@@ -233,6 +243,8 @@
       box.dataset.shown = 'false';
       onKeyExtra = null;
       window.clearTimeout(timer);
+
+      sfx('modalClose');
 
       var finish = function () {
         box.dataset.open = 'false';
@@ -256,6 +268,8 @@
     function swap(headline, bodyNode, footNode, keyHandler) {
       onKeyExtra = keyHandler || null;
       title.textContent = headline;
+
+      sfx('swap');
 
       slot.textContent = '';
       slot.appendChild(bodyNode);
@@ -354,6 +368,10 @@
         if (rec.items.length < 2) return;
         idx = (idx + step + rec.items.length) % rec.items.length;
         paint();
+        /* Voiced here rather than on the arrow buttons, because this is the
+           one place that knows a step actually happened — keyboard arrows and
+           swipes get the same detent as a click. */
+        sfx('tick');
       }
 
       if (rec.items.length) {
@@ -883,6 +901,111 @@
     }
 
     load(1);
+  })();
+
+
+  /* ══ 12 · Pointer tilt ════════════════════════════════════
+     The work cards follow the cursor on two axes. The restraint is the whole
+     point: 4.5° maximum, which is enough for the surface to read as a plane
+     catching light and not enough to keystone the type. Most tilt effects on
+     the web are set to 15–20°, which is why they look like a demo.
+
+     All the visual state lives in CSS custom properties (§19 of style.css) —
+     this file writes four numbers and never touches `transform` itself. That
+     keeps the transition curves, the reduced-motion escape and the print
+     escape declarative, where they belong.
+
+     Writes are batched into one rAF per frame. `pointermove` can fire faster
+     than the display refreshes, and setting four properties per event would
+     mean laying out the same frame three times for nothing. */
+
+  (function tilt() {
+    var cards = $$('.card');
+    if (!cards.length) return;
+
+    /* Mouse only. Touch has no cursor to follow, and under reduced-motion the
+       stylesheet neutralises the transform anyway — so don't pay for the
+       listeners at all. */
+    if (!finePointer || reduced) return;
+
+    var MAX = 4.5;   /* degrees, per axis, from centre */
+
+    cards.forEach(function (card) {
+      var frame = null;
+      var next = null;
+
+      function write() {
+        frame = null;
+        if (!next) return;
+
+        card.style.setProperty('--tilt-x',  next.rx + 'deg');
+        card.style.setProperty('--tilt-y',  next.ry + 'deg');
+        card.style.setProperty('--tilt-gx', next.gx + '%');
+        card.style.setProperty('--tilt-gy', next.gy + '%');
+
+        next = null;
+      }
+
+      function move(e) {
+        if (e.pointerType === 'touch') return;
+
+        var box = card.getBoundingClientRect();
+        if (!box.width || !box.height) return;
+
+        var px = clamp((e.clientX - box.left) / box.width,  0, 1);
+        var py = clamp((e.clientY - box.top)  / box.height, 0, 1);
+
+        next = {
+          /* Cursor right ⇒ the right edge recedes. Cursor low ⇒ the bottom
+             edge recedes. Invert either one and the card leans *into* the
+             pointer, which the eye reads as a bug rather than as a surface. */
+          ry:  ((px - 0.5) * 2 * MAX).toFixed(2),
+          rx: (-(py - 0.5) * 2 * MAX).toFixed(2),
+
+          /* Specular highlight tracks the cursor exactly. */
+          gx: (px * 100).toFixed(1),
+          gy: (py * 100).toFixed(1)
+        };
+
+        if (frame === null) frame = window.requestAnimationFrame(write);
+      }
+
+      card.addEventListener('pointerenter', function (e) {
+        if (e.pointerType === 'touch') return;
+
+        /* Leave a card alone while it is still sliding in from §02 — the
+           reveal owns the transform until it lands. */
+        if (!card.classList.contains('in')) return;
+
+        /* A modal is open: the grid behind it is inert. */
+        if (document.body.dataset.locked) return;
+
+        card.dataset.tilt = 'on';
+        card.addEventListener('pointermove', move);
+
+        /* Seed from the entry point, so the card is already oriented on the
+           first frame instead of springing from flat. */
+        move(e);
+
+        sfx('tilt');
+      });
+
+      card.addEventListener('pointerleave', function () {
+        card.removeEventListener('pointermove', move);
+
+        if (frame !== null) {
+          window.cancelAnimationFrame(frame);
+          frame = null;
+        }
+        next = null;
+
+        /* "off" keeps the perspective wrapper in play so the return is a
+           transition rather than a snap — it only changes the curve. */
+        card.dataset.tilt = 'off';
+        card.style.setProperty('--tilt-x', '0deg');
+        card.style.setProperty('--tilt-y', '0deg');
+      });
+    });
   })();
 
 })();
