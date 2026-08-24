@@ -186,7 +186,7 @@
             <button class="card__media" type="button" data-proj="sms"
                     aria-label="Open Student Management System case study">
               <img src="assets/images/Projects/SMS%20for%20LECS/sms-landing-page.png"
-                   alt="Student Management System landing page" width="1280" height="800" loading="lazy" decoding="async">
+                   alt="Student Management System landing page" width="1919" height="908" loading="lazy" decoding="async">
               <span class="card__tag mono">Capstone</span>
               <span class="card__badge mono">View<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
             </button>
@@ -209,7 +209,7 @@
             <button class="card__media" type="button" data-proj="bueno"
                     aria-label="Open BUeño case study">
               <img src="assets/images/Projects/BUe%C3%B1o/home-hero.png"
-                   alt="BUeño home page" width="1280" height="800" loading="lazy" decoding="async">
+                   alt="BUeño home page" width="1919" height="908" loading="lazy" decoding="async">
               <span class="card__tag mono">Flagship</span>
               <span class="card__badge mono">View<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
             </button>
@@ -234,7 +234,7 @@
             <button class="card__media" type="button" data-proj="obra"
                     aria-label="Open Obra BU case study">
               <img src="assets/images/Projects/Obra-BU/home-hero.png"
-                   alt="Obra BU home page" width="1280" height="800" loading="lazy" decoding="async">
+                   alt="Obra BU home page" width="1918" height="907" loading="lazy" decoding="async">
               <span class="card__badge mono">View<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
             </button>
             <div class="card__body">
@@ -258,7 +258,7 @@
             <button class="card__media" type="button" data-proj="bulf"
                     aria-label="Open BU Lost and Found case study">
               <img src="assets/images/Projects/BU-L%26F/home-hero.png"
-                   alt="BU Lost and Found home page" width="1280" height="800" loading="lazy" decoding="async">
+                   alt="BU Lost and Found home page" width="1918" height="907" loading="lazy" decoding="async">
               <span class="card__badge mono">View<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
             </button>
             <div class="card__body">
@@ -282,7 +282,7 @@
             <button class="card__media" type="button" data-proj="bufw"
                     aria-label="Open BU Freedom Wall case study">
               <img src="assets/images/Projects/BU-FW/bufw.png"
-                   alt="BU Freedom Wall post feed" width="1280" height="800" loading="lazy" decoding="async">
+                   alt="BU Freedom Wall post feed" width="1918" height="907" loading="lazy" decoding="async">
               <span class="card__badge mono">View<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
             </button>
             <div class="card__body">
@@ -306,7 +306,7 @@
             <button class="card__media" type="button" data-proj="bugwa"
                     aria-label="Open BU GWA Calculator case study">
               <img src="assets/images/Projects/BU-GWA/result-card.png"
-                   alt="BU GWA Calculator result card" width="1280" height="800" loading="lazy" decoding="async">
+                   alt="BU GWA Calculator result card" width="1918" height="905" loading="lazy" decoding="async">
               <span class="card__badge mono">View<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
             </button>
             <div class="card__body">
@@ -705,25 +705,60 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
           </a>
         </div>
-        <p class="head__sub">Public contributions over the last year, read straight from GitHub.</p>
       </div>
 
 
+      <!-- Empty on purpose. Every cell, month label and figure below is
+           written by §11 of main.js from the live payload; shipping a grid in
+           the markup would mean shipping numbers that start going stale the
+           moment they are committed. The dd values read "—" until then, which
+           is the honest state of a figure that has not arrived yet.
+
+           The figures come first because the graph answers "when" and they
+           answer "how much" — a reader who will not decode 53 columns of
+           squares should still leave with the total. They are a sibling of
+           the board rather than a child of it: the two are the panes of the
+           1px lattice .gh sets up, and print hides the board (hundreds of
+           filled squares) while keeping the figures, which carry the same
+           information in four numbers. -->
       <div class="gh rv" data-state="loading" data-user="renjiyomo">
 
-        <div class="gh__board">
-          <div class="gh__plot">
+        <dl class="gh__stats">
+          <div class="gh__stat">
+            <dt>Contributions</dt>
+            <dd data-gh="total">&mdash;</dd>
+          </div>
+          <div class="gh__stat">
+            <dt>Current streak</dt>
+            <dd data-gh="current">&mdash;</dd>
+          </div>
+          <div class="gh__stat">
+            <dt>Longest streak</dt>
+            <dd data-gh="longest">&mdash;</dd>
+          </div>
+          <div class="gh__stat">
+            <dt>Busiest day</dt>
+            <dd data-gh="best">&mdash;</dd>
+          </div>
+        </dl>
 
-            <div class="gh__scroll" tabindex="0" role="group" aria-label="Contribution graph, scrolls sideways">
-              <div class="gh__cal">
-                <div class="gh__months" aria-hidden="true"></div>
-                <div class="gh__grid" role="img" aria-label="Contribution graph — loading"></div>
+        <div class="gh__board">
+
+          <div class="gh__frame">
+            <div class="gh__cal">
+              <div class="gh__wk" aria-hidden="true">
+                <span>Mon</span><span>Wed</span><span>Fri</span>
               </div>
+              <div class="gh__months" aria-hidden="true"></div>
+              <div class="gh__grid" role="img" aria-label="Contribution graph — loading"></div>
             </div>
           </div>
 
           <div class="gh__legend">
-            <span class="gh__range" data-gh="range"></span>
+            <span class="gh__meta">
+              <span class="gh__range" data-gh="range"></span>
+              <span class="gh__sync" data-gh="sync"></span>
+            </span>
             <span class="gh__key" aria-hidden="true">
               Less
               <i data-l="0"></i><i data-l="1"></i><i data-l="2"></i><i data-l="3"></i><i data-l="4"></i>

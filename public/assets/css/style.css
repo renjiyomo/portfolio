@@ -1039,6 +1039,20 @@ section[id].mast {
 .band {
   position: relative;
   background: var(--surface);
+
+  /* The wave hangs .5% past each edge to hide the sub-pixel seam, and until
+     now nothing caught the overhang: the right-hand ~6px escaped the section
+     and turned into six pixels of horizontal scroll on the whole document —
+     a page that shudders sideways for a decoration nobody can see.
+
+     `clip`, not `hidden`. Setting overflow-x: hidden here would compute
+     overflow-y to auto, making this section a scroll container and cropping
+     the same wave's 1px bottom overhang — the one part of it that has to
+     survive, because that is what seats it into the next section. `clip`
+     leaves the other axis visible. Where it is unsupported the declaration
+     is simply dropped and we are back to the 6px, which is what shipped
+     before, so there is nothing to fall back to. */
+  overflow-x: clip;
 }
 
 section[id].band {
@@ -1267,9 +1281,15 @@ section[id].band {
   transform: translateY(-3px);
 }
 
+/* The box is cut to the captures' own ratio — every screenshot in the grid
+   is a 1919×908 browser window, ~2.113:1 — so `contain` shows the whole
+   interface with no visible letterbox. A 16/10 box and `object-fit: cover`
+   used to sit here, and it took a quarter off the width of every screen: the
+   navigation on one edge, the primary action on the other. These captures
+   are the argument this section makes, so they are shown entire. */
 .card__media {
   position: relative;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 1919 / 908;
   overflow: hidden;
   background: var(--surface-2);
   border-bottom: 1px solid var(--rule);
@@ -1278,16 +1298,16 @@ section[id].band {
 .card__media img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: top center;
-  transition: transform 1.1s var(--ease-out), filter .5s var(--ease-soft);
+  object-fit: contain;
+  object-position: center;
+  transition: filter .5s var(--ease-soft);
   filter: saturate(.82);
 }
 
-.card:hover .card__media img {
-  transform: scale(1.04);
-  filter: saturate(1);
-}
+/* Saturation only. A hover scale would crop back in exactly what `contain`
+   is here to keep, so the card lifts (see .card:hover above) and the image
+   holds still. */
+.card:hover .card__media img { filter: saturate(1); }
 
 /* Small label over card media — marks the flagship and the capstone */
 .card__tag {
@@ -2566,16 +2586,6 @@ body[data-locked="true"] { overflow: hidden; }
   line-height: 1.7;
 }
 
-.det__sub {
-  font-family: var(--font-mono);
-  font-size: .625rem;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  color: var(--muted);
-  padding-top: .35rem;
-  border-top: 1px solid var(--rule);
-}
-
 .det__act {
   display: flex;
   flex-wrap: wrap;
@@ -2584,7 +2594,9 @@ body[data-locked="true"] { overflow: hidden; }
   padding-top: .6rem;
 }
 
-/* Chips — shared by detail view and stack list */
+/* Chips — the Stack section's inventory modal, and nothing else. Projects
+   used to print their own technologies here too; that is stated once now,
+   in §14b, so .chips--sm went with it. */
 .chips {
   display: flex;
   flex-wrap: wrap;
@@ -2600,14 +2612,6 @@ body[data-locked="true"] { overflow: hidden; }
   border: 1px solid var(--rule);
   background: var(--canvas);
   padding: .28rem .5rem;
-}
-
-.chips--sm li {
-  font-size: .5625rem;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: var(--muted);
-  padding: .22rem .45rem;
 }
 
 /* ---- 14b. VIEW: FULL STACK ------------------------------------------- */
@@ -3081,21 +3085,57 @@ button.card__media:focus-visible .card__badge {
    This is the last section on the page and it is evidence, not a pitch, so
    it stays quieter than the thing it follows.
 
-   The three geometry values live here as tokens because four rules need to
-   agree on them: the weekday column, the month strip, the grid itself and
-   the legend swatches. One declaration, one source of truth. */
+   The geometry lives here as tokens because several rules have to agree on
+   it: the weekday column, the month strip, the grid and the legend key.
+
+   The cells carry no width of their own. They used to be exactly 11px, which
+   made the calendar exactly 742px, and one fixed number cannot be right at
+   both ends of the range: on a 1088px board it stopped dead two thirds of the
+   way across and left a slab of empty surface — the year looked cut off,
+   because it was drawn in a fixed box inside a fluid one — while on a phone
+   the same 742px overflowed and the panel scrolled sideways instead. The
+   columns are minmax(0, 1fr) with no floor at all: they divide whatever the
+   board gives them, stretching to about 16px on a wide screen and falling to
+   about 4px on a 320px phone. Four pixels is small, and small is the right
+   trade — what this panel claims is the shape of a year at a glance, and that
+   reads in tiny squares but does not read at all through a 340px window onto
+   a wider drawing.
+
+   It only holds because every box between the cells and the board carries
+   min-width: 0 — see .gh__cal. A grid item's automatic minimum is its own
+   content, so leave one `auto` anywhere in that chain and 53 columns of
+   min-content climb back out and take the document's width with them.
+
+   --gh-cols is written by §11 of main.js from the number of weeks it
+   actually drew, and declared here so the layout still holds if it doesn't
+   run. Both must agree; neither may guess. */
 .gh {
-  --gh-cell: 11px;
+  --gh-cols: 53;
   --gh-gap: 3px;
   --gh-mo: 14px;
+  --gh-swatch: 11px;
 
   display: grid;
+  /* The 0 floor is load-bearing: it is the last link in the min-width chain
+     the comment above describes, and the one that keeps the calendar's
+     53-column minimum from escaping this panel. Every box inside declares
+     min-width: 0, but a grid track's own default minimum is auto — leave
+     minmax off here and the minimum simply climbs one level further and
+     widens the document, turning a graph that will not fit a phone into a
+     whole site that will not fit it. */
+  grid-template-columns: minmax(0, 1fr);
   gap: 1px;
   background: var(--rule);
   border: 1px solid var(--rule);
   border-radius: var(--r-lg);
   overflow: hidden;
 }
+
+/* Same reason one level down: a grid item's min-width: auto is its
+   content-based minimum, so the track floor alone is not enough — the item
+   has to be allowed to be narrower than the year it contains. */
+.gh__stats,
+.gh__board { min-width: 0; }
 
 /* -- Stats strip ------------------------------------------------------- */
 
@@ -3154,27 +3194,63 @@ button.card__media:focus-visible .card__badge {
   background: var(--surface);
 }
 
-/* auto for the weekday labels, minmax(0,1fr) for the calendar — the 0 floor
-   is what lets the scroller actually shrink instead of forcing the grid to
-   its full 53-week width and blowing out the page on a phone. */
-.gh__plot {
+/* A guard, not a viewport. This box used to be the scroller: overflow-x
+   auto, its bar hidden, a fade at the edges advertising the overflow, and a
+   tabindex and a role so a keyboard could reach the part of the year sitting
+   off screen. Every bit of that described a box whose contents might be
+   somewhere other than fully visible, and this one's cannot be — the calendar
+   inside it is built to fit whatever width it is given. `clip` states that
+   precisely: it will not scroll, and it will not leak. It stays because a
+   hairline of sub-pixel rounding is cheaper to clip than to chase, and
+   because if some later change puts a minimum width back on the cells, this
+   is where the overflow would land and this is the comment that should stop
+   it shipping. */
+.gh__frame {
+  overflow-x: clip;
+  border-radius: 3px;
+}
+
+/* The whole calendar in one grid: weekday rail in column 1, month strip and
+   cells stacked in column 2. It used to be a wrapper grid holding a separate
+   rail and a separate scroller, with the rail clearing the month strip by a
+   hand-computed padding — two boxes kept in step by arithmetic. One grid
+   puts every label on the track it belongs to instead.
+
+   `width: 100%` is what makes the calendar fill the board — the old
+   `min-content` pinned it to 742px and left the rest of the panel empty.
+   `min-width: 0` is what makes it fit. It read `min-content`, which let the
+   box grow past its container so the frame could scroll it — that was the
+   sideways scroll, written in one declaration. Zero is the first link in the
+   chain the section comment describes; the second is minmax(0, 1fr) on the
+   cells' track below, and the third is min-width: 0 on the two strips that
+   sit in that track. All three are load-bearing: a track that can shrink is
+   no use holding an item that refuses to, and an item that can shrink is no
+   use inside a track that will not let it. */
+.gh__cal {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
-  gap: .45rem;
+  grid-template-rows: auto auto;
+  column-gap: .45rem;
+  row-gap: .3rem;
+  width: 100%;
+  min-width: 0;
 }
 
 /* Mon/Wed/Fri only. Seven labels at this size is noise, and the odd rows are
-   enough for the eye to count from. Rows are explicit so the labels sit on
-   the same 7-track rhythm as the cells; the padding clears the month strip,
-   computed rather than guessed. */
+   enough for the eye to count from. Seven 1fr rows against the cells' seven,
+   sharing their gap, so the labels track the rows however wide the cells
+   have grown — no padding to keep in sync, nothing to drift. */
 .gh__wk {
+  grid-column: 1;
+  grid-row: 2;
   display: grid;
-  grid-template-rows: repeat(7, var(--gh-cell));
+  grid-template-rows: repeat(7, 1fr);
   gap: var(--gh-gap);
-  padding-top: calc(var(--gh-mo) + .3rem);
+  justify-items: end;
+  align-items: center;
   font-family: var(--font-mono);
   font-size: .5rem;
-  line-height: var(--gh-cell);
+  line-height: 1;
   letter-spacing: .08em;
   text-transform: uppercase;
   color: var(--muted);
@@ -3185,43 +3261,18 @@ button.card__media:focus-visible .card__badge {
 .gh__wk span:nth-child(2) { grid-row: 4; }
 .gh__wk span:nth-child(3) { grid-row: 6; }
 
-/* A year of weeks does not fit a narrow viewport, so it scrolls sideways
-   rather than shrinking the cells into mush. The bar itself is hidden — it
-   would double the panel's visual weight — and the mask below advertises the
-   overflow instead. overscroll-behavior stops a horizontal flick from
-   dragging the whole page with it. */
-.gh__scroll {
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  border-radius: 3px;
-}
-
-.gh__scroll::-webkit-scrollbar { height: 0; }
-
-.gh__scroll:focus-visible {
-  outline: 2px solid var(--signal);
-  outline-offset: 3px;
-}
-
-/* min-content keeps the calendar at its intrinsic width inside the scroller
-   instead of being squeezed to the container. */
-.gh__cal {
-  display: grid;
-  gap: .3rem;
-  width: min-content;
-}
-
-/* Month labels sit on a grid with the same column geometry as the cells, so
-   JS can place each one with grid-column: <week+1> and it lands over the
-   right week without a single magic pixel. Column count is set inline by JS
-   to match however many weeks were actually rendered. */
+/* Month labels sit on exactly the cells' column geometry, so JS can place
+   each one with grid-column: <week+1> / span <weeks> and it lands over its
+   own weeks without a single magic pixel — and keeps landing there as the
+   columns stretch. */
 .gh__months {
+  grid-column: 2;
+  grid-row: 1;
   display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: var(--gh-cell);
+  grid-template-columns: repeat(var(--gh-cols), minmax(0, 1fr));
   gap: var(--gh-gap);
+  align-items: end;
+  min-width: 0;
   height: var(--gh-mo);
   font-family: var(--font-mono);
   font-size: .5rem;
@@ -3231,22 +3282,37 @@ button.card__media:focus-visible .card__badge {
   user-select: none;
 }
 
-.gh__months span { white-space: nowrap; }
+/* nowrap so a three-letter month never breaks into a column of letters, and
+   hidden so that at the width where a label finally outgrows the weeks it
+   spans it gives up its last letter rather than colliding with the month
+   after it. */
+.gh__months span {
+  white-space: nowrap;
+  overflow: hidden;
+}
 
-/* Column flow, seven rows: weeks run left to right, days top to bottom —
-   the same reading order as the calendar it stands for. */
+/* Column flow over seven explicit rows: weeks run left to right, days top to
+   bottom — the same reading order as the calendar it stands for. The columns
+   are explicit now rather than auto, which is what lets them share the free
+   space instead of each taking a fixed 11px and leaving the remainder blank.
+   Rows are `auto` and the cells carry aspect-ratio: 1, so height follows
+   whatever width a column ends up with and the squares stay square. */
 .gh__grid {
+  grid-column: 2;
+  grid-row: 2;
   display: grid;
   grid-auto-flow: column;
-  grid-template-rows: repeat(7, var(--gh-cell));
-  grid-auto-columns: var(--gh-cell);
+  grid-template-columns: repeat(var(--gh-cols), minmax(0, 1fr));
+  grid-template-rows: repeat(7, auto);
   gap: var(--gh-gap);
+  min-width: 0;
 }
 
 /* The inset hairline is doing real work: at level 0 the cell is --rule on
    --surface, nearly invisible, and without an edge the empty weeks would
    dissolve into blank paper and the grid would lose its shape. */
 .gh__c {
+  aspect-ratio: 1;
   border-radius: 2px;
   background: var(--gh-0);
   box-shadow: inset 0 0 0 1px var(--gh-edge);
@@ -3275,11 +3341,12 @@ button.card__media:focus-visible .card__badge {
   transition-delay: calc(var(--w, 0) * 12ms);
 }
 
-/* Both resolved states reveal, not just the good one. On error the figures
+/* Every resolved state reveals, not just the good one. On error the figures
    stay em-dashed and every cell stays at level 0 — but the empty year still
    has to be drawn, or the board is a blank rectangle with a note under it
    and the panel loses the shape the first pass was built to reserve. */
 .gh.in[data-state="ready"] .gh__c,
+.gh.in[data-state="stale"] .gh__c,
 .gh.in[data-state="error"] .gh__c {
   opacity: 1;
   transform: none;
@@ -3303,7 +3370,30 @@ button.card__media:focus-visible .card__badge {
   color: var(--muted);
 }
 
-.gh__range { font-feature-settings: "zero" 1; }
+.gh__meta {
+  display: inline-flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0 .4rem;
+}
+
+.gh__range {
+  color: var(--text-dim);
+  font-feature-settings: "zero" 1;
+}
+
+/* The date the graph was read. A step quieter than the range it follows,
+   because the span is what the graph shows and this is only how fresh it is —
+   but it is here, in the open, because the claim the section makes is that
+   the panel is today's. A claim like that has to be checkable. The separator
+   hangs off :not(:empty) so nothing dangles while the request is in
+   flight. */
+.gh__sync { font-feature-settings: "zero" 1; }
+
+.gh__sync:not(:empty)::before {
+  content: "·";
+  margin-right: .4rem;
+}
 
 .gh__key {
   display: inline-flex;
@@ -3311,11 +3401,13 @@ button.card__media:focus-visible .card__badge {
   gap: .3rem;
 }
 
-/* Same size, radius and edge as a real cell, because that is the whole
-   point of a key. */
+/* Same radius and inset edge as a real cell. Not the same width any more —
+   the cells are fluid now and would drag the key wider with them on a big
+   screen, so the swatch is sized against the legend's own 9px type, where
+   what it has to look like is a small square of colour. */
 .gh__key i {
-  width: var(--gh-cell);
-  height: var(--gh-cell);
+  width: var(--gh-swatch);
+  height: var(--gh-swatch);
   border-radius: 2px;
   background: var(--gh-0);
   box-shadow: inset 0 0 0 1px var(--gh-edge);
@@ -3328,10 +3420,14 @@ button.card__media:focus-visible .card__badge {
 
 /* -- Fallback ---------------------------------------------------------- */
 
-/* GitHub's numbers come from a third party at runtime, so the failure case
-   is a real state, not a hypothetical. When it fires the empty grid stays
-   (the panel keeps its shape) and this line offers the only thing still
-   worth offering: the link. */
+/* GitHub's numbers come from a third party at runtime, so failure is a real
+   state, not a hypothetical — and it has two degrees. If the request fails
+   with a stored payload behind it, the last known year is drawn and the
+   legend's sync date says which day it is from; if there is nothing stored,
+   the empty grid stays (the panel keeps its shape) and this line offers the
+   only thing still worth offering: the link. It shows in both cases, because
+   a graph that is not today's should say so above the fold of its own
+   panel. */
 .gh__note {
   display: none;
   margin: .9rem 0 0;
@@ -3342,6 +3438,7 @@ button.card__media:focus-visible .card__badge {
   color: var(--muted);
 }
 
+.gh[data-state="stale"] .gh__note,
 .gh[data-state="error"] .gh__note { display: block; }
 
 .gh__note a {
@@ -3362,7 +3459,9 @@ button.card__media:focus-visible .card__badge {
 
 /* One element, moved and rewritten — 365 title attributes would be 365
    sluggish native tooltips, and a per-cell node is 365 nodes for a hover
-   effect. Fixed positioning keeps it correct inside the scroller. */
+   effect. Fixed positioning, and appended to <body> rather than the board,
+   so it is measured against the viewport it has to stay inside and no
+   ancestor's overflow can clip it. */
 .gh__tip {
   position: fixed;
   z-index: 60;
@@ -3411,19 +3510,43 @@ button.card__media:focus-visible .card__badge {
 
   .gh__board { padding: 1.15rem .9rem 1rem; }
 
-  /* With the scrollbar hidden, the fade is the only thing telling a thumb
-     there is more year to the right. It sits on the scroller so it marks
-     the viewport edge, not the content. */
-  .gh__scroll {
-    -webkit-mask-image: linear-gradient(to right, transparent, #000 14px, #000 calc(100% - 22px), transparent);
-    mask-image: linear-gradient(to right, transparent, #000 14px, #000 calc(100% - 22px), transparent);
-  }
+  /* The gap is a fixed length while the cells are a fraction of what is
+     left over, so every pixel the board loses comes out of the squares and
+     none of it out of the spaces between them. Held at 3px down here the
+     grid inverts: the gaps become the larger half of the pattern and you
+     read the gridlines instead of the days. It steps down with the width. */
+  .gh { --gh-gap: 2px; }
 }
 
 @media (max-width: 30rem) {
-  /* One figure per row would be four screens of nothing; the cells shrink
-     instead so more of the year survives a phone. */
-  .gh { --gh-cell: 10px; --gh-gap: 2px; }
+  .gh { --gh-gap: 1px; }
+
+  /* The weekday rail goes. It costs about 25px of the ~300 the cells have to
+     divide at this width — a twelfth of the year's legibility spent on three
+     abbreviations nobody navigates a calendar by, and against four-pixel rows
+     its 8px type has stopped lining up with the days it labels in any case.
+     The month strip stays; that is how a reader finds their place in the
+     year. With the rail gone the calendar is a single column, so both strips
+     move into it and the column gap that separated them has nothing left to
+     separate. */
+  .gh__wk { display: none; }
+
+  .gh__cal {
+    grid-template-columns: minmax(0, 1fr);
+    column-gap: 0;
+  }
+
+  .gh__months,
+  .gh__grid { grid-column: 1; }
+}
+
+/* Cells stretch to fill the board, so on a wide screen they land around
+   16px. The gap has to grow with them or the squares crowd each other and the
+   grid reads as a solid block with lines scratched into it rather than a
+   field of days. This is the top of the same ladder the two narrow queries
+   above step down: 1px, 2px, 3px, 4px, following the cells. */
+@media (min-width: 64rem) {
+  .gh { --gh-gap: 4px; }
 }
 
 /* -- Motion and print -------------------------------------------------- */
