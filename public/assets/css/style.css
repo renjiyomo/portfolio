@@ -21,6 +21,7 @@
    16. Reduced motion & print
    17. Addenda
    18. GitHub contributions
+   19. Pointer tilt
    ========================================================================== */
 
 /* ---- 01. TOKENS -------------------------------------------------------- */
@@ -60,6 +61,10 @@
   --stage-edge: rgba(255, 255, 255, .085);
   --wash:       rgba(214, 226, 232, .10);
 
+  /* Specular highlight that follows the pointer across a tilting card (§19).
+     Warm and faint on the dark canvas — a light source, not a gloss. */
+  --sheen: rgba(255, 218, 148, .15);
+
   --gh-0: var(--rule);
   --gh-1: rgba(255, 176, 0, .30);
   --gh-2: rgba(255, 176, 0, .52);
@@ -98,6 +103,10 @@ html.light {
   --stage:      rgba(94, 81, 58, .175);
   --stage-edge: rgba(94, 81, 58, .34);
   --wash:       rgba(94, 81, 58, .145);
+
+  /* Amber would read as a stain on the paper canvas — light theme lifts with
+     plain white instead. */
+  --sheen: rgba(255, 255, 255, .55);
 
   --gh-0: var(--surface-2);
   --gh-1: rgba(138, 82, 0, .22);
@@ -317,7 +326,7 @@ section[id] {
   }
 
   .sig,
-  .themetoggle { margin-top: .9rem; }
+  .tools { margin-top: .9rem; }
 
   .navlinks {
     order: 3;
@@ -343,8 +352,21 @@ section[id] {
 }
 
 
-/* Theme toggle — a two-state mono switch, not a rounded pill */
-.themetoggle {
+/* ── Top-bar switches ─────────────────────────────────────────────────────
+   Sound and theme are the same KIND of control — two states, one live — so
+   they are the same object: a two-cell mono switch where the filled cell is
+   the state you are in. Sharing the shell is the point. Two differently
+   shaped buttons sitting 8px apart would read as two unrelated features
+   rather than as the site's settings. */
+
+.tools {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  flex: none;
+}
+
+.switch {
   border-radius: var(--r-sm);
   display: inline-flex;
   align-items: stretch;
@@ -357,7 +379,7 @@ section[id] {
   overflow: hidden;
 }
 
-.themetoggle span {
+.switch > span {
   display: grid;
   place-items: center;
   padding: .4rem .55rem;
@@ -365,19 +387,47 @@ section[id] {
   transition: background-color .35s var(--ease-soft), color .35s var(--ease-soft);
 }
 
-.themetoggle svg {
+.switch svg {
   width: 13px;
   height: 13px;
   display: block;
 }
 
+.switch:hover { border-color: var(--rule-strong); }
+
+/* Live cell — theme reads off the document class, sound off aria-checked, so
+   each switch stays truthful to whatever actually owns its state. */
 html:not(.light) .themetoggle span[data-for="dark"],
-html.light        .themetoggle span[data-for="light"] {
+html.light        .themetoggle span[data-for="light"],
+.sndtoggle[aria-checked="false"] span[data-for="off"],
+.sndtoggle[aria-checked="true"]  span[data-for="on"] {
   background: var(--signal);
   color: var(--signal-ink);
 }
 
-.themetoggle:hover { border-color: var(--rule-strong); }
+/* First visit only, and only until it is used: two slow amber rings so the
+   sound switch is findable without a tooltip nobody hovers. sound.js sets
+   and clears the attribute — see §06 there for when. */
+.sndtoggle[data-hint] {
+  position: relative;
+  border-color: var(--signal);
+}
+
+.sndtoggle[data-hint]::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  border: 1px solid var(--signal);
+  pointer-events: none;
+  animation: hint-ring 2.6s var(--ease-out) 2;
+}
+
+@keyframes hint-ring {
+  0%   { opacity: .9; transform: scale(1); }
+  70%  { opacity: 0;  transform: scale(1.55); }
+  100% { opacity: 0;  transform: scale(1.55); }
+}
 
 /* Reading-progress line, pinned to the very top of the viewport */
 .progress {
@@ -2781,3 +2831,86 @@ button.card__media:focus-visible .card__badge {
   .gh__stats { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
 }
 
+
+/* ---- 19. POINTER TILT ------------------------------------------------- */
+
+/* Project cards lean toward the cursor. The whole effect is four and a half
+   degrees, which is roughly the point where a flat rectangle starts reading
+   as a physical object and well short of the point where it reads as a
+   gimmick. Two rules keep it on the right side of that line:
+
+     · The card tracks the pointer in 140ms of LINEAR time, so it feels
+       attached rather than animated, then settles home on the site's long
+       ease-out — arrival is eased, tracking is not.
+     · The specular sheen is one soft radial at 15% amber. It is what sells
+       the surface as tilting; the rotation alone just looks skewed.
+
+   Lives at the end of the sheet on purpose. §15 sets `.rv.in { transform:
+   none }` to land the reveal, and these rules have to win that cascade once
+   a card is actually being pointed at — same specificity, later source.
+
+   JS owns `data-tilt` and the --tilt-* customs (see main.js §12). It only
+   ever attaches on a fine pointer with motion allowed, so touch and
+   reduced-motion visitors keep the plain hover lift from §10 untouched. */
+
+.card {
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  --tilt-lift: 0px;
+}
+
+.card[data-tilt] {
+  transform:
+    perspective(1150px)
+    rotateX(var(--tilt-x))
+    rotateY(var(--tilt-y))
+    translate3d(0, var(--tilt-lift), 0);
+}
+
+.card[data-tilt]:hover,
+.card[data-tilt]:focus-within { --tilt-lift: -5px; }
+
+/* Tracking the pointer. Linear, short, and will-change only while it is
+   actually moving — promoting six cards for the whole session would cost
+   more than it buys. */
+.card[data-tilt="on"] {
+  transition: border-color .35s var(--ease-soft), transform .14s linear;
+  will-change: transform;
+}
+
+/* Settling back. The long ease-out is what makes it feel sprung. */
+.card[data-tilt="off"] {
+  transition: border-color .35s var(--ease-soft), transform .6s var(--ease-out);
+}
+
+/* Sheen. Sits above the media and the badges — light falls on everything or
+   the illusion breaks. */
+.card[data-tilt]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  border-radius: inherit;
+  background: radial-gradient(
+    360px circle at var(--tilt-gx, 50%) var(--tilt-gy, 0%),
+    var(--sheen), transparent 60%);
+  opacity: 0;
+  transition: opacity .45s var(--ease-soft);
+}
+
+.card[data-tilt="on"]::after { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .card[data-tilt] {
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .card[data-tilt]::after { display: none !important; }
+}
+
+@media print {
+  .card[data-tilt] { transform: none !important; }
+  .card[data-tilt]::after { display: none !important; }
+}

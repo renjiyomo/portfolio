@@ -175,6 +175,19 @@
       var done = function () { root.classList.remove(cls); };
       var vt = document.startViewTransition(function () { paint(mode); });
 
+      /* A View Transition exposes three promises, and every one of them
+         rejects when the transition is skipped — which the browser does
+         routinely: a hidden tab, a second tap arriving mid-sweep. `finished`
+         is handled below; `ready` and `updateCallbackDone` are not otherwise
+         consumed, so without these no-ops each skip logs an unhandled
+         InvalidStateError to the console. Nothing is wrong when that happens,
+         and the console should not claim otherwise. */
+      var hush = function () {};
+      if (vt && vt.ready && vt.ready.then) vt.ready.then(hush, hush);
+      if (vt && vt.updateCallbackDone && vt.updateCallbackDone.then) {
+        vt.updateCallbackDone.then(hush, hush);
+      }
+
       if (vt && vt.finished && typeof vt.finished.then === 'function') {
         vt.finished.then(done, done);
       } else {
