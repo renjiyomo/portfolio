@@ -246,7 +246,6 @@ section[id] {
 
 /* ---- 04. TOP BAR & SCROLL PROGRESS ------------------------------------ */
 
-/* Top navigation */
 .topbar {
   position: sticky;
   top: 0;
@@ -347,17 +346,8 @@ section[id] {
     padding-block: .3rem;
   }
 
-  /* Taller bar, so anchored sections need more clearance */
   html { scroll-padding-top: 7.5rem; }
 }
-
-
-/* ── Top-bar switches ─────────────────────────────────────────────────────
-   Sound and theme are the same KIND of control — two states, one live — so
-   they are the same object: a two-cell mono switch where the filled cell is
-   the state you are in. Sharing the shell is the point. Two differently
-   shaped buttons sitting 8px apart would read as two unrelated features
-   rather than as the site's settings. */
 
 .tools {
   display: flex;
@@ -395,8 +385,6 @@ section[id] {
 
 .switch:hover { border-color: var(--rule-strong); }
 
-/* Live cell — theme reads off the document class, sound off aria-checked, so
-   each switch stays truthful to whatever actually owns its state. */
 html:not(.light) .themetoggle span[data-for="dark"],
 html.light        .themetoggle span[data-for="light"],
 .sndtoggle[aria-checked="false"] span[data-for="off"],
@@ -405,9 +393,6 @@ html.light        .themetoggle span[data-for="light"],
   color: var(--signal-ink);
 }
 
-/* First visit only, and only until it is used: two slow amber rings so the
-   sound switch is findable without a tooltip nobody hovers. sound.js sets
-   and clears the attribute — see §06 there for when. */
 .sndtoggle[data-hint] {
   position: relative;
   border-color: var(--signal);
@@ -429,7 +414,6 @@ html.light        .themetoggle span[data-for="light"],
   100% { opacity: 0;  transform: scale(1.55); }
 }
 
-/* Reading-progress line, pinned to the very top of the viewport */
 .progress {
   position: fixed;
   top: 0;
@@ -525,7 +509,6 @@ html.light        .themetoggle span[data-for="light"],
   transition: transform .3s var(--ease-out);
 }
 
-/* Travels along its own axis — the arrow points right, so it moves right */
 .head__act:hover svg,
 .head__act:focus-visible svg { transform: translateX(3px); }
 
@@ -541,10 +524,6 @@ section[id].mast {
   border-top: 0;
   padding-block: clamp(2.25rem, 6vw, 4.5rem) 0;
 }
-
-/* Note: alignment is per-item, not on the grid. The portrait bottom-aligns
-   so the cut at its base runs into the wave; the copy is centred so the
-   name leads the section instead of sinking to the floor with it. */
 
 .mast__grid {
   display: grid;
