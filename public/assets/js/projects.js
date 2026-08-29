@@ -201,7 +201,7 @@ window.TECH = [
   },
   {
     group: '3D & Design',
-    items: ['Blender', '3D Modeling', 'Hard-surface modeling', 'Modular asset design', 'UV Mapping', 'PBR Texturing', 'Triangle budgeting', 'Topology / mesh cleanup', 'GLB / FBX export', 'Roblox Studio', 'Figma']
+    items: ['Blender', '3D Modelers', 'GLB / FBX export', 'Roblox Studio']
   },
   {
     group: 'Developer Tools',
