@@ -636,9 +636,12 @@
     var months   = $('.gh__months', root);
     if (!user || !grid) return;
 
-    var COLS  = 53;
-    var API   = 'https://github-contributions-api.jogruber.de/v4/';
-    var STORE = 'gh:' + user;
+    var COLS      = 53;
+    var ENDPOINTS = [
+      'https://gh-calendar.rschristian.dev/user/',
+      'https://github-contributions.vercel.app/api/v1/'
+    ];
+    var STORE     = 'gh:' + user;
 
     var MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -905,11 +908,6 @@
       window.addEventListener('scroll', hide, { capture: true, passive: true });
     }
 
-    function url() {
-      var y = today.getFullYear();
-      return API + encodeURIComponent(user) + '?y=' + y + '&y=' + (y - 1);
-    }
-
     /* -- Pass 3: cache first, then revalidate ----------------------- */
 
     var painted = false;
@@ -926,37 +924,58 @@
     }
 
     function accept(data) {
-      var days = data && data.contributions;
+      if (!data) throw new Error('empty payload');
+      var days = data.contributions;
       if (!days || !days.length) throw new Error('empty payload');
+      if (Array.isArray(days[0])) {
+        days = days.reduce(function (acc, week) { return acc.concat(week); }, []);
+      }
       return days;
     }
 
-    function load(attempt) {
+    function fetchWithTimeout(endpointUrl, timeoutMs) {
+      var ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
+      var timer = ctrl ? setTimeout(function () { ctrl.abort(); }, timeoutMs || 5000) : null;
+      return fetch(endpointUrl, { signal: ctrl ? ctrl.signal : undefined })
+        .then(function (res) {
+          if (timer) clearTimeout(timer);
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          return res.json();
+        })
+        .catch(function (err) {
+          if (timer) clearTimeout(timer);
+          throw err;
+        });
+    }
 
-      var pending = attempt === 1 && window.__ghEarly
+    function fetchEndpoint(idx) {
+      if (idx >= ENDPOINTS.length) {
+        return Promise.reject(new Error('All contribution endpoints failed'));
+      }
+      var targetUrl = ENDPOINTS[idx] + encodeURIComponent(user);
+      var pending = (idx === 0 && window.__ghEarly)
         ? window.__ghEarly
-        : fetch(url()).then(function (res) {
-            if (!res.ok) throw new Error('HTTP ' + res.status);
-            return res.json();
-          });
+        : fetchWithTimeout(targetUrl, 5000);
 
-      pending
+      return pending
         .then(accept)
+        .catch(function () {
+          return fetchEndpoint(idx + 1);
+        });
+    }
+
+    function load() {
+      fetchEndpoint(0)
         .then(function (days) {
           paint(days, key(today), true, false);
         })
         .catch(function () {
-          if (attempt < 3) {
-            window.setTimeout(function () { load(attempt + 1); }, attempt * 350);
-            return;
-          }
-
           if (painted) root.dataset.state = 'stale';
           else fail();
         });
     }
 
-    load(1);
+    load();
   })();
 
 
