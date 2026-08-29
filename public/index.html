@@ -45,7 +45,8 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://github-contributions-api.jogruber.de" crossorigin>
+<link rel="preconnect" href="https://gh-calendar.rschristian.dev" crossorigin>
+<link rel="dns-prefetch" href="https://github-contributions.vercel.app">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="assets/css/style.css">
 <link rel="preload" as="image" href="assets/images/Profile-nobg.webp" type="image/webp" fetchpriority="high">
@@ -53,12 +54,17 @@
 <script>
   (function () {
     if (!window.fetch) return;
-    var year = new Date().getFullYear();
-    var url = 'https://github-contributions-api.jogruber.de/v4/renjiyomo?y=' +
-              year + '&y=' + (year - 1);
-    window.__ghEarly = fetch(url).then(function (res) {
+    var ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
+    var timer = ctrl ? setTimeout(function () { ctrl.abort(); }, 5000) : null;
+    window.__ghEarly = fetch('https://gh-calendar.rschristian.dev/user/renjiyomo', {
+      signal: ctrl ? ctrl.signal : undefined
+    }).then(function (res) {
+      if (timer) clearTimeout(timer);
       if (!res.ok) throw new Error('HTTP ' + res.status);
       return res.json();
+    }).catch(function (e) {
+      if (timer) clearTimeout(timer);
+      throw e;
     });
     window.__ghEarly.catch(function () {});
   })();
