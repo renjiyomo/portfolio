@@ -200,6 +200,10 @@ window.TECH = [
     items: ['MySQL', 'PostgreSQL', 'Supabase', 'Neon Serverless Postgres']
   },
   {
+    group: '3D & Design',
+    items: ['Blender', '3D Modeling', 'Hard-surface modeling', 'Modular asset design', 'UV Mapping', 'PBR Texturing', 'Triangle budgeting', 'Topology / mesh cleanup', 'GLB / FBX export', 'Roblox Studio', 'Figma']
+  },
+  {
     group: 'Developer Tools',
     items: ['Git', 'GitHub', 'VS Code', 'Figma', 'XAMPP', 'Antigravity', 'Composer']
   },

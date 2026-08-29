@@ -1358,6 +1358,127 @@ details.led__row > .led__ln { padding-right: 1.9rem; }
   background: var(--muted);
 }
 
+/* ---- 11. MODEL CARDS -------------------------------------------------- */
+
+.cards--showcase {
+  grid-template-columns: 1fr !important;
+}
+
+.card--model .card__media {
+  aspect-ratio: 16 / 9;
+  background: var(--surface-2);
+}
+
+.card--model .card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Feature card on the portfolio main page */
+.card--feature {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 52rem) {
+  .card--feature {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    align-items: stretch;
+  }
+
+  .card--feature .card__media {
+    aspect-ratio: auto;
+    height: 100%;
+    min-height: 20rem;
+    border-bottom: 0;
+    border-right: 1px solid var(--rule);
+    background: radial-gradient(circle at center, var(--surface-2) 0%, var(--canvas) 100%);
+  }
+
+  .card--feature .card__media img {
+    object-fit: contain;
+    padding: clamp(.4rem, 1.2vw, 1rem);
+  }
+
+  .card--feature .card__body {
+    padding: clamp(1.4rem, 2.8vw, 2.2rem);
+    justify-content: center;
+    gap: .85rem;
+  }
+
+  .card--feature h3 {
+    font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+  }
+
+  .card--feature p {
+    flex: none;
+    font-size: .9375rem;
+    line-height: 1.6;
+  }
+}
+
+/* Marks a model a visitor can actually orbit, so the interactive ones are
+   findable without opening each in turn. */
+.card__3d {
+  position: absolute;
+  top: .5rem;
+  right: .5rem;
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  border-radius: 4px;
+  padding: .25rem .45rem;
+  background: color-mix(in srgb, var(--canvas) 82%, transparent);
+  border: 1px solid var(--signal);
+  color: var(--signal);
+  font-family: var(--font-mono);
+  font-size: .5625rem;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.card__3d svg {
+  width: 11px;
+  height: 11px;
+}
+
+/* Poly count and target platform at a glance — the two things a modeling
+   client checks first. */
+.card__spec {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .3rem;
+}
+
+.card__spec li {
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: .5625rem;
+  letter-spacing: .08em;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  background: var(--canvas);
+  padding: .22rem .4rem;
+}
+
+/* Shown when MODEL_ORDER is empty — a deliberate placeholder beats a
+   collapsed, seemingly broken section. */
+.models__empty {
+  border: 1px dashed var(--rule-strong);
+  border-radius: var(--r);
+  padding: clamp(1.5rem, 4vw, 2.75rem);
+  text-align: center;
+  color: var(--muted);
+  font-size: .875rem;
+}
+
+
 /* ---- 12. CREDENTIALS — PLATE DECK ------------------------------------- */
 .creds {
   display: grid;
@@ -1880,11 +2001,25 @@ body[data-locked="true"] { overflow: hidden; }
 .det {
   display: grid;
   grid-template-columns: 1fr;
+  min-height: 0;
 }
 
 @media (min-width: 62rem) {
-  .det { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); }
+  .modal:has(.det) .modal__slot,
+  .modal__slot:has(.det) {
+    overflow-y: hidden;
+    display: flex;
+    flex-direction: column;
+  }
 
+  .det {
+    grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+    flex: 1;
+    height: 100%;
+    min-height: 0;
+    max-height: calc(88vh - 4.5rem);
+    align-items: stretch;
+  }
 }
 
 .det > .det__copy:only-child {
@@ -1906,6 +2041,11 @@ body[data-locked="true"] { overflow: hidden; }
   .det__stage {
     border-bottom: 0;
     border-right: 1px solid var(--rule);
+    height: 100%;
+    min-height: 0;
+    overflow: hidden;
+    position: sticky;
+    top: 0;
   }
 }
 
@@ -2024,6 +2164,33 @@ body[data-locked="true"] { overflow: hidden; }
   flex-direction: column;
   gap: .9rem;
   min-width: 0;
+}
+
+@media (min-width: 62rem) {
+  .det__copy {
+    overflow-y: auto;
+    max-height: 100%;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: var(--rule-strong) var(--surface);
+  }
+
+  .det__copy::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .det__copy::-webkit-scrollbar-track {
+    background: var(--surface);
+  }
+
+  .det__copy::-webkit-scrollbar-thumb {
+    background: var(--rule-strong);
+    border-radius: 3px;
+  }
+
+  .det__copy::-webkit-scrollbar-thumb:hover {
+    background: var(--signal);
+  }
 }
 
 .det__meta {
@@ -2250,6 +2417,171 @@ body[data-locked="true"] { overflow: hidden; }
   gap: .6rem;
   margin-top: .15rem;
 }
+
+/* ---- 14d. VIEW: MODEL DETAIL ----------------------------------------- */
+
+.mdl__stagewrap {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: var(--canvas);
+  border-bottom: 1px solid var(--rule);
+}
+
+@media (min-width: 62rem) {
+  .mdl__stagewrap {
+    border-bottom: 0;
+    border-right: 1px solid var(--rule);
+    height: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.mdl__pane {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  position: relative;
+}
+
+.mdl__viewpane {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  height: 100%;
+  width: 100%;
+}
+
+/* The stage supplies its own edges inside the wrapper. */
+.mdl__viewpane .det__stage {
+  border-bottom: 0;
+  border-right: 0;
+  flex: 1;
+  height: 100%;
+}
+
+.mdl__tabs {
+  display: flex;
+  gap: .4rem;
+  padding: .6rem .85rem;
+  border-bottom: 1px solid var(--rule);
+  background: var(--surface);
+  flex: none;
+}
+
+.mdl__tab {
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  font-family: var(--font-mono);
+  font-size: .625rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  border: 1px solid var(--rule-strong);
+  background: var(--surface);
+  padding: .45rem .7rem;
+  cursor: pointer;
+  transition:
+    color .25s var(--ease-soft),
+    border-color .25s var(--ease-soft),
+    background-color .25s var(--ease-soft);
+}
+
+.mdl__tab:hover {
+  color: var(--signal);
+  border-color: var(--signal);
+}
+
+.mdl__tab[aria-selected="true"] {
+  color: var(--signal-ink);
+  background: var(--signal);
+  border-color: var(--signal);
+}
+
+.mdl__viewer {
+  display: grid;
+  place-items: center;
+  flex: 1 1 auto;
+  height: 100%;
+  min-height: 24rem;
+  background: var(--canvas);
+  padding: .5rem;
+}
+
+.mdl__viewer model-viewer {
+  width: 100%;
+  height: 100%;
+  min-height: 22rem;
+  background: transparent;
+  --poster-color: transparent;
+  touch-action: none;
+}
+
+.mdl__load,
+.mdl__fail {
+  font-size: .8125rem;
+  color: var(--muted);
+  text-align: center;
+  padding: 1rem;
+}
+
+.mdl__fail {
+  display: grid;
+  justify-items: center;
+  gap: .6rem;
+  max-width: 32ch;
+}
+
+.mdl__fail__hint {
+  font-size: .75rem;
+  color: var(--muted);
+}
+
+/* Spec sheet — the numbers a modeling client scans for. */
+.mdl__spec {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-sm);
+  overflow: hidden;
+  margin-top: .3rem;
+}
+
+@media (min-width: 40rem) {
+  .mdl__spec { grid-template-columns: repeat(2, 1fr); }
+}
+
+.mdl__spec > div {
+  background: var(--surface);
+  padding: .6rem .75rem;
+  display: grid;
+  gap: .2rem;
+}
+
+.mdl__spec dt {
+  font-family: var(--font-mono);
+  font-size: .5625rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.mdl__spec dd {
+  font-size: .8125rem;
+  color: var(--text);
+  line-height: 1.4;
+}
+
 
 /* ---- 15. MOTION ------------------------------------------------------ */
 
@@ -2910,3 +3242,225 @@ button.card__media:focus-visible .card__badge {
   .card[data-tilt] { transform: none !important; }
   .card[data-tilt]::after { display: none !important; }
 }
+
+/* ---- 20. BLENDER SHOWCASE PAGE ---------------------------------------- */
+
+.blender-hero {
+  padding-block: clamp(2rem, 5vw, 3.5rem) clamp(1rem, 2.5vw, 1.75rem);
+  border-bottom: 1px solid var(--rule);
+  background: radial-gradient(circle at 80% 20%, rgba(255, 176, 0, .04), transparent 60%);
+}
+
+.blender-nav-back {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  font-family: var(--font-mono);
+  font-size: .6875rem;
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1.25rem;
+  padding: .35rem .6rem;
+  border-radius: 4px;
+  border: 1px solid var(--rule);
+  background: var(--surface);
+  transition:
+    color .25s var(--ease-soft),
+    border-color .25s var(--ease-soft),
+    transform .25s var(--ease-out);
+}
+
+.blender-nav-back:hover {
+  color: var(--signal);
+  border-color: var(--signal);
+  transform: translateX(-3px);
+}
+
+.blender-nav-back svg {
+  width: 13px;
+  height: 13px;
+}
+
+.blender-hd-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.blender-hd-title h1 {
+  font-size: clamp(2rem, 5.5vw, 3.25rem);
+  font-weight: 600;
+  letter-spacing: -.035em;
+  line-height: 1.15;
+  margin-bottom: .6rem;
+}
+
+.blender-hd-title p {
+  color: var(--muted);
+  font-size: clamp(.875rem, .3vw + .85rem, 1.05rem);
+  max-width: 58ch;
+  line-height: 1.6;
+}
+
+/* View switcher toolbar */
+.blender-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.15rem 0;
+  border-bottom: 1px solid var(--rule);
+  flex-wrap: wrap;
+}
+
+.blender-count {
+  font-family: var(--font-mono);
+  font-size: .6875rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.blender-count b {
+  color: var(--signal);
+  font-weight: 600;
+}
+
+.view-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  background: var(--surface-2);
+  padding: 3px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--rule);
+}
+
+.view-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  padding: .45rem .8rem;
+  font-family: var(--font-mono);
+  font-size: .625rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-radius: 4px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color .2s var(--ease-soft), background-color .2s var(--ease-soft);
+}
+
+.view-btn svg {
+  width: 14px;
+  height: 14px;
+  flex: none;
+}
+
+.view-btn:hover {
+  color: var(--text);
+}
+
+.view-btn[aria-pressed="true"],
+.view-btn.active {
+  background: var(--surface);
+  color: var(--signal);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .25);
+}
+
+/* Container for models */
+.models-container {
+  padding-block: clamp(1.75rem, 4vw, 3rem) clamp(3.5rem, 7vw, 5.5rem);
+}
+
+/* Grid View */
+.models-grid {
+  display: grid;
+  gap: clamp(1.25rem, 2.5vw, 2rem);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 48rem) {
+  .models-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 72rem) {
+  .models-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.models-grid .card--model .card__media {
+  aspect-ratio: 16 / 9;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+
+.models-grid .card--model .card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform .5s var(--ease-out), filter .4s var(--ease-soft);
+}
+
+.models-grid .card--model:hover .card__media img {
+  transform: scale(1.03);
+}
+
+/* List View */
+.models-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.models-list .card--model {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: stretch;
+  overflow: hidden;
+}
+
+@media (min-width: 46rem) {
+  .models-list .card--model {
+    grid-template-columns: clamp(16rem, 30vw, 24rem) minmax(0, 1fr);
+  }
+
+  .models-list .card--model .card__media {
+    aspect-ratio: auto;
+    height: 100%;
+    min-height: 13.5rem;
+    border-bottom: 0;
+    border-right: 1px solid var(--rule);
+    background: radial-gradient(circle at center, var(--surface-2) 0%, var(--canvas) 100%);
+  }
+
+  .models-list .card--model .card__media img {
+    object-fit: contain;
+    padding: clamp(.4rem, 1vw, .75rem);
+    transition: transform .5s var(--ease-out);
+  }
+
+  .models-list .card--model:hover .card__media img {
+    transform: scale(1.04);
+  }
+
+  .models-list .card--model .card__body {
+    padding: 1.35rem 1.65rem;
+    justify-content: center;
+    gap: .75rem;
+  }
+}
+

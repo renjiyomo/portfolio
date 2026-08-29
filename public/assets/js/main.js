@@ -32,6 +32,10 @@
   var ORDER = window.PROJECT_ORDER || Object.keys(DATA);
   var TECH  = window.TECH || [];
 
+  var MDATA  = window.MODELS || {};
+  var MORDER = window.MODEL_ORDER || Object.keys(MDATA);
+  var MSPECKEYS = window.MODEL_SPEC_KEYS || [];
+
   function sfx(name) {
     if (window.SFX) window.SFX.play(name);
   }
@@ -315,7 +319,7 @@
 
       if (e.key !== 'Tab') return;
 
-      var focusables = $$('button, [href], video[controls]', box).filter(function (node) {
+      var focusables = $$('button, [href], video[controls], model-viewer', box).filter(function (node) {
         return !node.hidden && node.offsetParent !== null;
       });
       if (!focusables.length) return;
@@ -336,132 +340,151 @@
   })();
 
 
-  /* ══ 06 · Project detail modal ═══════════════════════════ */
+  /* ══ 06 · Carousel (shared) ═══════════════════════════════ */
+
+  /* Builds the image/video stage used by the project detail and model views.
+     Returns { node, keys } — node is the .det__stage element, keys is the
+     arrow-key handler for the modal. Both views emit the same markup so the
+     existing .det__* CSS applies to each. */
+  function carousel(items, title, startAt) {
+    var wrap = el('div', 'det__stage');
+
+    if (!items.length) return { node: wrap, keys: null };
+
+    var idx = clamp(startAt || 0, 0, Math.max(0, items.length - 1));
+    var capEl = null;
+    var countEl = null;
+
+    function paint() {
+      var item = items[idx];
+      var slot = $('.det__slot', wrap);
+      slot.textContent = '';
+
+      var media;
+      if (item.type === 'video') {
+        media = document.createElement('video');
+        media.src = item.src;
+        media.controls = true;
+        media.playsInline = true;
+        if (item.poster) media.poster = item.poster;
+        media.preload = 'none';
+        media.setAttribute('aria-label', item.alt || title + ' walkthrough');
+      } else {
+        media = document.createElement('img');
+        media.src = item.src;
+        media.alt = item.alt || '';
+        media.decoding = 'async';
+      }
+
+      if (item.w && item.h) {
+        media.width = item.w;
+        media.height = item.h;
+      }
+      slot.appendChild(media);
+
+      capEl.textContent = item.cap || '';
+      countEl.textContent = pad(idx + 1) + ' / ' + pad(items.length);
+
+      var next = items[idx + 1];
+      if (next && next.type !== 'video') {
+        var warm = function () {
+          var pre = new Image();
+          pre.src = next.src;
+        };
+        if (media.tagName === 'IMG' && !media.complete) {
+          media.addEventListener('load', warm, { once: true });
+          media.addEventListener('error', warm, { once: true });
+        } else {
+          warm();
+        }
+      }
+    }
+
+    function go(step) {
+      if (items.length < 2) return;
+      idx = (idx + step + items.length) % items.length;
+      paint();
+      sfx('tick');
+    }
+
+    var slot = el('div', 'det__slot');
+    wrap.appendChild(slot);
+
+    var prev = el('button', 'det__nav');
+    prev.type = 'button';
+    prev.dataset.dir = 'prev';
+    prev.setAttribute('aria-label', 'Previous image');
+    prev.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg>';
+
+    var next = el('button', 'det__nav');
+    next.type = 'button';
+    next.dataset.dir = 'next';
+    next.setAttribute('aria-label', 'Next image');
+    next.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>';
+
+    prev.addEventListener('click', function () { go(-1); });
+    next.addEventListener('click', function () { go(1); });
+
+    var single = items.length < 2;
+    prev.hidden = single;
+    next.hidden = single;
+
+    wrap.appendChild(prev);
+    wrap.appendChild(next);
+
+    var strip = el('div', 'det__strip');
+    capEl = el('span', 'det__cap');
+    countEl = el('span', 'det__count');
+    strip.appendChild(capEl);
+    if (!single) {
+      var keys = el('span', 'det__keys');
+      keys.setAttribute('aria-hidden', 'true');
+      keys.innerHTML = '<kbd>&larr;</kbd><kbd>&rarr;</kbd>';
+      strip.appendChild(keys);
+    }
+    strip.appendChild(countEl);
+    wrap.appendChild(strip);
+
+    paint();
+
+    /* Swipe */
+    var x0 = null, y0 = null;
+    wrap.addEventListener('touchstart', function (e) {
+      var t = e.changedTouches[0];
+      x0 = t.clientX; y0 = t.clientY;
+    }, { passive: true });
+
+    wrap.addEventListener('touchend', function (e) {
+      if (x0 === null) return;
+      var t = e.changedTouches[0];
+      var dx = t.clientX - x0;
+      var dy = t.clientY - y0;
+      x0 = y0 = null;
+      if (Math.abs(dx) > 52 && Math.abs(dx) > Math.abs(dy) * 1.5) go(dx < 0 ? 1 : -1);
+    }, { passive: true });
+
+    var keyHandler = function (e) {
+      if (items.length < 2) return false;
+      if (e.key === 'ArrowRight') { e.preventDefault(); go(1); return true; }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); return true; }
+      return false;
+    };
+
+    return { node: wrap, keys: keyHandler };
+  }
+
+
+  /* ══ 06a · Project detail modal ═══════════════════════════ */
 
   var Detail = (function () {
     if (!Modal) return null;
 
     function build(rec, startAt) {
       var wrap = el('div', 'det');
-      var idx = clamp(startAt || 0, 0, Math.max(0, rec.items.length - 1));
 
       /* — Carousel — */
-      var stage = null;
-      var slot = null;
-      var capEl = null;
-      var countEl = null;
-
-      function paint() {
-        var item = rec.items[idx];
-        slot.textContent = '';
-
-        var media;
-        if (item.type === 'video') {
-          media = document.createElement('video');
-          media.src = item.src;
-          media.controls = true;
-          media.playsInline = true;
-          if (item.poster) media.poster = item.poster;
-          media.preload = 'none';
-          media.setAttribute('aria-label', item.alt || rec.title + ' walkthrough');
-        } else {
-          media = document.createElement('img');
-          media.src = item.src;
-          media.alt = item.alt || '';
-          media.decoding = 'async';
-        }
-        
-        if (item.w && item.h) {
-          media.width = item.w;
-          media.height = item.h;
-        }
-        slot.appendChild(media);
-
-        capEl.textContent = item.cap || '';
-        countEl.textContent = pad(idx + 1) + ' / ' + pad(rec.items.length);
-
-        var next = rec.items[idx + 1];
-        if (next && next.type !== 'video') {
-          var warm = function () {
-            var pre = new Image();
-            pre.src = next.src;
-          };
-          if (media.tagName === 'IMG' && !media.complete) {
-            media.addEventListener('load', warm, { once: true });
-            media.addEventListener('error', warm, { once: true });
-          } else {
-            warm();
-          }
-        }
-      }
-
-      function go(step) {
-        if (rec.items.length < 2) return;
-        idx = (idx + step + rec.items.length) % rec.items.length;
-        paint();
-        
-        sfx('tick');
-      }
-
-      if (rec.items.length) {
-        stage = el('div', 'det__stage');
-        slot = el('div', 'det__slot');
-
-        var prev = el('button', 'det__nav');
-        prev.type = 'button';
-        prev.dataset.dir = 'prev';
-        prev.setAttribute('aria-label', 'Previous image');
-        prev.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg>';
-
-        var next = el('button', 'det__nav');
-        next.type = 'button';
-        next.dataset.dir = 'next';
-        next.setAttribute('aria-label', 'Next image');
-        next.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>';
-
-        prev.addEventListener('click', function () { go(-1); });
-        next.addEventListener('click', function () { go(1); });
-
-        var single = rec.items.length < 2;
-        prev.hidden = single;
-        next.hidden = single;
-
-        stage.appendChild(prev);
-        stage.appendChild(slot);
-        stage.appendChild(next);
-
-        var strip = el('div', 'det__strip');
-        capEl = el('span', 'det__cap');
-        countEl = el('span', 'det__count');
-        strip.appendChild(capEl);
-        if (!single) {
-          var keys = el('span', 'det__keys');
-          keys.setAttribute('aria-hidden', 'true');
-          keys.innerHTML = '<kbd>&larr;</kbd><kbd>&rarr;</kbd>';
-          strip.appendChild(keys);
-        }
-        strip.appendChild(countEl);
-        stage.appendChild(strip);
-        wrap.appendChild(stage);
-
-        paint();
-
-        /* Swipe */
-        var x0 = null, y0 = null;
-        stage.addEventListener('touchstart', function (e) {
-          var t = e.changedTouches[0];
-          x0 = t.clientX; y0 = t.clientY;
-        }, { passive: true });
-
-        stage.addEventListener('touchend', function (e) {
-          if (x0 === null) return;
-          var t = e.changedTouches[0];
-          var dx = t.clientX - x0;
-          var dy = t.clientY - y0;
-          x0 = y0 = null;
-          if (Math.abs(dx) > 52 && Math.abs(dx) > Math.abs(dy) * 1.5) go(dx < 0 ? 1 : -1);
-        }, { passive: true });
-      }
+      var stage = carousel(rec.items || [], rec.title, startAt);
+      if (stage.node && (rec.items || []).length) wrap.appendChild(stage.node);
 
       /* — Written detail — */
       var copy = el('div', 'det__copy');
@@ -486,17 +509,10 @@
 
       if (rec.code) actions.appendChild(extLink(rec.code, 'View code'));
 
-      var keyHandler = function (e) {
-        if (!rec.items.length || rec.items.length < 2) return false;
-        if (e.key === 'ArrowRight') { e.preventDefault(); go(1); return true; }
-        if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); return true; }
-        return false;
-      };
-
       return {
         node: wrap,
         foot: actions.childNodes.length ? actions : null,
-        keys: keyHandler
+        keys: stage.keys
       };
     }
 
@@ -513,6 +529,240 @@
 
     return { show: show };
   })();
+
+
+  /* ══ 06b · Model detail modal ═════════════════════════════ */
+
+  /* The 3D viewer is a third-party module of real size, so it is never part of
+     the initial page load — it is imported the first time someone actually
+     opens a 3D tab, and the promise is kept so later opens are instant. */
+  var viewerKit = (function () {
+    var pending = null;
+
+    var SRC = 'https://cdn.jsdelivr.net/npm/@google/model-viewer@4.0.0/dist/model-viewer.min.js';
+
+    function load() {
+      if (pending) return pending;
+
+      /* Already registered by something else on the page. */
+      if (window.customElements && window.customElements.get('model-viewer')) {
+        pending = Promise.resolve();
+        return pending;
+      }
+
+      pending = new Promise(function (resolve, reject) {
+        var tag = document.createElement('script');
+        tag.type = 'module';
+        tag.src = SRC;
+        tag.crossOrigin = 'anonymous';
+        tag.onload = function () { resolve(); };
+        tag.onerror = function () {
+          /* Let a later attempt retry rather than caching the failure. */
+          pending = null;
+          tag.remove();
+          reject(new Error('model-viewer failed to load'));
+        };
+        document.head.appendChild(tag);
+      });
+
+      return pending;
+    }
+
+    return { load: load };
+  })();
+
+  var Model = (function () {
+    if (!Modal) return null;
+
+    /* Spec sheet — only the fields actually filled in are rendered, so a model
+       with a poly count but no rig note still reads as complete. */
+    function specSheet(spec) {
+      if (!spec) return null;
+
+      var rows = MSPECKEYS.filter(function (pair) {
+        return spec[pair[0]];
+      });
+      if (!rows.length) return null;
+
+      var dl = el('dl', 'mdl__spec');
+      rows.forEach(function (pair) {
+        var cell = el('div');
+        cell.appendChild(el('dt', null, pair[1]));
+        cell.appendChild(el('dd', null, spec[pair[0]]));
+        dl.appendChild(cell);
+      });
+      return dl;
+    }
+
+    /* The interactive viewer, with its own loading and failure states. A model
+       that will not load falls back to the download link rather than an empty
+       black box. */
+    function viewer(rec) {
+      var host = el('div', 'mdl__viewer');
+      var note = el('p', 'mdl__load', 'Loading 3D viewer…');
+      host.appendChild(note);
+
+      function fail(msg) {
+        host.textContent = '';
+        var box = el('div', 'mdl__fail');
+        box.appendChild(el('p', null, msg));
+        box.appendChild(el('p', 'mdl__fail__hint',
+          'The renders in the gallery show the same model.'));
+        host.appendChild(box);
+      }
+
+      viewerKit.load().then(function () {
+        var mv = document.createElement('model-viewer');
+        mv.setAttribute('src', rec.glb);
+        mv.setAttribute('alt', rec.title + ' — interactive 3D model');
+        mv.setAttribute('camera-controls', '');
+        mv.setAttribute('auto-rotate', '');
+        mv.setAttribute('shadow-intensity', '1');
+        mv.setAttribute('environment-image', 'neutral');
+        mv.setAttribute('loading', 'eager');
+        mv.setAttribute('tabindex', '0');
+        mv.style.touchAction = 'none';
+
+        mv.addEventListener('error', function () {
+          fail('This model could not be loaded.');
+        });
+
+        host.textContent = '';
+        host.appendChild(mv);
+      }).catch(function () {
+        fail('The 3D viewer could not be loaded.');
+      });
+
+      return host;
+    }
+
+    function build(rec, startAt) {
+      var wrap = el('div', 'det mdl');
+
+      var items = rec.items || [];
+      var stage = carousel(items, rec.title, startAt);
+      var has3d = !!rec.glb;
+      var on3d = false;
+
+      /* — Left column: gallery, plus a 3D tab where there is a model — */
+      var left = el('div', 'mdl__stagewrap');
+
+      if (has3d) {
+        var tabs = el('div', 'mdl__tabs');
+        tabs.setAttribute('role', 'tablist');
+        tabs.setAttribute('aria-label', 'How to view this model');
+
+        var pane = el('div', 'mdl__pane');
+
+        var tabGallery = el('button', 'mdl__tab', 'Gallery');
+        var tab3d = el('button', 'mdl__tab', 'View in 3D');
+
+        [tabGallery, tab3d].forEach(function (t) {
+          t.type = 'button';
+          t.setAttribute('role', 'tab');
+        });
+
+        // Stage pane (Gallery) - kept persistent in DOM
+        var stagePane = el('div', 'mdl__viewpane mdl__viewpane--gallery');
+        if (items.length) {
+          stagePane.appendChild(stage.node);
+        }
+
+        // 3D viewer pane - kept persistent in DOM so WebGL context is never destroyed
+        var viewerPane = el('div', 'mdl__viewpane mdl__viewpane--3d');
+        var viewerHost = viewer(rec);
+        viewerPane.appendChild(viewerHost);
+
+        pane.appendChild(stagePane);
+        pane.appendChild(viewerPane);
+
+        function select(which) {
+          var wants3d = which === '3d';
+          on3d = wants3d;
+
+          tabGallery.setAttribute('aria-selected', String(!wants3d));
+          tab3d.setAttribute('aria-selected', String(wants3d));
+
+          if (wants3d) {
+            stagePane.style.display = 'none';
+            viewerPane.style.display = 'flex';
+            var mv = viewerPane.querySelector('model-viewer');
+            if (mv) {
+              // Ensure renderer refreshes canvas dimensions when becoming visible
+              if (typeof mv.requestUpdate === 'function') mv.requestUpdate();
+            }
+          } else {
+            viewerPane.style.display = 'none';
+            stagePane.style.display = 'flex';
+          }
+        }
+
+        tabGallery.addEventListener('click', function () { select('gallery'); sfx('tick'); });
+        tab3d.addEventListener('click', function () { select('3d'); sfx('tick'); });
+
+        tabs.appendChild(tabGallery);
+        tabs.appendChild(tab3d);
+
+        left.appendChild(tabs);
+        left.appendChild(pane);
+
+        /* A model with no renders yet opens straight into 3D. */
+        select(items.length ? 'gallery' : '3d');
+      } else if (items.length) {
+        left.appendChild(stage.node);
+      }
+
+      if (left.childNodes.length) wrap.appendChild(left);
+
+      /* — Right column: the written detail and the spec sheet — */
+      var copy = el('div', 'det__copy mdl__copy');
+
+      var meta = el('div', 'det__meta');
+      if (rec.tag) meta.appendChild(el('span', 'det__tag', rec.tag));
+      if (rec.year) meta.appendChild(el('span', 'det__yr', rec.year));
+      if (has3d) meta.appendChild(el('span', 'det__yr', 'Interactive'));
+      copy.appendChild(meta);
+
+      (rec.body && rec.body.length ? rec.body : [rec.lede]).forEach(function (para) {
+        if (para) copy.appendChild(el('p', null, para));
+      });
+
+      var sheet = specSheet(rec.spec);
+      if (sheet) copy.appendChild(sheet);
+
+      wrap.appendChild(copy);
+
+      /* — Footer actions — */
+      var actions = el('div', 'det__act');
+
+      return {
+        node: wrap,
+        foot: actions.childNodes.length ? actions : null,
+        /* While the 3D tab is up the arrow keys belong to the viewer, which
+           orbits with them — stepping the hidden gallery instead would both
+           swallow the orbit and leave the gallery on a different frame. */
+        keys: function (e) {
+          if (on3d || !stage.keys) return false;
+          return stage.keys(e);
+        }
+      };
+    }
+
+    function show(key, startAt, viaSwap) {
+      var rec = MDATA[key];
+      if (!rec) return;
+
+      var built = build(rec, startAt);
+      var headline = rec.title + (rec.year ? ' — ' + rec.year : '');
+
+      if (viaSwap && Modal.isOpen()) Modal.swap(headline, built.node, built.foot, built.keys);
+      else Modal.open(headline, built.node, built.foot, built.keys);
+    }
+
+    return { show: show };
+  })();
+
+  window.Model = Model;
 
 
   /* ══ 07 · Full stack modal ═══════════════════════════════ */
@@ -612,16 +862,82 @@
   })();
 
 
+  /* ══ 08b · Model index modal ═════════════════════════════ */
+
+  (function modelIndexModal() {
+    if (!Modal || !Model) return;
+
+    var triggers = $$('[data-open-models]');
+    if (!triggers.length) return;
+
+    function open() {
+      var wrap = el('div', 'plist');
+
+      MORDER.forEach(function (key) {
+        var rec = MDATA[key];
+        if (!rec) return;
+
+        var row = el('div', 'plist__row');
+
+        var head = el('div', 'plist__hd');
+        head.appendChild(el('b', null, rec.title));
+        if (rec.tag) head.appendChild(el('span', 'plist__tag', rec.tag));
+        head.appendChild(el('span', 'plist__yr', rec.year || ''));
+        row.appendChild(head);
+
+        row.appendChild(el('p', 'plist__lede', rec.lede || ''));
+
+        var foot = el('div', 'plist__ft');
+
+        var count = (rec.items || []).length;
+        foot.appendChild(el('span', 'mono', count
+          ? pad(count) + (count === 1 ? ' render' : ' renders')
+          : 'No renders'));
+
+        var act = el('div', 'plist__act');
+
+        var open3d = el('button', 'plist__go', 'Breakdown');
+        open3d.type = 'button';
+        open3d.addEventListener('click', function () {
+          Model.show(key, 0, true);
+        });
+        act.appendChild(open3d);
+
+        if (rec.glb) act.appendChild(el('span', 'plist__tag', 'Interactive 3D'));
+
+        foot.appendChild(act);
+        row.appendChild(foot);
+
+        wrap.appendChild(row);
+      });
+
+      Modal.open('All 3D models — ' + pad(MORDER.length), wrap, null, null);
+    }
+
+    triggers.forEach(function (node) {
+      node.addEventListener('click', open);
+    });
+  })();
+
+
   /* ══ 09 · Triggers ═══════════════════════════════════════ */
 
   (function triggers() {
-    if (!Detail) return;
-
-    $$('[data-proj]').forEach(function (node) {
-      node.addEventListener('click', function () {
-        Detail.show(node.dataset.proj, parseInt(node.dataset.i, 10) || 0, false);
+    if (Detail) {
+      $$('[data-proj]').forEach(function (node) {
+        node.addEventListener('click', function () {
+          Detail.show(node.dataset.proj, parseInt(node.dataset.i, 10) || 0, false);
+        });
       });
-    });
+    }
+
+    if (Model) {
+      $$('[data-model]').forEach(function (node) {
+        node.addEventListener('click', function () {
+          Model.show(node.dataset.model, parseInt(node.dataset.i, 10) || 0, false);
+        });
+      });
+    }
   })();
 
 
