@@ -190,28 +190,61 @@
   })();
 
 
-  /* ══ 04 · Smooth in-page scrolling ════════════════════════ */
+  /* ══ 04 · Smooth in-page scrolling (no URL hash clutter) ════ */
 
   (function anchors() {
+    function scrollToTarget(id) {
+      if (!id) return;
+      var target = (id === 'top' || id === 'main')
+        ? (document.getElementById('top') || document.getElementById('main') || document.body)
+        : document.getElementById(id);
+      if (!target) return;
+
+      var topbar = $('.topbar');
+      var offset = topbar ? topbar.offsetHeight : 0;
+      var topPos = target.getBoundingClientRect().top + window.pageYOffset - offset - 10;
+
+      window.scrollTo({
+        top: Math.max(0, topPos),
+        behavior: reduced ? 'auto' : 'smooth'
+      });
+
+      var had = target.getAttribute('tabindex');
+      target.setAttribute('tabindex', '-1');
+      target.focus({ preventScroll: true });
+      if (had === null) target.removeAttribute('tabindex');
+    }
+
+    // ONLY intercept true in-page hash links (e.g. href="#projects", href="#top")
     $$('a[href^="#"]').forEach(function (a) {
       a.addEventListener('click', function (e) {
-        var id = a.getAttribute('href').slice(1);
+        var href = a.getAttribute('href');
+        if (!href || href === '#') return;
+        var id = href.slice(1);
         if (!id) return;
 
-        var target = document.getElementById(id);
-        if (!target) return;
+        var target = (id === 'top' || id === 'main')
+          ? (document.getElementById('top') || document.getElementById('main') || document.body)
+          : document.getElementById(id);
 
-        e.preventDefault();
-        target.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
-
-        var had = target.getAttribute('tabindex');
-        target.setAttribute('tabindex', '-1');
-        target.focus({ preventScroll: true });
-        if (had === null) target.removeAttribute('tabindex');
-
-        if (history.replaceState) history.replaceState(null, '', '#' + id);
+        if (target) {
+          e.preventDefault();
+          scrollToTarget(id);
+        }
       });
     });
+
+    // If page loaded with an incoming hash (e.g. navigating from blender.html to index.html#modeling), smoothly scroll
+    if (window.location.hash) {
+      var initialId = window.location.hash.slice(1);
+      if (initialId) {
+        window.addEventListener('DOMContentLoaded', function () {
+          window.setTimeout(function () {
+            scrollToTarget(initialId);
+          }, 80);
+        });
+      }
+    }
   })();
 
 
@@ -617,7 +650,13 @@
         mv.setAttribute('alt', rec.title + ' — interactive 3D model');
         mv.setAttribute('camera-controls', '');
         mv.setAttribute('auto-rotate', '');
+        mv.setAttribute('bounds', 'tight');
+        mv.setAttribute('camera-orbit', '45deg 75deg 105%');
+        mv.setAttribute('min-camera-orbit', 'auto auto 5%');
+        mv.setAttribute('max-camera-orbit', 'auto auto 400%');
         mv.setAttribute('shadow-intensity', '1');
+        mv.setAttribute('shadow-softness', '0.5');
+        mv.setAttribute('exposure', '1');
         mv.setAttribute('environment-image', 'neutral');
         mv.setAttribute('loading', 'eager');
         mv.setAttribute('tabindex', '0');
@@ -896,7 +935,7 @@
 
         var act = el('div', 'plist__act');
 
-        var open3d = el('button', 'plist__go', 'Breakdown');
+        var open3d = el('button', 'plist__go', 'View');
         open3d.type = 'button';
         open3d.addEventListener('click', function () {
           Model.show(key, 0, true);
