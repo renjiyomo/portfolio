@@ -379,16 +379,17 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg>
           </a>
         </div>
-        <p class="head__sub">Hard-surface 3D models created in Blender — built with optimized quad topology, PBR materials, and real-time game asset standards. Open a model to explore renders, topology, and interactive 3D view.</p>
+        <p class="head__sub">Open a model to explore renders, topology, and interactive 3D view.</p>
       </div>
 
-      <div class="cards cards--showcase">
+      <div class="cards">
 
-        <article class="card card--model card--feature rv">
+        <!-- 1. Sedan -->
+        <article class="card card--model rv">
           <button class="card__media" type="button" data-model="veloce-s4"
-                  aria-label="Open the VELOCE S4 breakdown">
+                  aria-label="Open Sedan 3D view and gallery">
             <img src="assets/models/veloce-s4/07.webp"
-                 alt="VELOCE S4 sedan, front three-quarter studio render" width="800" height="450" loading="lazy" decoding="async">
+                 alt="Sedan, front three-quarter studio render" width="800" height="450" loading="lazy" decoding="async">
             <span class="card__3d mono">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8 12 3 3 8v8l9 5 9-5Z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg>
               3D
@@ -397,8 +398,7 @@
           </button>
           <div class="card__body">
             <div class="card__top">
-              <h3>VELOCE S4</h3>
-              <span class="card__yr">2026</span>
+              <h3>Sedan</h3>
             </div>
             <p>A game-ready mid-size sedan with clean quad topology and modular bumper clips.</p>
             <ul class="card__spec">
@@ -406,12 +406,131 @@
               <li>100% quads</li>
               <li>Blender 5.2</li>
             </ul>
-            <div class="card__ft">
-              <span class="card__view">
-                Breakdown
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
-              </span>
+          </div>
+        </article>
+
+        <!-- 2. Duskwarden (Legendary Sword) -->
+        <article class="card card--model rv" data-d="1">
+          <button class="card__media" type="button" data-model="duskwarden"
+                  aria-label="Open Duskwarden 3D view and gallery">
+            <img src="assets/models/duskwarden/card.webp"
+                 alt="Duskwarden broadsword studio render" width="800" height="450" loading="lazy" decoding="async">
+            <span class="card__3d mono">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8 12 3 3 8v8l9 5 9-5Z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg>
+              3D
+            </span>
+            <span class="card__badge mono">View<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+          </button>
+          <div class="card__body">
+            <div class="card__top">
+              <h3>Duskwarden</h3>
             </div>
+            <p>A legendary broadsword with fluted fuller, winged crossguard, and crown pommel.</p>
+            <ul class="card__spec">
+              <li>2,588 tris</li>
+              <li>100% quads</li>
+              <li>Roblox / PBR</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- 3. Ironjaw Greataxe -->
+        <article class="card card--model rv" data-d="2">
+          <button class="card__media" type="button" data-model="ironjaw-greataxe"
+                  aria-label="Open Ironjaw Greataxe 3D view and gallery">
+            <img src="assets/models/ironjaw-greataxe/card.webp"
+                 alt="Ironjaw Greataxe studio render" width="800" height="450" loading="lazy" decoding="async">
+            <span class="card__3d mono">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8 12 3 3 8v8l9 5 9-5Z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg>
+              3D
+            </span>
+            <span class="card__badge mono">View<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+          </button>
+          <div class="card__body">
+            <div class="card__top">
+              <h3>Ironjaw Greataxe</h3>
+            </div>
+            <p>A heavy two-handed battle axe with bearded cutting edge and reinforced cheek plates.</p>
+            <ul class="card__spec">
+              <li>1,700 tris</li>
+              <li>100% quads</li>
+              <li>Roblox / PBR</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- 4. Warden's Pike -->
+        <article class="card card--model rv">
+          <button class="card__media" type="button" data-model="wardens-pike"
+                  aria-label="Open Warden's Pike 3D view and gallery">
+            <img src="assets/models/wardens-pike/card.webp"
+                 alt="Warden's Pike studio render" width="800" height="450" loading="lazy" decoding="async">
+            <span class="card__3d mono">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8 12 3 3 8v8l9 5 9-5Z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg>
+              3D
+            </span>
+            <span class="card__badge mono">View<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+          </button>
+          <div class="card__body">
+            <div class="card__top">
+              <h3>Warden's Pike</h3>
+            </div>
+            <p>A long reach two-handed thrusting spear with leaf blade and steel socket collar.</p>
+            <ul class="card__spec">
+              <li>1,432 tris</li>
+              <li>100% quads</li>
+              <li>Roblox / PBR</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- 5. Hunter's Recurve Bow & Arrow -->
+        <article class="card card--model rv" data-d="1">
+          <button class="card__media" type="button" data-model="hunters-recurve-bow"
+                  aria-label="Open Hunter's Recurve Bow & Arrow 3D view and gallery">
+            <img src="assets/models/hunters-recurve-bow/card.webp"
+                 alt="Hunter's Recurve Bow & Arrow render" width="800" height="450" loading="lazy" decoding="async">
+            <span class="card__3d mono">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8 12 3 3 8v8l9 5 9-5Z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg>
+              3D
+            </span>
+            <span class="card__badge mono">View<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+          </button>
+          <div class="card__body">
+            <div class="card__top">
+              <h3>Hunter's Recurve Bow &amp; Arrow</h3>
+            </div>
+            <p>A stylized recurve bow with authentic limb reflex, paired with a broadhead hunting arrow.</p>
+            <ul class="card__spec">
+              <li>1,556 tris</li>
+              <li>100% quads</li>
+              <li>Roblox / PBR</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- 6. Runewarden Staff -->
+        <article class="card card--model rv" data-d="2">
+          <button class="card__media" type="button" data-model="runewarden-staff"
+                  aria-label="Open Runewarden Staff 3D view and gallery">
+            <img src="assets/models/runewarden-staff/card.webp"
+                 alt="Runewarden Staff studio render" width="800" height="450" loading="lazy" decoding="async">
+            <span class="card__3d mono">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8 12 3 3 8v8l9 5 9-5Z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg>
+              3D
+            </span>
+            <span class="card__badge mono">View<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+          </button>
+          <div class="card__body">
+            <div class="card__top">
+              <h3>Runewarden Staff</h3>
+            </div>
+            <p>An arcane focal staff crowned with a four-prong dragon claw clutching an enchanted core stone.</p>
+            <ul class="card__spec">
+              <li>1,600 tris</li>
+              <li>100% quads</li>
+              <li>Roblox / PBR</li>
+            </ul>
           </div>
         </article>
 
@@ -511,13 +630,12 @@
           <summary class="led__ln">
             <span class="led__yr">2026</span>
             <span class="led__ttl">3D Modeling · Blender</span>
-            <span class="led__org">Game-ready asset work</span>
+            <span class="led__org">3D modeling and Roblox model work</span>
             <span class="led__mk" aria-hidden="true"></span>
           </summary>
           <div class="led__body">
             <ul>
-              <li>Modeling game-ready assets in Blender — hard-surface work built to a triangle budget, UV mapped, textured and exported as GLB or FBX.</li>
-              <li>Built VELOCE S4, a 28,972-triangle sedan with modular front and rear ends, so a trim variant reworks 19.6% of the asset instead of the whole car.</li>
+              <li>3D modeling and Roblox model work in Blender, hard-surface work built to a triangle budget, UV mapped, textured and exported as GLB or FBX.</li>
             </ul>
           </div>
         </details>

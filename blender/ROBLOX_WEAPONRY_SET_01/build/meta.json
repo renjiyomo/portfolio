@@ -1,0 +1,679 @@
+{
+ "rows": [
+  {
+   "key": "T1",
+   "obj": "WPN_01_Sword_T1_Common",
+   "title": "Wayfarer Longsword",
+   "rarity": "Common",
+   "hands": 1,
+   "accessory": null,
+   "tris": 1292,
+   "verts": 656,
+   "quads": 646,
+   "parts": [
+    [
+     "BLADE",
+     384,
+     194,
+     192
+    ],
+    [
+     "GRIP",
+     464,
+     234,
+     232
+    ],
+    [
+     "GUARD",
+     288,
+     148,
+     144
+    ],
+    [
+     "POMMEL",
+     156,
+     80,
+     78
+    ]
+   ],
+   "lo": [
+    -0.43,
+    -0.076,
+    -0.52
+   ],
+   "hi": [
+    0.43,
+    0.076,
+    3.28
+   ]
+  },
+  {
+   "key": "T2",
+   "obj": "WPN_02_Sword_T2_Rare",
+   "title": "Gilded Oathblade",
+   "rarity": "Rare",
+   "hands": 1,
+   "accessory": null,
+   "tris": 1832,
+   "verts": 932,
+   "quads": 916,
+   "parts": [
+    [
+     "BLADE",
+     500,
+     252,
+     250
+    ],
+    [
+     "GRIP",
+     496,
+     250,
+     248
+    ],
+    [
+     "GUARD",
+     496,
+     254,
+     248
+    ],
+    [
+     "POMMEL",
+     340,
+     176,
+     170
+    ]
+   ],
+   "lo": [
+    -0.47,
+    -0.148,
+    -0.52
+   ],
+   "hi": [
+    0.47,
+    0.148,
+    3.28
+   ]
+  },
+  {
+   "key": "T3",
+   "obj": "WPN_03_Sword_T3_Legendary",
+   "title": "Duskwarden, Crown of the First Watch",
+   "rarity": "Legendary",
+   "hands": 1,
+   "accessory": null,
+   "tris": 2588,
+   "verts": 1314,
+   "quads": 1294,
+   "parts": [
+    [
+     "BLADE",
+     1180,
+     592,
+     590
+    ],
+    [
+     "GRIP",
+     496,
+     250,
+     248
+    ],
+    [
+     "GUARD",
+     624,
+     322,
+     312
+    ],
+    [
+     "POMMEL",
+     288,
+     150,
+     144
+    ]
+   ],
+   "lo": [
+    -0.512,
+    -0.154,
+    -0.52
+   ],
+   "hi": [
+    0.512,
+    0.154,
+    3.28
+   ]
+  },
+  {
+   "key": "AXE",
+   "obj": "WPN_04_Greataxe_Ironjaw",
+   "title": "Ironjaw Greataxe",
+   "rarity": "Rare",
+   "hands": 2,
+   "accessory": null,
+   "tris": 1700,
+   "verts": 866,
+   "quads": 850,
+   "parts": [
+    [
+     "HAFT",
+     800,
+     402,
+     400
+    ],
+    [
+     "HEAD",
+     708,
+     360,
+     354
+    ],
+    [
+     "RIVETS",
+     192,
+     104,
+     96
+    ]
+   ],
+   "lo": [
+    -0.215,
+    -0.14,
+    -2.62
+   ],
+   "hi": [
+    1.03,
+    0.14,
+    1.48
+   ]
+  },
+  {
+   "key": "SPEAR",
+   "obj": "WPN_05_Spear_Wardens_Pike",
+   "title": "Warden's Pike",
+   "rarity": "Common",
+   "hands": 2,
+   "accessory": null,
+   "tris": 1432,
+   "verts": 724,
+   "quads": 716,
+   "parts": [
+    [
+     "HAFT",
+     804,
+     404,
+     402
+    ],
+    [
+     "HEAD",
+     628,
+     320,
+     314
+    ]
+   ],
+   "lo": [
+    -0.219,
+    -0.081,
+    -2.86
+   ],
+   "hi": [
+    0.219,
+    0.081,
+    3.46
+   ]
+  },
+  {
+   "key": "BOW",
+   "obj": "WPN_06_Bow_Recurve_Hunters",
+   "title": "Hunter's Recurve",
+   "rarity": "Rare",
+   "hands": 2,
+   "accessory": null,
+   "tris": 1088,
+   "verts": 548,
+   "quads": 544,
+   "parts": [
+    [
+     "LIMB",
+     1044,
+     524,
+     522
+    ],
+    [
+     "STRING",
+     44,
+     24,
+     22
+    ]
+   ],
+   "lo": [
+    -0.3,
+    -0.183,
+    -1.62
+   ],
+   "hi": [
+    0.338,
+    0.183,
+    1.62
+   ]
+  },
+  {
+   "key": "ARROW",
+   "obj": "WPN_06B_Arrow_Hunters",
+   "title": "Broadhead Arrow",
+   "rarity": "Common",
+   "hands": 0,
+   "accessory": "BOW",
+   "tris": 468,
+   "verts": 244,
+   "quads": 234,
+   "parts": [
+    [
+     "FLETCHING",
+     192,
+     102,
+     96
+    ],
+    [
+     "HEAD",
+     180,
+     92,
+     90
+    ],
+    [
+     "SHAFT",
+     96,
+     50,
+     48
+    ]
+   ],
+   "lo": [
+    -0.065,
+    -0.126,
+    0.0
+   ],
+   "hi": [
+    0.065,
+    0.126,
+    2.73
+   ]
+  },
+  {
+   "key": "STAFF",
+   "obj": "WPN_07_Staff_Runewarden",
+   "title": "Runewarden Staff",
+   "rarity": "Legendary",
+   "hands": 2,
+   "accessory": null,
+   "tris": 1600,
+   "verts": 814,
+   "quads": 800,
+   "parts": [
+    [
+     "CLAW",
+     480,
+     250,
+     240
+    ],
+    [
+     "HAFT",
+     960,
+     482,
+     480
+    ],
+    [
+     "STONE",
+     160,
+     82,
+     80
+    ]
+   ],
+   "lo": [
+    -0.233,
+    -0.206,
+    -2.1
+   ],
+   "hi": [
+    0.233,
+    0.243,
+    1.86
+   ]
+  },
+  {
+   "key": "SHIELD",
+   "obj": "WPN_08_Shield_Round_Bulwark",
+   "title": "Bulwark Round Shield",
+   "rarity": "Common",
+   "hands": 1,
+   "accessory": null,
+   "tris": 1692,
+   "verts": 872,
+   "quads": 846,
+   "parts": [
+    [
+     "DISC",
+     720,
+     362,
+     360
+    ],
+    [
+     "FITTINGS",
+     540,
+     288,
+     270
+    ],
+    [
+     "GRIP",
+     432,
+     222,
+     216
+    ]
+   ],
+   "lo": [
+    -1.252,
+    -0.605,
+    -1.252
+   ],
+   "hi": [
+    1.252,
+    0.065,
+    1.252
+   ]
+  }
+ ],
+ "fbx": [
+  "ROBLOX_WEAPONRY_SET_01_ALL.fbx",
+  "WPN_01_Sword_T1_Common.fbx",
+  "WPN_02_Sword_T2_Rare.fbx",
+  "WPN_03_Sword_T3_Legendary.fbx",
+  "WPN_04_Greataxe_Ironjaw.fbx",
+  "WPN_05_Spear_Wardens_Pike.fbx",
+  "WPN_06B_Arrow_Hunters.fbx",
+  "WPN_06_Bow_Recurve_Hunters.fbx",
+  "WPN_07_Staff_Runewarden.fbx",
+  "WPN_08_Shield_Round_Bulwark.fbx"
+ ],
+ "total_tris": 13692,
+ "total_objs": 28,
+ "swatches": [
+  [
+   "STEEL_COLD",
+   "9BA7B5",
+   0.46,
+   0.3,
+   "brush",
+   0.7,
+   0.38,
+   0.0
+  ],
+  [
+   "STEEL_DARK",
+   "5D6775",
+   0.44,
+   0.26,
+   "brush",
+   0.7,
+   0.46,
+   0.0
+  ],
+  [
+   "IRON_RAW",
+   "4B4F58",
+   0.4,
+   0.22,
+   "brush",
+   0.55,
+   0.66,
+   0.0
+  ],
+  [
+   "BLUED_STEEL",
+   "3B4A63",
+   0.46,
+   0.3,
+   "brush",
+   0.75,
+   0.4,
+   0.0
+  ],
+  [
+   "SILVER_BRIGHT",
+   "D9E1EB",
+   0.42,
+   0.22,
+   "brush",
+   0.8,
+   0.26,
+   0.0
+  ],
+  [
+   "BRASS",
+   "C8A24C",
+   0.46,
+   0.28,
+   "brush",
+   0.78,
+   0.34,
+   0.0
+  ],
+  [
+   "BRASS_DARK",
+   "8B6B2B",
+   0.44,
+   0.24,
+   "brush",
+   0.78,
+   0.48,
+   0.0
+  ],
+  [
+   "GOLD_RICH",
+   "E7C25B",
+   0.44,
+   0.26,
+   "brush",
+   0.85,
+   0.28,
+   0.0
+  ],
+  [
+   "WOOD_ASH",
+   "B18B56",
+   0.42,
+   0.2,
+   "grain",
+   0.0,
+   0.6,
+   0.0
+  ],
+  [
+   "WOOD_WALNUT",
+   "6C4B2F",
+   0.4,
+   0.22,
+   "grain",
+   0.0,
+   0.62,
+   0.0
+  ],
+  [
+   "WOOD_EBON",
+   "3A2B23",
+   0.36,
+   0.24,
+   "grain",
+   0.0,
+   0.55,
+   0.0
+  ],
+  [
+   "LEATHER_TAN",
+   "8D6243",
+   0.38,
+   0.2,
+   "band",
+   0.0,
+   0.7,
+   0.0
+  ],
+  [
+   "LEATHER_OXB",
+   "6F2C2C",
+   0.38,
+   0.2,
+   "band",
+   0.0,
+   0.68,
+   0.0
+  ],
+  [
+   "CLOTH_CRIMSON",
+   "A32F34",
+   0.4,
+   0.22,
+   "band",
+   0.0,
+   0.85,
+   0.0
+  ],
+  [
+   "CLOTH_BLUE",
+   "2F4B7B",
+   0.4,
+   0.24,
+   "band",
+   0.0,
+   0.85,
+   0.0
+  ],
+  [
+   "CORD_LINEN",
+   "C9B58D",
+   0.38,
+   0.18,
+   "band",
+   0.0,
+   0.8,
+   0.0
+  ],
+  [
+   "GEM_SAPPHIRE",
+   "1E4FB8",
+   0.66,
+   0.3,
+   "gem",
+   0.0,
+   0.08,
+   0.14
+  ],
+  [
+   "GEM_AMBER",
+   "D97416",
+   0.64,
+   0.28,
+   "gem",
+   0.0,
+   0.1,
+   0.12
+  ],
+  [
+   "GEM_EMERALD",
+   "17864F",
+   0.66,
+   0.28,
+   "gem",
+   0.0,
+   0.09,
+   0.12
+  ],
+  [
+   "STONE_GREY",
+   "7B7F83",
+   0.4,
+   0.2,
+   "brush",
+   0.0,
+   0.75,
+   0.0
+  ],
+  [
+   "BONE_IVORY",
+   "DDD3B9",
+   0.36,
+   0.18,
+   "grad",
+   0.0,
+   0.55,
+   0.0
+  ],
+  [
+   "RUNE_CYAN",
+   "64E7E3",
+   0.1,
+   0.1,
+   "flat",
+   0.0,
+   0.25,
+   0.85
+  ],
+  [
+   "RUNE_VIOLET",
+   "9C6CE7",
+   0.1,
+   0.1,
+   "flat",
+   0.0,
+   0.25,
+   0.85
+  ],
+  [
+   "PAINT_BLACK",
+   "24272C",
+   0.3,
+   0.24,
+   "grad",
+   0.0,
+   0.55,
+   0.0
+  ],
+  [
+   "STRING_PALE",
+   "E7E1CF",
+   0.34,
+   0.14,
+   "grad",
+   0.0,
+   0.7,
+   0.0
+  ],
+  [
+   "COPPER_PATINA",
+   "4E8C78",
+   0.4,
+   0.24,
+   "brush",
+   0.7,
+   0.52,
+   0.0
+  ],
+  [
+   "STEEL_EDGE",
+   "E8EEF5",
+   0.3,
+   0.2,
+   "brush",
+   0.85,
+   0.16,
+   0.0
+  ],
+  [
+   "LEATHER_DARK",
+   "4A3428",
+   0.36,
+   0.2,
+   "band",
+   0.0,
+   0.72,
+   0.0
+  ]
+ ],
+ "grid": 8,
+ "cell": 128,
+ "pad": 12,
+ "blender": "5.2.1 LTS"
+}

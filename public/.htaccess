@@ -1,0 +1,23 @@
+# Clean URL Configuration for Apache / XAMPP
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # 1. Redirect requests with /index.html to clean URL /
+  RewriteCond %{THE_REQUEST} \s/(?:.+/)?index\.html[\s?] [NC]
+  RewriteRule ^(.*)index\.html$ $1 [R=301,L]
+
+  # 2. Redirect requests with .html (e.g., /blender.html) to clean extensionless URL (e.g., /blender)
+  RewriteCond %{THE_REQUEST} \s/(?:.+/)?([^/]+)\.html[\s?] [NC]
+  RewriteRule ^([^/]+)\.html$ $1 [R=301,L]
+
+  # 3. Internally rewrite extensionless URLs to their .html files if they exist
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME}.html -f
+  RewriteRule ^([^/]+)/?$ $1.html [L]
+</IfModule>
+
+# Optional security and MIME headers
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+</IfModule>
