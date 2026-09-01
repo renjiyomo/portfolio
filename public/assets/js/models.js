@@ -6,6 +6,7 @@ window.MODELS = (function () {
   'use strict';
 
   var SEDAN = 'assets/models/veloce-s4/';
+  var MAMMOTH = 'assets/models/mammoth/';
   var T1    = 'assets/models/wayfarer-longsword/';
   var T2    = 'assets/models/gilded-oathblade/';
   var T3    = 'assets/models/duskwarden/';
@@ -45,6 +46,42 @@ window.MODELS = (function () {
         { src: SEDAN + '08.webp',   w: 1600, h: 900, alt: 'Module breakdown of the Sedan with front clip, rear clip and body shell colour-coded', cap: 'Module breakdown — the clips are independent, the body never moves' },
         { src: SEDAN + '04.webp',   w: 1600, h: 900, alt: 'Sedan, front elevation render', cap: 'Front elevation' },
         { src: SEDAN + '05.webp',   w: 1600, h: 900, alt: 'Sedan, rear elevation render', cap: 'Rear elevation' }
+      ]
+    },
+
+    /* ── Mammoth ───────────────────────────────────────────── */
+    'mammoth': {
+      title: 'Woolly Mammoth',
+      tag: 'Roblox · Stylized / Voxel',
+      toneMapping: 'agx',
+      cameraOrbit: '-45deg 75deg 105%',
+      fov: '36deg',
+      exposure: '1.1',
+      shadowIntensity: '1.6',
+      shadowSoftness: '0.3',
+      lede: 'A stylized voxel-art woolly mammoth crafted for Roblox Beast Bound with expressive silhouette and stepped geometry.',
+      body: [
+        'A stylized blocky/voxel fantasy creature model built with 4,428 triangles (2,214 quads) and 100% clean quad geometry across 369 modular voxel elements.',
+        'Features stepped shoulder hump contouring, multi-segmented curling tusks, articulated trunk segments, and glowing eyes. Authored with a 13-tone warm earthen palette optimized for single-draw-call Roblox / game engine integration.'
+      ],
+      spec: {
+        software: 'Blender 5.2',
+        platform: 'Roblox / Game engine',
+        polys:    '4,428 tris (2,214 quads)',
+        objects:  '369 voxel elements',
+        dims:     '5.00 × 1.72 × 3.61 studs',
+        textures: '13 Palette Materials',
+        rigged:   'Z=0 Ground datum origin',
+        format:   'GLB · FBX · OBJ'
+      },
+      glb: MAMMOTH + 'mammoth.glb',
+      items: [
+        { src: MAMMOTH + 'hero.webp', w: 1600, h: 900, alt: 'Voxel Mammoth studio hero render', cap: 'Woolly Mammoth — Stylized Voxel Creature (Hero Shot)' },
+        { src: MAMMOTH + '01.webp',   w: 1600, h: 900, alt: 'Voxel Mammoth three-quarter studio render', cap: 'Three-quarter angle — stepped silhouette & shoulder hump' },
+        { src: MAMMOTH + '02.webp',   w: 1600, h: 900, alt: 'Voxel Mammoth side profile view', cap: 'Side profile — spinal stepping, shaggy fur fringe & tusk curvature' },
+        { src: MAMMOTH + '03.webp',   w: 1600, h: 900, alt: 'Voxel Mammoth front elevation view', cap: 'Front elevation — dual curling tusks, articulated trunk & brow ridge' },
+        { src: MAMMOTH + '04.webp',   w: 1600, h: 900, alt: 'Voxel Mammoth rear elevation view', cap: 'Rear elevation — rump stepping, hip volume & tufted tail' },
+        { src: MAMMOTH + '05.webp',   w: 1600, h: 900, alt: 'Voxel Mammoth wireframe topology pass', cap: 'Wireframe pass — 100% clean quad grid distribution (4,428 tris)' }
       ]
     },
 
@@ -266,6 +303,7 @@ window.MODELS = (function () {
 /* Order on the page and in the "All models" list. */
 window.MODEL_ORDER = [
   'veloce-s4',
+  'mammoth',
   'wayfarer-longsword',
   'gilded-oathblade',
   'duskwarden',
