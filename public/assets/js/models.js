@@ -7,6 +7,7 @@ window.MODELS = (function () {
 
   var SEDAN = 'assets/models/veloce-s4/';
   var MAMMOTH = 'assets/models/mammoth/';
+  var PANGOLIN = 'assets/models/lantern-pangolin/';
   var T1    = 'assets/models/wayfarer-longsword/';
   var T2    = 'assets/models/gilded-oathblade/';
   var T3    = 'assets/models/duskwarden/';
@@ -82,6 +83,44 @@ window.MODELS = (function () {
         { src: MAMMOTH + '03.webp',   w: 1600, h: 900, alt: 'Voxel Mammoth front elevation view', cap: 'Front elevation — dual curling tusks, articulated trunk & brow ridge' },
         { src: MAMMOTH + '04.webp',   w: 1600, h: 900, alt: 'Voxel Mammoth rear elevation view', cap: 'Rear elevation — rump stepping, hip volume & tufted tail' },
         { src: MAMMOTH + '05.webp',   w: 1600, h: 900, alt: 'Voxel Mammoth wireframe topology pass', cap: 'Wireframe pass — 100% clean quad grid distribution (4,428 tris)' }
+      ]
+    },
+
+    /* ── Lantern Pangolin ───────────────────────────────────── */
+    'lantern-pangolin': {
+      title: 'Lantern Pangolin',
+      tag: 'Roblox · Stylized Creature',
+      toneMapping: 'agx',
+      cameraOrbit: '-45deg 75deg 105%',
+      fov: '36deg',
+      exposure: '1.1',
+      shadowIntensity: '1.5',
+      shadowSoftness: '0.3',
+      lede: 'A stylized mythical pangolin creature with an articulated lantern tail, tiered armored scales, and animated walk cycle.',
+      body: [
+        'A stylized fantasy creature asset built with 3,720 triangles (1,456 quads) featuring layered plate scale topology, stylized facial whiskers, curved digging claws, and a decorative lantern tail housing.',
+        'Fully rigged and weighted across an 18-bone skeleton with an integrated walk cycle animation. Textured with a warm stylized palette optimized for real-time game engine and Roblox integration.'
+      ],
+      spec: {
+        software: 'Blender 5.2',
+        platform: 'Roblox / Game engine',
+        polys:    '3,720 tris (1,456 quads)',
+        objects:  '1 mesh · 18 bones',
+        dims:     '2.31 × 4.66 × 2.20 studs',
+        textures: 'Stylized Palette Material',
+        rigged:   'Yes · 18-bone Rig & Walk Cycle',
+        format:   'GLB · FBX · Blend'
+      },
+      glb: PANGOLIN + 'lantern-pangolin.glb',
+      items: [
+        { src: PANGOLIN + 'hero.webp', w: 1600, h: 900, alt: 'Lantern Pangolin hero three-quarter studio render', cap: 'Lantern Pangolin — Hero Three-Quarter View' },
+        { src: PANGOLIN + '01.webp',   w: 1600, h: 900, alt: 'Lantern Pangolin rear three-quarter studio render', cap: 'Rear three-quarter — lantern tail & armored dorsal plates' },
+        { src: PANGOLIN + '02.webp',   w: 1600, h: 900, alt: 'Lantern Pangolin left side profile view', cap: 'Side profile — spinal curve, digging claws & tail proportion' },
+        { src: PANGOLIN + '03.webp',   w: 1600, h: 900, alt: 'Lantern Pangolin front elevation view', cap: 'Front elevation — facial whiskers, snout, and claw stance' },
+        { src: PANGOLIN + '04.webp',   w: 1600, h: 900, alt: 'Lantern Pangolin rear elevation view', cap: 'Rear elevation — suspended lantern frame and plate symmetry' },
+        { src: PANGOLIN + '05.webp',   w: 1600, h: 900, alt: 'Lantern Pangolin top overhead view', cap: 'Top elevation — dorsal plate plating and armored shell contour' },
+        { src: PANGOLIN + '06.webp',   w: 1600, h: 900, alt: 'Lantern Pangolin right side profile view', cap: 'Right profile — articulated limbs and ground contact alignment' },
+        { src: PANGOLIN + '07.webp',   w: 2048, h: 1024, alt: 'Lantern Pangolin full turnaround view sheet', cap: 'Turnaround plate — orthographic reference sheets' }
       ]
     },
 
@@ -304,6 +343,7 @@ window.MODELS = (function () {
 window.MODEL_ORDER = [
   'veloce-s4',
   'mammoth',
+  'lantern-pangolin',
   'wayfarer-longsword',
   'gilded-oathblade',
   'duskwarden',
