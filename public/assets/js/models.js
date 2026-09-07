@@ -5,9 +5,10 @@
 window.MODELS = (function () {
   'use strict';
 
+  var CRYSTAL = 'assets/models/crystal-rock/';
+  var PANTHER = 'assets/models/panther/';
   var SEDAN = 'assets/models/veloce-s4/';
   var MAMMOTH = 'assets/models/mammoth/';
-  var PANGOLIN = 'assets/models/lantern-pangolin/';
   var T1    = 'assets/models/wayfarer-longsword/';
   var T2    = 'assets/models/gilded-oathblade/';
   var T3    = 'assets/models/duskwarden/';
@@ -86,41 +87,75 @@ window.MODELS = (function () {
       ]
     },
 
-    /* ── Lantern Pangolin ───────────────────────────────────── */
-    'lantern-pangolin': {
-      title: 'Lantern Pangolin',
-      tag: 'Roblox · Stylized Creature',
+    /* ── Crystal Rock ───────────────────────────────────────── */
+    'crystal-rock': {
+      title: 'Crystal Rock',
+      tag: 'Roblox · Stylized / Voxel',
       toneMapping: 'agx',
-      cameraOrbit: '-45deg 75deg 105%',
+      cameraOrbit: '-135deg 65deg 105%',
       fov: '36deg',
-      exposure: '1.1',
-      shadowIntensity: '1.5',
-      shadowSoftness: '0.3',
-      lede: 'A stylized mythical pangolin creature with an articulated lantern tail, tiered armored scales, and animated walk cycle.',
+      exposure: '1.15',
+      shadowIntensity: '1.8',
+      shadowSoftness: '0.2',
+      lede: 'A stylized blocky crystal creature featuring royal amethyst cluster formations, faceted obsidian carapace, and modular segmented articulation.',
       body: [
-        'A stylized fantasy creature asset built with 3,720 triangles (1,456 quads) featuring layered plate scale topology, stylized facial whiskers, curved digging claws, and a decorative lantern tail housing.',
-        'Fully rigged and weighted across an 18-bone skeleton with an integrated walk cycle animation. Textured with a warm stylized palette optimized for real-time game engine and Roblox integration.'
+        'A stylized blocky / voxel fantasy creature model built with 1,864 triangles (932 quads) and 100% clean geometry across 154 modular block elements.',
+        'Features layered amethyst dorsal formations, dual horn crystals, articulated jaw and tail segments, and glowing eye prisms. Authored with clean standard materials optimized for Roblox Studio and real-time game engine integration.'
       ],
       spec: {
         software: 'Blender 5.2',
         platform: 'Roblox / Game engine',
-        polys:    '3,720 tris (1,456 quads)',
-        objects:  '1 mesh · 18 bones',
-        dims:     '2.31 × 4.66 × 2.20 studs',
-        textures: 'Stylized Palette Material',
-        rigged:   'Yes · 18-bone Rig & Walk Cycle',
+        polys:    '1,864 tris (932 quads)',
+        objects:  '154 modular blocks · 25 bones',
+        dims:     '4.11 × 7.73 × 2.42 studs',
+        textures: '9 Palette Materials',
+        rigged:   'Yes · 25-bone Armature',
         format:   'GLB · FBX · Blend'
       },
-      glb: PANGOLIN + 'lantern-pangolin.glb',
+      glb: CRYSTAL + 'crystal-rock.glb',
       items: [
-        { src: PANGOLIN + 'hero.webp', w: 1600, h: 900, alt: 'Lantern Pangolin hero three-quarter studio render', cap: 'Lantern Pangolin — Hero Three-Quarter View' },
-        { src: PANGOLIN + '01.webp',   w: 1600, h: 900, alt: 'Lantern Pangolin rear three-quarter studio render', cap: 'Rear three-quarter — lantern tail & armored dorsal plates' },
-        { src: PANGOLIN + '02.webp',   w: 1600, h: 900, alt: 'Lantern Pangolin left side profile view', cap: 'Side profile — spinal curve, digging claws & tail proportion' },
-        { src: PANGOLIN + '03.webp',   w: 1600, h: 900, alt: 'Lantern Pangolin front elevation view', cap: 'Front elevation — facial whiskers, snout, and claw stance' },
-        { src: PANGOLIN + '04.webp',   w: 1600, h: 900, alt: 'Lantern Pangolin rear elevation view', cap: 'Rear elevation — suspended lantern frame and plate symmetry' },
-        { src: PANGOLIN + '05.webp',   w: 1600, h: 900, alt: 'Lantern Pangolin top overhead view', cap: 'Top elevation — dorsal plate plating and armored shell contour' },
-        { src: PANGOLIN + '06.webp',   w: 1600, h: 900, alt: 'Lantern Pangolin right side profile view', cap: 'Right profile — articulated limbs and ground contact alignment' },
-        { src: PANGOLIN + '07.webp',   w: 2048, h: 1024, alt: 'Lantern Pangolin full turnaround view sheet', cap: 'Turnaround plate — orthographic reference sheets' }
+        { src: CRYSTAL + 'hero.webp', w: 1280, h: 720, alt: 'Crystal Rock creature perspective cycles render', cap: 'Crystal Rock — Stylized Amethyst Creature (Cycles Hero Render)' },
+        { src: CRYSTAL + '01.webp',   w: 1280, h: 720, alt: 'Crystal Rock front elevation cycles render', cap: 'Front elevation — horn crystals, glowing eyes, and chest plate' },
+        { src: CRYSTAL + '02.webp',   w: 1280, h: 720, alt: 'Crystal Rock rear elevation cycles render', cap: 'Rear elevation — segmented dorsal tail and sacral crystal cluster' },
+        { src: CRYSTAL + '03.webp',   w: 1280, h: 720, alt: 'Crystal Rock left side profile cycles render', cap: 'Left profile — spinal curvature, flank crystals, and paw stance' },
+        { src: CRYSTAL + '04.webp',   w: 1280, h: 720, alt: 'Crystal Rock right side profile cycles render', cap: 'Right profile — amethyst growth contours and limb stepping' },
+        { src: CRYSTAL + '05.webp',   w: 1280, h: 720, alt: 'Crystal Rock top overhead cycles render', cap: 'Top overhead — dorsal crystal spine layout and symmetrical crown' }
+      ]
+    },
+
+    /* ── Panther ────────────────────────────────────────────── */
+    'panther': {
+      title: 'Panther',
+      tag: 'Roblox · Boss / Voxel',
+      toneMapping: 'agx',
+      cameraOrbit: '55deg 72deg 110%',
+      fov: '36deg',
+      exposure: '1.15',
+      shadowIntensity: '1.8',
+      shadowSoftness: '0.2',
+      lede: 'A fierce stylized blocky panther predator built for Roblox with midnight fur blocks, glowing violet eyes, and modular claws.',
+      body: [
+        'A stylized blocky quadruped boss creature model built with 5,240 triangles across 91 modular mesh parts with 100% rigid voxel skinning.',
+        'Features an articulated 6-segment tail, opening fanged jaw, head armor plates, whiskers, and paws with curved claws. Designed for high performance and dynamic combat animation in Roblox Studio.'
+      ],
+      spec: {
+        software: 'Blender 5.2',
+        platform: 'Roblox / Game engine',
+        polys:    '5,240 tris',
+        objects:  '91 modular parts · 31 bones',
+        dims:     '23.8 × 16.3 × 12.0 studs',
+        textures: '8 Materials',
+        rigged:   'Yes · 31-bone Rig',
+        format:   'GLB · FBX · Blend'
+      },
+      glb: PANTHER + 'panther.glb',
+      items: [
+        { src: PANTHER + 'hero.webp', w: 1280, h: 720, alt: 'Blocky Panther Boss showcase cycles render', cap: 'Panther Boss — Stylized Quadruped (Cycles Hero Render)' },
+        { src: PANTHER + '01.webp',   w: 1280, h: 720, alt: 'Blocky Panther front elevation cycles render', cap: 'Front elevation — fanged jaw, violet glowing eyes & whiskers' },
+        { src: PANTHER + '02.webp',   w: 1280, h: 720, alt: 'Blocky Panther rear elevation cycles render', cap: 'Rear elevation — 6-segmented tail curvature & hip blocks' },
+        { src: PANTHER + '03.webp',   w: 1280, h: 720, alt: 'Blocky Panther left side profile cycles render', cap: 'Left profile — stalker silhouette & paw claw articulation' },
+        { src: PANTHER + '04.webp',   w: 1280, h: 720, alt: 'Blocky Panther right side profile cycles render', cap: 'Right profile — spine stepping & head armor layering' },
+        { src: PANTHER + '05.webp',   w: 1280, h: 720, alt: 'Blocky Panther top overhead cycles render', cap: 'Top overhead — shoulder width, torso taper & tail alignment' }
       ]
     },
 
@@ -341,13 +376,14 @@ window.MODELS = (function () {
 
 /* Order on the page and in the "All models" list. */
 window.MODEL_ORDER = [
-  'veloce-s4',
+  'crystal-rock',
+  'panther',
   'mammoth',
-  'lantern-pangolin',
-  'wayfarer-longsword',
-  'gilded-oathblade',
+  'veloce-s4',
   'duskwarden',
   'ironjaw-greataxe',
+  'wayfarer-longsword',
+  'gilded-oathblade',
   'wardens-pike',
   'hunters-recurve-bow',
   'runewarden-staff',
