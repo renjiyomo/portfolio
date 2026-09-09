@@ -222,13 +222,18 @@ function closeEntranceModal() {
   });
 });
 
+// Touch / Mobile device detection
+const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (window.matchMedia('(max-width: 768px)').matches);
+
 btnEnterFacility.addEventListener('click', () => {
   sound.playAccessGranted();
   closeEntranceModal();
 
   if (selectedEntranceMode === 'walk') {
     setMode('walk');
-    pointerControls.lock();
+    if (!isTouchDevice) {
+      pointerControls.lock();
+    }
   } else if (selectedEntranceMode === 'tour') {
     setMode('tour');
     flyToDepartment('nexus');
@@ -245,6 +250,7 @@ const btnModeWalk = document.getElementById('btnModeWalk');
 const btnModeTour = document.getElementById('btnModeTour');
 const crosshair = document.getElementById('crosshair');
 const walkInstructions = document.getElementById('walkInstructions');
+const mobileTouchControls = document.getElementById('mobileTouchControls');
 
 function setMode(mode) {
   currentMode = mode;
@@ -255,13 +261,21 @@ function setMode(mode) {
     btnModeWalk.classList.remove('active');
     crosshair.style.opacity = '0';
     walkInstructions.style.opacity = '0';
+    if (mobileTouchControls) {
+      mobileTouchControls.style.opacity = '0';
+      mobileTouchControls.style.pointerEvents = 'none';
+    }
     pointerControls.unlock();
     orbitControls.enabled = true;
   } else {
     btnModeWalk.classList.add('active');
     btnModeTour.classList.remove('active');
-    crosshair.style.opacity = '1';
-    walkInstructions.style.opacity = '1';
+    crosshair.style.opacity = isTouchDevice ? '0' : '1';
+    walkInstructions.style.opacity = isTouchDevice ? '0' : '1';
+    if (mobileTouchControls) {
+      mobileTouchControls.style.opacity = '1';
+      mobileTouchControls.style.pointerEvents = 'auto';
+    }
     orbitControls.enabled = false;
     closeInspectorDrawer();
 
@@ -271,7 +285,9 @@ function setMode(mode) {
       camera.lookAt(0.0, 1.8, 60.0);
     }
 
-    pointerControls.lock();
+    if (!isTouchDevice) {
+      pointerControls.lock();
+    }
   }
 }
 
@@ -279,7 +295,7 @@ btnModeWalk.addEventListener('click', () => setMode('walk'));
 btnModeTour.addEventListener('click', () => setMode('tour'));
 
 pointerControls.addEventListener('unlock', () => {
-  if (currentMode === 'walk') {
+  if (currentMode === 'walk' && !isTouchDevice) {
     walkInstructions.style.opacity = '1';
     walkInstructions.textContent = 'Click viewport to resume mouse look · [ESC] to release';
   }
@@ -290,10 +306,121 @@ pointerControls.addEventListener('lock', () => {
 });
 
 canvas.addEventListener('click', () => {
-  if (currentMode === 'walk' && !pointerControls.isLocked && !entranceModal.classList.contains('open') && !cyclesModal.classList.contains('open')) {
+  if (currentMode === 'walk' && !isTouchDevice && !pointerControls.isLocked && !entranceModal.classList.contains('open') && !cyclesModal.classList.contains('open')) {
     pointerControls.lock();
   }
 });
+
+// Mobile On-Screen Virtual Touch Buttons
+const btnTouchForward = document.getElementById('btnTouchForward');
+const btnTouchBackward = document.getElementById('btnTouchBackward');
+const btnTouchLeft = document.getElementById('btnTouchLeft');
+const btnTouchRight = document.getElementById('btnTouchRight');
+const btnTouchSprint = document.getElementById('btnTouchSprint');
+const btnTouchJump = document.getElementById('btnTouchJump');
+
+if (btnTouchForward) {
+  const bindTouchPadBtn = (btn, onStart, onEnd) => {
+    btn.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      btn.classList.add('active');
+      onStart();
+    }, { passive: false });
+
+    btn.addEventListener('touchend', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      btn.classList.remove('active');
+      onEnd();
+    }, { passive: false });
+
+    btn.addEventListener('touchcancel', () => {
+      btn.classList.remove('active');
+      onEnd();
+    });
+  };
+
+  bindTouchPadBtn(btnTouchForward, () => { moveState.forward = true; }, () => { moveState.forward = false; });
+  bindTouchPadBtn(btnTouchBackward, () => { moveState.backward = true; }, () => { moveState.backward = false; });
+  bindTouchPadBtn(btnTouchLeft, () => { moveState.left = true; }, () => { moveState.left = false; });
+  bindTouchPadBtn(btnTouchRight, () => { moveState.right = true; }, () => { moveState.right = false; });
+
+  if (btnTouchSprint) {
+    btnTouchSprint.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      moveState.sprint = !moveState.sprint;
+      btnTouchSprint.classList.toggle('active', moveState.sprint);
+      sound.playBeep(moveState.sprint ? 540 : 380, 'sine', 0.04);
+    }, { passive: false });
+  }
+
+  if (btnTouchJump) {
+    btnTouchJump.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (moveState.canJump) {
+        velocity.y += 8.5;
+        moveState.canJump = false;
+        sound.playBeep(320, 'square', 0.04);
+      }
+    }, { passive: false });
+  }
+}
+
+// Mobile Touch-Look Rotation Handler (Drag anywhere on 3D view to rotate camera)
+let touchLookId = null;
+let touchLookPrevX = 0;
+let touchLookPrevY = 0;
+const touchEuler = new THREE.Euler(0, 0, 0, 'YXZ');
+
+window.addEventListener('touchstart', (e) => {
+  if (currentMode !== 'walk') return;
+  for (let i = 0; i < e.changedTouches.length; i++) {
+    const t = e.changedTouches[i];
+    const targetElem = document.elementFromPoint(t.clientX, t.clientY);
+    if (targetElem === canvas || (targetElem && !targetElem.closest('button, a, .dock-scroll-wrapper, .inspector-drawer, .entrance-card, .virtual-dpad, .mobile-action-btn, .hud-top-bar, .radar-container, .cycles-modal-card'))) {
+      if (touchLookId === null) {
+        touchLookId = t.identifier;
+        touchLookPrevX = t.clientX;
+        touchLookPrevY = t.clientY;
+        touchEuler.setFromQuaternion(camera.quaternion);
+        break;
+      }
+    }
+  }
+}, { passive: true });
+
+window.addEventListener('touchmove', (e) => {
+  if (currentMode !== 'walk' || touchLookId === null) return;
+  for (let i = 0; i < e.changedTouches.length; i++) {
+    const t = e.changedTouches[i];
+    if (t.identifier === touchLookId) {
+      const deltaX = t.clientX - touchLookPrevX;
+      const deltaY = t.clientY - touchLookPrevY;
+      touchLookPrevX = t.clientX;
+      touchLookPrevY = t.clientY;
+
+      touchEuler.y -= deltaX * 0.0035;
+      touchEuler.x -= deltaY * 0.0035;
+      touchEuler.x = Math.max(-Math.PI / 2.2, Math.min(Math.PI / 2.2, touchEuler.x));
+      camera.quaternion.setFromEuler(touchEuler);
+      break;
+    }
+  }
+}, { passive: true });
+
+const onTouchLookEnd = (e) => {
+  for (let i = 0; i < e.changedTouches.length; i++) {
+    if (e.changedTouches[i].identifier === touchLookId) {
+      touchLookId = null;
+      break;
+    }
+  }
+};
+window.addEventListener('touchend', onTouchLookEnd, { passive: true });
+window.addEventListener('touchcancel', onTouchLookEnd, { passive: true });
 
 // WASD Keyboard Listeners
 const onKeyDown = (e) => {
@@ -790,7 +917,7 @@ function animate() {
   }
 
   // 3. First-Person Walk Mode Physics with Sub-Stepping, Pillar/Obstacle Sliding & Elevation
-  if (currentMode === 'walk' && pointerControls.isLocked) {
+  if (currentMode === 'walk' && (pointerControls.isLocked || isTouchDevice)) {
     const isMoving = (moveState.forward || moveState.backward || moveState.left || moveState.right);
 
     // Dynamic Sprint Speed & Acceleration
