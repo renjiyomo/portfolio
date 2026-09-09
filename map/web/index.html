@@ -217,6 +217,34 @@
       <div class="toast-subtitle" id="toastSubtitle">Tactical & Sci-Fi Arsenal</div>
     </div>
 
+    <!-- Mobile On-Screen Virtual Touch Controls -->
+    <div id="mobileTouchControls" class="mobile-touch-controls">
+      <div class="virtual-dpad" id="virtualDpad">
+        <button class="dpad-btn dpad-up" id="btnTouchForward" type="button" aria-label="Walk Forward">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+        </button>
+        <div class="dpad-mid-row">
+          <button class="dpad-btn dpad-left" id="btnTouchLeft" type="button" aria-label="Strafe Left">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <button class="dpad-btn dpad-sprint" id="btnTouchSprint" type="button" aria-label="Toggle Sprint">
+            <span>⚡</span>
+          </button>
+          <button class="dpad-btn dpad-right" id="btnTouchRight" type="button" aria-label="Strafe Right">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+        <button class="dpad-btn dpad-down" id="btnTouchBackward" type="button" aria-label="Walk Backward">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+      </div>
+
+      <button class="mobile-action-btn" id="btnTouchJump" type="button" aria-label="Jump">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+        <span>JUMP</span>
+      </button>
+    </div>
+
     <!-- Bottom Department Navigation Dock -->
     <footer class="hud-bottom-dock">
       <div class="dock-scroll-wrapper" id="dockScrollWrapper">
