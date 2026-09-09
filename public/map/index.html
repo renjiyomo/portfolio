@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Asset Archive — 3D Architectural & Environment Portfolio</title>
+  <meta name="description" content="Explore a continuous 12,500 m² virtual facility with 11 interconnected departments, open-portal architecture, real-time WebGL walking, and Blender Cycles raytraced showcases.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script type="module" crossorigin src="./assets/index-D0HF-Uoc.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-Dvhu-ZUF.css">
+</head>
+<body>
+
+  <!-- Three.js 3D Canvas -->
+  <canvas id="canvas3d"></canvas>
+
+  <!-- Architectural Subtle Vignette Overlay -->
+  <div class="viewport-vignette"></div>
+
+  <!-- Loading Screen -->
+  <div id="loadingScreen">
+    <div class="loader-box">
+      <div class="loader-kicker">3D ENVIRONMENT & TECHNICAL ART PORTFOLIO</div>
+      <h1 class="loader-title">THE ASSET ARCHIVE</h1>
+      <p class="loader-desc">Loading 11-Department Interconnected Facility & PBR Assets...</p>
+      <div class="loader-bar-track">
+        <div class="loader-bar-fill" id="progressFill"></div>
+      </div>
+      <div class="loader-status-text" id="loaderStatus">INITIALIZING GEOMETRY (0%)</div>
+    </div>
+  </div>
+
+  <!-- Facility Entrance Arrival Modal -->
+  <div id="entranceModal" class="entrance-modal-backdrop">
+    <div class="entrance-card">
+      <div class="entrance-header">
+        <h2 class="entrance-title">THE ASSET ARCHIVE</h2>
+        <p class="entrance-subtitle">Architectural Environment & Technical Art Portfolio</p>
+      </div>
+
+      <p class="entrance-briefing">
+        Interconnected 12,500 m² facility with 11 specialized wings, real-time spatial exploration, and Blender Cycles offline raytracing.
+      </p>
+
+      <!-- Mode Selector Cards -->
+      <div class="entrance-modes-grid">
+        <div class="mode-card active" data-mode="walk" id="cardModeWalk">
+          <div class="mode-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="4" r="2"/>
+              <path d="M15 22v-4l-3-3 1-5 3 2v4"/>
+              <path d="M9 22v-7l3-3-2-4-3 3"/>
+            </svg>
+          </div>
+          <div class="mode-card-content">
+            <div class="mode-card-title">Walk to Explore <span class="mode-badge-rec">Default</span></div>
+            <div class="mode-card-desc">First-person spatial navigation · WASD & Mouse Look</div>
+          </div>
+        </div>
+
+        <div class="mode-card" data-mode="tour" id="cardModeTour">
+          <div class="mode-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M23 7l-7 5 7 5V7z"/>
+              <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+            </svg>
+          </div>
+          <div class="mode-card-content">
+            <div class="mode-card-title">Cinematic Architecture Tour</div>
+            <div class="mode-card-desc">Curated architectural camera flight paths</div>
+          </div>
+        </div>
+
+        <div class="mode-card" data-mode="cycles" id="cardModeCycles">
+          <div class="mode-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="9"/>
+              <path d="M12 3v18"/>
+              <path d="M3 12h18"/>
+              <circle cx="12" cy="12" r="4"/>
+            </svg>
+          </div>
+          <div class="mode-card-content">
+            <div class="mode-card-title">Cycles Raytraced Exhibition</div>
+            <div class="mode-card-desc">1024-sample offline path-traced renders & tech specs</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Enter Facility Action Button -->
+      <div class="entrance-action-row">
+        <a href="../" class="btn-entrance-back" title="Return to Main Portfolio">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+          <span>BACK TO PORTFOLIO</span>
+        </a>
+        <button id="btnEnterFacility" class="btn-enter-facility">
+          <span>ENTER FACILITY</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="entrance-specs-row">
+        <span>11 WINGS</span>
+        <span class="specs-dot"></span>
+        <span>WATERTIGHT ARCHITECTURE</span>
+        <span class="specs-dot"></span>
+        <span>BLENDER CYCLES & THREE.JS</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- HUD In-Experience Interface -->
+  <div id="hudOverlay">
+    <!-- Top Navigation Header -->
+    <header class="hud-top-bar">
+      <!-- Left: Facility Title & Location Breadcrumb -->
+      <div class="hud-brand-block">
+        <a href="../" class="hud-back-btn" title="Return to Main Portfolio" aria-label="Return to Portfolio">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          <span>PORTFOLIO</span>
+        </a>
+        <div class="hud-project-label">THE ASSET ARCHIVE</div>
+        <div class="hud-location-badge" id="currentLocationBadge">
+          <span class="pulse-indicator" id="locationDot"></span>
+          <span class="location-name" id="currentLocationText">00: WELCOME LOUNGE</span>
+        </div>
+      </div>
+
+      <!-- Center: Rendering Mode & Exploration Switchers -->
+      <div class="hud-center-controls">
+        <!-- Render Engine Badge / Toggle -->
+        <div class="engine-toggle-group">
+          <button id="btnLive3D" class="engine-tab active" title="Switch to Real-Time 3D Viewport">
+            <span class="engine-dot live"></span>
+            <span>3D LIVE WALK</span>
+          </button>
+          <button id="btnCyclesView" class="engine-tab" title="View Photorealistic Cycles Raytraced Render">
+            <span class="engine-dot cycles"></span>
+            <span>CYCLES RAYTRACED</span>
+          </button>
+        </div>
+
+        <!-- Mode Toggle (Walk vs Tour) -->
+        <div class="mode-toggle-group">
+          <button id="btnModeWalk" class="mode-pill active" title="First-Person Walk Mode (WASD)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="4" r="2"/><path d="M15 22v-4l-3-3 1-5 3 2v4"/><path d="M9 22v-7l3-3-2-4-3 3"/>
+            </svg>
+            <span>WALK</span>
+          </button>
+          <button id="btnModeTour" class="mode-pill" title="Cinematic Orbit Tour Mode">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+            </svg>
+            <span>TOUR</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Right: Radar Minimap, Sound, Help & Specs -->
+      <div class="hud-right-actions">
+        <!-- Radar Widget -->
+        <div class="radar-container" id="radarContainer" title="Click to Expand/Collapse Floor Plan">
+          <canvas id="radarCanvas" width="96" height="96"></canvas>
+          <span class="radar-title">MAP RADAR</span>
+        </div>
+
+        <!-- Inspect Department Button -->
+        <button id="btnInspectDept" class="hud-icon-btn" title="Inspect Current Department Specs">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
+          </svg>
+        </button>
+
+        <!-- Audio Toggle -->
+        <button id="btnAudioToggle" class="hud-icon-btn" title="Toggle Sound">
+          <svg id="audioIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
+          </svg>
+        </button>
+
+        <!-- Controls Help -->
+        <button id="btnHelpToggle" class="hud-icon-btn" title="Controls Help">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Walk Mode Crosshair & Instructions -->
+    <div id="crosshair"></div>
+    <div id="walkInstructions" class="walk-instructions-banner">
+      <span>Click viewport to enable mouse look · [ESC] to release</span>
+    </div>
+    <div id="walkControlsBar" class="walk-controls-bar">
+      <div class="control-badge"><kbd>W A S D</kbd> <span>WALK (8.5 M/S)</span></div>
+      <div class="control-badge"><kbd>SHIFT</kbd> <span>SPRINT (15 M/S)</span></div>
+      <div class="control-badge"><kbd>SPACE</kbd> <span>JUMP</span></div>
+      <div class="control-badge highlight"><kbd>C</kbd> <span>CYCLES RAYTRACED</span></div>
+    </div>
+
+    <!-- Location Arrival Notification Toast -->
+    <div id="locationToast" class="location-toast">
+      <div class="toast-kicker">NOW ENTERING</div>
+      <div class="toast-title" id="toastTitle">WEAPONS FORGE</div>
+      <div class="toast-subtitle" id="toastSubtitle">Tactical & Sci-Fi Arsenal</div>
+    </div>
+
+    <!-- Bottom Department Navigation Dock -->
+    <footer class="hud-bottom-dock">
+      <div class="dock-scroll-wrapper" id="dockScrollWrapper">
+        <button class="dept-dock-btn" data-dept="entrance" style="--accent: #00e5ff;">
+          <span class="dept-dot"></span>
+          <span class="dept-num">00</span>
+          <span class="dept-label">ENTRANCE</span>
+        </button>
+        <button class="dept-dock-btn" data-dept="nexus" style="--accent: #00e5ff;">
+          <span class="dept-dot"></span>
+          <span class="dept-num">01</span>
+          <span class="dept-label">NEXUS</span>
+        </button>
+        <button class="dept-dock-btn" data-dept="stylized" style="--accent: #ff9100;">
+          <span class="dept-dot"></span>
+          <span class="dept-num">02</span>
+          <span class="dept-label">STYLIZED</span>
+        </button>
+        <button class="dept-dock-btn" data-dept="creatures" style="--accent: #00e5ff;">
+          <span class="dept-dot"></span>
+          <span class="dept-num">03</span>
+          <span class="dept-label">CREATURES</span>
+        </button>
+        <button class="dept-dock-btn" data-dept="props" style="--accent: #ffd600;">
+          <span class="dept-dot"></span>
+          <span class="dept-num">04</span>
+          <span class="dept-label">PROPS</span>
+        </button>
+        <button class="dept-dock-btn" data-dept="weapons" style="--accent: #ffab00;">
+          <span class="dept-dot"></span>
+          <span class="dept-num">05</span>
+          <span class="dept-label">WEAPONS</span>
+        </button>
+        <button class="dept-dock-btn" data-dept="ugc" style="--accent: #d500f9;">
+          <span class="dept-dot"></span>
+          <span class="dept-num">06</span>
+          <span class="dept-label">UGC</span>
+        </button>
+        <button class="dept-dock-btn" data-dept="environment" style="--accent: #00e676;">
+          <span class="dept-dot"></span>
+          <span class="dept-num">07</span>
+          <span class="dept-label">ENVIRONMENT</span>
+        </button>
+        <button class="dept-dock-btn" data-dept="realistic" style="--accent: #2979ff;">
+          <span class="dept-dot"></span>
+          <span class="dept-num">08</span>
+          <span class="dept-label">REALISTIC</span>
+        </button>
+        <button class="dept-dock-btn" data-dept="rnd" style="--accent: #00b0ff;">
+          <span class="dept-dot"></span>
+          <span class="dept-num">09</span>
+          <span class="dept-label">R&D LAB</span>
+        </button>
+        <button class="dept-dock-btn" data-dept="horror" style="--accent: #ff1744;">
+          <span class="dept-dot"></span>
+          <span class="dept-num">10</span>
+          <span class="dept-label">HORROR</span>
+        </button>
+        <button class="dept-dock-btn" data-dept="exit" style="--accent: #ffffff;">
+          <span class="dept-dot"></span>
+          <span class="dept-num">11</span>
+          <span class="dept-label">EXIT</span>
+        </button>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Department & Technical Art Inspector Drawer -->
+  <aside id="inspectorDrawer" class="inspector-drawer">
+    <div class="drawer-header">
+      <div class="drawer-header-left">
+        <span class="drawer-tag" id="drawerCategory">CENTRAL ROTUNDA</span>
+        <h3 class="drawer-title" id="drawerTitle">Portfolio Nexus</h3>
+        <p class="drawer-subtitle" id="drawerSubtitle">Facility Navigational Core & Hub</p>
+      </div>
+      <button id="drawerCloseBtn" class="drawer-close-btn" title="Close Drawer">&times;</button>
+    </div>
+
+    <div class="drawer-body">
+      <!-- Cycles Render Hero Banner -->
+      <div class="cycles-banner-box" id="drawerCyclesBanner">
+        <img id="drawerCyclesImg" src="./assets/RENDER_NEXUS-4qQf4us7.png" alt="Cycles Raytraced Render">
+        <div class="cycles-badge-overlay">
+          <span class="engine-dot cycles"></span>
+          <span>BLENDER CYCLES 5.2.1 // 1024 SAMPLES</span>
+        </div>
+        <button id="btnOpenFullCycles" class="btn-expand-cycles" title="Open Full-Screen Cycles View">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15 3 21 3 21 9"/>
+            <polyline points="9 21 3 21 3 15"/>
+            <line x1="21" y1="3" x2="14" y2="10"/>
+            <line x1="3" y1="21" x2="10" y2="14"/>
+          </svg>
+          <span>FULL RAYTRACED VIEW</span>
+        </button>
+      </div>
+
+      <!-- Architectural & Tech Specifications -->
+      <div class="drawer-section">
+        <h4 class="section-heading">ARCHITECTURAL SPECIFICATIONS</h4>
+        <div class="specs-table" id="drawerSpecsTable">
+          <!-- Dynamic specs injected via data.js -->
+        </div>
+      </div>
+
+      <!-- Architectural Rationale & Design Notes -->
+      <div class="drawer-section">
+        <h4 class="section-heading">DESIGN RATIONALE & FUNCTION</h4>
+        <p class="drawer-desc" id="drawerDescription"></p>
+      </div>
+
+      <!-- Stasis Specimens Section (Active for Creature Containment) -->
+      <div class="drawer-section" id="specimensSection" style="display: none;">
+        <h4 class="section-heading">CONTAINED SPECIMENS (8 SUBJECTS)</h4>
+        <div class="specimens-grid" id="drawerSpecimensList">
+          <!-- Specimen chips injected via JS -->
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Full-Screen Cycles Raytraced Modal View -->
+  <div id="cyclesModal" class="cycles-modal-backdrop">
+    <div class="cycles-modal-container">
+      <div class="cycles-modal-top">
+        <div class="cycles-modal-info">
+          <span class="cycles-pill">OFFLINE PATH-TRACED SHOWCASE</span>
+          <h2 id="cyclesModalTitle">PORTFOLIO NEXUS // CYCLES RENDER</h2>
+        </div>
+        <div class="cycles-modal-actions">
+          <button id="btnReturnTo3D" class="btn-cycles-action">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+            </svg>
+            <span>RESUME 3D LIVE WALK</span>
+          </button>
+          <button id="cyclesModalClose" class="cycles-close-btn">&times;</button>
+        </div>
+      </div>
+
+      <div class="cycles-modal-image-wrapper">
+        <img id="cyclesModalImage" src="./assets/RENDER_NEXUS-4qQf4us7.png" alt="Cycles Raytraced Render">
+      </div>
+
+      <div class="cycles-modal-footer">
+        <div class="cycles-meta-item">
+          <span class="meta-lbl">RENDER ENGINE:</span>
+          <span class="meta-val">Blender 5.2.1 LTS Cycles</span>
+        </div>
+        <div class="cycles-meta-item">
+          <span class="meta-lbl">SAMPLE COUNT:</span>
+          <span class="meta-val">1024 Samples Path Traced</span>
+        </div>
+        <div class="cycles-meta-item">
+          <span class="meta-lbl">COLOR MANAGEMENT:</span>
+          <span class="meta-val">AgX / ACEScg Realistic Tone</span>
+        </div>
+        <div class="cycles-meta-item">
+          <span class="meta-lbl">DENOISER:</span>
+          <span class="meta-val">OpenImageDenoise (OIDN)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Help & Navigation Modal -->
+  <div id="helpModal" class="help-modal-backdrop">
+    <div class="help-card">
+      <div class="help-header">
+        <h3>NAVIGATIONAL & CONTROLS GUIDE</h3>
+        <button id="helpCloseBtn" class="help-close-btn">&times;</button>
+      </div>
+
+      <div class="help-grid">
+        <div class="help-row">
+          <div class="help-key">W, A, S, D</div>
+          <div class="help-desc">Walk forward, left, backward, and right smoothly</div>
+        </div>
+        <div class="help-row">
+          <div class="help-key">MOUSE</div>
+          <div class="help-desc">Look around in first-person (click screen to lock pointer)</div>
+        </div>
+        <div class="help-row">
+          <div class="help-key">SHIFT</div>
+          <div class="help-desc">Sprint / Walk at elevated velocity</div>
+        </div>
+        <div class="help-row">
+          <div class="help-key">SPACEBAR</div>
+          <div class="help-desc">Jump over thresholds and platforms</div>
+        </div>
+        <div class="help-row">
+          <div class="help-key">C KEY</div>
+          <div class="help-desc">Toggle Cycles Raytraced View for the current department</div>
+        </div>
+        <div class="help-row">
+          <div class="help-key">BOTTOM DOCK</div>
+          <div class="help-desc">Instantly glide camera to any of the 11 facility departments</div>
+        </div>
+        <div class="help-row">
+          <div class="help-key">RADAR MINIMAP</div>
+          <div class="help-desc">Track real-time visitor position and orientation in facility</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Application Logic -->
+</body>
+</html>
