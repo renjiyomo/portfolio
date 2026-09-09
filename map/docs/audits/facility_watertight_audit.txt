@@ -1,0 +1,24 @@
+=== FACILITY BOUNDS AND ROOF HEIGHT AUDIT ===
+Room: Start_Vestibule        | X: [ -7.0,   7.0] | Y: [-92.0, -70.0] | Roof Z:  4.2m
+Room: Nexus_Hub              | X: [-17.0,  17.0] | Y: [-71.0, -39.0] | Roof Z:  8.8m
+Room: Stylized_Wing          | X: [-55.0, -16.0] | Y: [-75.0, -40.0] | Roof Z:  6.1m
+Room: UGC_Wing               | X: [-48.0, -16.0] | Y: [-38.0,  -8.0] | Roof Z:  6.6m
+Room: Weapons_Gallery        | X: [-10.0,  10.0] | Y: [-40.0, -18.2] | Roof Z:  5.6m
+Room: Creature_Containment   | X: [-11.5,  11.5] | Y: [-18.5,  18.5] | Roof Z:  6.5m
+Room: Horror_Wing            | X: [-38.0, -12.0] | Y: [-10.0,  20.0] | Roof Z:  4.3m
+Room: Props_Wing             | X: [ 16.0,  46.0] | Y: [-72.0, -40.0] | Roof Z:  5.1m
+Room: Environment_Gallery    | X: [ 46.0,  86.0] | Y: [-65.0, -15.0] | Roof Z:  9.2m
+Room: Realistic_Lab          | X: [ 14.0,  42.0] | Y: [-38.0,   2.0] | Roof Z:  4.9m
+Room: RND_Tech_Wing          | X: [ 14.0,  42.0] | Y: [  2.0,  36.0] | Roof Z:  5.3m
+
+=== INTER-ROOM JUNCTIONS (CHECKING FOR HEIGHT STEPS & GAPS) ===
+Junction Nexus_Hub (8.8m) <-> Start_Vestibule (4.2m) at Y=-70.0, span (-7.0, 7.0): height step = 4.6m
+Junction Nexus_Hub (8.8m) <-> Stylized_Wing (6.1m) at X=-16.5, span (-70.0, -40.0): height step = 2.7m
+Junction Nexus_Hub (8.8m) <-> UGC_Wing (6.6m) at X=-16.5, span (-44.0, -38.0): height step = 2.2m
+Junction Nexus_Hub (8.8m) <-> Weapons_Gallery (5.6m) at Y=-39.5, span (-10.0, 10.0): height step = 3.2m
+Junction Nexus_Hub (8.8m) <-> Props_Wing (5.1m) at X=16.5, span (-70.0, -40.0): height step = 3.7m
+Junction Nexus_Hub (8.8m) <-> Realistic_Lab (4.9m) at X=16.5, span (-44.0, -38.0): height step = 3.9m
+Junction Weapons_Gallery (5.6m) <-> Creature_Containment (6.5m) at Y=-18.2, span (-10.0, 10.0): height step = 0.9m
+Junction Creature_Containment (6.5m) <-> Horror_Wing (4.3m) at X=-11.5, span (-10.0, 20.0): height step = 2.2m
+Junction Props_Wing (5.1m) <-> Environment_Gallery (9.2m) at X=46.0, span (-65.0, -35.0): height step = 4.1m
+Junction Realistic_Lab (4.9m) <-> RND_Tech_Wing (5.3m) at Y=2.0, span (14.0, 42.0): height step = 0.4m

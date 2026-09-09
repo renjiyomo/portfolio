@@ -1,0 +1,3156 @@
+{
+  "portals_doors": [
+    {
+      "name": "Decor_CCTV_Containment_Gate_Body",
+      "type": "MESH",
+      "location": [
+        0.0,
+        -19.5,
+        4.0
+      ],
+      "collections": [
+        "GR15_DECOR"
+      ]
+    },
+    {
+      "name": "Decor_CCTV_Containment_Gate_Lens",
+      "type": "MESH",
+      "location": [
+        0.0,
+        -19.68,
+        4.0
+      ],
+      "collections": [
+        "GR15_DECOR"
+      ]
+    },
+    {
+      "name": "Decor_CCTV_Containment_Gate_Mount",
+      "type": "MESH",
+      "location": [
+        0.0,
+        -19.5,
+        4.2
+      ],
+      "collections": [
+        "GR15_DECOR"
+      ]
+    },
+    {
+      "name": "Entrance_Door_Frame_L",
+      "type": "MESH",
+      "location": [
+        -2.6,
+        -18.2,
+        2.1
+      ],
+      "collections": [
+        "Facility_Architecture"
+      ]
+    },
+    {
+      "name": "Entrance_Door_Frame_R",
+      "type": "MESH",
+      "location": [
+        2.6,
+        -18.2,
+        2.1
+      ],
+      "collections": [
+        "Facility_Architecture"
+      ]
+    },
+    {
+      "name": "Entrance_Door_Frame_T",
+      "type": "MESH",
+      "location": [
+        0.0,
+        -18.2,
+        4.2
+      ],
+      "collections": [
+        "Facility_Architecture"
+      ]
+    },
+    {
+      "name": "Entrance_Door_Leaf_L",
+      "type": "MESH",
+      "location": [
+        -1.2,
+        -18.15,
+        2.0
+      ],
+      "collections": [
+        "Facility_Architecture"
+      ]
+    },
+    {
+      "name": "Entrance_Door_Leaf_R",
+      "type": "MESH",
+      "location": [
+        1.2,
+        -18.15,
+        2.0
+      ],
+      "collections": [
+        "Facility_Architecture"
+      ]
+    },
+    {
+      "name": "Entrance_Door_Seam",
+      "type": "MESH",
+      "location": [
+        0.0,
+        -18.1,
+        2.0
+      ],
+      "collections": [
+        "Facility_Architecture"
+      ]
+    },
+    {
+      "name": "Entry_Gate_South_AccentStripe",
+      "type": "MESH",
+      "location": [
+        0.0,
+        -91.5,
+        3.68
+      ],
+      "collections": [
+        "Arch_Corridors"
+      ]
+    },
+    {
+      "name": "Entry_Gate_South_Header",
+      "type": "MESH",
+      "location": [
+        0.0,
+        -91.5,
+        4.0
+      ],
+      "collections": [
+        "Arch_Corridors"
+      ]
+    },
+    {
+      "name": "Entry_Gate_South_Jamb_L",
+      "type": "MESH",
+      "location": [
+        -3.4,
+        -91.5,
+        1.8
+      ],
+      "collections": [
+        "Arch_Corridors"
+      ]
+    },
+    {
+      "name": "Entry_Gate_South_Jamb_R",
+      "type": "MESH",
+      "location": [
+        3.4,
+        -91.5,
+        1.8
+      ],
+      "collections": [
+        "Arch_Corridors"
+      ]
+    },
+    {
+      "name": "Entry_Threshold_Nexus_AccentStripe",
+      "type": "MESH",
+      "location": [
+        0.0,
+        -70.5,
+        4.3
+      ],
+      "collections": [
+        "Arch_Corridors"
+      ]
+    },
+    {
+      "name": "Entry_Threshold_Nexus_Header",
+      "type": "MESH",
+      "location": [
+        0.0,
+        -70.5,
+        4.7
+      ],
+      "collections": [
+        "Arch_Corridors"
+      ]
+    },
+    {
+      "name": "Entry_Threshold_Nexus_Jamb_L",
+      "type": "MESH",
+      "location": [
+        -4.5,
+        -70.5,
+        2.1
+      ],
+      "collections": [
+        "Arch_Corridors"
+      ]
+    },
+    {
+      "name": "Entry_Threshold_Nexus_Jamb_R",
+      "type": "MESH",
+      "location": [
+        4.5,
+        -70.5,
+        2.1
+      ],
+      "collections": [
+        "Arch_Corridors"
+      ]
+    },
+    {
+      "name": "Exit_Departure_PortalFrame",
+      "type": "MESH",
+      "location": [
+        0.0,
+        -86.5,
+        2.0
+      ],
+      "collections": [
+        "GR15_DECOR"
+      ]
+    },
+    {
+      "name": "Horror_BlastDoor_HazardFrame",
+      "type": "MESH",
+      "location": [
+        -16.0,
+        5.0,
+        3.8
+      ],
+      "collections": [
+        "GR05_HORROR"
+      ]
+    },
+    {
+      "name": "Horror_BlastDoor_HydraulicPiston_L",
+      "type": "MESH",
+      "location": [
+        -16.0,
+        6.8,
+        2.0
+      ],
+      "collections": [
+        "GR05_HORROR"
+      ]
+    },
+    {
+      "name": "Horror_BlastDoor_HydraulicPiston_R",
+      "type": "MESH",
+      "location": [
+        -16.0,
+        3.2,
+        2.0
+      ],
+      "collections": [
+        "GR05_HORROR"
+      ]
+    },
+    {
+      "name": "Horror_BlastDoor_Reinforced",
+      "type": "MESH",
+      "location": [
+        -16.0,
+        5.0,
+        1.8
+      ],
+      "collections": [
+        "GR05_HORROR"
+      ]
+    },
+    {
+      "name": "Nexus_Portal_North_AccentStripe",
+      "type": "MESH",
+      "location": [
+        0.0,
+        -40.2,
+        5.1
+      ],
+      "collections": [
+        "Arch_Nexus"
+      ]
+    },
+    {
+      "name": "Nexus_Portal_North_Header",
+      "type": "MESH",
+      "location": [
+        0.0,
+        -40.2,
+        5.5
+      ],
+      "collections": [
+        "Arch_Nexus"
+      ]
+    },
+    {
+      "name": "Nexus_Portal_North_Jamb_L",
+      "type": "MESH",
+      "location": [
+        -4.5,
+        -40.2,
+        2.5
+      ],
+      "collections": [
+        "Arch_Nexus"
+      ]
+    },
+    {
+      "name": "Nexus_Portal_North_Jamb_R",
+      "type": "MESH",
+      "location": [
+        4.5,
+        -40.2,
+        2.5
+      ],
+      "collections": [
+        "Arch_Nexus"
+      ]
+    },
+    {
+      "name": "Nexus_Portal_Props_AccentStripe",
+      "type": "MESH",
+      "location": [
+        16.2,
+        -56.0,
+        4.88
+      ],
+      "collections": [
+        "Arch_Nexus"
+      ]
+    },
+    {
+      "name": "Nexus_Portal_Props_Header",
+      "type": "MESH",
+      "location": [
+        16.2,
+        -56.0,
+        5.2
+      ],
+      "collections": [
+        "Arch_Nexus"
+      ]
+    },
+    {
+      "name": "Nexus_Portal_Props_Jamb_L",
+      "type": "MESH",
+      "location": [
+        11.8,
+        -56.0,
+        2.4
+      ],
+      "collections": [
+        "Arch_Nexus"
+      ]
+    },
+    {
+      "name": "Nexus_Portal_Props_Jamb_R",
+      "type": "MESH",
+      "location": [
+        20.6,
+        -56.0,
+        2.4
+      ],
+      "collections": [
+        "Arch_Nexus"
+      ]
+    },
+    {
+      "name": "Nexus_Portal_Realistic_AccentStripe",
+      "type": "MESH",
+      "location": [
+        16.2,
+        -44.5,
+        4.58
+      ],
+      "collections": [
+        "Arch_Nexus"
+      ]
+    },
+    {
+      "name": "Nexus_Portal_Realistic_Header",
+      "type": "MESH",
+      "location": [
+        16.2,
+        -44.5,
+        4.9
+      ],
+      "collections": [
+        "Arch_Nexus"
+      ]
+    },
+    {
+      "name": "Nexus_Portal_Realistic_Jamb_L",
+      "type": "MESH",
+      "location": [
+        13.3,
+        -44.5,
+        2.25
+      ],
+      "collections": [
+        "Arch_Nexus"
+      ]
+    },
+    {
+      "name": "Nexus_Portal_Realistic_Jamb_R",
+      "type": "MESH",
+      "location": [
+        19.1,
+        -44.5,
+        2.25
+      ],
+      "collections": [
+        "Arch_Nexus"
+      ]
+    },
+    {
+      "name": "Nexus_Portal_Stylized_AccentStripe",
+      "type": "MESH",
+      "location": [
+        -16.2,
+        -55.0,
+        4.88
+      ],
+      "collections": [
+        "Arch_Nexus"
+      ]
+    },
+    {
+      "name": "Nexus_Portal_Stylized_Header",
+      "type": "MESH",
+      "location": [
+        -16.2,
+        -55.0,
+        5.2
+      ],
+      "collections": [
+        "Arch_Nexus"
+      ]
+    },
+    {
+      "name": "Nexus_Portal_Stylized_Jamb_L",
+      "type": "MESH",
+      "location": [
+        -20.1,
+        -55.0,
+        2.4
+      ],
+      "collections": [
+        "Arch_Nexus"
+      ]
+    },
+    {
+      "name": "Nexus_Portal_Stylized_Jamb_R",
+      "type": "MESH",
+      "location": [
+        -12.3,
+        -55.0,
+        2.4
+      ],
+      "collections": [
+        "Arch_Nexus"
+      ]
+    },
+    {
+      "name": "Nexus_Portal_UGC_AccentStripe",
+      "type": "MESH",
+      "location": [
+        -16.2,
+        -43.5,
+        4.58
+      ],
+      "collections": [
+        "Arch_Nexus"
+      ]
+    },
+    {
+      "name": "Nexus_Portal_UGC_Header",
+      "type": "MESH",
+      "location": [
+        -16.2,
+        -43.5,
+        4.9
+      ],
+      "collections": [
+        "Arch_Nexus"
+      ]
+    },
+    {
+      "name": "Nexus_Portal_UGC_Jamb_L",
+      "type": "MESH",
+      "location": [
+        -19.1,
+        -43.5,
+        2.25
+      ],
+      "collections": [
+        "Arch_Nexus"
+      ]
+    },
+    {
+      "name": "Nexus_Portal_UGC_Jamb_R",
+      "type": "MESH",
+      "location": [
+        -13.3,
+        -43.5,
+        2.25
+      ],
+      "collections": [
+        "Arch_Nexus"
+      ]
+    }
+  ],
+  "materials": [
+    {
+      "name": "Chamber_Glass",
+      "use_nodes": true,
+      "users": 8
+    },
+    {
+      "name": "Creature_Crustacean_Shell",
+      "use_nodes": true,
+      "users": 13
+    },
+    {
+      "name": "Creature_Crystal_Body",
+      "use_nodes": true,
+      "users": 21
+    },
+    {
+      "name": "Creature_Cyber_Dark",
+      "use_nodes": true,
+      "users": 6
+    },
+    {
+      "name": "Creature_Cyber_Plating",
+      "use_nodes": true,
+      "users": 12
+    },
+    {
+      "name": "Creature_Magma_Glow",
+      "use_nodes": true,
+      "users": 7
+    },
+    {
+      "name": "Creature_Magma_Rock",
+      "use_nodes": true,
+      "users": 18
+    },
+    {
+      "name": "Creature_Plant_Spore",
+      "use_nodes": true,
+      "users": 5
+    },
+    {
+      "name": "Creature_Plant_Stem",
+      "use_nodes": true,
+      "users": 13
+    },
+    {
+      "name": "Creature_Toxic_Neon",
+      "use_nodes": true,
+      "users": 9
+    },
+    {
+      "name": "Creature_Toxic_Skin",
+      "use_nodes": true,
+      "users": 11
+    },
+    {
+      "name": "Creature_Void_Black",
+      "use_nodes": true,
+      "users": 6
+    },
+    {
+      "name": "Emissive_Amber",
+      "use_nodes": true,
+      "users": 33
+    },
+    {
+      "name": "Emissive_Cyan",
+      "use_nodes": true,
+      "users": 60
+    },
+    {
+      "name": "Emissive_Green",
+      "use_nodes": true,
+      "users": 17
+    },
+    {
+      "name": "Emissive_Purple",
+      "use_nodes": true,
+      "users": 3
+    },
+    {
+      "name": "Emissive_Red",
+      "use_nodes": true,
+      "users": 15
+    },
+    {
+      "name": "Facility_Accent_Teal",
+      "use_nodes": true,
+      "users": 11
+    },
+    {
+      "name": "Facility_DarkMetal",
+      "use_nodes": true,
+      "users": 271
+    },
+    {
+      "name": "Facility_Floor",
+      "use_nodes": true,
+      "users": 54
+    },
+    {
+      "name": "Facility_Metal",
+      "use_nodes": true,
+      "users": 240
+    },
+    {
+      "name": "Facility_Wall_Dark",
+      "use_nodes": true,
+      "users": 42
+    },
+    {
+      "name": "Facility_Wall_Light",
+      "use_nodes": true,
+      "users": 8
+    },
+    {
+      "name": "Mat_Arch_Floor_Dark",
+      "use_nodes": true,
+      "users": 22
+    },
+    {
+      "name": "Mat_Arch_Floor_Light",
+      "use_nodes": true,
+      "users": 6
+    },
+    {
+      "name": "Mat_Arch_Glass",
+      "use_nodes": true,
+      "users": 29
+    },
+    {
+      "name": "Mat_Arch_Pillar",
+      "use_nodes": true,
+      "users": 98
+    },
+    {
+      "name": "Mat_Arch_Wall_Accent",
+      "use_nodes": true,
+      "users": 101
+    },
+    {
+      "name": "Mat_Arch_Wall_Main",
+      "use_nodes": true,
+      "users": 70
+    },
+    {
+      "name": "Mat_Sign_Env_Green",
+      "use_nodes": true,
+      "users": 17
+    },
+    {
+      "name": "Mat_Sign_Horror_Red",
+      "use_nodes": true,
+      "users": 19
+    },
+    {
+      "name": "Mat_Sign_Nexus_Cyan",
+      "use_nodes": true,
+      "users": 44
+    },
+    {
+      "name": "Mat_Sign_Props_Yellow",
+      "use_nodes": true,
+      "users": 15
+    },
+    {
+      "name": "Mat_Sign_Stylized_Orange",
+      "use_nodes": true,
+      "users": 30
+    },
+    {
+      "name": "Mat_Sign_Tech_Blue",
+      "use_nodes": true,
+      "users": 41
+    },
+    {
+      "name": "Mat_Sign_UGC_Purple",
+      "use_nodes": true,
+      "users": 31
+    },
+    {
+      "name": "Mat_Sign_Weapons_Amber",
+      "use_nodes": true,
+      "users": 18
+    },
+    {
+      "name": "PBR_Sample_Chrome",
+      "use_nodes": true,
+      "users": 2
+    },
+    {
+      "name": "PBR_Sample_Concrete",
+      "use_nodes": true,
+      "users": 2
+    },
+    {
+      "name": "PBR_Sample_LacquerWood",
+      "use_nodes": true,
+      "users": 2
+    },
+    {
+      "name": "PBR_Sample_OpticGlass",
+      "use_nodes": true,
+      "users": 2
+    },
+    {
+      "name": "PBR_Sample_Polymer",
+      "use_nodes": true,
+      "users": 2
+    },
+    {
+      "name": "RND_Stage_Clay",
+      "use_nodes": true,
+      "users": 1
+    },
+    {
+      "name": "RND_Stage_Wireframe",
+      "use_nodes": true,
+      "users": 1
+    },
+    {
+      "name": "TexMap_Albedo",
+      "use_nodes": true,
+      "users": 1
+    },
+    {
+      "name": "TexMap_AO",
+      "use_nodes": true,
+      "users": 1
+    },
+    {
+      "name": "TexMap_Normal",
+      "use_nodes": true,
+      "users": 1
+    },
+    {
+      "name": "TexMap_Roughness",
+      "use_nodes": true,
+      "users": 1
+    },
+    {
+      "name": "Warning_Black",
+      "use_nodes": true,
+      "users": 30
+    },
+    {
+      "name": "Warning_Yellow",
+      "use_nodes": true,
+      "users": 53
+    }
+  ],
+  "scene": {
+    "engine": "CYCLES",
+    "fps": 24,
+    "resolution_x": 1280,
+    "resolution_y": 720,
+    "color_management": {
+      "view_transform": "AgX",
+      "look": "None",
+      "exposure": 0.15000000596046448,
+      "gamma": 1.0
+    }
+  },
+  "cycles": {
+    "device": "CPU",
+    "samples": 64,
+    "preview_samples": 32,
+    "use_adaptive_sampling": true,
+    "adaptive_threshold": 0.029999999329447746,
+    "use_denoising": true
+  },
+  "decor_objects": [
+    "Decor_CableTray_Spine_1",
+    "Decor_CableTray_Rail_1_-0.4",
+    "Decor_CableTray_Rail_1_0.4",
+    "Decor_CableBundle_1_-0.2",
+    "Decor_CableBundle_1_0.0",
+    "Decor_CableBundle_1_0.2",
+    "Decor_CableTray_Spine_2",
+    "Decor_CableTray_Rail_2_-0.4",
+    "Decor_CableTray_Rail_2_0.4",
+    "Decor_CableBundle_2_-0.2",
+    "Decor_CableBundle_2_0.0",
+    "Decor_CableBundle_2_0.2",
+    "Decor_CableTray_Spine_3",
+    "Decor_CableTray_Rail_3_-0.4",
+    "Decor_CableTray_Rail_3_0.4",
+    "Decor_CableBundle_3_-0.2",
+    "Decor_CableBundle_3_0.0",
+    "Decor_CableBundle_3_0.2",
+    "Decor_HVAC_Duct_NexusSpine",
+    "Decor_HVAC_Flange_-12.0",
+    "Decor_HVAC_Flange_-6.0",
+    "Decor_HVAC_Flange_0.0",
+    "Decor_HVAC_Flange_6.0",
+    "Decor_HVAC_Flange_12.0",
+    "Decor_CCTV_Vestibule_Mount",
+    "Decor_CCTV_Vestibule_Body",
+    "Decor_CCTV_Vestibule_Lens",
+    "Decor_CCTV_Nexus_South_Mount",
+    "Decor_CCTV_Nexus_South_Body",
+    "Decor_CCTV_Nexus_South_Lens",
+    "Decor_CCTV_Nexus_North_Mount",
+    "Decor_CCTV_Nexus_North_Body",
+    "Decor_CCTV_Nexus_North_Lens",
+    "Decor_CCTV_Weapons_Forge_Mount",
+    "Decor_CCTV_Weapons_Forge_Body",
+    "Decor_CCTV_Weapons_Forge_Lens",
+    "Decor_CCTV_Containment_Gate_Mount",
+    "Decor_CCTV_Containment_Gate_Body",
+    "Decor_CCTV_Containment_Gate_Lens",
+    "Decor_CCTV_Horror_Airlock_Mount",
+    "Decor_CCTV_Horror_Airlock_Body",
+    "Decor_CCTV_Horror_Airlock_Lens",
+    "Decor_UtilityCabinet_Vestibule_E",
+    "Decor_UtilityLED_Vestibule_E",
+    "Decor_UtilityCabinet_Nexus_W",
+    "Decor_UtilityLED_Nexus_W",
+    "Decor_UtilityCabinet_Nexus_E",
+    "Decor_UtilityLED_Nexus_E",
+    "Decor_UtilityCabinet_Weapons_W",
+    "Decor_UtilityLED_Weapons_W",
+    "Decor_UtilityCabinet_Realistic_Corridor",
+    "Decor_UtilityLED_Realistic_Corridor",
+    "Decor_SecurityArch_PostLeft",
+    "Decor_SecurityArch_PostRight",
+    "Decor_SecurityArch_TopLintel",
+    "Decor_SecurityArch_ScanStrip",
+    "Decor_VisitorTerminal_Base",
+    "Decor_VisitorTerminal_Screen",
+    "Exit_Contact_Wall_Backdrop",
+    "Exit_Contact_Wall_Rim",
+    "Exit_Panel_Portfolio_Base",
+    "Exit_Panel_Resume_Base",
+    "Exit_Panel_Contact_Base",
+    "Exit_Panel_Social_Base",
+    "Exit_Contact_Terminal_Podium",
+    "Exit_Departure_PortalFrame"
+  ],
+  "creature_department": [
+    {
+      "name": "Creature_Chamber_01_HazardFloorLine",
+      "loc": [
+        -4.8,
+        -10.5,
+        0.02
+      ]
+    },
+    {
+      "name": "Creature_Chamber_02_HazardFloorLine",
+      "loc": [
+        -4.8,
+        -3.5,
+        0.02
+      ]
+    },
+    {
+      "name": "Creature_Chamber_03_HazardFloorLine",
+      "loc": [
+        -4.8,
+        3.5,
+        0.02
+      ]
+    },
+    {
+      "name": "Creature_Chamber_04_HazardFloorLine",
+      "loc": [
+        -4.8,
+        10.5,
+        0.02
+      ]
+    },
+    {
+      "name": "Creature_Chamber_05_HazardFloorLine",
+      "loc": [
+        4.8,
+        -10.5,
+        0.02
+      ]
+    },
+    {
+      "name": "Creature_Chamber_06_HazardFloorLine",
+      "loc": [
+        4.8,
+        -3.5,
+        0.02
+      ]
+    },
+    {
+      "name": "Creature_Chamber_07_HazardFloorLine",
+      "loc": [
+        4.8,
+        3.5,
+        0.02
+      ]
+    },
+    {
+      "name": "Creature_Chamber_08_HazardFloorLine",
+      "loc": [
+        4.8,
+        10.5,
+        0.02
+      ]
+    },
+    {
+      "name": "Chamber_01_Floor",
+      "loc": [
+        -8.2,
+        -10.5,
+        0.15
+      ]
+    },
+    {
+      "name": "Chamber_01_Ceiling",
+      "loc": [
+        -8.2,
+        -10.5,
+        4.8
+      ]
+    },
+    {
+      "name": "Chamber_01_Wall_S",
+      "loc": [
+        -8.2,
+        -13.4,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_01_Wall_N",
+      "loc": [
+        -8.2,
+        -7.6,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_01_Wall_Back_Detail",
+      "loc": [
+        -11.0,
+        -10.5,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_01_Conduit_Back",
+      "loc": [
+        -10.75,
+        -10.5,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_01_Conduit_Glow",
+      "loc": [
+        -10.65,
+        -10.5,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_01_Frame_Sill",
+      "loc": [
+        -5.3,
+        -10.5,
+        0.4
+      ]
+    },
+    {
+      "name": "Chamber_01_Frame_Lintel",
+      "loc": [
+        -5.3,
+        -10.5,
+        4.6
+      ]
+    },
+    {
+      "name": "Chamber_01_Frame_Jamb_S",
+      "loc": [
+        -5.3,
+        -13.2,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_01_Frame_Jamb_N",
+      "loc": [
+        -5.3,
+        -7.8,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_01_Glass_Pane",
+      "loc": [
+        -5.3,
+        -10.5,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_01_Pedestal_Base",
+      "loc": [
+        -6.9,
+        -10.5,
+        0.4
+      ]
+    },
+    {
+      "name": "Chamber_01_Pedestal_Ring",
+      "loc": [
+        -6.9,
+        -10.5,
+        0.55
+      ]
+    },
+    {
+      "name": "Chamber_01_Pedestal_Glow",
+      "loc": [
+        -6.9,
+        -10.5,
+        0.61
+      ]
+    },
+    {
+      "name": "Chamber_01_Pedestal_Top",
+      "loc": [
+        -6.9,
+        -10.5,
+        0.69
+      ]
+    },
+    {
+      "name": "Chamber_01_Light_Fixture",
+      "loc": [
+        -6.9,
+        -10.5,
+        4.55
+      ]
+    },
+    {
+      "name": "Chamber_01_Light_Diffuser",
+      "loc": [
+        -6.9,
+        -10.5,
+        4.45
+      ]
+    },
+    {
+      "name": "Chamber_01_Terminal_Post",
+      "loc": [
+        -4.95,
+        -8.2,
+        1.2
+      ]
+    },
+    {
+      "name": "Chamber_01_Terminal_Head",
+      "loc": [
+        -4.95,
+        -8.2,
+        1.7
+      ]
+    },
+    {
+      "name": "Chamber_01_Terminal_Screen",
+      "loc": [
+        -4.79,
+        -8.2,
+        1.7
+      ]
+    },
+    {
+      "name": "Chamber_01_Keypad",
+      "loc": [
+        -4.79,
+        -8.35,
+        1.42
+      ]
+    },
+    {
+      "name": "Chamber_01_Beacon_Mount",
+      "loc": [
+        -5.05,
+        -13.0,
+        4.8
+      ]
+    },
+    {
+      "name": "Chamber_01_Beacon_Light",
+      "loc": [
+        -5.05,
+        -13.0,
+        4.95
+      ]
+    },
+    {
+      "name": "Chamber_01_Sign_Backing",
+      "loc": [
+        -5.05,
+        -10.5,
+        4.6
+      ]
+    },
+    {
+      "name": "Chamber_01_Sign_Display",
+      "loc": [
+        -5.03,
+        -10.5,
+        4.6
+      ]
+    },
+    {
+      "name": "Chamber_02_Floor",
+      "loc": [
+        -8.2,
+        -3.5,
+        0.15
+      ]
+    },
+    {
+      "name": "Chamber_02_Ceiling",
+      "loc": [
+        -8.2,
+        -3.5,
+        4.8
+      ]
+    },
+    {
+      "name": "Chamber_02_Wall_S",
+      "loc": [
+        -8.2,
+        -6.4,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_02_Wall_N",
+      "loc": [
+        -8.2,
+        -0.6,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_02_Wall_Back_Detail",
+      "loc": [
+        -11.0,
+        -3.5,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_02_Conduit_Back",
+      "loc": [
+        -10.75,
+        -3.5,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_02_Conduit_Glow",
+      "loc": [
+        -10.65,
+        -3.5,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_02_Frame_Sill",
+      "loc": [
+        -5.3,
+        -3.5,
+        0.4
+      ]
+    },
+    {
+      "name": "Chamber_02_Frame_Lintel",
+      "loc": [
+        -5.3,
+        -3.5,
+        4.6
+      ]
+    },
+    {
+      "name": "Chamber_02_Frame_Jamb_S",
+      "loc": [
+        -5.3,
+        -6.2,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_02_Frame_Jamb_N",
+      "loc": [
+        -5.3,
+        -0.8,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_02_Glass_Pane",
+      "loc": [
+        -5.3,
+        -3.5,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_02_Pedestal_Base",
+      "loc": [
+        -6.9,
+        -3.5,
+        0.4
+      ]
+    },
+    {
+      "name": "Chamber_02_Pedestal_Ring",
+      "loc": [
+        -6.9,
+        -3.5,
+        0.55
+      ]
+    },
+    {
+      "name": "Chamber_02_Pedestal_Glow",
+      "loc": [
+        -6.9,
+        -3.5,
+        0.61
+      ]
+    },
+    {
+      "name": "Chamber_02_Pedestal_Top",
+      "loc": [
+        -6.9,
+        -3.5,
+        0.69
+      ]
+    },
+    {
+      "name": "Chamber_02_Light_Fixture",
+      "loc": [
+        -6.9,
+        -3.5,
+        4.55
+      ]
+    },
+    {
+      "name": "Chamber_02_Light_Diffuser",
+      "loc": [
+        -6.9,
+        -3.5,
+        4.45
+      ]
+    },
+    {
+      "name": "Chamber_02_Terminal_Post",
+      "loc": [
+        -4.95,
+        -1.2,
+        1.2
+      ]
+    },
+    {
+      "name": "Chamber_02_Terminal_Head",
+      "loc": [
+        -4.95,
+        -1.2,
+        1.7
+      ]
+    },
+    {
+      "name": "Chamber_02_Terminal_Screen",
+      "loc": [
+        -4.79,
+        -1.2,
+        1.7
+      ]
+    },
+    {
+      "name": "Chamber_02_Keypad",
+      "loc": [
+        -4.79,
+        -1.35,
+        1.42
+      ]
+    },
+    {
+      "name": "Chamber_02_Beacon_Mount",
+      "loc": [
+        -5.05,
+        -6.0,
+        4.8
+      ]
+    },
+    {
+      "name": "Chamber_02_Beacon_Light",
+      "loc": [
+        -5.05,
+        -6.0,
+        4.95
+      ]
+    },
+    {
+      "name": "Chamber_02_Sign_Backing",
+      "loc": [
+        -5.05,
+        -3.5,
+        4.6
+      ]
+    },
+    {
+      "name": "Chamber_02_Sign_Display",
+      "loc": [
+        -5.03,
+        -3.5,
+        4.6
+      ]
+    },
+    {
+      "name": "Chamber_03_Floor",
+      "loc": [
+        -8.2,
+        3.5,
+        0.15
+      ]
+    },
+    {
+      "name": "Chamber_03_Ceiling",
+      "loc": [
+        -8.2,
+        3.5,
+        4.8
+      ]
+    },
+    {
+      "name": "Chamber_03_Wall_S",
+      "loc": [
+        -8.2,
+        0.6,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_03_Wall_N",
+      "loc": [
+        -8.2,
+        6.4,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_03_Wall_Back_Detail",
+      "loc": [
+        -11.0,
+        3.5,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_03_Conduit_Back",
+      "loc": [
+        -10.75,
+        3.5,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_03_Conduit_Glow",
+      "loc": [
+        -10.65,
+        3.5,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_03_Frame_Sill",
+      "loc": [
+        -5.3,
+        3.5,
+        0.4
+      ]
+    },
+    {
+      "name": "Chamber_03_Frame_Lintel",
+      "loc": [
+        -5.3,
+        3.5,
+        4.6
+      ]
+    },
+    {
+      "name": "Chamber_03_Frame_Jamb_S",
+      "loc": [
+        -5.3,
+        0.8,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_03_Frame_Jamb_N",
+      "loc": [
+        -5.3,
+        6.2,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_03_Glass_Pane",
+      "loc": [
+        -5.3,
+        3.5,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_03_Pedestal_Base",
+      "loc": [
+        -6.9,
+        3.5,
+        0.4
+      ]
+    },
+    {
+      "name": "Chamber_03_Pedestal_Ring",
+      "loc": [
+        -6.9,
+        3.5,
+        0.55
+      ]
+    },
+    {
+      "name": "Chamber_03_Pedestal_Glow",
+      "loc": [
+        -6.9,
+        3.5,
+        0.61
+      ]
+    },
+    {
+      "name": "Chamber_03_Pedestal_Top",
+      "loc": [
+        -6.9,
+        3.5,
+        0.69
+      ]
+    },
+    {
+      "name": "Chamber_03_Light_Fixture",
+      "loc": [
+        -6.9,
+        3.5,
+        4.55
+      ]
+    },
+    {
+      "name": "Chamber_03_Light_Diffuser",
+      "loc": [
+        -6.9,
+        3.5,
+        4.45
+      ]
+    },
+    {
+      "name": "Chamber_03_Terminal_Post",
+      "loc": [
+        -4.95,
+        5.8,
+        1.2
+      ]
+    },
+    {
+      "name": "Chamber_03_Terminal_Head",
+      "loc": [
+        -4.95,
+        5.8,
+        1.7
+      ]
+    },
+    {
+      "name": "Chamber_03_Terminal_Screen",
+      "loc": [
+        -4.79,
+        5.8,
+        1.7
+      ]
+    },
+    {
+      "name": "Chamber_03_Keypad",
+      "loc": [
+        -4.79,
+        5.65,
+        1.42
+      ]
+    },
+    {
+      "name": "Chamber_03_Beacon_Mount",
+      "loc": [
+        -5.05,
+        1.0,
+        4.8
+      ]
+    },
+    {
+      "name": "Chamber_03_Beacon_Light",
+      "loc": [
+        -5.05,
+        1.0,
+        4.95
+      ]
+    },
+    {
+      "name": "Chamber_03_Sign_Backing",
+      "loc": [
+        -5.05,
+        3.5,
+        4.6
+      ]
+    },
+    {
+      "name": "Chamber_03_Sign_Display",
+      "loc": [
+        -5.03,
+        3.5,
+        4.6
+      ]
+    },
+    {
+      "name": "Chamber_04_Floor",
+      "loc": [
+        -8.2,
+        10.5,
+        0.15
+      ]
+    },
+    {
+      "name": "Chamber_04_Ceiling",
+      "loc": [
+        -8.2,
+        10.5,
+        4.8
+      ]
+    },
+    {
+      "name": "Chamber_04_Wall_S",
+      "loc": [
+        -8.2,
+        7.6,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_04_Wall_N",
+      "loc": [
+        -8.2,
+        13.4,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_04_Wall_Back_Detail",
+      "loc": [
+        -11.0,
+        10.5,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_04_Conduit_Back",
+      "loc": [
+        -10.75,
+        10.5,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_04_Conduit_Glow",
+      "loc": [
+        -10.65,
+        10.5,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_04_Frame_Sill",
+      "loc": [
+        -5.3,
+        10.5,
+        0.4
+      ]
+    },
+    {
+      "name": "Chamber_04_Frame_Lintel",
+      "loc": [
+        -5.3,
+        10.5,
+        4.6
+      ]
+    },
+    {
+      "name": "Chamber_04_Frame_Jamb_S",
+      "loc": [
+        -5.3,
+        7.8,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_04_Frame_Jamb_N",
+      "loc": [
+        -5.3,
+        13.2,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_04_Glass_Pane",
+      "loc": [
+        -5.3,
+        10.5,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_04_Pedestal_Base",
+      "loc": [
+        -6.9,
+        10.5,
+        0.4
+      ]
+    },
+    {
+      "name": "Chamber_04_Pedestal_Ring",
+      "loc": [
+        -6.9,
+        10.5,
+        0.55
+      ]
+    },
+    {
+      "name": "Chamber_04_Pedestal_Glow",
+      "loc": [
+        -6.9,
+        10.5,
+        0.61
+      ]
+    },
+    {
+      "name": "Chamber_04_Pedestal_Top",
+      "loc": [
+        -6.9,
+        10.5,
+        0.69
+      ]
+    },
+    {
+      "name": "Chamber_04_Light_Fixture",
+      "loc": [
+        -6.9,
+        10.5,
+        4.55
+      ]
+    },
+    {
+      "name": "Chamber_04_Light_Diffuser",
+      "loc": [
+        -6.9,
+        10.5,
+        4.45
+      ]
+    },
+    {
+      "name": "Chamber_04_Terminal_Post",
+      "loc": [
+        -4.95,
+        12.8,
+        1.2
+      ]
+    },
+    {
+      "name": "Chamber_04_Terminal_Head",
+      "loc": [
+        -4.95,
+        12.8,
+        1.7
+      ]
+    },
+    {
+      "name": "Chamber_04_Terminal_Screen",
+      "loc": [
+        -4.79,
+        12.8,
+        1.7
+      ]
+    },
+    {
+      "name": "Chamber_04_Keypad",
+      "loc": [
+        -4.79,
+        12.65,
+        1.42
+      ]
+    },
+    {
+      "name": "Chamber_04_Beacon_Mount",
+      "loc": [
+        -5.05,
+        8.0,
+        4.8
+      ]
+    },
+    {
+      "name": "Chamber_04_Beacon_Light",
+      "loc": [
+        -5.05,
+        8.0,
+        4.95
+      ]
+    },
+    {
+      "name": "Chamber_04_Sign_Backing",
+      "loc": [
+        -5.05,
+        10.5,
+        4.6
+      ]
+    },
+    {
+      "name": "Chamber_04_Sign_Display",
+      "loc": [
+        -5.03,
+        10.5,
+        4.6
+      ]
+    },
+    {
+      "name": "Chamber_05_Floor",
+      "loc": [
+        8.2,
+        -10.5,
+        0.15
+      ]
+    },
+    {
+      "name": "Chamber_05_Ceiling",
+      "loc": [
+        8.2,
+        -10.5,
+        4.8
+      ]
+    },
+    {
+      "name": "Chamber_05_Wall_S",
+      "loc": [
+        8.2,
+        -13.4,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_05_Wall_N",
+      "loc": [
+        8.2,
+        -7.6,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_05_Wall_Back_Detail",
+      "loc": [
+        11.0,
+        -10.5,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_05_Conduit_Back",
+      "loc": [
+        10.75,
+        -10.5,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_05_Conduit_Glow",
+      "loc": [
+        10.65,
+        -10.5,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_05_Frame_Sill",
+      "loc": [
+        5.3,
+        -10.5,
+        0.4
+      ]
+    },
+    {
+      "name": "Chamber_05_Frame_Lintel",
+      "loc": [
+        5.3,
+        -10.5,
+        4.6
+      ]
+    },
+    {
+      "name": "Chamber_05_Frame_Jamb_S",
+      "loc": [
+        5.3,
+        -13.2,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_05_Frame_Jamb_N",
+      "loc": [
+        5.3,
+        -7.8,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_05_Glass_Pane",
+      "loc": [
+        5.3,
+        -10.5,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_05_Pedestal_Base",
+      "loc": [
+        6.9,
+        -10.5,
+        0.4
+      ]
+    },
+    {
+      "name": "Chamber_05_Pedestal_Ring",
+      "loc": [
+        6.9,
+        -10.5,
+        0.55
+      ]
+    },
+    {
+      "name": "Chamber_05_Pedestal_Glow",
+      "loc": [
+        6.9,
+        -10.5,
+        0.61
+      ]
+    },
+    {
+      "name": "Chamber_05_Pedestal_Top",
+      "loc": [
+        6.9,
+        -10.5,
+        0.69
+      ]
+    },
+    {
+      "name": "Chamber_05_Light_Fixture",
+      "loc": [
+        6.9,
+        -10.5,
+        4.55
+      ]
+    },
+    {
+      "name": "Chamber_05_Light_Diffuser",
+      "loc": [
+        6.9,
+        -10.5,
+        4.45
+      ]
+    },
+    {
+      "name": "Chamber_05_Terminal_Post",
+      "loc": [
+        4.95,
+        -8.2,
+        1.2
+      ]
+    },
+    {
+      "name": "Chamber_05_Terminal_Head",
+      "loc": [
+        4.95,
+        -8.2,
+        1.7
+      ]
+    },
+    {
+      "name": "Chamber_05_Terminal_Screen",
+      "loc": [
+        4.79,
+        -8.2,
+        1.7
+      ]
+    },
+    {
+      "name": "Chamber_05_Keypad",
+      "loc": [
+        4.79,
+        -8.35,
+        1.42
+      ]
+    },
+    {
+      "name": "Chamber_05_Beacon_Mount",
+      "loc": [
+        5.05,
+        -13.0,
+        4.8
+      ]
+    },
+    {
+      "name": "Chamber_05_Beacon_Light",
+      "loc": [
+        5.05,
+        -13.0,
+        4.95
+      ]
+    },
+    {
+      "name": "Chamber_05_Sign_Backing",
+      "loc": [
+        5.05,
+        -10.5,
+        4.6
+      ]
+    },
+    {
+      "name": "Chamber_05_Sign_Display",
+      "loc": [
+        5.03,
+        -10.5,
+        4.6
+      ]
+    },
+    {
+      "name": "Chamber_06_Floor",
+      "loc": [
+        8.2,
+        -3.5,
+        0.15
+      ]
+    },
+    {
+      "name": "Chamber_06_Ceiling",
+      "loc": [
+        8.2,
+        -3.5,
+        4.8
+      ]
+    },
+    {
+      "name": "Chamber_06_Wall_S",
+      "loc": [
+        8.2,
+        -6.4,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_06_Wall_N",
+      "loc": [
+        8.2,
+        -0.6,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_06_Wall_Back_Detail",
+      "loc": [
+        11.0,
+        -3.5,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_06_Conduit_Back",
+      "loc": [
+        10.75,
+        -3.5,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_06_Conduit_Glow",
+      "loc": [
+        10.65,
+        -3.5,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_06_Frame_Sill",
+      "loc": [
+        5.3,
+        -3.5,
+        0.4
+      ]
+    },
+    {
+      "name": "Chamber_06_Frame_Lintel",
+      "loc": [
+        5.3,
+        -3.5,
+        4.6
+      ]
+    },
+    {
+      "name": "Chamber_06_Frame_Jamb_S",
+      "loc": [
+        5.3,
+        -6.2,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_06_Frame_Jamb_N",
+      "loc": [
+        5.3,
+        -0.8,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_06_Glass_Pane",
+      "loc": [
+        5.3,
+        -3.5,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_06_Pedestal_Base",
+      "loc": [
+        6.9,
+        -3.5,
+        0.4
+      ]
+    },
+    {
+      "name": "Chamber_06_Pedestal_Ring",
+      "loc": [
+        6.9,
+        -3.5,
+        0.55
+      ]
+    },
+    {
+      "name": "Chamber_06_Pedestal_Glow",
+      "loc": [
+        6.9,
+        -3.5,
+        0.61
+      ]
+    },
+    {
+      "name": "Chamber_06_Pedestal_Top",
+      "loc": [
+        6.9,
+        -3.5,
+        0.69
+      ]
+    },
+    {
+      "name": "Chamber_06_Light_Fixture",
+      "loc": [
+        6.9,
+        -3.5,
+        4.55
+      ]
+    },
+    {
+      "name": "Chamber_06_Light_Diffuser",
+      "loc": [
+        6.9,
+        -3.5,
+        4.45
+      ]
+    },
+    {
+      "name": "Chamber_06_Terminal_Post",
+      "loc": [
+        4.95,
+        -1.2,
+        1.2
+      ]
+    },
+    {
+      "name": "Chamber_06_Terminal_Head",
+      "loc": [
+        4.95,
+        -1.2,
+        1.7
+      ]
+    },
+    {
+      "name": "Chamber_06_Terminal_Screen",
+      "loc": [
+        4.79,
+        -1.2,
+        1.7
+      ]
+    },
+    {
+      "name": "Chamber_06_Keypad",
+      "loc": [
+        4.79,
+        -1.35,
+        1.42
+      ]
+    },
+    {
+      "name": "Chamber_06_Beacon_Mount",
+      "loc": [
+        5.05,
+        -6.0,
+        4.8
+      ]
+    },
+    {
+      "name": "Chamber_06_Beacon_Light",
+      "loc": [
+        5.05,
+        -6.0,
+        4.95
+      ]
+    },
+    {
+      "name": "Chamber_06_Sign_Backing",
+      "loc": [
+        5.05,
+        -3.5,
+        4.6
+      ]
+    },
+    {
+      "name": "Chamber_06_Sign_Display",
+      "loc": [
+        5.03,
+        -3.5,
+        4.6
+      ]
+    },
+    {
+      "name": "Chamber_07_Floor",
+      "loc": [
+        8.2,
+        3.5,
+        0.15
+      ]
+    },
+    {
+      "name": "Chamber_07_Ceiling",
+      "loc": [
+        8.2,
+        3.5,
+        4.8
+      ]
+    },
+    {
+      "name": "Chamber_07_Wall_S",
+      "loc": [
+        8.2,
+        0.6,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_07_Wall_N",
+      "loc": [
+        8.2,
+        6.4,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_07_Wall_Back_Detail",
+      "loc": [
+        11.0,
+        3.5,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_07_Conduit_Back",
+      "loc": [
+        10.75,
+        3.5,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_07_Conduit_Glow",
+      "loc": [
+        10.65,
+        3.5,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_07_Frame_Sill",
+      "loc": [
+        5.3,
+        3.5,
+        0.4
+      ]
+    },
+    {
+      "name": "Chamber_07_Frame_Lintel",
+      "loc": [
+        5.3,
+        3.5,
+        4.6
+      ]
+    },
+    {
+      "name": "Chamber_07_Frame_Jamb_S",
+      "loc": [
+        5.3,
+        0.8,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_07_Frame_Jamb_N",
+      "loc": [
+        5.3,
+        6.2,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_07_Glass_Pane",
+      "loc": [
+        5.3,
+        3.5,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_07_Pedestal_Base",
+      "loc": [
+        6.9,
+        3.5,
+        0.4
+      ]
+    },
+    {
+      "name": "Chamber_07_Pedestal_Ring",
+      "loc": [
+        6.9,
+        3.5,
+        0.55
+      ]
+    },
+    {
+      "name": "Chamber_07_Pedestal_Glow",
+      "loc": [
+        6.9,
+        3.5,
+        0.61
+      ]
+    },
+    {
+      "name": "Chamber_07_Pedestal_Top",
+      "loc": [
+        6.9,
+        3.5,
+        0.69
+      ]
+    },
+    {
+      "name": "Chamber_07_Light_Fixture",
+      "loc": [
+        6.9,
+        3.5,
+        4.55
+      ]
+    },
+    {
+      "name": "Chamber_07_Light_Diffuser",
+      "loc": [
+        6.9,
+        3.5,
+        4.45
+      ]
+    },
+    {
+      "name": "Chamber_07_Terminal_Post",
+      "loc": [
+        4.95,
+        5.8,
+        1.2
+      ]
+    },
+    {
+      "name": "Chamber_07_Terminal_Head",
+      "loc": [
+        4.95,
+        5.8,
+        1.7
+      ]
+    },
+    {
+      "name": "Chamber_07_Terminal_Screen",
+      "loc": [
+        4.79,
+        5.8,
+        1.7
+      ]
+    },
+    {
+      "name": "Chamber_07_Keypad",
+      "loc": [
+        4.79,
+        5.65,
+        1.42
+      ]
+    },
+    {
+      "name": "Chamber_07_Beacon_Mount",
+      "loc": [
+        5.05,
+        1.0,
+        4.8
+      ]
+    },
+    {
+      "name": "Chamber_07_Beacon_Light",
+      "loc": [
+        5.05,
+        1.0,
+        4.95
+      ]
+    },
+    {
+      "name": "Chamber_07_Sign_Backing",
+      "loc": [
+        5.05,
+        3.5,
+        4.6
+      ]
+    },
+    {
+      "name": "Chamber_07_Sign_Display",
+      "loc": [
+        5.03,
+        3.5,
+        4.6
+      ]
+    },
+    {
+      "name": "Chamber_08_Floor",
+      "loc": [
+        8.2,
+        10.5,
+        0.15
+      ]
+    },
+    {
+      "name": "Chamber_08_Ceiling",
+      "loc": [
+        8.2,
+        10.5,
+        4.8
+      ]
+    },
+    {
+      "name": "Chamber_08_Wall_S",
+      "loc": [
+        8.2,
+        7.6,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_08_Wall_N",
+      "loc": [
+        8.2,
+        13.4,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_08_Wall_Back_Detail",
+      "loc": [
+        11.0,
+        10.5,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_08_Conduit_Back",
+      "loc": [
+        10.75,
+        10.5,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_08_Conduit_Glow",
+      "loc": [
+        10.65,
+        10.5,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_08_Frame_Sill",
+      "loc": [
+        5.3,
+        10.5,
+        0.4
+      ]
+    },
+    {
+      "name": "Chamber_08_Frame_Lintel",
+      "loc": [
+        5.3,
+        10.5,
+        4.6
+      ]
+    },
+    {
+      "name": "Chamber_08_Frame_Jamb_S",
+      "loc": [
+        5.3,
+        7.8,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_08_Frame_Jamb_N",
+      "loc": [
+        5.3,
+        13.2,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_08_Glass_Pane",
+      "loc": [
+        5.3,
+        10.5,
+        2.5
+      ]
+    },
+    {
+      "name": "Chamber_08_Pedestal_Base",
+      "loc": [
+        6.9,
+        10.5,
+        0.4
+      ]
+    },
+    {
+      "name": "Chamber_08_Pedestal_Ring",
+      "loc": [
+        6.9,
+        10.5,
+        0.55
+      ]
+    },
+    {
+      "name": "Chamber_08_Pedestal_Glow",
+      "loc": [
+        6.9,
+        10.5,
+        0.61
+      ]
+    },
+    {
+      "name": "Chamber_08_Pedestal_Top",
+      "loc": [
+        6.9,
+        10.5,
+        0.69
+      ]
+    },
+    {
+      "name": "Chamber_08_Light_Fixture",
+      "loc": [
+        6.9,
+        10.5,
+        4.55
+      ]
+    },
+    {
+      "name": "Chamber_08_Light_Diffuser",
+      "loc": [
+        6.9,
+        10.5,
+        4.45
+      ]
+    },
+    {
+      "name": "Chamber_08_Terminal_Post",
+      "loc": [
+        4.95,
+        12.8,
+        1.2
+      ]
+    },
+    {
+      "name": "Chamber_08_Terminal_Head",
+      "loc": [
+        4.95,
+        12.8,
+        1.7
+      ]
+    },
+    {
+      "name": "Chamber_08_Terminal_Screen",
+      "loc": [
+        4.79,
+        12.8,
+        1.7
+      ]
+    },
+    {
+      "name": "Chamber_08_Keypad",
+      "loc": [
+        4.79,
+        12.65,
+        1.42
+      ]
+    },
+    {
+      "name": "Chamber_08_Beacon_Mount",
+      "loc": [
+        5.05,
+        8.0,
+        4.8
+      ]
+    },
+    {
+      "name": "Chamber_08_Beacon_Light",
+      "loc": [
+        5.05,
+        8.0,
+        4.95
+      ]
+    },
+    {
+      "name": "Chamber_08_Sign_Backing",
+      "loc": [
+        5.05,
+        10.5,
+        4.6
+      ]
+    },
+    {
+      "name": "Chamber_08_Sign_Display",
+      "loc": [
+        5.03,
+        10.5,
+        4.6
+      ]
+    }
+  ],
+  "signage": [
+    {
+      "name": "Sign_Entry_Main",
+      "loc": [
+        0.0,
+        -91.1,
+        4.2
+      ]
+    },
+    {
+      "name": "Sign_Nexus_Title",
+      "loc": [
+        0.0,
+        -69.2,
+        5.6
+      ]
+    },
+    {
+      "name": "Sign_North_Weapons_Containment",
+      "loc": [
+        0.0,
+        -40.8,
+        5.6
+      ]
+    },
+    {
+      "name": "Sign_West_Stylized",
+      "loc": [
+        -15.5,
+        -55.0,
+        5.4
+      ]
+    },
+    {
+      "name": "Sign_NW_UGC",
+      "loc": [
+        -15.5,
+        -43.5,
+        5.2
+      ]
+    },
+    {
+      "name": "Sign_East_Props",
+      "loc": [
+        15.5,
+        -56.0,
+        5.4
+      ]
+    },
+    {
+      "name": "Sign_SE_Realistic",
+      "loc": [
+        15.5,
+        -44.5,
+        5.2
+      ]
+    },
+    {
+      "name": "Sign_Weapons_Forge_Header",
+      "loc": [
+        0.0,
+        -39.2,
+        4.8
+      ]
+    },
+    {
+      "name": "Sign_Containment_Approach",
+      "loc": [
+        0.0,
+        -18.7,
+        4.5
+      ]
+    },
+    {
+      "name": "Sign_Stylized_Main_Header",
+      "loc": [
+        -20.0,
+        -55.0,
+        4.8
+      ]
+    },
+    {
+      "name": "Sign_Sub_Blocky",
+      "loc": [
+        -44.0,
+        -41.0,
+        4.2
+      ]
+    },
+    {
+      "name": "Sign_Sub_LowPoly",
+      "loc": [
+        -28.0,
+        -41.0,
+        4.2
+      ]
+    },
+    {
+      "name": "Sign_Sub_Cartoon",
+      "loc": [
+        -35.0,
+        -74.0,
+        4.2
+      ]
+    },
+    {
+      "name": "Sign_UGC_Showroom_Header",
+      "loc": [
+        -32.0,
+        -9.0,
+        5.2
+      ]
+    },
+    {
+      "name": "Sign_UGC_Entrance",
+      "loc": [
+        -20.0,
+        -38.5,
+        4.5
+      ]
+    },
+    {
+      "name": "Sign_Props_Workshop_Header",
+      "loc": [
+        20.0,
+        -56.0,
+        4.2
+      ]
+    },
+    {
+      "name": "Sign_Env_Gallery_Header",
+      "loc": [
+        50.0,
+        -40.0,
+        5.8
+      ]
+    },
+    {
+      "name": "Sign_Env_SunkenStage",
+      "loc": [
+        66.0,
+        -15.5,
+        6.2
+      ]
+    },
+    {
+      "name": "Sign_Realistic_Lab_Header",
+      "loc": [
+        28.0,
+        -37.5,
+        4.0
+      ]
+    },
+    {
+      "name": "Sign_RND_Header",
+      "loc": [
+        28.0,
+        3.0,
+        4.4
+      ]
+    },
+    {
+      "name": "Sign_Horror_Quarantine_Header",
+      "loc": [
+        -17.0,
+        5.0,
+        3.9
+      ]
+    },
+    {
+      "name": "Sign_Horror_Anomaly_Warning",
+      "loc": [
+        -28.0,
+        19.5,
+        3.5
+      ]
+    },
+    {
+      "name": "Creature_Chamber_01_SpecimenPlate",
+      "loc": [
+        -5.0,
+        -10.5,
+        1.4
+      ]
+    },
+    {
+      "name": "Creature_Chamber_01_StatusLight",
+      "loc": [
+        -4.8,
+        -10.5,
+        4.6
+      ]
+    },
+    {
+      "name": "Creature_Chamber_02_SpecimenPlate",
+      "loc": [
+        -5.0,
+        -3.5,
+        1.4
+      ]
+    },
+    {
+      "name": "Creature_Chamber_02_StatusLight",
+      "loc": [
+        -4.8,
+        -3.5,
+        4.6
+      ]
+    },
+    {
+      "name": "Creature_Chamber_03_SpecimenPlate",
+      "loc": [
+        -5.0,
+        3.5,
+        1.4
+      ]
+    },
+    {
+      "name": "Creature_Chamber_03_StatusLight",
+      "loc": [
+        -4.8,
+        3.5,
+        4.6
+      ]
+    },
+    {
+      "name": "Creature_Chamber_04_SpecimenPlate",
+      "loc": [
+        -5.0,
+        10.5,
+        1.4
+      ]
+    },
+    {
+      "name": "Creature_Chamber_04_StatusLight",
+      "loc": [
+        -4.8,
+        10.5,
+        4.6
+      ]
+    },
+    {
+      "name": "Creature_Chamber_05_SpecimenPlate",
+      "loc": [
+        5.0,
+        -10.5,
+        1.4
+      ]
+    },
+    {
+      "name": "Creature_Chamber_05_StatusLight",
+      "loc": [
+        4.8,
+        -10.5,
+        4.6
+      ]
+    },
+    {
+      "name": "Creature_Chamber_06_SpecimenPlate",
+      "loc": [
+        5.0,
+        -3.5,
+        1.4
+      ]
+    },
+    {
+      "name": "Creature_Chamber_06_StatusLight",
+      "loc": [
+        4.8,
+        -3.5,
+        4.6
+      ]
+    },
+    {
+      "name": "Creature_Chamber_07_SpecimenPlate",
+      "loc": [
+        5.0,
+        3.5,
+        1.4
+      ]
+    },
+    {
+      "name": "Creature_Chamber_07_StatusLight",
+      "loc": [
+        4.8,
+        3.5,
+        4.6
+      ]
+    },
+    {
+      "name": "Creature_Chamber_08_SpecimenPlate",
+      "loc": [
+        5.0,
+        10.5,
+        1.4
+      ]
+    },
+    {
+      "name": "Creature_Chamber_08_StatusLight",
+      "loc": [
+        4.8,
+        10.5,
+        4.6
+      ]
+    },
+    {
+      "name": "Exit_Contact_Sign_Header",
+      "loc": [
+        -4.6,
+        -78.0,
+        3.3
+      ]
+    },
+    {
+      "name": "Exit_Panel_Portfolio_Screen",
+      "loc": [
+        -4.55,
+        -79.6,
+        2.2
+      ]
+    },
+    {
+      "name": "Exit_Panel_Resume_Screen",
+      "loc": [
+        -4.55,
+        -78.5,
+        2.2
+      ]
+    },
+    {
+      "name": "Exit_Panel_Contact_Screen",
+      "loc": [
+        -4.55,
+        -77.4,
+        2.2
+      ]
+    },
+    {
+      "name": "Exit_Panel_Social_Screen",
+      "loc": [
+        -4.55,
+        -76.3,
+        2.2
+      ]
+    },
+    {
+      "name": "Exit_Contact_Terminal_TouchScreen",
+      "loc": [
+        -3.0,
+        -78.0,
+        1.15
+      ]
+    },
+    {
+      "name": "Exit_Departure_Sign_Header",
+      "loc": [
+        0.0,
+        -86.2,
+        3.6
+      ]
+    },
+    {
+      "name": "Sign_Sub_Creatures_Monsters",
+      "loc": [
+        0.0,
+        -10.0,
+        4.2
+      ]
+    },
+    {
+      "name": "Sign_Sub_Creatures_SciFi",
+      "loc": [
+        0.0,
+        0.0,
+        4.2
+      ]
+    },
+    {
+      "name": "Sign_Sub_Creatures_Fantasy",
+      "loc": [
+        0.0,
+        8.0,
+        4.2
+      ]
+    },
+    {
+      "name": "Sign_Sub_Creatures_Animals",
+      "loc": [
+        0.0,
+        14.0,
+        4.2
+      ]
+    },
+    {
+      "name": "Sign_Sub_Horror_Biological",
+      "loc": [
+        -28.0,
+        14.0,
+        3.2
+      ]
+    },
+    {
+      "name": "Sign_Sub_Horror_Experimental",
+      "loc": [
+        -28.0,
+        8.0,
+        3.2
+      ]
+    },
+    {
+      "name": "Sign_Sub_Horror_Anomaly",
+      "loc": [
+        -28.0,
+        2.0,
+        3.2
+      ]
+    },
+    {
+      "name": "Sign_Sub_Props_Furniture",
+      "loc": [
+        22.0,
+        -66.5,
+        2.8
+      ]
+    },
+    {
+      "name": "Sign_Sub_Props_EnvironmentProps",
+      "loc": [
+        31.0,
+        -66.5,
+        2.8
+      ]
+    },
+    {
+      "name": "Sign_Sub_Props_TechnicalProps",
+      "loc": [
+        40.0,
+        -66.5,
+        2.8
+      ]
+    },
+    {
+      "name": "Sign_Sub_Weapons_BladesOrdnance",
+      "loc": [
+        -8.7,
+        -33.0,
+        3.8
+      ]
+    },
+    {
+      "name": "Sign_Sub_Weapons_Armor",
+      "loc": [
+        8.7,
+        -33.0,
+        3.8
+      ]
+    },
+    {
+      "name": "Sign_Sub_Weapons_HardSurface",
+      "loc": [
+        0.0,
+        -29.0,
+        4.2
+      ]
+    },
+    {
+      "name": "Sign_Sub_UGC_Headwear",
+      "loc": [
+        -37.0,
+        -16.0,
+        3.6
+      ]
+    },
+    {
+      "name": "Sign_Sub_UGC_Accessories",
+      "loc": [
+        -31.0,
+        -16.0,
+        3.6
+      ]
+    },
+    {
+      "name": "Sign_Sub_UGC_WearablesCosmetics",
+      "loc": [
+        -25.0,
+        -16.0,
+        3.6
+      ]
+    },
+    {
+      "name": "Sign_Sub_Env_CityStructures",
+      "loc": [
+        84.8,
+        -50.0,
+        4.6
+      ]
+    },
+    {
+      "name": "Sign_Sub_Env_NaturalTerrain",
+      "loc": [
+        84.8,
+        -40.0,
+        4.6
+      ]
+    },
+    {
+      "name": "Sign_Sub_Env_SciFiFantasy",
+      "loc": [
+        84.8,
+        -30.0,
+        4.6
+      ]
+    },
+    {
+      "name": "Sign_Sub_Real_Props",
+      "loc": [
+        20.0,
+        -27.0,
+        2.2
+      ]
+    },
+    {
+      "name": "Sign_Sub_Real_MaterialStudies",
+      "loc": [
+        28.0,
+        -27.0,
+        2.2
+      ]
+    },
+    {
+      "name": "Sign_Sub_Real_StudioPresentation",
+      "loc": [
+        31.0,
+        -17.5,
+        3.8
+      ]
+    },
+    {
+      "name": "Sign_Sub_RND_ConceptBlockout",
+      "loc": [
+        20.0,
+        6.5,
+        2.5
+      ]
+    },
+    {
+      "name": "Sign_Sub_RND_HighPolySculpt",
+      "loc": [
+        20.0,
+        18.5,
+        2.5
+      ]
+    },
+    {
+      "name": "Sign_Sub_RND_TopologyUV",
+      "loc": [
+        20.0,
+        30.5,
+        2.5
+      ]
+    },
+    {
+      "name": "Sign_Sub_RND_BakePBR",
+      "loc": [
+        36.0,
+        30.5,
+        2.5
+      ]
+    },
+    {
+      "name": "Sign_Sub_RND_OptimizationLOD",
+      "loc": [
+        36.0,
+        18.5,
+        2.5
+      ]
+    }
+  ]
+}
