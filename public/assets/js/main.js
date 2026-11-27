@@ -755,18 +755,8 @@
 
       if (left.childNodes.length) wrap.appendChild(left);
 
-      /* — Right column: the written detail and the spec sheet — */
+      /* — Right column: model specifications — */
       var copy = el('div', 'det__copy mdl__copy');
-
-      var meta = el('div', 'det__meta');
-      if (rec.tag) meta.appendChild(el('span', 'det__tag', rec.tag));
-      if (rec.year) meta.appendChild(el('span', 'det__yr', rec.year));
-      if (has3d) meta.appendChild(el('span', 'det__yr', 'Interactive'));
-      copy.appendChild(meta);
-
-      (rec.body && rec.body.length ? rec.body : [rec.lede]).forEach(function (para) {
-        if (para) copy.appendChild(el('p', null, para));
-      });
 
       var sheet = specSheet(rec.spec);
       if (sheet) copy.appendChild(sheet);
