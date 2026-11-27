@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>New 3D Map in Progress | Mark Erick Serrano</title>
+  <meta name="description" content="Mark Erick Serrano is rebuilding the 3D map and designing a new room. Explore Panther in the workshop model.">
+  <meta name="author" content="Mark Erick Padua Serrano">
+  <meta name="theme-color" content="#151b1b">
+  <link rel="canonical" href="https://markerick.dev/room/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="New 3D Map in Progress | Mark Erick Serrano">
+  <meta property="og:description" content="Mark Erick Serrano is rebuilding the 3D map and designing a new room.">
+  <meta property="og:url" content="https://markerick.dev/room/">
+  <meta property="og:image" content="https://markerick.dev/assets/room/workshop.webp">
+  <link rel="icon" href="../assets/images/dark-profile-BW.jpg" type="image/jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap">
+  <link rel="stylesheet" href="../assets/css/room.css">
+  <script type="module" src="../assets/js/room.js"></script>
+</head>
+<body>
+  <header class="room-header">
+    <a href="../" class="back-link"><span aria-hidden="true">←</span> Back to portfolio</a>
+  </header>
+
+  <main class="workshop">
+    <div class="intro">
+      <h1>New 3D map <em>in progress.</em></h1>
+      <p>I’m rebuilding the 3D map and designing a new room.</p>
+    </div>
+
+    <figure class="room-figure">
+      <div class="room-stage" id="room-stage">
+        <img id="room-render" src="../assets/room/workshop.webp"
+             alt="A room under construction with exposed framing, partly laid floorboards, and Panther on a round stand."
+             width="1440" height="1130" fetchpriority="high">
+      </div>
+      <figcaption class="room-caption">
+        <div class="caption-copy">
+          <span class="caption-title">Panther</span>
+          <span id="room-status" role="status">Workshop model</span>
+        </div>
+        <div class="preview-actions">
+          <button id="room-reset" type="button" aria-controls="room-stage" hidden>Reset view</button>
+          <button id="room-toggle" type="button" aria-controls="room-stage" aria-expanded="false" hidden>Explore in 3D</button>
+        </div>
+      </figcaption>
+    </figure>
+  </main>
+</body>
+</html>
