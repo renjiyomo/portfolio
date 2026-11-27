@@ -844,7 +844,6 @@ section[id].mast {
 
   .mast .actions .btn--primary {
     background: var(--signal);
-    color: var(--signal-ink);
     box-shadow: 0 4px 22px -3px rgba(245, 166, 35, 0.42);
     font-weight: 600;
   }
