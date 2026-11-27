@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Asset Archive — 3D Architectural & Environment Portfolio</title>
-  <meta name="description" content="Explore a continuous 12,500 m² virtual facility with 11 interconnected departments, open-portal architecture, real-time WebGL walking, and Blender Cycles raytraced showcases.">
+  <title>The Asset Archive | 3D Portfolio by Mark Erick Serrano</title>
+  <meta name="description" content="Explore an interactive 3D environment by Mark Erick Serrano, with 11 interconnected departments and Blender Cycles renders.">
+  <meta name="author" content="Mark Erick Padua Serrano">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <script type="module" crossorigin src="/assets/index-BGUi8AjB.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-DVy47Z-U.css">
+  <script type="module" crossorigin src="./assets/index-B1IHW_WL.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-DJNT2IBA.css">
 </head>
 <body>
 
@@ -91,6 +92,12 @@
 
       <!-- Enter Facility Action Button -->
       <div class="entrance-action-row">
+        <a href="../" class="btn-entrance-back" title="Return to Main Portfolio">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+          <span>BACK TO PORTFOLIO</span>
+        </a>
         <button id="btnEnterFacility" class="btn-enter-facility">
           <span>ENTER FACILITY</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
@@ -116,6 +123,13 @@
     <header class="hud-top-bar">
       <!-- Left: Facility Title & Location Breadcrumb -->
       <div class="hud-brand-block">
+        <a href="../" class="hud-back-btn" title="Return to Main Portfolio" aria-label="Return to Portfolio">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          <span>PORTFOLIO</span>
+        </a>
         <div class="hud-project-label">THE ASSET ARCHIVE</div>
         <div class="hud-location-badge" id="currentLocationBadge">
           <span class="pulse-indicator" id="locationDot"></span>
@@ -205,6 +219,34 @@
       <div class="toast-subtitle" id="toastSubtitle">Tactical & Sci-Fi Arsenal</div>
     </div>
 
+    <!-- Mobile On-Screen Virtual Touch Controls -->
+    <div id="mobileTouchControls" class="mobile-touch-controls">
+      <div class="virtual-dpad" id="virtualDpad">
+        <button class="dpad-btn dpad-up" id="btnTouchForward" type="button" aria-label="Walk Forward">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+        </button>
+        <div class="dpad-mid-row">
+          <button class="dpad-btn dpad-left" id="btnTouchLeft" type="button" aria-label="Strafe Left">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <button class="dpad-btn dpad-sprint" id="btnTouchSprint" type="button" aria-label="Toggle Sprint">
+            <span>⚡</span>
+          </button>
+          <button class="dpad-btn dpad-right" id="btnTouchRight" type="button" aria-label="Strafe Right">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+        <button class="dpad-btn dpad-down" id="btnTouchBackward" type="button" aria-label="Walk Backward">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+      </div>
+
+      <button class="mobile-action-btn" id="btnTouchJump" type="button" aria-label="Jump">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+        <span>JUMP</span>
+      </button>
+    </div>
+
     <!-- Bottom Department Navigation Dock -->
     <footer class="hud-bottom-dock">
       <div class="dock-scroll-wrapper" id="dockScrollWrapper">
@@ -286,7 +328,7 @@
     <div class="drawer-body">
       <!-- Cycles Render Hero Banner -->
       <div class="cycles-banner-box" id="drawerCyclesBanner">
-        <img id="drawerCyclesImg" src="/assets/RENDER_NEXUS-4qQf4us7.png" alt="Cycles Raytraced Render">
+        <img id="drawerCyclesImg" src="./assets/RENDER_NEXUS-4qQf4us7.png" alt="Cycles Raytraced Render">
         <div class="cycles-badge-overlay">
           <span class="engine-dot cycles"></span>
           <span>BLENDER CYCLES 5.2.1 // 1024 SAMPLES</span>
@@ -346,7 +388,7 @@
       </div>
 
       <div class="cycles-modal-image-wrapper">
-        <img id="cyclesModalImage" src="/assets/RENDER_NEXUS-4qQf4us7.png" alt="Cycles Raytraced Render">
+        <img id="cyclesModalImage" src="./assets/RENDER_NEXUS-4qQf4us7.png" alt="Cycles Raytraced Render">
       </div>
 
       <div class="cycles-modal-footer">

@@ -1,6 +1,17 @@
 # Local Kilo Code files
 .kilo/
 
+# Local Claude Code configuration
+.claude/
+
+# Installed JavaScript dependencies
+node_modules/
+
+# Local environment files
+.env
+.env.*
+!.env.example
+
 # Generated Python caches
 __pycache__/
 *.pyc

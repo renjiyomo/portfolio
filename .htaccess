@@ -1,6 +1,11 @@
 # Root rewrite for portfolio
+Options -Indexes
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
+
+  # Keep repository metadata and local configuration off the web.
+  RewriteRule (^|/)\.(?!well-known(?:/|$)) - [F,L,NC]
 
   # Redirect root /portfolio to /portfolio/public/
   RewriteCond %{REQUEST_URI} !^/portfolio/public/
