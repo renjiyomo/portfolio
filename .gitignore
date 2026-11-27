@@ -1,0 +1,7 @@
+# Local Kilo Code files
+.kilo/
+
+# Generated Python caches
+__pycache__/
+*.pyc
+*.pyo

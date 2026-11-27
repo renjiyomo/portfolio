@@ -440,12 +440,7 @@ html.light        .themetoggle span[data-for="light"],
   justify-content: space-between;
   gap: clamp(1rem, 3vw, 1.75rem);
   padding-bottom: .85rem;
-  border-bottom: 1px solid transparent;
-  border-image: linear-gradient(
-    to right,
-    var(--signal) 0 clamp(2.25rem, 6vw, 3.5rem),
-    var(--rule)   clamp(2.25rem, 6vw, 3.5rem) 100%
-  ) 1;
+  border-bottom: 1px solid var(--rule);
 }
 
 .head h2 {
@@ -1489,33 +1484,6 @@ details.led__row > .led__ln { padding-right: 1.9rem; }
     font-size: .9375rem;
     line-height: 1.6;
   }
-}
-
-/* Marks a model a visitor can actually orbit, so the interactive ones are
-   findable without opening each in turn. */
-.card__3d {
-  position: absolute;
-  top: .5rem;
-  right: .5rem;
-  z-index: 4;
-  display: inline-flex;
-  align-items: center;
-  gap: .3rem;
-  border-radius: 4px;
-  padding: .25rem .45rem;
-  background: color-mix(in srgb, var(--canvas) 82%, transparent);
-  border: 1px solid var(--signal);
-  color: var(--signal);
-  font-family: var(--font-mono);
-  font-size: .5625rem;
-  font-weight: 500;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-}
-
-.card__3d svg {
-  width: 11px;
-  height: 11px;
 }
 
 /* Poly count and target platform at a glance — the two things a modeling
